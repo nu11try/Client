@@ -52,16 +52,17 @@ namespace DashBoardClient
                 int q = 0;
                 foreach (var i in comments)
                 {
-                    string w = i.Substring(0, 1);
                     comment comment = new comment();
-                    comment.Number = i.Substring(0, 1);
-                    comment.Step = i.Substring(1).Trim();
+                    comment.Number = i.Split('¾')[0];
+
+                    comment.Step = i.Split('¾')[1].Trim();
                     if (comment.Number.Contains("-"))
                     {
                         comment.Number = q + "." + qq;
                         qq++;
                     }
-                    else {
+                    else
+                    {
                         qq = 1;
                         q++;
                     }
@@ -69,7 +70,8 @@ namespace DashBoardClient
                     {
                         comment.Color = "red";
                     }
-                    else {
+                    else
+                    {
                         comment.Color = "white";
                     }
                     list.Add(comment);
