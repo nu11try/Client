@@ -1,0 +1,87 @@
+﻿<Window x:Class="DashBoardClient.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DashBoardClient"
+        mc:Ignorable="d"
+        Title="DashBoard" Width="1280" Height="724" ScrollViewer.VerticalScrollBarVisibility="Disabled" MinWidth="1280" MinHeight="724" WindowStartupLocation="CenterScreen" Background="#FF323439" Loaded="Window_Loaded">
+    <Window.Resources>
+        <Style x:Key="button of navigation" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid>
+                            <Border Name="Head">
+                                <Rectangle   Fill="Transparent"  />
+                            </Border>
+                            <ContentPresenter   x:Name="PART_Button"  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"   VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Margin="36,6,0,7"  />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" TargetName="Head" Value="#555561"/>
+                                <Setter Property="BorderBrush" TargetName="Head" Value="#FF3C7FB1"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid Background="#FF323439">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.ColumnSpan="10" Margin="0,0,1074,0" Grid.RowSpan="2">
+            <Canvas HorizontalAlignment="Left" Width="198" Background="#FF45454F">
+                <Canvas.Effect>
+                    <DropShadowEffect BlurRadius="16" Direction="364" ShadowDepth="2"/>
+                </Canvas.Effect>
+                <Image Height="58" Canvas.Left="10" Width="58" RenderTransformOrigin="0.5,0.5" Source="Images/user.png" Canvas.Top="8" HorizontalAlignment="Center" VerticalAlignment="Center" Panel.ZIndex="5" OpacityMask="#FF2BAAC9"/>
+                <ComboBox x:Name="SelecterProject" Height="22" Canvas.Left="73" Canvas.Top="40" Width="119" SelectionChanged="ChangeProject" Loaded="SelecterProject_Loaded">
+                    <ComboBoxItem>AI</ComboBoxItem>
+                    <ComboBoxItem>Студия</ComboBoxItem>
+                </ComboBox>
+            </Canvas>
+        </Grid>
+        <Button Style="{StaticResource button of navigation}" Content="Запуск" HorizontalAlignment="Left" Height="29" Margin="0,113,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="198" Grid.ColumnSpan="10" Background="#FF45454F" BorderBrush="#FF45454F" Foreground="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="36,1,1,1" Click="StartTests"/>
+        <Button Style="{StaticResource button of navigation}" Content="Тесты" HorizontalAlignment="Left" Height="29" Margin="0,142,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="198" Grid.ColumnSpan="10" Background="#FF45454F" BorderBrush="#FF45454F" Foreground="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="36,1,1,1" Click="AddTest"/>
+        <Button Style="{StaticResource button of navigation}" Content="Наборы" HorizontalAlignment="Left" Height="29" Margin="0,171,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="198" Grid.ColumnSpan="10" Background="#FF45454F" BorderBrush="#FF45454F" Foreground="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="35,1,1,1" Click="Packs"/>
+        <Button Style="{StaticResource button of navigation}" Content="Автозапуск" HorizontalAlignment="Left" Height="29" Margin="0,200,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="198" Grid.ColumnSpan="10" Background="#FF45454F" BorderBrush="#FF45454F" Foreground="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="36,1,1,1" Click="Autostart"/>
+        <Label Content="АВТОТЕСТЫ" HorizontalAlignment="Left" Height="30" Margin="10,83,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="176" VerticalContentAlignment="Center" Foreground="#FF6A6A6A" Padding="5,5,1,5" Grid.Column="9"/>
+        <Label Content="АВТОТЕСТЫ" HorizontalAlignment="Left" Height="30" Margin="10,83,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="176" VerticalContentAlignment="Center" Foreground="#FF6A6A6A" Padding="5,5,1,5" Grid.Column="9"/>
+        <Button Style="{StaticResource button of navigation}" Content="Автозапуск" HorizontalAlignment="Left" Height="29" Margin="0,200,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="198" Grid.ColumnSpan="10" Background="#FF45454F" BorderBrush="#FF45454F" Foreground="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="36,1,1,1" Click="Autostart"/>
+        <Label Content="СТАТИСТИКА" HorizontalAlignment="Left" Height="30" Margin="10,229,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="176" VerticalContentAlignment="Center" Foreground="#FF6A6A6A" Padding="5,5,1,5" Grid.Column="9"/>
+        <Label Content="ДОКУМЕНТАЦИЯ" HorizontalAlignment="Left" Height="30" Margin="10,317,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="176" VerticalContentAlignment="Center" Foreground="#FF6A6A6A" Padding="5,5,1,5" Grid.Column="9"/>
+        <Label Content="АВТОТЕСТЫ" HorizontalAlignment="Left" Height="30" Margin="10,381,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="176" VerticalContentAlignment="Center" Foreground="#FF6A6A6A" Padding="5,5,1,5" Grid.Column="9"/>
+        <Button Style="{StaticResource button of navigation}" Content="Тесты" HorizontalAlignment="Left" Height="29" Margin="0,259,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="198" Grid.ColumnSpan="10" Background="#FF45454F" BorderBrush="#FF45454F" Foreground="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="35,1,1,1" Click="StatisticTest"/>
+        <Button Style="{StaticResource button of navigation}" Content="Операции" HorizontalAlignment="Left" Height="29" Margin="0,288,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="198" Grid.ColumnSpan="10" Background="#FF45454F" BorderBrush="#FF45454F" Foreground="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="36,1,1,1" Click="OperacTest"/>
+        <Button Style="{StaticResource button of navigation}" Content="Документация" HorizontalAlignment="Left" Height="29" Margin="0,347,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="198" Grid.ColumnSpan="10" Background="#FF45454F" BorderBrush="#FF45454F" Foreground="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="36,1,1,1" Click="Doc"/>
+        <Button Style="{StaticResource button of navigation}" Content="Эффективность" HorizontalAlignment="Left" Height="29" Margin="0,411,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="198" Grid.ColumnSpan="10" Background="#FF45454F" BorderBrush="#FF45454F" Foreground="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="36,1,1,1"/>
+        <Label x:Name="LabelUserName" Content="" Grid.Column="9" HorizontalAlignment="Left" Height="25" Margin="73,10,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="103" Foreground="White" VerticalContentAlignment="Center"/>
+        <Frame x:Name="Frame" Content="" Grid.Column="9" Grid.RowSpan="2" NavigationUIVisibility="Hidden" Margin="203,0,0,0" FontSize="18" Foreground="White"/>
+        <Image HorizontalAlignment="Left" Height="15" Margin="15,151,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="15" Source="Images/test.png" Grid.Column="9"/>
+        <Image HorizontalAlignment="Left" Height="15" Margin="15,180,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="15" Source="Images/group.png" Grid.Column="9"/>
+        <Image HorizontalAlignment="Left" Height="15" Margin="15,209,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="15" Source="Images/auto_start.png" Grid.Column="9"/>
+        <Image HorizontalAlignment="Left" Height="15" Margin="15,268,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="15" Source="Images/stat_test.png" Grid.Column="9"/>
+        <Image HorizontalAlignment="Left" Height="15" Margin="15,297,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="15" Source="Images/operac.png" Grid.Column="9"/>
+        <Image HorizontalAlignment="Left" Height="16" Margin="15,356,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="15" Source="Images/doc.png" Grid.Column="9"/>
+        <Image HorizontalAlignment="Left" Height="15" Margin="15,419,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="15" Source="Images/stat.png" Grid.Column="9"/>
+        <Image HorizontalAlignment="Left" Height="15" Margin="15,122,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="15" Source="Images/time.png" Grid.Column="9"/>
+
+    </Grid>
+
+</Window>

@@ -1,0 +1,71 @@
+﻿<Window x:Class="DashBoardClient.PackTestsFormChange"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DashBoardClient"
+        mc:Ignorable="d"
+        Title="Форма редатирования тестов набора" Height="756" Width="294" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="#FF444444">
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Style.Triggers>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="RenderTransform">
+                        <Setter.Value>
+                            <ScaleTransform ScaleX="0.85" ScaleY="0.85"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+            <Setter Property="RenderTransformOrigin" Value="0.5, 0.5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="brdr" TextBlock.Foreground="{TemplateBinding Foreground}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Content="{TemplateBinding Content}" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+        </Style>
+    </Window.Resources>
+    <Grid Background="#FF45454F" Margin="0,0,0,-4">
+        <TextBox x:Name="Name" Height="25" Margin="22,60,28,0" VerticalAlignment="Top" IsEnabled="False"/>
+        <ComboBox x:Name="Start" Height="25" Margin="25,145,25,0" VerticalAlignment="Top"/>
+        <ListBox x:Name="TestsSelect" Height="190" Margin="25,225,25,0" VerticalAlignment="Top" SelectionMode="Multiple"/>
+        <Button x:Name="SubmitTest" Content="Подтвердить" HorizontalAlignment="Left" Margin="24,637,0,0" Width="238" Height="28" VerticalAlignment="Top" Click="SendMsg"/>
+        <Button x:Name="CancelTest" Content="Отменить" HorizontalAlignment="Left" Margin="24,677,0,0" Width="238" Height="28" VerticalAlignment="Top" Click="CloseWindow"/>
+        <Label Content="Название" HorizontalAlignment="Left" Margin="22,29,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="Выполнить после завершения" HorizontalAlignment="Left" Margin="25,114,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="Зависит от выполнения" HorizontalAlignment="Left" Margin="25,194,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <ComboBox x:Name="Time" Height="25" Margin="24,455,26,0" VerticalAlignment="Top" SelectionChanged="ChangeTime">
+            <ComboBoxItem>По умолчанию</ComboBoxItem>
+            <ComboBoxItem>Изменить</ComboBoxItem>
+        </ComboBox>
+        <Label Content="Макс. продолж. теста" HorizontalAlignment="Left" Margin="24,424,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <ComboBox x:Name="Restart" Height="25" Margin="24,586,26,0" VerticalAlignment="Top">
+            <TextBlock>По умолчанию</TextBlock>
+            <TextBlock>0</TextBlock>
+            <TextBlock>1</TextBlock>
+            <TextBlock>2</TextBlock>
+            <TextBlock>3</TextBlock>
+            <TextBlock>4</TextBlock>
+            <TextBlock>5</TextBlock>
+            <TextBlock>6</TextBlock>
+            <TextBlock>7</TextBlock>
+            <TextBlock>8</TextBlock>
+            <TextBlock>9</TextBlock>
+            <TextBlock>10</TextBlock>
+            <TextBlock>11</TextBlock>
+            <TextBlock>12</TextBlock>
+            <TextBlock>13</TextBlock>
+            <TextBlock>14</TextBlock>
+            <TextBlock>15</TextBlock>
+        </ComboBox>
+        <Label Content="Кол-во перезапусков в случае сбоя" HorizontalAlignment="Left" Margin="24,555,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <TextBox x:Name="TimeChange" Height="25" Margin="25,500,143,0" VerticalAlignment="Top" IsEnabled="False"/>
+        <Label Content="(15 мин)" HorizontalAlignment="Left" Margin="175,500,0,0" VerticalAlignment="Top" Foreground="White" Width="85"/>
+
+    </Grid>
+</Window>
