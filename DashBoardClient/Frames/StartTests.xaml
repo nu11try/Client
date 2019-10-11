@@ -92,7 +92,7 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Time}" Header="Время" Width="100"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Result}" Header="Результат" Width="125"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding RestartCount}" Header="Количество повторов" Width="125"/>
                     <GridViewColumn DisplayMemberBinding="{Binding IP}" Header="IP" Width="150"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Status}" Header="Статус" Width="80"/>
                     <GridViewColumn Header="Тесты" Width="125">

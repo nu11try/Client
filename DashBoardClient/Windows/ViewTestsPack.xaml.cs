@@ -50,20 +50,18 @@ namespace DashBoardClient
             {
                 response = server.SendMsg("getTestsThisPack", "ai", IDPack);
                 testsList = response.Split('╡');
-
                 for (var i = 0; i < testsList.Length - 1; i++)
                 {
                     TestsList test = new TestsList();
                     string[] testForList = testsList[i].Split('±');
                     test.ID = testForList[0];
-                    test.NewName = testForList[0];
-                    if (testForList[1] == "default") test.Time = "По умолчанию";
+                    test.NewName = testForList[1];
+                    if (testForList[2] == "default") test.Time = "По умолчанию";
                     else test.Time = testForList[1];
-                    if (testForList[2] == "default") test.Restart = "По умолчанию";
-                    else test.Restart = testForList[2];                    
+                    if (testForList[3] == "default") test.Restart = "По умолчанию";
+                    else test.Restart = testForList[3];                    
 
                     list.Add(test);
-
                 }
             }
             catch { MessageBox.Show("Произошла ошибка! Обратитесь к поддержке!"); }

@@ -54,12 +54,12 @@ namespace DashBoardClient
                     pack.ID = packsForList[0];
                     pack.Name = packsForList[1];
                     pack.Count = (testsCount.Length - 1).ToString();
-                    pack.Result = packsForList[5];
+                    pack.RestartCount = packsForList[4];
                     pack.Time = packsForList[3];
-                    pack.IP = packsForList[6];
-                    if (packsForList[7] == "no_start") pack.Status = "Не запущено";
+                    pack.IP = packsForList[5];
+                    if (packsForList[6] == "no_start") pack.Status = "Не запущено";
                     else pack.Status = "Запущено";
-
+                     
                     PackList.Add(pack);
                 }
             }

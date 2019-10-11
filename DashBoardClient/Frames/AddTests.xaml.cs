@@ -72,8 +72,7 @@ namespace DashBoardClient
                     string[] testForList = testsList[i].Split('±');
                     test.ID = testForList[0];
                     test.Name = testForList[1];
-                    test.NewName = testForList[2];
-                    test.Author = testForList[3];
+                    test.Author = testForList[2];
 
                     TestsList.Add(test);
 

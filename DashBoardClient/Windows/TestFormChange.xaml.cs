@@ -43,18 +43,19 @@ namespace DashBoardClient
 
 
             response.Add(server.SendMsg("updateTestChange", "ai", IDTest));
-
+            
             if (response[0] == "error") MessageBox.Show("Произошла ошибка!");
             else
             {                
                 response.Add(server.SendMsg("getAuthor", "ai"));
 
                 testInfo = response[1].Split('╡');
+                
                 for (int i = 0; i < testInfo.Length - 1; i++) AuthorSelect.Items.Add(testInfo[i]);
 
                 try { AuthorSelect.Text = AuthorSelect.Items[0].ToString(); }
                 catch { MessageBox.Show("Нет тестов на добавление!"); }
-
+               
                 testInfo = response[0].Split('╡');
                 testInfo = testInfo[0].Split('±');
                 for (int i = 0; i < testInfo.Length; i++)
@@ -62,7 +63,7 @@ namespace DashBoardClient
                     TestID.Text = IDTest;
                     TestName.Text = testInfo[0];
                     AuthorSelect.SelectedIndex = AuthorSelect.Items.IndexOf(testInfo[1].ToString());
-                    ActiveSelect.IsChecked = Convert.ToBoolean(testInfo[4].ToString());
+                    ActiveSelect.IsChecked = Convert.ToBoolean(testInfo[2].ToString());
                 }
                 
                 
@@ -72,7 +73,8 @@ namespace DashBoardClient
         {           
             try
             {
-                string paramTest = IDTest + "±" + TestName.Text.ToString() + "±" + AuthorSelect.SelectedItem.ToString() + "±" + ActiveSelect.IsChecked.Value.ToString();
+                string paramTest = IDTest + "±" + AuthorSelect.SelectedItem.ToString() + "±"
+                    + ActiveSelect.IsChecked.Value.ToString();
                 if (server.SendMsg("updateTest", "ai", paramTest) == "OK") MessageBox.Show("Поздравляем! Информация по тесту {0} обновлена!", IDTest);
                 else MessageBox.Show("Ошибка! Попробуйте позже или обратитесь в поддержку");
                 GetTestsForListView();

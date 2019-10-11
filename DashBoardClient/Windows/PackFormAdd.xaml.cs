@@ -40,9 +40,10 @@ namespace DashBoardClient
             else
             {                
                 tests = response[0].Split('╡');
+                
                 for (int i = 0; i < tests.Length - 1; i++)
                 {
-                    TestsInPack.Items.Add(tests[i].Split('±')[2] + " - " + tests[i].Split('±')[3]);
+                    TestsInPack.Items.Add(tests[i].Split('±')[0]);
                 }
                 if (TestsInPack.Items.Count == 0) MessageBox.Show("Нет тестов на добавление в набор!");
                 else
@@ -67,12 +68,12 @@ namespace DashBoardClient
         {
             string tests = "";
             for (int i = 0; i < TestsInPack.SelectedItems.Count; i++) tests += TestsInPack.SelectedItems[i] + "╟";
-            if (NamePack.Text == "" || CommentsBlock.Text == "" || TimeTest.Text == "" || tests == "") MessageBox.Show("Не все данные выбраны!");
+            if (NamePack.Text == ""  || TimeTest.Text == "" || tests == "") MessageBox.Show("Не все данные выбраны!");
             else
             {
                 try
                 {                    
-                    string paramTest = NamePack.Text + "±" + CommentsBlock.Text + "±" +
+                    string paramTest = NamePack.Text + "±" +
                         tests + "±" + TimeTest.Text + "±" + CountRestart.Text + "±" + IPList.Text;
 
                     if (server.SendMsg("addPack", "ai", paramTest) == "OK") MessageBox.Show("Поздравляем! Набор добавлен!");
