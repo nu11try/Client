@@ -63,7 +63,7 @@ namespace DashBoardClient
 
             try
             {
-                response = server.SendMsg("getTestsForList", "ai");
+                response = server.SendMsg("GetTestsForList", "ai");
                 testsList = response.Split('╡');
 
                 for (var i = 0; i < testsList.Length - 1; i++)

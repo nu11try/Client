@@ -76,7 +76,7 @@ namespace DashBoardClient
                 client.Close();
                 
                 //MessageBox.Show(response);
-                //MessageBox.Show(json);
+                MessageBox.Show(json);
             }
             catch (Exception ex)
             {

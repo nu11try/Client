@@ -35,8 +35,7 @@ namespace DashBoardClient
             DocList = new List<DocClass>();
             try
             {
-                response = server.SendMsg("getDoc", "ai");
-                docList = response.Split('╡');
+                response = server.SendMsg("GetDocument", "ai");                
                 if (docList[0] == "no_doc") return;                
 
                 for (var i = 0; i < docList.Length - 1; i++)
