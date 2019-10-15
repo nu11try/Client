@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Newtonsoft.Json;
 
 namespace DashBoardClient
 {
@@ -14,6 +15,9 @@ namespace DashBoardClient
         const string address = "172.31.197.232";
         //const string address = "127.0.0.1";
 
+        private Request request = new Request();
+        string bufJSON;
+
         /// <summary>
         /// Функциия для запуска запроса на коннект к серверу
         /// </summary>
@@ -22,26 +26,26 @@ namespace DashBoardClient
         /// <returns></returns>
         public string SendMsg(string msg, string service)
         {
-            return ConnectServer(msg, service, "");
+            request.Add(msg, service, "");
+            bufJSON = JsonConvert.SerializeObject(request);
+            return ConnectServer(bufJSON);
         }
 
         public string SendMsg(string msg, string service, string param)
         {
-            return ConnectServer(msg, service, param);
+            request.Add(msg, service, param);
+            bufJSON = JsonConvert.SerializeObject(request);
+            return ConnectServer(bufJSON);
         }
 
         public string Auth(string login, string password)
         {
-            return ConnectServer("auth@" + login + "±" + password, "", "");
+            request.Add("auth", login + " " + password);
+            bufJSON = JsonConvert.SerializeObject(request);
+            return ConnectServer(bufJSON);            
         }
 
-        /// <summary>
-        /// Функция для подключения к серверу
-        /// </summary>
-        /// <param name="msg"></param>
-        /// <param name="service"></param>
-        /// <returns></returns>
-        private string ConnectServer(string msg, string service, string param)
+        private string ConnectServer(string json)
         {
             TcpClient client = null;
             StringBuilder builder = new StringBuilder();
@@ -53,8 +57,7 @@ namespace DashBoardClient
 
                 // преобразуем сообщение в массив байтов
                 byte[] data = new byte[] { };
-                if (param.Length == 0) data = Encoding.Unicode.GetBytes(msg + "@" + service);
-                else data = Encoding.Unicode.GetBytes(msg + "@" + service + "@" + param);
+                data = Encoding.Unicode.GetBytes(json);
                
                 // отправка сообщения
                 stream.Write(data, 0, data.Length);
@@ -72,7 +75,8 @@ namespace DashBoardClient
                 stream.Close();
                 client.Close();
                 
-                //MessageBox.Show(response);                
+                //MessageBox.Show(response);
+                //MessageBox.Show(json);
             }
             catch (Exception ex)
             {
@@ -80,5 +84,22 @@ namespace DashBoardClient
             }
             return response;
         }
+    }
+
+    public class Request
+    {
+        public Request()
+        {
+            args = new List<string>();
+        }
+
+        public void Add(params string[] tmp)
+        {
+            for (int i = 0; i < tmp.Length; i++)
+            {
+                args.Add(tmp[i]);
+            }
+        }
+        public List<string> args { get; set; }
     }
 }
