@@ -46,17 +46,15 @@ namespace DashBoardClient
 
             message.Add(IdPack);
             request = JsonConvert.SerializeObject(message);
-            response = server.SendMsg("GetPackChange", "ai", request);
+            response = server.SendMsg("GetPackChange", Data.ProjectName, request);
             resMes = JsonConvert.DeserializeObject<Message>(response);
 
-            response = server.SendMsg("GetTestsForPack", "ai");
+            response = server.SendMsg("GetTestsForPack", Data.ProjectName);
             resMes2 = JsonConvert.DeserializeObject<Message>(response);
 
             //"4±4±local - 127.0.0.1±900±0±DEG_AI_0503737-9▲DEG_AI_0503129-4вапвапа▲"
 
 
-            //response.Add(server.SendMsg("getPackChange", "ai", IdPack));
-            //response.Add(server.SendMsg("getTestsForPack", "ai"));
 
             //perform = response[0].Split('╡');
 
@@ -87,7 +85,7 @@ namespace DashBoardClient
                     TestsInPack.SelectedItems.Add(testList.tests[i]);
                 }
 
-                response = server.SendMsg("GetIPPc", "ai");
+                response = server.SendMsg("GetIPPc", Data.ProjectName);
                 ip = JsonConvert.DeserializeObject<Message>(response);
 
                 if (ip.args[0].Equals("no_ip"))
@@ -117,7 +115,7 @@ namespace DashBoardClient
                 {
                     message.Add(IDPack.Text, NamePack.Text, JsonConvert.SerializeObject(testsList), TimeTest.Text, CountRestart.Text, IPList.Text);
                     request = JsonConvert.SerializeObject(message);
-                    response = server.SendMsg("UpdatePackChange", "ai", request);
+                    response = server.SendMsg("UpdatePackChange", Data.ProjectName, request);
                     if (JsonConvert.DeserializeObject<Message>(response).args[0].Equals("OK")) MessageBox.Show("Поздравляем! Набор изменен!");
 
                     this.Close();

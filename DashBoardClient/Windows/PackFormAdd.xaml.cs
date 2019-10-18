@@ -34,7 +34,7 @@ namespace DashBoardClient
             IPList.Items.Clear();
             TestsInPack.Items.Clear();
             response.Clear();
-            response.Add(server.SendMsg("getTestsForPack", "ai"));
+            response.Add(server.SendMsg("getTestsForPack", Data.ProjectName));
 
             if (response[0] == "no_tests_for_pack") MessageBox.Show("Нет тестов на добавление в набор!");
             else
@@ -48,7 +48,7 @@ namespace DashBoardClient
                 if (TestsInPack.Items.Count == 0) MessageBox.Show("Нет тестов на добавление в набор!");
                 else
                 {
-                    response.Add(server.SendMsg("getIPPc", "ai"));
+                    response.Add(server.SendMsg("getIPPc", Data.ProjectName));
                     if (response[1] == "no_ip") MessageBox.Show("Нет доступных машин!");
                     else
                     {
@@ -76,7 +76,7 @@ namespace DashBoardClient
                     string paramTest = NamePack.Text + "±" +
                         tests + "±" + TimeTest.Text + "±" + CountRestart.Text + "±" + IPList.Text;
 
-                    if (server.SendMsg("addPack", "ai", paramTest) == "OK") MessageBox.Show("Поздравляем! Набор добавлен!");
+                    if (server.SendMsg("addPack", Data.ProjectName, paramTest) == "OK") MessageBox.Show("Поздравляем! Набор добавлен!");
 
                     GetPackForListView();
                     if (TestsInPack.Items.Count < 1) MessageBox.Show("Нет тестов на добавление в набор!");

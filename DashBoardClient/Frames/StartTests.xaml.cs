@@ -57,7 +57,7 @@ namespace DashBoardClient
             {
                 Message message = new Message();
                 string request = JsonConvert.SerializeObject(message);
-                response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetPacksForList", "ai", request));
+                response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetPacksForList", Data.ProjectName, request));
                 if (response.args[0] == "no_packs")
                 {
                     MessageBox.Show("Нет добавленных наборов");
@@ -101,7 +101,7 @@ namespace DashBoardClient
             Message message = new Message();
             foreach (PacksWithTest listItem in PackListView.SelectedItems) message.Add(listItem.ID);
             string request = JsonConvert.SerializeObject(message);
-            if(response.args.Count != 0) response = JsonConvert.DeserializeObject<Message>(server.SendMsg("StartPackTests", "ai", request));
+            if(response.args.Count != 0) response = JsonConvert.DeserializeObject<Message>(server.SendMsg("StartPackTests", Data.ProjectName, request));
             else MessageBox.Show("Не выбрано ни одного набора!");
             if (response.args[0] == "OK") MessageBox.Show("Набор(ы) отправлен(ы) на запуск!");
             if (response.args[0] == "ERROR") MessageBox.Show("Произошла ошибка запуска!");

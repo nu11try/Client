@@ -65,7 +65,7 @@ namespace DashBoardClient
 
                 message.Add(IDTest);
                 request = JsonConvert.SerializeObject(message);
-                response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetCommnents", "ai", request));     
+                response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetCommnents", Data.ProjectName, request));     
                 Comments comments = JsonConvert.DeserializeObject<Comments>(response.args[0]);       
                 list = new List<Сomment>();
 

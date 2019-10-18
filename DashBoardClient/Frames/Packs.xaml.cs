@@ -38,7 +38,7 @@ namespace DashBoardClient
 
             try
             {
-                message = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetPacksForList", "ai"));                                
+                message = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetPacksForList", Data.ProjectName));                                
                 if (message.args[0].Equals("no_packs"))
                 {
                     MessageBox.Show("Нет добавленных наборов");

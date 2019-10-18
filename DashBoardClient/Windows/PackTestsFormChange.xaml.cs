@@ -40,7 +40,7 @@ namespace DashBoardClient
             try
             {
                 // Запрос на сервер для получения списка тестов и информации по текущему тесту
-                response = server.SendMsg("getTestPerform", "ai", TAG);
+                response = server.SendMsg("getTestPerform", Data.ProjectName, TAG);
                 // Общее развертывание ответа
                 perform = response.Split('╡');
                 // Получение информации по конкретному тесту
@@ -114,7 +114,7 @@ namespace DashBoardClient
             try
             {
                 string param = IdPack + "±" + start + "±" + tests + "±" + time + "±" + restart;
-                if (server.SendMsg("updatePackTestPerform", "ai", param) == "OK") MessageBox.Show("Поздравляем! Данные обновлены!");                
+                if (server.SendMsg("updatePackTestPerform", Data.ProjectName, param) == "OK") MessageBox.Show("Поздравляем! Данные обновлены!");                
             }
             catch { MessageBox.Show("Произошла ошибка! Обратитесь в поддержку"); }
         }

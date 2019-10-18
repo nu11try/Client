@@ -48,7 +48,7 @@ namespace DashBoardClient
 
             try
             {
-                response = server.SendMsg("getTestsThisPack", "ai", IDPack);
+                response = server.SendMsg("getTestsThisPack", Data.ProjectName, IDPack);
                 testsList = response.Split('╡');
                 for (var i = 0; i < testsList.Length - 1; i++)
                 {

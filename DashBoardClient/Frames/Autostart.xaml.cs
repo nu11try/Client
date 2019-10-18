@@ -38,7 +38,7 @@ namespace DashBoardClient
             {
                 Message message = new Message();
                 string request = JsonConvert.SerializeObject(message);
-                response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetAutostart", "ai", request));
+                response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetAutostart", Data.ProjectName, request));
                
                 if (response.args[0] == "error") return;
 

@@ -38,7 +38,7 @@ namespace DashBoardClient
             Id = ID;
             message.Add(Id);
             string request = JsonConvert.SerializeObject(message);
-            response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetAutostartInfo", "ai", request));
+            response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetAutostartInfo", Data.ProjectName, request));
             if (response.args[0] == "error")
             {
                 MessageBox.Show("Произошла ошибка получения данных автотеста");
@@ -72,7 +72,7 @@ namespace DashBoardClient
 
             Message message = new Message();
             string request = JsonConvert.SerializeObject(message);
-            response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetPacksForList", "ai", request));
+            response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetPacksForList", Data.ProjectName, request));
             if (response.args[0] == "no_packs")
             {
                 MessageBox.Show("Нет доступных на добавление наборов");
@@ -109,7 +109,7 @@ namespace DashBoardClient
                 string packsS = JsonConvert.SerializeObject(packs);
                 message.Add(NameAut.Text, checkTranslateType.IsChecked == true? "regular":"one", weekDaysS, packsS, hourSelected.Text, minuteSelected.Text);
                 string request = JsonConvert.SerializeObject(message);
-                response = JsonConvert.DeserializeObject<Message>(server.SendMsg("AddAutostart", "ai", request));
+                response = JsonConvert.DeserializeObject<Message>(server.SendMsg("AddAutostart", Data.ProjectName, request));
                 NameAut.Text = "";
                 hourSelected.SelectedIndex = 0;
                 minuteSelected.SelectedIndex = 0;

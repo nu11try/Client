@@ -62,7 +62,7 @@ namespace DashBoardClient
             TestsList = new List<AddedTests>();                       
             try
             {
-                response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetTests", "ai"));
+                response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetTests", Data.ProjectName));
 
                 for (var i = 0; i < response.args.Count; i += 3)
                 {
