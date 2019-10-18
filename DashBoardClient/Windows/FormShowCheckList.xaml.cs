@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,8 @@ namespace DashBoardClient
     /// </summary>
     /// 
 
-    public class comment
-    {
-        
+    public class Сomment
+    {        
         public string Number { get; set; }
         public string Step { get; set; }
 
@@ -31,10 +31,14 @@ namespace DashBoardClient
     public partial class FormShowCheckList : Window
     {
         ServerConnect server = new ServerConnect();
-        string response;
+
+        Message response;
+        Message message;
+        string request;
+        
         string[] comments;
         string IDTest = "";
-        List<comment> list;
+        List<Сomment> list;
         public FormShowCheckList(string TAG)
         {
             IDTest = TAG;
@@ -45,35 +49,39 @@ namespace DashBoardClient
         {
             try
             {
-                response = server.SendMsg("getCheckList", "ai", IDTest);
-                comments = response.Split('\n');
-                list = new List<comment>();
+                //response = server.SendMsg("getCheckList", "ai", IDTest);
+                
+
+                message.Add(IDTest);
+                request = JsonConvert.SerializeObject(message);
+                response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetCheckList", "ai", request));
+
+                comments = response.args[0].Split('\n');
+
+                list = new List<Сomment>();
                 int qq = 1;
                 int q = 0;
+
+                int cNum = 1;
+                int mNum = 0;
                 foreach (var i in comments)
                 {
-                    comment comment = new comment();
+                    Сomment comment = new Сomment();
                     comment.Number = i.Split('¾')[0];
 
                     comment.Step = i.Split('¾')[1].Trim();
                     if (comment.Number.Contains("-"))
                     {
-                        comment.Number = q + "." + qq;
-                        qq++;
+                        comment.Number = mNum + "." + cNum;
+                        cNum++;
                     }
                     else
                     {
-                        qq = 1;
-                        q++;
+                        cNum = 1;
+                        mNum++;
                     }
-                    if (comment.Step.Contains("Отсутствуют комментарии к шагу"))
-                    {
-                        comment.Color = "red";
-                    }
-                    else
-                    {
-                        comment.Color = "white";
-                    }
+                    if (comment.Step.Contains("Отсутствуют комментарии к шагу")) comment.Color = "red";                    
+                    else comment.Color = "white";                    
                     list.Add(comment);
                 }
             }

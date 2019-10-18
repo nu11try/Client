@@ -76,12 +76,14 @@ namespace DashBoardClient
                 client.Close();
                 
                 //MessageBox.Show(response);
-                MessageBox.Show(json);
+                //MessageBox.Show(json);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+            request = new Request();
+            bufJSON = "";
             return response;
         }
     }

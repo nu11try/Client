@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -32,11 +33,13 @@ namespace DashBoardClient
     public partial class OpenKPList : Window
     {
         List<KP> KPList;
-        string response = "";
         readonly ServerConnect server = new ServerConnect();
-        string[] docList;
         string id = "";
 
+        Message message = new Message();
+        Message resMes = new Message();
+        string request = "";
+        string response = "";
         public OpenKPList(string ID)
         {            
             InitializeComponent();
@@ -49,21 +52,21 @@ namespace DashBoardClient
             KPList = new List<KP>();
             try
             {
-                response = server.SendMsg("getKPForDoc", "ai", ID);
-                docList = response.Split('╡');
-
-                if (docList[0] != "no_kp")
+                message.Add(ID);
+                request = JsonConvert.SerializeObject(message);
+                response = server.SendMsg("GetKPForDoc", "ai", request);
+                resMes = JsonConvert.DeserializeObject<Message>(response);
+                if (!resMes.args[0].Equals("no_kp"))                
                 {
-                    for (var i = 0; i < docList.Length - 1; i++)
+                    for (var i = 0; i < resMes.args.Count; i += 6)
                     {
                         KP kp = new KP();
-                        string[] docForList = docList[i].Split('±');
-                        kp.ID = docForList[0];
-                        kp.Name = docForList[1];
-                        kp.Assc = docForList[2];
-                        kp.Author = docForList[3];
-                        kp.Date = docForList[4];
-                        kp.Test = docForList[5];
+                        kp.ID = resMes.args[i];
+                        kp.Name = resMes.args[i + 1];
+                        kp.Assc = resMes.args[i + 2];
+                        kp.Author = resMes.args[i + 3];
+                        kp.Date = resMes.args[i + 4];
+                        kp.Test = resMes.args[i + 5];
 
                         KPList.Add(kp);
                     }
@@ -77,6 +80,7 @@ namespace DashBoardClient
 
             DataContext = this;
             KPListView.ItemsSource = KPList;
+            message = new Message();    
         }
 
         private void AddKP(object sender, RoutedEventArgs e)

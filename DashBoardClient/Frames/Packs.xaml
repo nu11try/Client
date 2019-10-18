@@ -85,17 +85,6 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Width="50" Header="Инфо.">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button x:Name="infoBtn" Tag="{Binding ID}" Height="25" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="25">
-                                    <Button.Background>
-                                        <ImageBrush ImageSource="/DashBoardClient;component/Images/stat_test.png" Stretch="Uniform"/>
-                                    </Button.Background>
-                                </Button>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
                     <GridViewColumn Header="ID" Width="250">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>

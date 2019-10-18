@@ -220,10 +220,6 @@ D:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.csproj.GenerateResour
 D:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.csproj.CoreCompileInputs.cache
 D:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.exe
 D:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.pdb
-E:\GitHub\Client\DashBoardClient\bin\Debug\DashBoardClient.exe.config
-E:\GitHub\Client\DashBoardClient\bin\Debug\DashBoardClient.exe
-E:\GitHub\Client\DashBoardClient\bin\Debug\DashBoardClient.pdb
-E:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.csprojAssemblyReference.cache
 E:\GitHub\Client\DashBoardClient\obj\Debug\Frames\ClearPage.g.cs
 E:\GitHub\Client\DashBoardClient\obj\Debug\Frames\Autostart.g.cs
 E:\GitHub\Client\DashBoardClient\obj\Debug\Frames\AddTests.g.cs
@@ -248,6 +244,11 @@ E:\GitHub\Client\DashBoardClient\obj\Debug\Windows\TestFormAdd.g.cs
 E:\GitHub\Client\DashBoardClient\obj\Debug\App.g.cs
 E:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient_MarkupCompile.cache
 E:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient_MarkupCompile.lref
+E:\GitHub\Client\DashBoardClient\bin\Debug\DashBoardClient.exe.config
+E:\GitHub\Client\DashBoardClient\bin\Debug\DashBoardClient.exe
+E:\GitHub\Client\DashBoardClient\bin\Debug\DashBoardClient.pdb
+E:\GitHub\Client\DashBoardClient\bin\Debug\Newtonsoft.Json.dll
+E:\GitHub\Client\DashBoardClient\bin\Debug\Newtonsoft.Json.xml
 E:\GitHub\Client\DashBoardClient\obj\Debug\App.baml
 E:\GitHub\Client\DashBoardClient\obj\Debug\Frames\ClearPage.baml
 E:\GitHub\Client\DashBoardClient\obj\Debug\Frames\Autostart.baml
@@ -273,8 +274,7 @@ E:\GitHub\Client\DashBoardClient\obj\Debug\Windows\TestFormAdd.baml
 E:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.g.resources
 E:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.Properties.Resources.resources
 E:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.csproj.GenerateResource.cache
+E:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.csproj.CopyComplete
 E:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.exe
 E:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.pdb
-E:\GitHub\Client\DashBoardClient\bin\Debug\Newtonsoft.Json.dll
-E:\GitHub\Client\DashBoardClient\bin\Debug\Newtonsoft.Json.xml
-E:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.csproj.CopyComplete
+E:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.csprojAssemblyReference.cache

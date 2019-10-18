@@ -33,7 +33,7 @@ namespace DashBoardClient
             {
                 Data.Token = SavedParam[3];
                 Data.Security = SavedParam[4];
-                Data.NameUser = SavedParam[2];
+                Data.NameUser = SavedParam[2];                
 
                 mainWindow.Show();
 

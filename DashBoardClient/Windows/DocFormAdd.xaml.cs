@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,10 +21,13 @@ namespace DashBoardClient
     public partial class DocFormAdd : Window
     {
         ServerConnect server = new ServerConnect();
-        List<string> response = new List<string>();
-        string[] docAr = new string[] { };
         string action = "add";
         string ID = "";
+
+        Message message = new Message();
+        Message resMes = new Message();
+        string request = "";
+        string response = "";
         public DocFormAdd()
         {
             InitializeComponent();
@@ -38,19 +42,20 @@ namespace DashBoardClient
         }
 
         private void GetDocInfo(string id)
-        {             
+        {
             // 0 - pim         
             // 1 - date
-            response.Add(server.SendMsg("getDocInfo", "ai", id));
-            docAr = response[0].Split('╡');
-            if (response[0] == "error") MessageBox.Show("Ошибка! Обратитесь к поддержке");
+            message.Add(id);
+            request = JsonConvert.SerializeObject(message);
+            response = server.SendMsg("GetDocInfo", "ai", request);
+            resMes = JsonConvert.DeserializeObject<Message>(response);
+            if (resMes.args[0].Equals("error")) MessageBox.Show("Ошибка! Обратитесь к поддержке");
             else
-            {
-                docAr = docAr[0].Split('±');
-
-                PimLink.Text = docAr[0];
-                DateBlock.Text = docAr[1];
+            {                               
+                PimLink.Text = resMes.args[0];
+                DateBlock.Text = resMes.args[1];
             }
+            message = new Message();
         }
 
         private void SendDoc(object sender, RoutedEventArgs e)
@@ -63,11 +68,13 @@ namespace DashBoardClient
                     return;
                 }
                 else
-                {
-                    string paramDoc = PimLink.Text + "±" + DateBlock.Text;
+                {                    
                     if (action == "add")
                     {
-                        if (server.SendMsg("addDoc", "ai", paramDoc) == "OK")
+                        message.Add(PimLink.Text, DateBlock.Text);
+                        request = JsonConvert.SerializeObject(message);
+                        response = server.SendMsg("AddDoc", "ai", request);
+                        if (JsonConvert.DeserializeObject<Message>(response).args[0].Equals("OK"))                        
                         {
                             MessageBox.Show("Поздравляем! Документ добавлен!");
                             PimLink.Text = "";
@@ -76,15 +83,20 @@ namespace DashBoardClient
                     }
                     else if (action == "update")
                     {
-                        paramDoc += "±" + ID;
-                        if (server.SendMsg("updateDoc", "ai", paramDoc) == "OK") MessageBox.Show("Поздравляем! Документ обновлен !");
+                        message.Add(PimLink.Text, DateBlock.Text, ID);
+                        request = JsonConvert.SerializeObject(message);
+                        response = server.SendMsg("UpdateDoc", "ai", request);
+                        if (JsonConvert.DeserializeObject<Message>(response).args[0].Equals("OK")) MessageBox.Show("Поздравляем! Документ обновлен!");
                     }
                 }
             }
             catch
             {
                 MessageBox.Show("Не все данные выбраны!");
-            }            
+            }
+
+            message = new Message();
+            request = "";
         }
 
         private void CloseWindow(object sender, RoutedEventArgs e)

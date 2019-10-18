@@ -79,7 +79,7 @@ namespace DashBoardClient
             //AutostartAdd autoAdd = new AutostartAdd((sender as Button).Tag.ToString());
             AutostartAddChange autoAdd = new AutostartAddChange();
             autoAdd.ShowDialog();
-            UpdateList();            
+            UpdateList();                        
         }
         private void chgAutostart(object sender, RoutedEventArgs e)
         {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,7 +21,13 @@ namespace DashBoardClient
     public partial class TestFormAdd : Window
     {
         ServerConnect server = new ServerConnect();
-        List<string> response = new List<string>();
+
+        Message message = new Message();
+        Message resMes = new Message();
+        Message resMes2 = new Message();
+        string request = "";
+        string response = "";
+
         string[] tests = new string[] { };
         public TestFormAdd()
         {
@@ -32,19 +39,24 @@ namespace DashBoardClient
         {
             TestSelect.Items.Clear();
             AuthorSelect.Items.Clear();
-            response.Clear();
-            response.Add(server.SendMsg("getTests", "ai"));
 
-            if (response[0] == "all_tests_added_in_database") MessageBox.Show("Нет тестов на добавление!");
+            message.Add("no_add");
+            request = JsonConvert.SerializeObject(message);
+            response = server.SendMsg("GetTests", "ai", request);
+            resMes = JsonConvert.DeserializeObject<Message>(response);
+            if (resMes.args.Count == 0)
+            {
+                MessageBox.Show("Нет тестов на добавление!");
+                return;
+            }
             else
-            {                
-                response.Add(server.SendMsg("getAuthor", "ai"));
+            {
+                response = server.SendMsg("GetAuthor", "ai");
+                resMes2 = JsonConvert.DeserializeObject<Message>(response);
 
-                tests = response[0].Split('╡');
-                for (int i = 0; i < tests.Length - 1; i++) TestSelect.Items.Add(tests[i]);
+                for (int i = 0; i < resMes2.args.Count; i++) AuthorSelect.Items.Add(resMes2.args[i]);
 
-                tests = response[1].Split('╡');
-                for (int i = 0; i < tests.Length - 1; i++) AuthorSelect.Items.Add(tests[i]);
+                for (int i = 0; i < resMes.args.Count; i += 3) TestSelect.Items.Add(resMes.args[i] + " (" + resMes.args[i + 1] + ")");
 
                 try
                 {
@@ -56,13 +68,20 @@ namespace DashBoardClient
                     MessageBox.Show("Нет тестов на добавление!");
                 }
             }
+            message = new Message();
         }
         private void SendTest(object sender, RoutedEventArgs e)
-        {
+        {            
             try
             {
-                string paramTest = TestSelect.SelectedItem.ToString() + "±" + AuthorSelect.SelectedItem.ToString() + "±" + ActiveSelect.IsChecked.Value.ToString();
-                if (server.SendMsg("addTest", "ai", paramTest) == "OK") MessageBox.Show("Поздравляем! Тест добавлен!");
+                string IDtest = TestSelect.SelectedItem.ToString().Split('(')[0];
+                IDtest = IDtest.Substring(0, IDtest.Length-1);
+                message.Add(IDtest, AuthorSelect.SelectedItem.ToString(), ActiveSelect.IsChecked.Value.ToString());
+                request = JsonConvert.SerializeObject(message);
+                response = server.SendMsg("AddTest", "ai", request);
+                if (JsonConvert.DeserializeObject<Message>(response).args[0].Equals("OK"))
+                    MessageBox.Show("Поздравляем! Тест " + IDtest + " добавлен!");
+                else MessageBox.Show("Ошибка! Попробуйте позже или обратитесь в поддержку");
                 GetTestsForListView();
                 try
                 {
@@ -71,13 +90,14 @@ namespace DashBoardClient
                 }
                 catch
                 {
-                    MessageBox.Show("Нет тестов на добавление!");                    
+                    MessageBox.Show("Нет тестов на добавление!");
                 }
             }
             catch
             {
                 MessageBox.Show("Не все данные выбраны!");
-            }            
+            }
+            message = new Message();
         }
 
         private void CloseWindow(object sender, RoutedEventArgs e)

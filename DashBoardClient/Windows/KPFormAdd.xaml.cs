@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,12 +21,14 @@ namespace DashBoardClient
     public partial class KPFormAdd : Window
     {
         ServerConnect server = new ServerConnect();
-        List<string> response = new List<string>();
-        string[] docAr = new string[] { };
         string action = "add";
         string ID = "";
         string IDKP = "";
 
+        Message message = new Message();
+        Message resMes = new Message();
+        string request = "";
+        string response = "";
         public KPFormAdd(string id, string idKP, string actionType)
         {
             InitializeComponent();
@@ -36,23 +39,27 @@ namespace DashBoardClient
         }
 
         private void GetKPInfo(string id, string idKP)
-        {             
+        {
             // 0 - name         
             // 1 - date
-            response.Add(server.SendMsg("getKPInfo", "ai", id + "±" + idKP));
-            docAr = response[0].Split('╡');
-            if (response[0] == "error" && action == "update") { MessageBox.Show("Ошибка! Обратитесь к поддержке"); return; }
+            message.Add(id, idKP);
+            request = JsonConvert.SerializeObject(message);
+            response = server.SendMsg("GetKPInfo", "ai", request);
+            resMes = JsonConvert.DeserializeObject<Message>(response);
+            if (resMes.args[0].Equals("error") && action == "update") MessageBox.Show("Ошибка! Обратитесь к поддержке");
             else
             {
-                if (response[0] != "error")
+                if (!resMes.args[0].Equals("error"))
                 {
-                    docAr = docAr[0].Split('±');
-
-                    NameKP.Text = docAr[1];
-                    DateBlock.Text = docAr[2];
+                    NameKP.Text = resMes.args[0];
+                    DateBlock.Text = resMes.args[1];
                 }
-                else { return; }
+                else {
+                    message = new Message(); 
+                    return; 
+                }
             }
+            message = new Message();
         }
 
         private void SendDoc(object sender, RoutedEventArgs e)
@@ -66,11 +73,13 @@ namespace DashBoardClient
                 }
                 else
                 {
-                    // Последний элемент - это STEP ASCC
-                    string paramKP = NameKP.Text + "±" + DateBlock.Text + "±" + Data.NameUser + "±" + ID + "±" + "0";
+                    // Последний элемент - это STEP ASCC                    
                     if (action == "add")
                     {
-                        if (server.SendMsg("addKP", "ai", paramKP) == "OK")
+                        message.Add(NameKP.Text, DateBlock.Text, Data.NameUser, ID, "0");
+                        request = JsonConvert.SerializeObject(message);
+                        response = server.SendMsg("AddKP", "ai", request);
+                        if (JsonConvert.DeserializeObject<Message>(response).args[0].Equals("OK"))
                         {
                             MessageBox.Show("Поздравляем! КП добавлен!");
                             NameKP.Text = "";
@@ -79,15 +88,18 @@ namespace DashBoardClient
                     }
                     else if (action == "update")
                     {
-                        paramKP = IDKP + "±" + NameKP.Text + "±" + DateBlock.Text + "±" + Data.NameUser + "±" + ID;
-                        if (server.SendMsg("updateKP", "ai", paramKP) == "OK") MessageBox.Show("Поздравляем! КП обновлен !");
+                        message.Add(IDKP, NameKP.Text, DateBlock.Text, Data.NameUser, ID);
+                        request = JsonConvert.SerializeObject(message);
+                        response = server.SendMsg("UpdateKP", "ai", request);
+                        if (JsonConvert.DeserializeObject<Message>(response).args[0].Equals("OK")) MessageBox.Show("Поздравляем! КП обновлен!");
                     }
                 }
             }
             catch
             {
                 MessageBox.Show("Не все данные выбраны!");
-            }            
+            }
+            message = new Message();
         }
 
         private void CloseWindow(object sender, RoutedEventArgs e)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,15 @@ namespace DashBoardClient
     public partial class PackFormChange : Window
     {
         ServerConnect server = new ServerConnect();
-        List<string> response = new List<string>();
+        Message message = new Message();
+        TestsListClass testsList = new TestsListClass();
+        Message resMes = new Message();
+        Message resMes2 = new Message();
+        Message ip = new Message();
+        string request = "";
+        string response = "";
+
         string[] pack = new string[] { };
-        string[] ip = new string[] { };
         string[] perform = new string[] { };
         string IdPack;
         public PackFormChange(string TAG)
@@ -36,73 +43,82 @@ namespace DashBoardClient
         {
             IPList.Items.Clear();
             TestsInPack.Items.Clear();
-            response.Clear();
 
-            response.Add(server.SendMsg("getPackChange", "ai", IdPack));
-            response.Add(server.SendMsg("getTestsForPack", "ai"));
+            message.Add(IdPack);
+            request = JsonConvert.SerializeObject(message);
+            response = server.SendMsg("GetPackChange", "ai", request);
+            resMes = JsonConvert.DeserializeObject<Message>(response);
 
-            perform = response[0].Split('╡');
+            response = server.SendMsg("GetTestsForPack", "ai");
+            resMes2 = JsonConvert.DeserializeObject<Message>(response);
 
             //"4±4±local - 127.0.0.1±900±0±DEG_AI_0503737-9▲DEG_AI_0503129-4вапвапа▲"
 
-            if (response[0] == "error") MessageBox.Show("Ошибка! Обратитесь к поддержке");
+
+            //response.Add(server.SendMsg("getPackChange", "ai", IdPack));
+            //response.Add(server.SendMsg("getTestsForPack", "ai"));
+
+            //perform = response[0].Split('╡');
+
+            //"4±4±local - 127.0.0.1±900±0±DEG_AI_0503737-9▲DEG_AI_0503129-4вапвапа▲"
+
+            if (resMes.args[0] == "error") MessageBox.Show("Ошибка! Обратитесь к поддержке");
             else
             {
-                pack = response[0].Split('±');
+                IDPack.Text = resMes.args[0];
+                NamePack.Text = resMes.args[1];
+                TimeTest.Text = resMes.args[3];
+                CountRestart.Text = resMes.args[4];
 
-                IDPack.Text = pack[0];
-                NamePack.Text = pack[1];
-                TimeTest.Text = pack[3];
-                CountRestart.Text = pack[4];
+                TestsListClass testList = JsonConvert.DeserializeObject<TestsListClass>(resMes.args[5]);
 
-                string[] testList = pack[5].Split('▲');
-
-                if (response[1] == "no_tests_for_pack")
+                if (resMes2.args[0].Equals("no_tests_for_pack"))
                 {
-                    for (int i = 0; i < testList.Length - 1; i++) TestsInPack.Items.Add(testList[i]);
+                    for (int i = 0; i < testList.tests.Count; i++) TestsInPack.Items.Add(testList.tests[i]);
                 }
                 else
                 {
-                    string[] tests = response[1].Split('╡');
-                    for (int i = 0; i < tests.Length - 1; i++) TestsInPack.Items.Add(tests[i].Split('±')[2]);
-                    for (int i = 0; i < testList.Length - 1; i++) TestsInPack.Items.Add(testList[i]);
+                    for (int i = 0; i < resMes2.args.Count / 3; i++) TestsInPack.Items.Add(resMes2.args[i]);
+                    for (int i = 0; i < testList.tests.Count; i++) TestsInPack.Items.Add(testList.tests[i]);
                 }
 
-                for (int i = 0; i < testList.Length - 1; i++)
-                {                   
-                    TestsInPack.SelectedItems.Add(testList[i]);
-                }
-
-                response.Add(server.SendMsg("getIPPc", "ai"));
-                if (response[2] == "no_ip")
+                for (int i = 0; i < testList.tests.Count; i++)
                 {
-                    IPList.Items.Add(pack[1]);
+                    TestsInPack.SelectedItems.Add(testList.tests[i]);
+                }
+
+                response = server.SendMsg("GetIPPc", "ai");
+                ip = JsonConvert.DeserializeObject<Message>(response);
+
+                if (ip.args[0].Equals("no_ip"))
+                {
+                    IPList.Items.Add(resMes.args[2]);
                 }
                 else
                 {
-                    ip = response[2].Split('╡');
-                    for (int i = 0; i < ip.Length - 1; i++)
+                    for (int i = 0; i < ip.args.Count; i += 2)
                     {
-                        IPList.Items.Add(ip[i].Split('±')[0] + " - " + ip[i].Split('±')[1]);
-                    }                    
+                        IPList.Items.Add(ip.args[i] + " - " + ip.args[i + 1]);
+                    }
                 }
-                IPList.SelectedIndex = IPList.Items.IndexOf(pack[2]);
+                IPList.SelectedIndex = IPList.Items.IndexOf(resMes.args[2]);
             }
+            message = new Message();
         }
 
         private void SendPack(object sender, RoutedEventArgs e)
         {
-            string tests = "";
-            for (int i = 0; i < TestsInPack.SelectedItems.Count; i++) tests += TestsInPack.SelectedItems[i] + "╟";
-            if (NamePack.Text == "" || TimeTest.Text == "" || tests == "") MessageBox.Show("Не все данные выбраны!");
+            message = new Message();
+            for (int i = 0; i < TestsInPack.SelectedItems.Count; i++) testsList.Add(TestsInPack.SelectedItems[i].ToString());
+            if (NamePack.Text == "" || TimeTest.Text == "" || testsList.tests.Count == 0) MessageBox.Show("Не все данные выбраны!");
             else
             {
                 try
                 {
-                    string paramTest = IDPack.Text + "±" + NamePack.Text + "±" +
-                        tests + "±" + TimeTest.Text + "±" + CountRestart.Text + "±" + IPList.Text;
-
-                    if (server.SendMsg("updatePackChange", "ai", paramTest) == "OK") MessageBox.Show("Поздравляем! Набор изменен!");
+                    message.Add(IDPack.Text, NamePack.Text, JsonConvert.SerializeObject(testsList), TimeTest.Text, CountRestart.Text, IPList.Text);
+                    request = JsonConvert.SerializeObject(message);
+                    response = server.SendMsg("UpdatePackChange", "ai", request);
+                    if (JsonConvert.DeserializeObject<Message>(response).args[0].Equals("OK")) MessageBox.Show("Поздравляем! Набор изменен!");
 
                     this.Close();
                 }
@@ -111,6 +127,22 @@ namespace DashBoardClient
                     MessageBox.Show("Не все данные выбраны!");
                 }
             }
+            message = new Message();
         }
+    }
+
+    public class TestsListClass
+    {
+        public TestsListClass()
+        {
+            tests = new List<string>();
+        }
+
+        public void Add(params string[] tmp)
+        {
+            for (int i = 0; i < tmp.Length; i++) tests.Add(tmp[i]);
+        }
+
+        public List<string> tests { get; set; }
     }
 }

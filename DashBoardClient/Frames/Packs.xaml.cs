@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,7 +23,8 @@ namespace DashBoardClient
     {
         readonly ServerConnect server = new ServerConnect();
         public List<PacksWithTest> PackList { get; set; }
-        string response = "";
+        Message message;
+        string response;
         string[] packsList;
         public Packs()
         {
@@ -36,26 +38,24 @@ namespace DashBoardClient
 
             try
             {
-                response = server.SendMsg("getPacksForList", "ai");
-                packsList = response.Split('╡');
-                if (packsList[0] == "no_packs")
+                message = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetPacksForList", "ai"));                                
+                if (message.args[0].Equals("no_packs"))
                 {
                     MessageBox.Show("Нет добавленных наборов");
                     return;
                 }                
 
-                for (var i = 0; i < packsList.Length - 1; i++)
+                for (var i = 0; i < message.args.Count; i += 7)
                 {
+
                     PacksWithTest pack = new PacksWithTest();
-                    string[] packsForList = packsList[i].Split('±');
-                    string[] testsCount = packsForList[2].Split('▲');
-                    pack.ID = packsForList[0];
-                    pack.Name = packsForList[1];
-                    pack.NewName = packsForList[2];
-                    pack.Count = (testsCount.Length - 1).ToString();
-                    pack.Result = packsForList[5];
-                    pack.Time = packsForList[3];
-                    pack.RestartCount = packsForList[4];
+                    pack.ID = message.args[i];
+                    pack.Name = message.args[i+1];
+                    pack.NewName = message.args[i+2];
+                    pack.Count = "0";
+                    pack.Result = message.args[i+5];
+                    pack.Time = message.args[i+3];
+                    pack.RestartCount = message.args[i+4];
 
                     PackList.Add(pack);
                 }

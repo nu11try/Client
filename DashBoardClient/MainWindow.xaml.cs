@@ -38,6 +38,16 @@ namespace DashBoardClient
         public static string ProjectName { get; set; }
     }
 
+    public class Message
+    {
+        public Message() { args = new List<string>(); }
+        public void Add(params string[] tmp)
+        {
+            for (int i = 0; i < tmp.Length; i++) args.Add(tmp[i]);
+        }
+        public List<string> args { get; set; }
+    }
+
     public partial class MainWindow : Window
     {        
 

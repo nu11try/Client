@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,12 +23,11 @@ namespace DashBoardClient
     {
         readonly ServerConnect server = new ServerConnect();
         public List<DocClass> DocList { get; set; }
-        string response = "";
-        string[] docList;
+        Message response;
         public Doc()
         {
             InitializeComponent();
-            UpdateList();           
+            UpdateList();
         }
 
         private void UpdateList()
@@ -35,16 +35,15 @@ namespace DashBoardClient
             DocList = new List<DocClass>();
             try
             {
-                response = server.SendMsg("GetDocument", "ai");                
-                if (docList[0] == "no_doc") return;                
+                response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetDocument", "ai"));                                
+                if (response.args[0] == "no_doc") return;                
 
-                for (var i = 0; i < docList.Length - 1; i++)
+                for (var i = 0; i < response.args.Count; i += 3)
                 {
-                    DocClass doc = new DocClass();
-                    string[] docsForList = docList[i].Split('±');                    
-                    doc.ID = docsForList[0];
-                    doc.Pim = docsForList[1];
-                    doc.Date = docsForList[2];
+                    DocClass doc = new DocClass();                   
+                    doc.ID = response.args[i];
+                    doc.Pim = response.args[i + 1];
+                    doc.Date = response.args[i + 2];
 
                     DocList.Add(doc);
                 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,8 +21,11 @@ namespace DashBoardClient
     public partial class TestFormChange : Window
     {
         ServerConnect server = new ServerConnect();
-        List<string> response = new List<string>();
-        string[] testInfo = new string[] { };
+        Message message = new Message();
+        Message resMes = new Message();
+        Message resMes2 = new Message();
+        string request = "";
+        string response = "";
 
         string IDTest = "";
         public TestFormChange(string TAG)
@@ -39,50 +43,51 @@ namespace DashBoardClient
             MethodSelect.Items.Clear();
             ActiveSelect.IsChecked = false;
             AuthorSelect.Items.Clear();
-            response.Clear();
 
-
-            response.Add(server.SendMsg("updateTestChange", "ai", IDTest));
-            
-            if (response[0] == "error") MessageBox.Show("Произошла ошибка!");
+            message.Add(IDTest);
+            request = JsonConvert.SerializeObject(message);
+            response = server.SendMsg("UpdateTestChange", "ai", request);
+            resMes = JsonConvert.DeserializeObject<Message>(response);
+            if (resMes.args[0].Equals("error")) MessageBox.Show("Ошибка! Обратитесь к поддержке");                      
             else
-            {                
-                response.Add(server.SendMsg("getAuthor", "ai"));
-
-                testInfo = response[1].Split('╡');
+            {
+                response = server.SendMsg("GetAuthor", "ai");
+                resMes2 = JsonConvert.DeserializeObject<Message>(response);                
                 
-                for (int i = 0; i < testInfo.Length - 1; i++) AuthorSelect.Items.Add(testInfo[i]);
+                for (int i = 0; i < resMes2.args.Count; i++) AuthorSelect.Items.Add(resMes2.args[i]);
 
                 try { AuthorSelect.Text = AuthorSelect.Items[0].ToString(); }
-                catch { MessageBox.Show("Нет тестов на добавление!"); }
-               
-                testInfo = response[0].Split('╡');
-                testInfo = testInfo[0].Split('±');
-                for (int i = 0; i < testInfo.Length; i++)
+                catch { }
+                               
+                for (int i = 0; i < resMes.args.Count; i += 3)
                 {
                     TestID.Text = IDTest;
-                    TestName.Text = testInfo[0];
-                    AuthorSelect.SelectedIndex = AuthorSelect.Items.IndexOf(testInfo[1].ToString());
-                    ActiveSelect.IsChecked = Convert.ToBoolean(testInfo[2].ToString());
+                    TestName.Text = resMes.args[i];
+                    AuthorSelect.SelectedIndex = AuthorSelect.Items.IndexOf(resMes.args[i + 1].ToString());
+                    ActiveSelect.IsChecked = Convert.ToBoolean(resMes.args[i + 2].ToString());
                 }
-                
-                
             }
+            message = new Message();
+            resMes = new Message();
+            resMes = new Message();
         }
         private void SendTest(object sender, RoutedEventArgs e)
         {           
             try
             {
-                string paramTest = IDTest + "±" + AuthorSelect.SelectedItem.ToString() + "±"
-                    + ActiveSelect.IsChecked.Value.ToString();
-                if (server.SendMsg("updateTest", "ai", paramTest) == "OK") MessageBox.Show("Поздравляем! Информация по тесту {0} обновлена!", IDTest);
+                message.Add(IDTest, AuthorSelect.SelectedItem.ToString(), ActiveSelect.IsChecked.Value.ToString());
+                request = JsonConvert.SerializeObject(message);
+                response = server.SendMsg("UpdateTest", "ai", request);
+                if (JsonConvert.DeserializeObject<Message>(response).args[0].Equals("OK")) 
+                    MessageBox.Show("Поздравляем! Информация по тесту " + IDTest + " обновлена!");                
                 else MessageBox.Show("Ошибка! Попробуйте позже или обратитесь в поддержку");
                 GetTestsForListView();
             }
             catch
             {
                 MessageBox.Show("Не все данные выбраны!");
-            }                 
+            }
+            message = new Message();
         }
 
         private void CloseWindow(object sender, RoutedEventArgs e)

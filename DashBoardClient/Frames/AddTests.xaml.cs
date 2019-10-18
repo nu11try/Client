@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,14 +24,13 @@ namespace DashBoardClient
         TestFormAdd formAdd;
         readonly ServerConnect server = new ServerConnect();
         public List<AddedTests> TestsList { get; set; }        
-        string response = "";
-        string[] testsList;
+        Message response;
 
         public AddTests()
         {
             InitializeComponent();
 
-            UpdateList();
+            UpdateList();           
         }     
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -59,23 +59,19 @@ namespace DashBoardClient
 
         private void UpdateList()
         {
-            TestsList = new List<AddedTests>();
-
+            TestsList = new List<AddedTests>();                       
             try
             {
-                response = server.SendMsg("GetTestsForList", "ai");
-                testsList = response.Split('╡');
+                response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetTests", "ai"));
 
-                for (var i = 0; i < testsList.Length - 1; i++)
+                for (var i = 0; i < response.args.Count; i += 3)
                 {
-                    AddedTests test = new AddedTests();
-                    string[] testForList = testsList[i].Split('±');
-                    test.ID = testForList[0];
-                    test.Name = testForList[1];
-                    test.Author = testForList[2];
+                    AddedTests test = new AddedTests();                    
+                    test.ID = response.args[i];
+                    test.Name = response.args[i + 1];
+                    test.Author = response.args[i + 2];
 
                     TestsList.Add(test);
-
                 }
             }
             catch { MessageBox.Show("Произошла ошибка! Обратитесь к поддержке!"); }
