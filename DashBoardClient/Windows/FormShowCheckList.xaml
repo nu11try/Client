@@ -45,14 +45,14 @@
                     <GridViewColumn Header="Номер" Width="50">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock x:Name="Number" Text="{Binding Number}" Foreground="{Binding Color}" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="left"/>
+                                <TextBlock x:Name="Number" Text="{Binding step}" Foreground="{Binding Color}" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="left"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn Header="Шаг" Width="740">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock x:Name="Step" Text="{Binding Step}" Foreground="{Binding Color}" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="left"/>
+                                <TextBlock x:Name="Step" Text="{Binding comment}" Foreground="{Binding Color}" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="left"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

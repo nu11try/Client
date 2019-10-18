@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,8 +23,8 @@ namespace DashBoardClient
     {
         readonly ServerConnect server = new ServerConnect();
         public List<AutoClass> AutoList { get; set; }
-        string response = "";
-        string[] autoList;
+        Message response;
+
         public Autostart()
         {
             InitializeComponent();
@@ -35,23 +36,26 @@ namespace DashBoardClient
             AutoList = new List<AutoClass>();
             try
             {
-                response = server.SendMsg("GetAutostart", "ai");
-                autoList = response.Split('╡');
-                if (autoList[0] == "error") return;
+                Message message = new Message();
+                string request = JsonConvert.SerializeObject(message);
+                response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetAutostart", "ai", request));
+               
+                if (response.args[0] == "error") return;
 
-                for (var i = 0; i < autoList.Length - 1; i++)
+                for (var i = 0; i < response.args.Count; i+=7)
                 {
                     AutoClass auto = new AutoClass();
-                    string[] docsForList = autoList[i].Split('±');
-                    auto.ID = docsForList[0];
-                    auto.Name = docsForList[1];
-                    if (docsForList[5] == "regular") auto.Type = "Регулярно";
-                    else if (docsForList[5] == "one") auto.Type = "Единоразово";
-                    auto.Pack = docsForList[4].Replace('\n', ' ');
-                    auto.Time = docsForList[3];
-                    auto.Day = docsForList[2].Replace('\n', ' ');
-                    auto.Status = docsForList[6];
-
+                    auto.ID = response.args[i];
+                    auto.Name = response.args[i+1];
+                    if (response.args[i+5] == "regular") auto.Type = "Регулярно";
+                    else if (response.args[i+5] == "one") auto.Type = "Единоразово";
+                    Message packs = JsonConvert.DeserializeObject<Message> (response.args[i + 4]);
+                    auto.Pack = String.Join("-", packs.args.ToArray());
+                    auto.Time = response.args[i+3];
+                    Message days = JsonConvert.DeserializeObject<Message>(response.args[i + 2]);
+                    auto.Day = String.Join("-", days.args.ToArray());
+                    auto.Status = response.args[i+6];
+                    
                     AutoList.Add(auto);
                 }
             }

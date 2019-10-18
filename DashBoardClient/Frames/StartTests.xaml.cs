@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,10 +22,25 @@ namespace DashBoardClient
     public partial class StartTests : Page
     {
         public List<PacksWithTest> PackList { get; set; }
+        public class Tests
+        {
+            public Tests()
+            {
+                id = new List<string>();
+                start = new List<string>();
+                time = new List<string>();
+                dependon = new List<string>();
+                restart = new List<string>();
+            }
+            public List<string> id { get; set; }
+            public List<string> start { get; set; }
+            public List<string> time { get; set; }
+            public List<string> dependon { get; set; }
+            public List<string> restart { get; set; }
+        }
         OpenTestList testList;
-        readonly ServerConnect server = new ServerConnect();       
-        string response = "";
-        string[] packsList;
+        readonly ServerConnect server = new ServerConnect();
+        Message response;
 
         public StartTests()
         {
@@ -39,25 +55,25 @@ namespace DashBoardClient
             PackList = new List<PacksWithTest>();
             try
             {
-                response = server.SendMsg("getPacksForList", "ai");
-                packsList = response.Split('╡');
-                if (packsList[0] == "no_packs")
+                Message message = new Message();
+                string request = JsonConvert.SerializeObject(message);
+                response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetPacksForList", "ai", request));
+                if (response.args[0] == "no_packs")
                 {
                     MessageBox.Show("Нет добавленных наборов");
                     return;
                 }
-                for (var i = 0; i < packsList.Length - 1; i++)
+                for (var i = 0; i < response.args.Count; i++)
                 {
                     PacksWithTest pack = new PacksWithTest();
-                    string[] packsForList = packsList[i].Split('±');
-                    string[] testsCount = packsForList[2].Split('▲');
-                    pack.ID = packsForList[0];
-                    pack.Name = packsForList[1];
-                    pack.Count = (testsCount.Length - 1).ToString();
-                    pack.RestartCount = packsForList[4];
-                    pack.Time = packsForList[3];
-                    pack.IP = packsForList[5];
-                    if (packsForList[6] == "no_start") pack.Status = "Не запущено";
+                    Tests tests = JsonConvert.DeserializeObject<Tests>(response.args[2]);
+                    pack.ID = response.args[0];
+                    pack.Name = response.args[1];
+                    pack.Count = (tests.id.Count).ToString();
+                    pack.RestartCount = response.args[4];
+                    pack.Time = response.args[3];
+                    pack.IP = response.args[5];
+                    if (response.args[6] == "no_start") pack.Status = "Не запущено";
                     else pack.Status = "Запущено";
                      
                     PackList.Add(pack);
@@ -81,14 +97,15 @@ namespace DashBoardClient
 
         private void StartPacks(object sender, RoutedEventArgs e)
         {
-            string packs = "";
-            foreach (PacksWithTest listItem in PackListView.SelectedItems) packs += listItem.ID + "±";
-            if (packs.Length != 0) packs = packs.Substring(0, packs.Length - 1);
-            if (packs != "") response = server.SendMsg("startPackTests", "ai", packs);
+
+            Message message = new Message();
+            foreach (PacksWithTest listItem in PackListView.SelectedItems) message.Add(listItem.ID);
+            string request = JsonConvert.SerializeObject(message);
+            if(response.args.Count != 0) response = JsonConvert.DeserializeObject<Message>(server.SendMsg("StartPackTests", "ai", request));
             else MessageBox.Show("Не выбрано ни одного набора!");
-            if (response == "OK") MessageBox.Show("Набор(ы) отправлен(ы) на запуск!");
-            if (response == "ERROR") MessageBox.Show("Произошла ошибка запуска!");
-            if (response == "START") MessageBox.Show("Один из выбранных наборов находится в режиме запуска!");            
+            if (response.args[0] == "OK") MessageBox.Show("Набор(ы) отправлен(ы) на запуск!");
+            if (response.args[0] == "ERROR") MessageBox.Show("Произошла ошибка запуска!");
+            if (response.args[0] == "START") MessageBox.Show("Один из выбранных наборов находится в режиме запуска!");            
             UpdateList();
         }
     }
