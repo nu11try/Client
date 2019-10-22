@@ -31,7 +31,7 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <ListView ItemsSource="{Binding TestList}" x:Name="TestsList" FontSize="11">
+        <ListView ItemsSource="{Binding TestList}" x:Name="TestList" FontSize="11" AllowDrop="True" PreviewMouseLeftButtonDown="TestList_PreviewMouseLeftButtonDown" MouseMove="TestList_MouseMove" DragEnter="TestList_DragEnter" Drop="TestList_Drop">
             <ListView.Background>
                 <SolidColorBrush Color="{DynamicResource BackgroundColor}"/>
             </ListView.Background>

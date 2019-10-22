@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Collections.ObjectModel;
 
 namespace DashBoardClient
 {
@@ -30,6 +31,10 @@ namespace DashBoardClient
 
     public partial class ViewTestsPack : Window
     {
+
+        private Point startPoint = new Point();
+        private ObservableCollection<TestsList> Items = new ObservableCollection<TestsList>();
+        private int startIndex = -1;
         List<TestsList> list;
         
         Message message = new Message();
@@ -48,6 +53,7 @@ namespace DashBoardClient
 
         private void UpdateList()
         {
+            TestList.Items.Clear();
             list = new List<TestsList>();
             message = new Message();
             try
@@ -64,15 +70,15 @@ namespace DashBoardClient
                     if (message.args[i+2] == "default") test.Time = "По умолчанию";
                     else test.Time = message.args[i+2];
                     if (message.args[i+3] == "default") test.Restart = "По умолчанию";
-                    else test.Restart = message.args[i+3];                    
+                    else test.Restart = message.args[i+3];
 
-                    list.Add(test);
+                    Items.Add(test);
                 }
             }
             catch { MessageBox.Show("Произошла ошибка! Обратитесь к поддержке!"); }
             message = new Message();
             DataContext = this;
-            TestsList.ItemsSource = list;
+            TestList.ItemsSource = Items;
         }
         private void ChangeTest(object sender, RoutedEventArgs e)
         {
@@ -82,6 +88,89 @@ namespace DashBoardClient
             packTests.ShowDialog();
 
             UpdateList();
+        }
+
+        private void TestList_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            // Get current mouse position
+            startPoint = e.GetPosition(null);
+        }
+
+        // Helper to search up the VisualTree
+        private static T FindAnchestor<T>(DependencyObject current)
+            where T : DependencyObject
+        {
+            do
+            {
+                if (current is T)
+                {
+                    return (T)current;
+                }
+                current = VisualTreeHelper.GetParent(current);
+            }
+            while (current != null);
+            return null;
+        }
+
+        private void TestList_MouseMove(object sender, MouseEventArgs e)
+        {
+            // Get the current mouse position
+            Point mousePos = e.GetPosition(null);
+            Vector diff = startPoint - mousePos;
+
+            if (e.LeftButton == MouseButtonState.Pressed &&
+                (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance ||
+                       Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance))
+            {
+                // Get the dragged ListViewItem
+                ListView listView = sender as ListView;
+                ListViewItem listViewItem = FindAnchestor<ListViewItem>((DependencyObject)e.OriginalSource);
+                if (listViewItem == null) return;           // Abort
+                                                            // Find the data behind the ListViewItem
+                TestsList item = (TestsList)listView.ItemContainerGenerator.ItemFromContainer(listViewItem);
+                if (item == null) return;                   // Abort
+                                                            // Initialize the drag & drop operation
+                startIndex = TestList.SelectedIndex;
+                DataObject dragData = new DataObject("tests", item);
+                DragDrop.DoDragDrop(listViewItem, dragData, DragDropEffects.Copy | DragDropEffects.Move);
+            }
+        }
+
+        private void TestList_DragEnter(object sender, DragEventArgs e)
+        {
+            if (!e.Data.GetDataPresent("tests") || sender != e.Source)
+            {
+                e.Effects = DragDropEffects.None;
+            }
+        }
+
+        private void TestList_Drop(object sender, DragEventArgs e)
+        {
+            int index = -1;
+
+            if (e.Data.GetDataPresent("tests") && sender == e.Source)
+            {
+                // Get the drop ListViewItem destination
+                ListView listView = sender as ListView;
+                ListViewItem listViewItem = FindAnchestor<ListViewItem>((DependencyObject)e.OriginalSource);
+                if (listViewItem == null)
+                {
+                    // Abort
+                    e.Effects = DragDropEffects.None;
+                    return;
+                }
+                // Find the data behind the ListViewItem
+                TestsList item = (TestsList)listView.ItemContainerGenerator.ItemFromContainer(listViewItem);
+                // Move item into observable collection 
+                // (this will be automatically reflected to TestList.ItemsSource)
+                e.Effects = DragDropEffects.Move;
+                index = Items.IndexOf(item);
+                if (startIndex >= 0 && index >= 0)
+                {
+                    Items.Move(startIndex, index);
+                }
+                startIndex = -1;        // Done!
+            }
         }
     }
 }
