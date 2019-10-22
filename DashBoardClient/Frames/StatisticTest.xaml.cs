@@ -40,7 +40,7 @@ namespace DashBoardClient
             TestsListView = new List<TestsViewClass>();
             try
             {
-                response = server.SendMsg("getTestsResult", "ai");
+                response = server.SendMsg("getTestsResult", Data.ServiceSel);
                 testsList = response.Split('╡');
                 if (testsList[0] == "no_result")
                 {
@@ -83,7 +83,7 @@ namespace DashBoardClient
             TestsListInfo = new List<TestsInfoClass>();
             try
             {
-                response = server.SendMsg("getTestsResultInfo", "ai");
+                response = server.SendMsg("getTestsResultInfo", Data.ServiceSel);
                 testsList = response.Split('╡');
                 if (testsList[0] == "no_result")
                 {

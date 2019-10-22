@@ -35,7 +35,7 @@ namespace DashBoardClient
             AutoList = new List<AutoClass>();
             try
             {
-                response = server.SendMsg("GetAutostart", "ai");
+                response = server.SendMsg("GetAutostart", Data.ServiceSel);
                 autoList = response.Split('╡');
                 if (autoList[0] == "error") return;
 

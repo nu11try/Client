@@ -51,10 +51,7 @@
                     <DropShadowEffect BlurRadius="16" Direction="364" ShadowDepth="2"/>
                 </Canvas.Effect>
                 <Image Height="58" Canvas.Left="10" Width="58" RenderTransformOrigin="0.5,0.5" Source="Images/user.png" Canvas.Top="8" HorizontalAlignment="Center" VerticalAlignment="Center" Panel.ZIndex="5" OpacityMask="#FF2BAAC9"/>
-                <ComboBox x:Name="SelecterProject" Height="22" Canvas.Left="73" Canvas.Top="40" Width="119" SelectionChanged="ChangeProject" Loaded="SelecterProject_Loaded">
-                    <ComboBoxItem>AI</ComboBoxItem>
-                    <ComboBoxItem>Студия</ComboBoxItem>
-                </ComboBox>
+                <ComboBox x:Name="SelecterProject" Height="22" Canvas.Left="73" Canvas.Top="40" Width="119" SelectionChanged="ChangeProject" Loaded="SelecterProject_Loaded"/>
             </Canvas>
         </Grid>
         <Button Style="{StaticResource button of navigation}" Content="Запуск" HorizontalAlignment="Left" Height="29" Margin="0,113,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="198" Grid.ColumnSpan="10" Background="#FF45454F" BorderBrush="#FF45454F" Foreground="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="36,1,1,1" Click="StartTests"/>

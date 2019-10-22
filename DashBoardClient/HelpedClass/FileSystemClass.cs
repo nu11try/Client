@@ -29,22 +29,18 @@ namespace DashBoardClient.HelpedClass
         /// Security
         /// </summary>
         /// <returns></returns>
-        public List<string> ReadConfigFile()
+        public string ReadConfigFile()
         {
-            List<string> response = new List<string>();
+            string config = "";
             using (StreamReader sr = new StreamReader(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + configName, Encoding.Default))
             {
-                string buf;
-                string[] bufArray;
                 while (!sr.EndOfStream)
                 {
-                    buf = sr.ReadLine();
-                    bufArray = buf.Split(';');
-                    for (int i = 0; i < bufArray.Length; i++) response.Add(bufArray[i].Split(':')[1]);
+                    config = sr.ReadLine();
                 }
                 sr.Close();
             }
-            return response;
+            return config;
         }
     }
 }

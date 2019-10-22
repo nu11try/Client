@@ -42,7 +42,7 @@
                 <DropShadowEffect BlurRadius="10" Direction="283" Opacity="0.6" ShadowDepth="2"/>
             </PasswordBox.Effect>
         </PasswordBox>
-        <Button x:Name="btnAuth" Content="Вход" HorizontalAlignment="Left" Margin="85,166,0,0" VerticalAlignment="Top" Width="75" Background="#FF2BAAC9" Foreground="White" BorderBrush="#FF2BAAC9" BorderThickness="1" Click="EnterAuth" MouseEnter="HoverBtn">
+        <Button x:Name="btnAuth" Content="Вход" HorizontalAlignment="Left" Margin="85,166,0,0" VerticalAlignment="Top" Width="75" Background="#FF2BAAC9" Foreground="White" BorderBrush="#FF2BAAC9" BorderThickness="1" Click="EnterAuth">
             <Button.Effect>
                 <DropShadowEffect BlurRadius="10" Direction="283" Opacity="0.6" ShadowDepth="2"/>
             </Button.Effect>

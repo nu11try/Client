@@ -35,7 +35,7 @@ namespace DashBoardClient
             DocList = new List<DocClass>();
             try
             {
-                response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetDocument", "ai"));                                
+                response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetDocument", Data.ServiceSel));                                
                 if (response.args[0] == "no_doc") return;                
 
                 for (var i = 0; i < response.args.Count; i += 3)

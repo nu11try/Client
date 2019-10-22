@@ -49,12 +49,12 @@ namespace DashBoardClient
         {
             try
             {
-                //response = server.SendMsg("getCheckList", "ai", IDTest);
+                //response = server.SendMsg("getCheckList", Data.ServiceSel, IDTest);
                 
 
                 message.Add(IDTest);
                 request = JsonConvert.SerializeObject(message);
-                response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetCheckList", "ai", request));
+                response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetCheckList", Data.ServiceSel, request));
 
                 comments = response.args[0].Split('\n');
 

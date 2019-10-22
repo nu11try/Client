@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,7 +21,14 @@ namespace DashBoardClient
     public partial class PackFormAdd : Window
     {
         ServerConnect server = new ServerConnect();
-        List<string> response = new List<string>();
+        
+        Message message = new Message();
+        Message resMes = new Message();
+        Message testsList = new Message();
+
+        string request = "";
+        string response = "";
+
         string[] tests = new string[] { };
         string[] ip = new string[] { };
         public PackFormAdd()
@@ -33,29 +41,29 @@ namespace DashBoardClient
         {
             IPList.Items.Clear();
             TestsInPack.Items.Clear();
-            response.Clear();
-            response.Add(server.SendMsg("getTestsForPack", "ai"));
 
-            if (response[0] == "no_tests_for_pack") MessageBox.Show("Нет тестов на добавление в набор!");
+            response = server.SendMsg("GetTestsForPack", Data.ServiceSel);
+            resMes = JsonConvert.DeserializeObject<Message>(response);
+
+            if (resMes.args[0].Equals("no_tests_for_pack")) MessageBox.Show("Нет тестов на добавление в набор!");
             else
             {                
-                tests = response[0].Split('╡');
-                
-                for (int i = 0; i < tests.Length - 1; i++)
+                for (int i = 0; i < resMes.args.Count; i += 3)
                 {
-                    TestsInPack.Items.Add(tests[i].Split('±')[0]);
+                    TestsInPack.Items.Add(resMes.args[0] + " (" + resMes.args[1] + ")");
                 }
                 if (TestsInPack.Items.Count == 0) MessageBox.Show("Нет тестов на добавление в набор!");
                 else
                 {
-                    response.Add(server.SendMsg("getIPPc", "ai"));
-                    if (response[1] == "no_ip") MessageBox.Show("Нет доступных машин!");
+                    response = server.SendMsg("GetIPPc", Data.ServiceSel);
+                    message = JsonConvert.DeserializeObject<Message>(response);
+
+                    if (message.args.Count == 0) MessageBox.Show("Нет доступных машин!");
                     else
                     {
-                        ip = response[1].Split('╡');
-                        for (int i = 0; i < ip.Length - 1; i++)
+                        for (int i = 0; i < message.args.Count; i += 2)
                         {
-                            IPList.Items.Add(ip[i].Split('±')[0] + " - " + ip[i].Split('±')[1]);
+                            IPList.Items.Add(message.args[i] + " - " + message.args[i+1]);
                         }
                         if (IPList.Items.Count == 0) MessageBox.Show("Нет доступных машин!");
                         else IPList.SelectedIndex = 0;
@@ -66,17 +74,20 @@ namespace DashBoardClient
 
         private void SendPack(object sender, RoutedEventArgs e)
         {
-            string tests = "";
-            for (int i = 0; i < TestsInPack.SelectedItems.Count; i++) tests += TestsInPack.SelectedItems[i] + "╟";
-            if (NamePack.Text == ""  || TimeTest.Text == "" || tests == "") MessageBox.Show("Не все данные выбраны!");
+            message = new Message();
+            resMes = new Message();
+            testsList = new Message();
+            for (int i = 0; i < TestsInPack.SelectedItems.Count; i++) 
+                testsList.Add(TestsInPack.SelectedItems[i].ToString().Split('(')[0].Substring(0, TestsInPack.SelectedItems[i].ToString().Split('(')[0].Length-1));
+            if (NamePack.Text == "" || TimeTest.Text == "" || testsList.args.Count == 0) MessageBox.Show("Не все данные выбраны!");
             else
             {
                 try
-                {                    
-                    string paramTest = NamePack.Text + "±" +
-                        tests + "±" + TimeTest.Text + "±" + CountRestart.Text + "±" + IPList.Text;
-
-                    if (server.SendMsg("addPack", "ai", paramTest) == "OK") MessageBox.Show("Поздравляем! Набор добавлен!");
+                {
+                    message.Add(NamePack.Text, JsonConvert.SerializeObject(testsList), TimeTest.Text, CountRestart.Text, IPList.Text);
+                    request = JsonConvert.SerializeObject(message);
+                    response = server.SendMsg("AddPack", Data.ServiceSel, request);
+                    if (JsonConvert.DeserializeObject<Message>(response).args[0].Equals("OK")) MessageBox.Show("Поздравляем! Набор добавлен!");
 
                     GetPackForListView();
                     if (TestsInPack.Items.Count < 1) MessageBox.Show("Нет тестов на добавление в набор!");

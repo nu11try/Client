@@ -12,8 +12,8 @@ namespace DashBoardClient
     class ServerConnect
     {
         const int port = 8888;
-        const string address = "172.31.197.232";
-        //const string address = "127.0.0.1";
+        //const string address = "172.31.197.232";
+        const string address = "127.0.0.1";
 
         private Request request = new Request();
         string bufJSON;
@@ -38,13 +38,6 @@ namespace DashBoardClient
             return ConnectServer(bufJSON);
         }
 
-        public string Auth(string login, string password)
-        {
-            request.Add("auth", login + " " + password);
-            bufJSON = JsonConvert.SerializeObject(request);
-            return ConnectServer(bufJSON);            
-        }
-
         private string ConnectServer(string json)
         {
             TcpClient client = null;
@@ -63,7 +56,7 @@ namespace DashBoardClient
                 stream.Write(data, 0, data.Length);
 
                 // получаем ответ
-                data = new byte[5042]; // буфер для получаемых данных
+                data = new byte[9999999]; // буфер для получаемых данных
                 
                 int bytes = 0;
                               

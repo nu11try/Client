@@ -34,7 +34,7 @@ namespace DashBoardClient
         {
             InitializeComponent();
             Init();
-            response = server.SendMsg("getAutostartInfo", "ai", ID);
+            response = server.SendMsg("getAutostartInfo", Data.ServiceSel, ID);
             packsList = response.Split('╡');
             if (packsList[0] == "error")
             {
@@ -61,7 +61,7 @@ namespace DashBoardClient
             hourSelected.SelectedIndex = 0;
             minuteSelected.SelectedIndex = 0;
 
-            response = server.SendMsg("getPacksForList", "ai");
+            response = server.SendMsg("getPacksForList", Data.ServiceSel);
             packsList = response.Split('╡');
             if (packsList[0] == "no_packs")
             {
@@ -93,7 +93,7 @@ namespace DashBoardClient
                 buf = "";
                 paramAut += hourSelected.Text + "±" + minuteSelected.Text;
 
-                if (server.SendMsg("addAutostart", "ai", paramAut) == "OK")
+                if (server.SendMsg("addAutostart", Data.ServiceSel, paramAut) == "OK")
                 {
                     NameAut.Text = "";
                     hourSelected.SelectedIndex = 0;

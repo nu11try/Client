@@ -47,7 +47,7 @@ namespace DashBoardClient
             // 1 - date
             message.Add(id);
             request = JsonConvert.SerializeObject(message);
-            response = server.SendMsg("GetDocInfo", "ai", request);
+            response = server.SendMsg("GetDocInfo", Data.ServiceSel, request);
             resMes = JsonConvert.DeserializeObject<Message>(response);
             if (resMes.args[0].Equals("error")) MessageBox.Show("Ошибка! Обратитесь к поддержке");
             else
@@ -73,7 +73,7 @@ namespace DashBoardClient
                     {
                         message.Add(PimLink.Text, DateBlock.Text);
                         request = JsonConvert.SerializeObject(message);
-                        response = server.SendMsg("AddDoc", "ai", request);
+                        response = server.SendMsg("AddDoc", Data.ServiceSel, request);
                         if (JsonConvert.DeserializeObject<Message>(response).args[0].Equals("OK"))                        
                         {
                             MessageBox.Show("Поздравляем! Документ добавлен!");
@@ -85,7 +85,7 @@ namespace DashBoardClient
                     {
                         message.Add(PimLink.Text, DateBlock.Text, ID);
                         request = JsonConvert.SerializeObject(message);
-                        response = server.SendMsg("UpdateDoc", "ai", request);
+                        response = server.SendMsg("UpdateDoc", Data.ServiceSel, request);
                         if (JsonConvert.DeserializeObject<Message>(response).args[0].Equals("OK")) MessageBox.Show("Поздравляем! Документ обновлен!");
                     }
                 }

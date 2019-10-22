@@ -24,8 +24,6 @@ namespace DashBoardClient
         readonly ServerConnect server = new ServerConnect();
         public List<PacksWithTest> PackList { get; set; }
         Message message;
-        string response;
-        string[] packsList;
         public Packs()
         {
             InitializeComponent();
@@ -38,7 +36,7 @@ namespace DashBoardClient
 
             try
             {
-                message = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetPacksForList", "ai"));                                
+                message = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetPacksForList", Data.ServiceSel));                                
                 if (message.args[0].Equals("no_packs"))
                 {
                     MessageBox.Show("Нет добавленных наборов");

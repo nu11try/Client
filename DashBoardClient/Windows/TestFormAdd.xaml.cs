@@ -42,7 +42,7 @@ namespace DashBoardClient
 
             message.Add("no_add");
             request = JsonConvert.SerializeObject(message);
-            response = server.SendMsg("GetTests", "ai", request);
+            response = server.SendMsg("GetTests", Data.ServiceSel, request);
             resMes = JsonConvert.DeserializeObject<Message>(response);
             if (resMes.args.Count == 0)
             {
@@ -51,7 +51,7 @@ namespace DashBoardClient
             }
             else
             {
-                response = server.SendMsg("GetAuthor", "ai");
+                response = server.SendMsg("GetAuthor", Data.ServiceSel);
                 resMes2 = JsonConvert.DeserializeObject<Message>(response);
 
                 for (int i = 0; i < resMes2.args.Count; i++) AuthorSelect.Items.Add(resMes2.args[i]);
@@ -78,7 +78,7 @@ namespace DashBoardClient
                 IDtest = IDtest.Substring(0, IDtest.Length-1);
                 message.Add(IDtest, AuthorSelect.SelectedItem.ToString(), ActiveSelect.IsChecked.Value.ToString());
                 request = JsonConvert.SerializeObject(message);
-                response = server.SendMsg("AddTest", "ai", request);
+                response = server.SendMsg("AddTest", Data.ServiceSel, request);
                 if (JsonConvert.DeserializeObject<Message>(response).args[0].Equals("OK"))
                     MessageBox.Show("Поздравляем! Тест " + IDtest + " добавлен!");
                 else MessageBox.Show("Ошибка! Попробуйте позже или обратитесь в поддержку");

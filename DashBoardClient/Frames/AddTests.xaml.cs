@@ -24,7 +24,7 @@ namespace DashBoardClient
         TestFormAdd formAdd;
         readonly ServerConnect server = new ServerConnect();
         public List<AddedTests> TestsList { get; set; }        
-        Message response;
+        Message response = new Message();
 
         public AddTests()
         {
@@ -62,7 +62,7 @@ namespace DashBoardClient
             TestsList = new List<AddedTests>();                       
             try
             {
-                response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetTests", "ai"));
+                response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetTests", Data.ServiceSel));
 
                 for (var i = 0; i < response.args.Count; i += 3)
                 {

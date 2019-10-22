@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,8 +31,11 @@ namespace DashBoardClient
     public partial class ViewTestsPack : Window
     {
         List<TestsList> list;
-        string response = "";
-        string[] testsList;
+        
+        Message message = new Message();
+        string response;
+        string request;
+
         readonly ServerConnect server = new ServerConnect();
         string IDPack = "";
 
@@ -45,33 +49,36 @@ namespace DashBoardClient
         private void UpdateList()
         {
             list = new List<TestsList>();
-
+            message = new Message();
             try
             {
-                response = server.SendMsg("getTestsThisPack", "ai", IDPack);
-                testsList = response.Split('╡');
-                for (var i = 0; i < testsList.Length - 1; i++)
+                message.Add(IDPack);
+                request = JsonConvert.SerializeObject(message);
+                response = server.SendMsg("GetTestsThisPack", Data.ServiceSel, request);
+                message = JsonConvert.DeserializeObject<Message>(response);
+                for (var i = 0; i < message.args.Count; i += 4)
                 {
                     TestsList test = new TestsList();
-                    string[] testForList = testsList[i].Split('±');
-                    test.ID = testForList[0];
-                    test.NewName = testForList[1];
-                    if (testForList[2] == "default") test.Time = "По умолчанию";
-                    else test.Time = testForList[1];
-                    if (testForList[3] == "default") test.Restart = "По умолчанию";
-                    else test.Restart = testForList[3];                    
+                    test.ID = message.args[i];
+                    test.NewName = message.args[i+1];
+                    if (message.args[i+2] == "default") test.Time = "По умолчанию";
+                    else test.Time = message.args[i+1];
+                    if (message.args[i+3] == "default") test.Restart = "По умолчанию";
+                    else test.Restart = message.args[i+3];                    
 
                     list.Add(test);
                 }
             }
             catch { MessageBox.Show("Произошла ошибка! Обратитесь к поддержке!"); }
-
+            message = new Message();
             DataContext = this;
             TestsList.ItemsSource = list;
         }
         private void ChangeTest(object sender, RoutedEventArgs e)
         {
-            PackTestsFormChange packTests = new PackTestsFormChange((sender as Button).Tag.ToString());
+            message.Add((sender as Button).Tag.ToString(), IDPack);
+            request = JsonConvert.SerializeObject(message);
+            PackTestsFormChange packTests = new PackTestsFormChange(request);
             packTests.ShowDialog();
 
             UpdateList();

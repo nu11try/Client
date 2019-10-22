@@ -62,9 +62,9 @@
                     <GridViewColumn Header="Измен." Width="50">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button x:Name="changeBtn" Tag="{Binding ID}" Height="40" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="47" Click="ChangeTest">
+                                <Button x:Name="changeBtn" Tag="{Binding ID}" Height="25" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="25" Click="ChangeTest">
                                     <Button.Background>
-                                        <ImageBrush ImageSource="/DashBoardClient;component/Images/start.png" Stretch="Uniform"/>
+                                        <ImageBrush ImageSource="/DashBoardClient;component/Images/set.png" Stretch="Uniform"/>
                                     </Button.Background>
                                 </Button>
                             </DataTemplate>

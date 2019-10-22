@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,6 +25,12 @@ namespace DashBoardClient
     public partial class PackTestsFormChange : Window
     {
         ServerConnect server = new ServerConnect();
+
+        Message message = new Message();
+        Message ids = new Message();
+        Message resMes = new Message();
+        Message resMes2 = new Message();
+        string request = "";
         string response = "";
 
         string[] perform = new string[] { };
@@ -34,13 +41,17 @@ namespace DashBoardClient
 
         public PackTestsFormChange(string TAG)
         {
-            IdPack = TAG;
+            ids = JsonConvert.DeserializeObject<Message>(TAG);
             InitializeComponent();
 
             try
             {
-                // Запрос на сервер для получения списка тестов и информации по текущему тесту
-                response = server.SendMsg("getTestPerform", "ai", TAG);
+                message.Add(ids.args[0], ids.args[1]);
+                request = JsonConvert.SerializeObject(message);
+                response = server.SendMsg("GetTestPerform", Data.ServiceSel, request);
+                resMes = JsonConvert.DeserializeObject<Message>(response);
+
+                response = server.SendMsg("getTestPerform", Data.ServiceSel, TAG);
                 // Общее развертывание ответа
                 perform = response.Split('╡');
                 // Получение информации по конкретному тесту
@@ -114,7 +125,7 @@ namespace DashBoardClient
             try
             {
                 string param = IdPack + "±" + start + "±" + tests + "±" + time + "±" + restart;
-                if (server.SendMsg("updatePackTestPerform", "ai", param) == "OK") MessageBox.Show("Поздравляем! Данные обновлены!");                
+                if (server.SendMsg("updatePackTestPerform", Data.ServiceSel, param) == "OK") MessageBox.Show("Поздравляем! Данные обновлены!");                
             }
             catch { MessageBox.Show("Произошла ошибка! Обратитесь в поддержку"); }
         }

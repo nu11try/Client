@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,9 +23,12 @@ namespace DashBoardClient
     {
         public List<PacksWithTest> PackList { get; set; }
         OpenTestList testList;
+
+        Message message = new Message();
+
         readonly ServerConnect server = new ServerConnect();       
         string response = "";
-        string[] packsList;
+        string request = "";
 
         public StartTests()
         {
@@ -39,25 +43,22 @@ namespace DashBoardClient
             PackList = new List<PacksWithTest>();
             try
             {
-                response = server.SendMsg("getPacksForList", "ai");
-                packsList = response.Split('╡');
-                if (packsList[0] == "no_packs")
+                message = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetPacksForList", Data.ServiceSel));                
+                if (message.args[0] == "no_packs")
                 {
                     MessageBox.Show("Нет добавленных наборов");
                     return;
                 }
-                for (var i = 0; i < packsList.Length - 1; i++)
+                for (var i = 0; i < message.args.Count; i += 7)
                 {
                     PacksWithTest pack = new PacksWithTest();
-                    string[] packsForList = packsList[i].Split('±');
-                    string[] testsCount = packsForList[2].Split('▲');
-                    pack.ID = packsForList[0];
-                    pack.Name = packsForList[1];
-                    pack.Count = (testsCount.Length - 1).ToString();
-                    pack.RestartCount = packsForList[4];
-                    pack.Time = packsForList[3];
-                    pack.IP = packsForList[5];
-                    if (packsForList[6] == "no_start") pack.Status = "Не запущено";
+                    pack.ID = message.args[i];
+                    pack.Name = message.args[i + 1];
+                    pack.Count = JsonConvert.DeserializeObject<TestsStartClass>(message.args[i + 2]).id.Count.ToString();
+                    pack.RestartCount = message.args[i + 4];
+                    pack.Time = message.args[i + 3];
+                    pack.IP = message.args[i + 5];
+                    if (message.args[i + 6] == "no_start") pack.Status = "Не запущено";
                     else pack.Status = "Запущено";
                      
                     PackList.Add(pack);
@@ -71,6 +72,7 @@ namespace DashBoardClient
 
             DataContext = this;
             PackListView.ItemsSource = PackList;
+            message = new Message();
         }
 
         private void OpenTestList(object sender, RoutedEventArgs e)
@@ -84,11 +86,16 @@ namespace DashBoardClient
             string packs = "";
             foreach (PacksWithTest listItem in PackListView.SelectedItems) packs += listItem.ID + "±";
             if (packs.Length != 0) packs = packs.Substring(0, packs.Length - 1);
-            if (packs != "") response = server.SendMsg("startPackTests", "ai", packs);
+            if (packs != "")
+            {
+                message.Add(packs);
+                request = JsonConvert.SerializeObject(message);
+                response = server.SendMsg("StartTests", Data.ServiceSel, request);
+            }
             else MessageBox.Show("Не выбрано ни одного набора!");
-            if (response == "OK") MessageBox.Show("Набор(ы) отправлен(ы) на запуск!");
-            if (response == "ERROR") MessageBox.Show("Произошла ошибка запуска!");
-            if (response == "START") MessageBox.Show("Один из выбранных наборов находится в режиме запуска!");            
+            if (JsonConvert.DeserializeObject<Message>(response).args[0] == "OK") MessageBox.Show("Набор(ы) отправлен(ы) на запуск!");
+            if (JsonConvert.DeserializeObject<Message>(response).args[0] == "ERROR") MessageBox.Show("Произошла ошибка запуска!");
+            if (JsonConvert.DeserializeObject<Message>(response).args[0] == "START") MessageBox.Show("Один из выбранных наборов находится в режиме запуска!");            
             UpdateList();
         }
     }
