@@ -62,7 +62,7 @@ namespace DashBoardClient
                     test.ID = message.args[i];
                     test.NewName = message.args[i+1];
                     if (message.args[i+2] == "default") test.Time = "По умолчанию";
-                    else test.Time = message.args[i+1];
+                    else test.Time = message.args[i+2];
                     if (message.args[i+3] == "default") test.Restart = "По умолчанию";
                     else test.Restart = message.args[i+3];                    
 

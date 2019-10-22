@@ -33,10 +33,6 @@ namespace DashBoardClient
         string request = "";
         Message response;
 
-        string[] perform = new string[] { };
-        string[] testInfo = new string[] { };
-        string[] testList = new string[] { };
-
         string IdPack;
 
         public PackTestsFormChange(string TAG)
@@ -46,28 +42,43 @@ namespace DashBoardClient
 
             try
             {
-
+                IdPack = ids.args[1];
                 message.Add(ids.args[0], ids.args[1]);
                 request = JsonConvert.SerializeObject(message);
                 response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetTestPerform", Data.ServiceSel, request));
-                response.args.ForEach(elem =>MessageBox.Show(elem));
 
 
                 // Заполняем поле с имененм
                 Name.Text = response.args[0];
                 // Заполняем выпадающий список тестами (выполнение)
-                Start.Items.Add("Первым");
+                Start.Items.Add("первый");
                 Message tests = JsonConvert.DeserializeObject<Message>(response.args[5]);
-                for (int i = 0; i < tests.args.Count; i++) Start.Items.Add(tests.args[i]);
+                for (int i = 0; i < tests.args.Count; i++)
+                {
+                    if (!tests.args[i].Equals(response.args[0]))
+                        Start.Items.Add(tests.args[i]);
+                }
                 Start.Text = response.args[1];
                 // -------------------------
                 // Заполняем выпадающий список тестами (зависимость)
                 TestsSelect.Items.Add("Нет");
-                for (int i = 0; i < tests.args.Count; i++) TestsSelect.Items.Add(tests.args[i]);
+                for (int i = 0; i < tests.args.Count; i++)
+                {
+                    if (!tests.args[i].Equals(response.args[0]))
+                        TestsSelect.Items.Add(tests.args[i]);
+                }
                 // Выделяем элементы, если они имеются
                 if (response.args[4] != "not")
                 {
-                    for (int i = 0; i < tests.args.Count; i++) TestsSelect.SelectedItems.Add(tests.args[i]);
+                    Message testsSel = JsonConvert.DeserializeObject<Message>(response.args[4]);
+                    if (testsSel.args.Count != 0)
+                    {
+                        for (int i = 0; i < testsSel.args.Count; i++)
+                        {
+                            if (!testsSel.args[i].Equals(response.args[0]))
+                                TestsSelect.SelectedItems.Add(testsSel.args[i]);
+                        }
+                    }
                 }
                 else TestsSelect.SelectedIndex = 0;
                 // -------------------------
@@ -76,12 +87,12 @@ namespace DashBoardClient
                 else
                 {
                     Time.SelectedIndex = 1;
-                    TimeChange.Text = testInfo[2];
+                    TimeChange.Text = response.args[2];
                 }
                 // -------------------------
                 // Заполняется поле с количеством рестартов
                 if (response.args[3] == "default") Restart.SelectedIndex = 0;
-                else Restart.Text = testInfo[3];
+                else Restart.Text = response.args[3];
                 // -------------------------
             }
             catch { MessageBox.Show("Произошла ошибка! Обратитесь к поддержке!"); }
@@ -103,6 +114,7 @@ namespace DashBoardClient
             string restart = "";
 
             start = Start.Text;
+            Message te = new Message();
             for (int i = 0; i < TestsSelect.SelectedItems.Count; i++)
             {
                 if (TestsSelect.SelectedItems[i].ToString() == "Нет")
@@ -110,8 +122,12 @@ namespace DashBoardClient
                     tests = "not";
                     break;
                 }
-                else tests += TestsSelect.SelectedItems[i] + "▲";
+                else
+                {
+                    te.Add(TestsSelect.SelectedItems[i].ToString());
+                }
             }
+            tests = JsonConvert.SerializeObject(te);
             if (TimeChange.IsEnabled) time = TimeChange.Text;
             else time = "default";
             if (Restart.Text == "По умолчанию") restart = "default";
@@ -120,7 +136,7 @@ namespace DashBoardClient
             {
                 Message message = new Message();
                 message.Add(IdPack, Name.Text, start, tests, time, restart);
-                response = JsonConvert.DeserializeObject<Message>(server.SendMsg("UpdateTestIntoPack", Data.ServiceSel, JsonConvert.SerializeObject(message)));
+                response = JsonConvert.DeserializeObject<Message>(server.SendMsg("UpdateTestOfPack", Data.ServiceSel, JsonConvert.SerializeObject(message)));
                 if (response.args[0].Equals("ok")) MessageBox.Show("Тест успешно изменен");
             }
             catch { MessageBox.Show("Произошла ошибка! Обратитесь в поддержку"); }
