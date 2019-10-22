@@ -47,7 +47,6 @@ namespace DashBoardClient
         Message message = new Message();
         string request;
         
-        string[] comments;
         string IDTest = "";
         List<Сomment> list;
         public FormShowCheckList(string TAG)
