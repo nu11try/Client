@@ -60,25 +60,10 @@ namespace DashBoardClient
         {
             try
             {
-<<<<<<< HEAD
-                //response = server.SendMsg("getCheckList", Data.ServiceSel, IDTest);
-                
-
                 message.Add(IDTest);
                 request = JsonConvert.SerializeObject(message);
-                response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetCheckList", Data.ServiceSel, request));
-
-                comments = response.args[0].Split('\n');
-
-=======
-                //response = server.SendMsg("getCheckList", "ai", IDTest);
-
-
-                message.Add(IDTest);
-                request = JsonConvert.SerializeObject(message);
-                response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetCommnents", Data.ProjectName, request));     
+                response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetCommnents", Data.ServiceSel, request));     
                 Comments comments = JsonConvert.DeserializeObject<Comments>(response.args[0]);       
->>>>>>> ba6800c8e2c9604ad79dacf32926ff8a23d5b28d
                 list = new List<Сomment>();
 
                 int cNum = 1;

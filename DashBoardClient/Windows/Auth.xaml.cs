@@ -37,7 +37,11 @@ namespace DashBoardClient
         }
 
         public void Init()
-        {            
+        {
+            loginAuth.LostFocus += LoginAuth_LostFocus;
+            loginAuth.GotFocus += LoginAuth_GotFocus;
+            passAuth.LostFocus += PassAuth_LostFocus;
+            passAuth.GotFocus += PassAuth_GotFocus;
             string SavedParam = "";
             SavedParam = fileSystem.ReadConfigFile();
             message = JsonConvert.DeserializeObject<Message>(SavedParam);
@@ -87,7 +91,40 @@ namespace DashBoardClient
             }
             else MessageBox.Show("Данные не заполнены");            
         }
+        private void LoginAuth_LostFocus(object sender, RoutedEventArgs e)
+        {
 
+            if (string.IsNullOrWhiteSpace(loginAuth.Text))
+            {
+                loginAuth.Text = "Логин";
+                loginAuth.Foreground = Brushes.Gray;
+            }
+        }
+        private void LoginAuth_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (loginAuth.Text == "Логин")
+            {
+                loginAuth.Text = "";
+                loginAuth.Foreground = Brushes.Black;
+            }
+        }
+        private void PassAuth_LostFocus(object sender, RoutedEventArgs e)
+        {
+
+            if (string.IsNullOrWhiteSpace(passAuth.Password))
+            {
+                passAuth.Password = "Password";
+                passAuth.Foreground = Brushes.Gray;
+            }
+        }
+        private void PassAuth_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (passAuth.Password == "Password")
+            {
+                passAuth.Password = "";
+                passAuth.Foreground = Brushes.Black;
+            }
+        }
         private void SelectEditAuth(object sender, RoutedEventArgs e)
         {
             if (loginAuth.Text.ToString() == "Логин") loginAuth.Text = "";

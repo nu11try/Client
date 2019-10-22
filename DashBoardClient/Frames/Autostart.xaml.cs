@@ -36,18 +36,8 @@ namespace DashBoardClient
             AutoList = new List<AutoClass>();
             try
             {
-<<<<<<< HEAD
-                response = server.SendMsg("GetAutostart", Data.ServiceSel);
-                autoList = response.Split('╡');
-                if (autoList[0] == "error") return;
-=======
-                Message message = new Message();
-                string request = JsonConvert.SerializeObject(message);
-                response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetAutostart", Data.ProjectName, request));
-               
+                response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetAutostart", Data.ServiceSel));
                 if (response.args[0] == "error") return;
->>>>>>> ba6800c8e2c9604ad79dacf32926ff8a23d5b28d
-
                 for (var i = 0; i < response.args.Count; i+=7)
                 {
                     AutoClass auto = new AutoClass();

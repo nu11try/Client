@@ -31,7 +31,7 @@ namespace DashBoardClient
         Message resMes = new Message();
         Message resMes2 = new Message();
         string request = "";
-        string response = "";
+        Message response;
 
         string[] perform = new string[] { };
         string[] testInfo = new string[] { };
@@ -46,44 +46,33 @@ namespace DashBoardClient
 
             try
             {
-<<<<<<< HEAD
+
                 message.Add(ids.args[0], ids.args[1]);
                 request = JsonConvert.SerializeObject(message);
-                response = server.SendMsg("GetTestPerform", Data.ServiceSel, request);
-                resMes = JsonConvert.DeserializeObject<Message>(response);
+                response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetTestPerform", Data.ServiceSel, request));
+                response.args.ForEach(elem =>MessageBox.Show(elem));
 
-                response = server.SendMsg("getTestPerform", Data.ServiceSel, TAG);
-=======
-                // Запрос на сервер для получения списка тестов и информации по текущему тесту
-                response = server.SendMsg("getTestPerform", Data.ProjectName, TAG);
->>>>>>> ba6800c8e2c9604ad79dacf32926ff8a23d5b28d
-                // Общее развертывание ответа
-                perform = response.Split('╡');
-                // Получение информации по конкретному тесту
-                testInfo = perform[0].Split('±');
-                // Набор всех тестов без текущего
-                testList = perform[1].Split('▲');
 
                 // Заполняем поле с имененм
-                Name.Text = testInfo[0];
+                Name.Text = response.args[0];
                 // Заполняем выпадающий список тестами (выполнение)
                 Start.Items.Add("Первым");
-                for (int i = 0; i < testList.Length - 1; i++) Start.Items.Add(testList[i]);
-                Start.Text = testInfo[1];
+                Message tests = JsonConvert.DeserializeObject<Message>(response.args[5]);
+                for (int i = 0; i < tests.args.Count; i++) Start.Items.Add(tests.args[i]);
+                Start.Text = response.args[1];
                 // -------------------------
                 // Заполняем выпадающий список тестами (зависимость)
                 TestsSelect.Items.Add("Нет");
-                for (int i = 0; i < testList.Length - 1; i++) TestsSelect.Items.Add(testList[i]);
+                for (int i = 0; i < tests.args.Count; i++) TestsSelect.Items.Add(tests.args[i]);
                 // Выделяем элементы, если они имеются
-                if (testInfo[4] != "not")
+                if (response.args[4] != "not")
                 {
-                    string[] testsName = testInfo[4].Split('▲');
-                    for (int i = 0; i < testsName.Length - 1; i++) TestsSelect.SelectedItems.Add(testsName[i]);
+                    for (int i = 0; i < tests.args.Count; i++) TestsSelect.SelectedItems.Add(tests.args[i]);
                 }
                 else TestsSelect.SelectedIndex = 0;
                 // -------------------------
                 // Заполняется поле с временем выполнения теста
-                if (testInfo[2] == "default") Time.SelectedIndex = 0;
+                if (response.args[2] == "default") Time.SelectedIndex = 0;
                 else
                 {
                     Time.SelectedIndex = 1;
@@ -91,7 +80,7 @@ namespace DashBoardClient
                 }
                 // -------------------------
                 // Заполняется поле с количеством рестартов
-                if (testInfo[3] == "default") Restart.SelectedIndex = 0;
+                if (response.args[3] == "default") Restart.SelectedIndex = 0;
                 else Restart.Text = testInfo[3];
                 // -------------------------
             }
@@ -129,12 +118,10 @@ namespace DashBoardClient
             else restart = Restart.Text;
             try
             {
-                string param = IdPack + "±" + start + "±" + tests + "±" + time + "±" + restart;
-<<<<<<< HEAD
-                if (server.SendMsg("updatePackTestPerform", Data.ServiceSel, param) == "OK") MessageBox.Show("Поздравляем! Данные обновлены!");                
-=======
-                if (server.SendMsg("updatePackTestPerform", Data.ProjectName, param) == "OK") MessageBox.Show("Поздравляем! Данные обновлены!");                
->>>>>>> ba6800c8e2c9604ad79dacf32926ff8a23d5b28d
+                Message message = new Message();
+                message.Add(IdPack, Name.Text, start, tests, time, restart);
+                response = JsonConvert.DeserializeObject<Message>(server.SendMsg("UpdateTestIntoPack", Data.ServiceSel, JsonConvert.SerializeObject(message)));
+                if (response.args[0].Equals("ok")) MessageBox.Show("Тест успешно изменен");
             }
             catch { MessageBox.Show("Произошла ошибка! Обратитесь в поддержку"); }
         }

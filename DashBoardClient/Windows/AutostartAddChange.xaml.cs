@@ -34,18 +34,12 @@ namespace DashBoardClient
         {
             InitializeComponent();
             Init();
-<<<<<<< HEAD
-            response = server.SendMsg("getAutostartInfo", Data.ServiceSel, ID);
-            packsList = response.Split('╡');
-            if (packsList[0] == "error")
-=======
             Message message = new Message();
             Id = ID;
             message.Add(Id);
             string request = JsonConvert.SerializeObject(message);
             response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetAutostartInfo", Data.ProjectName, request));
             if (response.args[0] == "error")
->>>>>>> ba6800c8e2c9604ad79dacf32926ff8a23d5b28d
             {
                 MessageBox.Show("Произошла ошибка получения данных автотеста");
                 return;
@@ -76,16 +70,11 @@ namespace DashBoardClient
             hourSelected.SelectedIndex = 0;
             minuteSelected.SelectedIndex = 0;
 
-<<<<<<< HEAD
-            response = server.SendMsg("getPacksForList", Data.ServiceSel);
-            packsList = response.Split('╡');
-            if (packsList[0] == "no_packs")
-=======
+
             Message message = new Message();
             string request = JsonConvert.SerializeObject(message);
             response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetPacksForList", Data.ProjectName, request));
             if (response.args[0] == "no_packs")
->>>>>>> ba6800c8e2c9604ad79dacf32926ff8a23d5b28d
             {
                 MessageBox.Show("Нет доступных на добавление наборов");
                 return;
@@ -112,23 +101,10 @@ namespace DashBoardClient
                 for (int i = 0; i < weekDay.SelectedItems.Count; i++) {
                     weekDays.Add(((TextBlock)weekDay.SelectedItems[i]).Text);
                 }
-<<<<<<< HEAD
-                if (checkTranslateType.IsChecked == true) paramAut += "±" + "regular" + "±";
-                else paramAut += "±" + "one" + "±";
-                for (int i = 0; i < weekDay.SelectedItems.Count; i++) buf += ((TextBlock)weekDay.SelectedItems[i]).Text + "╟";                
-                paramAut += buf + "±";
-                buf = "";
-                for (int i = 0; i < packName.SelectedItems.Count; i++) buf += packName.SelectedItems[i] + "╟";
-                paramAut += buf + "±";
-                buf = "";
-                paramAut += hourSelected.Text + "±" + minuteSelected.Text;
 
-                if (server.SendMsg("addAutostart", Data.ServiceSel, paramAut) == "OK")
-=======
                 string weekDaysS = JsonConvert.SerializeObject(weekDays);
                 Message packs = new Message();
                 for (int i = 0; i < packName.SelectedItems.Count; i++)
->>>>>>> ba6800c8e2c9604ad79dacf32926ff8a23d5b28d
                 {
                     packs.Add((packName.SelectedItems[i]) + "");
                 }
