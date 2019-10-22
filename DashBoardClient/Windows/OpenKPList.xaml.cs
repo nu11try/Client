@@ -54,7 +54,11 @@ namespace DashBoardClient
             {
                 message.Add(ID);
                 request = JsonConvert.SerializeObject(message);
+<<<<<<< HEAD
                 response = server.SendMsg("GetKPForDoc", Data.ServiceSel, request);
+=======
+                response = server.SendMsg("GetKPForDoc", Data.ProjectName, request);
+>>>>>>> ba6800c8e2c9604ad79dacf32926ff8a23d5b28d
                 resMes = JsonConvert.DeserializeObject<Message>(response);
                 if (!resMes.args[0].Equals("no_kp"))                
                 {

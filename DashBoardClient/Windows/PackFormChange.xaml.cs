@@ -44,17 +44,27 @@ namespace DashBoardClient
 
             message.Add(IdPack);
             request = JsonConvert.SerializeObject(message);
+<<<<<<< HEAD
             response = server.SendMsg("GetPackChange", Data.ServiceSel, request);
             resMes = JsonConvert.DeserializeObject<Message>(response);
 
             response = server.SendMsg("GetTestsForPack", Data.ServiceSel);
+=======
+            response = server.SendMsg("GetPackChange", Data.ProjectName, request);
+            resMes = JsonConvert.DeserializeObject<Message>(response);
+
+            response = server.SendMsg("GetTestsForPack", Data.ProjectName);
+>>>>>>> ba6800c8e2c9604ad79dacf32926ff8a23d5b28d
             resMes2 = JsonConvert.DeserializeObject<Message>(response);
 
             //"4±4±local - 127.0.0.1±900±0±DEG_AI_0503737-9▲DEG_AI_0503129-4вапвапа▲"
 
 
+<<<<<<< HEAD
             //response.Add(server.SendMsg("getPackChange", Data.ServiceSel, IdPack));
             //response.Add(server.SendMsg("getTestsForPack", Data.ServiceSel));
+=======
+>>>>>>> ba6800c8e2c9604ad79dacf32926ff8a23d5b28d
 
             //perform = response[0].Split('╡');
 
@@ -85,7 +95,11 @@ namespace DashBoardClient
                     TestsInPack.SelectedItems.Add(testList.tests[i]);
                 }
 
+<<<<<<< HEAD
                 response = server.SendMsg("GetIPPc", Data.ServiceSel);
+=======
+                response = server.SendMsg("GetIPPc", Data.ProjectName);
+>>>>>>> ba6800c8e2c9604ad79dacf32926ff8a23d5b28d
                 ip = JsonConvert.DeserializeObject<Message>(response);
 
                 if (ip.args[0].Equals("no_ip"))
@@ -115,7 +129,11 @@ namespace DashBoardClient
                 {
                     message.Add(IDPack.Text, NamePack.Text, JsonConvert.SerializeObject(testsList), TimeTest.Text, CountRestart.Text, IPList.Text);
                     request = JsonConvert.SerializeObject(message);
+<<<<<<< HEAD
                     response = server.SendMsg("UpdatePackChange", Data.ServiceSel, request);
+=======
+                    response = server.SendMsg("UpdatePackChange", Data.ProjectName, request);
+>>>>>>> ba6800c8e2c9604ad79dacf32926ff8a23d5b28d
                     if (JsonConvert.DeserializeObject<Message>(response).args[0].Equals("OK")) MessageBox.Show("Поздравляем! Набор изменен!");
 
                     this.Close();

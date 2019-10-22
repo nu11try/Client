@@ -22,10 +22,21 @@ namespace DashBoardClient
 
     public class Сomment
     {        
-        public string Number { get; set; }
-        public string Step { get; set; }
+        public string step { get; set; }
+        public string comment { get; set; }
 
         public string Color { get; set; }
+    }
+
+    public class Comments
+    {
+        public Comments()
+        {
+            step = new List<string>();
+            comment = new List<string>();
+        }
+        public List<string> step { get; set; }
+        public List<string> comment { get; set; }
     }
 
     public partial class FormShowCheckList : Window
@@ -33,7 +44,7 @@ namespace DashBoardClient
         ServerConnect server = new ServerConnect();
 
         Message response;
-        Message message;
+        Message message = new Message();
         string request;
         
         string[] comments;
@@ -49,6 +60,7 @@ namespace DashBoardClient
         {
             try
             {
+<<<<<<< HEAD
                 //response = server.SendMsg("getCheckList", Data.ServiceSel, IDTest);
                 
 
@@ -58,31 +70,38 @@ namespace DashBoardClient
 
                 comments = response.args[0].Split('\n');
 
+=======
+                //response = server.SendMsg("getCheckList", "ai", IDTest);
+
+
+                message.Add(IDTest);
+                request = JsonConvert.SerializeObject(message);
+                response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetCommnents", Data.ProjectName, request));     
+                Comments comments = JsonConvert.DeserializeObject<Comments>(response.args[0]);       
+>>>>>>> ba6800c8e2c9604ad79dacf32926ff8a23d5b28d
                 list = new List<Сomment>();
-                int qq = 1;
-                int q = 0;
 
                 int cNum = 1;
                 int mNum = 0;
-                foreach (var i in comments)
+                for (int i = 0; i < comments.step.Count; i++)
                 {
                     Сomment comment = new Сomment();
-                    comment.Number = i.Split('¾')[0];
+                    comment.step = comments.step[i];
 
-                    comment.Step = i.Split('¾')[1].Trim();
-                    if (comment.Number.Contains("-"))
+                    comment.comment = comments.comment[i];
+                    if (comment.step.Contains("-"))
                     {
-                        comment.Number = mNum + "." + cNum;
+                        comment.step = mNum + "." + cNum;
                         cNum++;
                     }
                     else
                     {
                         cNum = 1;
-                        mNum++;
+                        mNum = Int32.Parse(comments.step[i]);
                     }
-                    if (comment.Step.Contains("Отсутствуют комментарии к шагу")) comment.Color = "red";                    
-                    else comment.Color = "white";                    
                     list.Add(comment);
+                    if (comment.comment.Contains("Отсутствуют комментарии к шагу")) comment.Color = "red";
+                    else comment.Color = "white";
                 }
             }
             catch { MessageBox.Show("Произошла ошибка! Обратитесь к поддержке!"); }

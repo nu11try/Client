@@ -52,11 +52,17 @@ namespace DashBoardClient
             message = new Message();
             try
             {
+<<<<<<< HEAD
                 message.Add(IDPack);
                 request = JsonConvert.SerializeObject(message);
                 response = server.SendMsg("GetTestsThisPack", Data.ServiceSel, request);
                 message = JsonConvert.DeserializeObject<Message>(response);
                 for (var i = 0; i < message.args.Count; i += 4)
+=======
+                response = server.SendMsg("getTestsThisPack", Data.ProjectName, IDPack);
+                testsList = response.Split('╡');
+                for (var i = 0; i < testsList.Length - 1; i++)
+>>>>>>> ba6800c8e2c9604ad79dacf32926ff8a23d5b28d
                 {
                     TestsList test = new TestsList();
                     test.ID = message.args[i];

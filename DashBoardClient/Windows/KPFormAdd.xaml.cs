@@ -44,7 +44,11 @@ namespace DashBoardClient
             // 1 - date
             message.Add(id, idKP);
             request = JsonConvert.SerializeObject(message);
+<<<<<<< HEAD
             response = server.SendMsg("GetKPInfo", Data.ServiceSel, request);
+=======
+            response = server.SendMsg("GetKPInfo", Data.ProjectName, request);
+>>>>>>> ba6800c8e2c9604ad79dacf32926ff8a23d5b28d
             resMes = JsonConvert.DeserializeObject<Message>(response);
             if (resMes.args[0].Equals("error") && action == "update") MessageBox.Show("Ошибка! Обратитесь к поддержке");
             else
@@ -78,7 +82,11 @@ namespace DashBoardClient
                     {
                         message.Add(NameKP.Text, DateBlock.Text, Data.NameUser, ID, "0");
                         request = JsonConvert.SerializeObject(message);
+<<<<<<< HEAD
                         response = server.SendMsg("AddKP", Data.ServiceSel, request);
+=======
+                        response = server.SendMsg("AddKP", Data.ProjectName, request);
+>>>>>>> ba6800c8e2c9604ad79dacf32926ff8a23d5b28d
                         if (JsonConvert.DeserializeObject<Message>(response).args[0].Equals("OK"))
                         {
                             MessageBox.Show("Поздравляем! КП добавлен!");
@@ -90,7 +98,11 @@ namespace DashBoardClient
                     {
                         message.Add(IDKP, NameKP.Text, DateBlock.Text, Data.NameUser, ID);
                         request = JsonConvert.SerializeObject(message);
+<<<<<<< HEAD
                         response = server.SendMsg("UpdateKP", Data.ServiceSel, request);
+=======
+                        response = server.SendMsg("UpdateKP", Data.ProjectName, request);
+>>>>>>> ba6800c8e2c9604ad79dacf32926ff8a23d5b28d
                         if (JsonConvert.DeserializeObject<Message>(response).args[0].Equals("OK")) MessageBox.Show("Поздравляем! КП обновлен!");
                     }
                 }

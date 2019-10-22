@@ -46,12 +46,17 @@ namespace DashBoardClient
 
             try
             {
+<<<<<<< HEAD
                 message.Add(ids.args[0], ids.args[1]);
                 request = JsonConvert.SerializeObject(message);
                 response = server.SendMsg("GetTestPerform", Data.ServiceSel, request);
                 resMes = JsonConvert.DeserializeObject<Message>(response);
 
                 response = server.SendMsg("getTestPerform", Data.ServiceSel, TAG);
+=======
+                // Запрос на сервер для получения списка тестов и информации по текущему тесту
+                response = server.SendMsg("getTestPerform", Data.ProjectName, TAG);
+>>>>>>> ba6800c8e2c9604ad79dacf32926ff8a23d5b28d
                 // Общее развертывание ответа
                 perform = response.Split('╡');
                 // Получение информации по конкретному тесту
@@ -125,7 +130,11 @@ namespace DashBoardClient
             try
             {
                 string param = IdPack + "±" + start + "±" + tests + "±" + time + "±" + restart;
+<<<<<<< HEAD
                 if (server.SendMsg("updatePackTestPerform", Data.ServiceSel, param) == "OK") MessageBox.Show("Поздравляем! Данные обновлены!");                
+=======
+                if (server.SendMsg("updatePackTestPerform", Data.ProjectName, param) == "OK") MessageBox.Show("Поздравляем! Данные обновлены!");                
+>>>>>>> ba6800c8e2c9604ad79dacf32926ff8a23d5b28d
             }
             catch { MessageBox.Show("Произошла ошибка! Обратитесь в поддержку"); }
         }
