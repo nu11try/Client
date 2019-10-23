@@ -22,7 +22,7 @@ namespace DashBoardClient
     {
         ServerConnect server = new ServerConnect();
         Message message = new Message();
-        TestsListClass testsList = new TestsListClass();
+        Message testsList = new Message();
         Message resMes = new Message();
         Message resMes2 = new Message();
         Message ip = new Message();
@@ -63,22 +63,12 @@ namespace DashBoardClient
                 TimeTest.Text = resMes.args[3];
                 CountRestart.Text = resMes.args[4];
 
-                TestsListClass testList = JsonConvert.DeserializeObject<TestsListClass>(resMes.args[5]);
+                TestsStartClass testList = JsonConvert.DeserializeObject<TestsStartClass>(resMes.args[5]);
 
-                if (resMes2.args[0].Equals("no_tests_for_pack"))
-                {
-                    for (int i = 0; i < testList.tests.Count; i++) TestsInPack.Items.Add(testList.tests[i]);
-                }
-                else
-                {
-                    for (int i = 0; i < resMes2.args.Count / 3; i++) TestsInPack.Items.Add(resMes2.args[i]);
-                    for (int i = 0; i < testList.tests.Count; i++) TestsInPack.Items.Add(testList.tests[i]);
-                }
 
-                for (int i = 0; i < testList.tests.Count; i++)
-                {
-                    TestsInPack.SelectedItems.Add(testList.tests[i]);
-                }
+                for (int i = 0; i < testList.id.Count; i++) TestsInPack.Items.Add(testList.id[i]);
+                for (int i = 0; i < testList.id.Count; i++) TestsInPack.SelectedItems.Add(testList.id[i]);
+                for (int i = 0; i < resMes2.args.Count; i = i + 3) TestsInPack.Items.Add(resMes2.args[i]);
 
                 response = server.SendMsg("GetIPPc", Data.ServiceSel);
 
@@ -104,7 +94,7 @@ namespace DashBoardClient
         {
             message = new Message();
             for (int i = 0; i < TestsInPack.SelectedItems.Count; i++) testsList.Add(TestsInPack.SelectedItems[i].ToString());
-            if (NamePack.Text == "" || TimeTest.Text == "" || testsList.tests.Count == 0) MessageBox.Show("Не все данные выбраны!");
+            if (NamePack.Text == "" || TimeTest.Text == "" || testsList.args.Count == 0) MessageBox.Show("Не все данные выбраны!");
             else
             {
                 try
@@ -126,5 +116,5 @@ namespace DashBoardClient
         }
     }
 
-    
+
 }

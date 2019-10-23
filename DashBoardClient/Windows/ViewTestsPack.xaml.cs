@@ -20,23 +20,28 @@ namespace DashBoardClient
     /// Логика взаимодействия для ViewTestsPack.xaml
     /// </summary>
     public class TestsList
-    {        
-        public string ID { get; set; }        
-        public string NewName { get; set; }        
+    {
+        public string ID { get; set; }
+        public string NewName { get; set; }
         public string Time { get; set; }
         public string Restart { get; set; }
         public string ResultExec { get; set; }
         public string TimeExec { get; set; }
+        public string Dependon { get; set; }
+        public string Image { get; set; }
+        public string Func { get; set; }
+        public bool IsEnabled { get; set; }
     }
 
     public partial class ViewTestsPack : Window
     {
 
+
+        int flag = 0;
         private Point startPoint = new Point();
         private ObservableCollection<TestsList> Items = new ObservableCollection<TestsList>();
         private int startIndex = -1;
-        List<TestsList> list;
-        
+
         Message message = new Message();
         string response;
         string request;
@@ -53,8 +58,8 @@ namespace DashBoardClient
 
         private void UpdateList()
         {
-            TestList.Items.Clear();
-            list = new List<TestsList>();
+
+            Items = new ObservableCollection<TestsList>();
             message = new Message();
             try
             {
@@ -62,26 +67,42 @@ namespace DashBoardClient
                 request = JsonConvert.SerializeObject(message);
                 response = server.SendMsg("GetTestsThisPack", Data.ServiceSel, request);
                 message = JsonConvert.DeserializeObject<Message>(response);
-                for (var i = 0; i < message.args.Count; i += 4)
+                Message dep;
+                TestsList test;
+                for (var i = 0; i < message.args.Count; i += 5)
                 {
-                    TestsList test = new TestsList();
+                    test = new TestsList();
                     test.ID = message.args[i];
-                    test.NewName = message.args[i+1];
-                    if (message.args[i+2] == "default") test.Time = "По умолчанию";
-                    else test.Time = message.args[i+2];
-                    if (message.args[i+3] == "default") test.Restart = "По умолчанию";
-                    else test.Restart = message.args[i+3];
-
+                    test.NewName = message.args[i + 1];
+                    if (message.args[i + 2] == "default") test.Time = "По умолчанию";
+                    else test.Time = message.args[i + 2];
+                    if (message.args[i + 3] == "default") test.Restart = "По умолчанию";
+                    else test.Restart = message.args[i + 3];
+                    dep = JsonConvert.DeserializeObject<Message>(message.args[i + 4]);
+                    if (dep.args[0].Equals("not"))
+                    {
+                        test.Dependon = "Нет зависимостей";
+                        test.Image = "/DashBoardClient;component/Images/open.png";
+                        test.Func = "add";
+                    }
+                    else
+                    {
+                        dep.args.ForEach(elem => test.Dependon = test.Dependon + elem + "\n");
+                        test.Dependon.Trim();
+                        test.Image = "/DashBoardClient;component/Images/sver.png";
+                        test.Func = "remove";
+                    }
                     Items.Add(test);
                 }
             }
             catch { MessageBox.Show("Произошла ошибка! Обратитесь к поддержке!"); }
-            message = new Message();
-            DataContext = this;
+
             TestList.ItemsSource = Items;
         }
+
         private void ChangeTest(object sender, RoutedEventArgs e)
         {
+            message = new Message();
             message.Add((sender as Button).Tag.ToString(), IDPack);
             request = JsonConvert.SerializeObject(message);
             PackTestsFormChange packTests = new PackTestsFormChange(request);
@@ -89,6 +110,78 @@ namespace DashBoardClient
 
             UpdateList();
         }
+        private void Depen(object sender, RoutedEventArgs e)
+        {
+            string id = (sender as Button).Tag.ToString();
+            ObservableCollection<TestsList> Items1 = new ObservableCollection<TestsList>();
+            int j = 0;
+            int f = 0;
+
+            for (int i = 0; i < Items.Count; i++)
+            {
+                if (Items[i].ID == id)
+                {
+                    j = i;
+                }
+                if (Items[i].Func == "ok")
+                {
+                    f = i;
+                }
+                Items1.Add(Items[i]);
+            }
+            if (Items1[j].Func.Equals("ok"))
+            {
+                if (f != j) return;
+                flag = 0;
+                Message testIds = new Message();
+                var l = TestList.SelectedItems;
+                for (int i = 0; i < l.Count; i++)
+                {
+                    if (((TestsList)l[i]).ID != Items1[j].ID)
+                        testIds.Add(((TestsList)l[i]).ID);
+                }
+                if (testIds.args.Count != 0)
+                {
+                    string testIdsS = JsonConvert.SerializeObject(testIds);
+                    message = new Message();
+                    message.Add(IDPack, Items1[j].ID, "last", testIdsS, "last", "last");
+                    request = JsonConvert.SerializeObject(message);//{\"args\":[\"not\"]}
+                    response = server.SendMsg("UpdateTestOfPack", Data.ServiceSel, request);
+                    UpdateList();
+                }
+                else
+                {
+                    UpdateList();
+                    return;
+                }
+            }
+            if (Items1[j].Func.Equals("add"))
+            {
+                if (f != 0) return;
+                flag = 1;
+                Items1[j].Image = "/DashBoardClient;component/Images/ok.png";
+                Items1[j].Func = "ok";
+                for (int i = j + 1; i < Items1.Count;)
+                {
+                    Items1.RemoveAt(i);
+
+                }
+                Items = Items1;
+                TestList.ItemsSource = Items;
+            }
+
+            if (Items1[j].Func.Equals("remove"))
+            {
+                message = new Message();
+                message.Add(IDPack, Items1[j].ID, "last", "{\"args\":[\"not\"]}", "last", "last");
+                request = JsonConvert.SerializeObject(message);
+                response = server.SendMsg("UpdateTestOfPack", Data.ServiceSel, request);
+                UpdateList();
+            }
+
+
+        }
+
 
         private void TestList_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -114,6 +207,7 @@ namespace DashBoardClient
 
         private void TestList_MouseMove(object sender, MouseEventArgs e)
         {
+            if (flag == 1) return;
             // Get the current mouse position
             Point mousePos = e.GetPosition(null);
             Vector diff = startPoint - mousePos;
@@ -169,7 +263,16 @@ namespace DashBoardClient
                 {
                     Items.Move(startIndex, index);
                 }
-                startIndex = -1;        // Done!
+                startIndex = -1;
+                Message message = new Message();
+                Message ids = new Message();
+                for (int i = 0; i < Items.Count; i++)
+                {
+                    ids.Add(Items.ElementAt<TestsList>(i).ID);
+                }
+                message.Add(IDPack, JsonConvert.SerializeObject(ids));
+                String request = JsonConvert.SerializeObject(message);
+                response = server.SendMsg("ChangePositionList", Data.ServiceSel, request);
             }
         }
     }

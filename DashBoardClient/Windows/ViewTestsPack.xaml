@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DashBoardClient"
         mc:Ignorable="d"
-        Title="DashBoard" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="DashBoard" Height="450" Width="1117" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style TargetType="{x:Type Button}">
             <Style.Triggers>
@@ -58,8 +58,8 @@
                 </Style>
             </ListView.ItemContainerStyle>
             <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Измен." Width="50">
+                <GridView >
+                    <GridViewColumn Header="Измен." Width="50" >
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Button x:Name="changeBtn" Tag="{Binding ID}" Height="25" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="25" Click="ChangeTest">
@@ -95,6 +95,24 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock x:Name="NewName" Text="{Binding Restart}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="" Width="40">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="DependonBtn"  Tag="{Binding ID}" Height="25" BorderBrush="{x:Null}" Foreground="{x:Null}"  Width="25" Click="Depen">
+                                    <Button.Background>
+                                        <ImageBrush ImageSource="{Binding Image}" Stretch="Uniform"/>
+                                    </Button.Background>
+                                </Button>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Зависимость" Width="300">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock x:Name="NewName" Text="{Binding Dependon}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

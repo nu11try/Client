@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DashBoardClient"
         mc:Ignorable="d"
-        Title="Форма редатирования тестов набора" Height="756" Width="294" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="#FF444444">
+        Title="Форма редатирования тестов набора" Height="437.263" Width="294" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="#FF444444">
     <Window.Resources>
         <Style TargetType="{x:Type Button}">
             <Style.Triggers>
@@ -30,21 +30,17 @@
             <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
         </Style>
     </Window.Resources>
-    <Grid Background="#FF45454F" Margin="0,0,0,-4">
+    <Grid Background="#FF45454F">
         <TextBox x:Name="Name" Height="25" Margin="22,60,28,0" VerticalAlignment="Top" IsEnabled="False"/>
-        <ComboBox x:Name="Start" Height="25" Margin="25,145,25,0" VerticalAlignment="Top"/>
-        <ListBox x:Name="TestsSelect" Height="190" Margin="25,225,25,0" VerticalAlignment="Top" SelectionMode="Multiple"/>
-        <Button x:Name="SubmitTest" Content="Подтвердить" HorizontalAlignment="Left" Margin="24,637,0,0" Width="238" Height="28" VerticalAlignment="Top" Click="SendMsg"/>
-        <Button x:Name="CancelTest" Content="Отменить" HorizontalAlignment="Left" Margin="24,677,0,0" Width="238" Height="28" VerticalAlignment="Top" Click="CloseWindow"/>
+        <Button x:Name="SubmitTest" Content="Подтвердить" HorizontalAlignment="Left" Margin="24,318,0,0" Width="238" Height="28" VerticalAlignment="Top" Click="SendMsg"/>
+        <Button x:Name="CancelTest" Content="Отменить" HorizontalAlignment="Left" Margin="24,358,0,0" Width="238" Height="28" VerticalAlignment="Top" Click="CloseWindow"/>
         <Label Content="Название" HorizontalAlignment="Left" Margin="22,29,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <Label Content="Выполнить после завершения" HorizontalAlignment="Left" Margin="25,114,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <Label Content="Зависит от выполнения" HorizontalAlignment="Left" Margin="25,194,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <ComboBox x:Name="Time" Height="25" Margin="24,455,26,0" VerticalAlignment="Top" SelectionChanged="ChangeTime">
+        <ComboBox x:Name="Time" Height="25" Margin="24,136,26,0" VerticalAlignment="Top" SelectionChanged="ChangeTime">
             <ComboBoxItem>По умолчанию</ComboBoxItem>
             <ComboBoxItem>Изменить</ComboBoxItem>
         </ComboBox>
-        <Label Content="Макс. продолж. теста" HorizontalAlignment="Left" Margin="24,424,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <ComboBox x:Name="Restart" Height="25" Margin="24,586,26,0" VerticalAlignment="Top">
+        <Label Content="Макс. продолж. теста" HorizontalAlignment="Left" Margin="24,105,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <ComboBox x:Name="Restart" Height="25" Margin="24,267,26,0" VerticalAlignment="Top">
             <TextBlock>По умолчанию</TextBlock>
             <TextBlock>0</TextBlock>
             <TextBlock>1</TextBlock>
@@ -63,9 +59,9 @@
             <TextBlock>14</TextBlock>
             <TextBlock>15</TextBlock>
         </ComboBox>
-        <Label Content="Кол-во перезапусков в случае сбоя" HorizontalAlignment="Left" Margin="24,555,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <TextBox x:Name="TimeChange" Height="25" Margin="25,500,143,0" VerticalAlignment="Top" IsEnabled="False"/>
-        <Label Content="(15 мин)" HorizontalAlignment="Left" Margin="175,500,0,0" VerticalAlignment="Top" Foreground="White" Width="85"/>
+        <Label Content="Кол-во перезапусков в случае сбоя" HorizontalAlignment="Left" Margin="24,236,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <TextBox x:Name="TimeChange" Height="25" Margin="25,181,143,0" VerticalAlignment="Top" IsEnabled="False"/>
+        <Label Content="(15 мин)" HorizontalAlignment="Left" Margin="175,181,0,0" VerticalAlignment="Top" Foreground="White" Width="85"/>
 
     </Grid>
 </Window>
