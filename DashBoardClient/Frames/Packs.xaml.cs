@@ -33,15 +33,9 @@ namespace DashBoardClient
         private void UpdateList()
         {
             PackList = new List<PacksWithTest>();
-
             try
             {
                 message = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetPacksForList", Data.ServiceSel));                                
-                if (message.args[0].Equals("no_packs"))
-                {
-                    //MessageBox.Show("Нет добавленных наборов");
-                    return;
-                }
                 TestsStartClass tests = new TestsStartClass();
                 for (var i = 0; i < message.args.Count; i += 7)
                 {
@@ -49,7 +43,6 @@ namespace DashBoardClient
                     PacksWithTest pack = new PacksWithTest();
                     pack.ID = message.args[i];
                     pack.Name = message.args[i+1];
-
                     pack.Count = tests.id.Count.ToString();
                     pack.Result = message.args[i+5];
                     pack.Time = message.args[i+3];
