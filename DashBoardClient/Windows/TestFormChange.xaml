@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DashBoardClient"
         mc:Ignorable="d"
-        Title="Форма изменения теста" Height="516.174" Width="294" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="#FF444444">
+        Title="Форма изменения теста" Height="368.459" Width="294" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="#FF444444">
     <Window.Resources>
         <Style TargetType="{x:Type Button}">
             <Style.Triggers>
@@ -32,16 +32,12 @@
     </Window.Resources>
     <Grid Background="#FF45454F" Margin="0,0,0,-4">
         <TextBox x:Name="TestID" Height="25" Margin="25,65,25,0" VerticalAlignment="Top" IsEnabled="False"/>
-        <ComboBox x:Name="AuthorSelect" Height="25" Margin="25,210,25,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="MethodSelect" Height="25" Margin="25,290,25,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="ActiveSelect" Content="Показывать ли в статистике?" HorizontalAlignment="Left" Height="20" Margin="25,345,0,0" VerticalAlignment="Top" Width="238" Foreground="White"/>
-        <Button x:Name="SubmitTest" Content="Подтвердить" HorizontalAlignment="Left" Margin="25,400,0,0" Width="238" Height="28" VerticalAlignment="Top" Click="SendTest"/>
-        <Button x:Name="CancelTest" Content="Отменить" HorizontalAlignment="Left" Margin="25,440,0,0" Width="238" Height="28" VerticalAlignment="Top" Click="CloseWindow"/>
+        <ComboBox x:Name="MethodSelect" Height="25" Margin="25,147,25,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="ActiveSelect" Content="Показывать ли в статистике?" HorizontalAlignment="Left" Height="20" Margin="25,202,0,0" VerticalAlignment="Top" Width="238" Foreground="White"/>
+        <Button x:Name="SubmitTest" Content="Подтвердить" HorizontalAlignment="Left" Margin="25,257,0,0" Width="238" Height="28" VerticalAlignment="Top" Click="SendTest"/>
+        <Button x:Name="CancelTest" Content="Отменить" HorizontalAlignment="Left" Margin="25,297,0,0" Width="238" Height="28" VerticalAlignment="Top" Click="CloseWindow"/>
         <Label Content="ID" HorizontalAlignment="Left" Margin="25,34,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <Label Content="Выберите ответственного" HorizontalAlignment="Left" Margin="25,179,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <Label Content="Выберите тестовый случай" HorizontalAlignment="Left" Margin="25,259,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <TextBox x:Name="TestName" Height="25" Margin="26,136,24,0" VerticalAlignment="Top"/>
-        <Label Content="Название" HorizontalAlignment="Left" Margin="26,105,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="Выберите тестовый случай" HorizontalAlignment="Left" Margin="25,116,0,0" VerticalAlignment="Top" Foreground="White"/>
 
     </Grid>
 </Window>

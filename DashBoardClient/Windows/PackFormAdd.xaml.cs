@@ -41,7 +41,7 @@ namespace DashBoardClient
         {
             IPList.Items.Clear();
             TestsInPack.Items.Clear();
-
+            TimeTest.TextChanged += TimeTest_TextChanged;
             response = server.SendMsg("GetTestsForPack", Data.ServiceSel);
             resMes = JsonConvert.DeserializeObject<Message>(response);
 
@@ -72,6 +72,23 @@ namespace DashBoardClient
             }
         }
 
+
+        private void TimeTest_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            try
+            {
+                double tmp = Int32.Parse(TimeTest.Text) / 60;
+                double tmp1 = Int32.Parse(TimeTest.Text) % 60;
+                Math.Round(tmp);
+                TimeMin.Content = "(" + tmp + " мин ";
+                if (tmp1 != 0) TimeMin.Content += tmp1 + " c";
+                TimeMin.Content += ")";
+            }
+            catch
+            {
+                TimeMin.Content = "(0 мин)";
+            }
+        }
         private void SendPack(object sender, RoutedEventArgs e)
         {
             message = new Message();

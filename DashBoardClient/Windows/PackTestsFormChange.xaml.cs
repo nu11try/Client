@@ -39,6 +39,7 @@ namespace DashBoardClient
         {
             ids = JsonConvert.DeserializeObject<Message>(TAG);
             InitializeComponent();
+            TimeChange.TextChanged += TimeChange_TextChanged;
             try
             {
                 IdPack = ids.args[1];
@@ -58,6 +59,19 @@ namespace DashBoardClient
                     Time.SelectedIndex = 1;
                     TimeChange.Text = response.args[2];
                 }
+                try
+                {
+                    double tmp = Int32.Parse(TimeChange.Text) / 60;
+                    double tmp1 = Int32.Parse(TimeChange.Text) % 60;
+                    Math.Round(tmp);
+                    TimeMin.Content = "(" + tmp + " мин ";
+                    if(tmp1 != 0)  TimeMin.Content += tmp1 + " c";
+                    TimeMin.Content += ")";
+                }
+                catch
+                {
+                    TimeMin.Content = "(0 мин)";
+                }
                 // -------------------------
                 // Заполняется поле с количеством рестартов
                 if (response.args[3] == "default") Restart.SelectedIndex = 0;
@@ -65,6 +79,23 @@ namespace DashBoardClient
                 // -------------------------
             }
             catch { MessageBox.Show("Произошла ошибка! Обратитесь к поддержке!"); }
+        }
+
+        private void TimeChange_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            try
+            {
+                double tmp = Int32.Parse(TimeChange.Text) / 60;
+                double tmp1 = Int32.Parse(TimeChange.Text) % 60;
+                Math.Round(tmp);
+                TimeMin.Content = "(" + tmp + " мин ";
+                if (tmp1 != 0) TimeMin.Content += tmp1 + " c";
+                TimeMin.Content += ")";
+            }
+            catch
+            {
+                TimeMin.Content = "(0 мин)";
+            }
         }
 
         private void ChangeTime(object sender, SelectionChangedEventArgs e)

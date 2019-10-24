@@ -28,6 +28,7 @@ namespace DashBoardClient
         Message ip = new Message();
         string request = "";
         string response = "";
+        TestsStartClass testList;
 
         string IdPack;
         public PackFormChange(string TAG)
@@ -41,7 +42,7 @@ namespace DashBoardClient
         {
             IPList.Items.Clear();
             TestsInPack.Items.Clear();
-
+            TimeTest.TextChanged += TimeTest_TextChanged;
             message.Add(IdPack);
             request = JsonConvert.SerializeObject(message);
             response = server.SendMsg("GetPackChange", Data.ServiceSel, request);
@@ -62,13 +63,26 @@ namespace DashBoardClient
                 NamePack.Text = resMes.args[1];
                 TimeTest.Text = resMes.args[3];
                 CountRestart.Text = resMes.args[4];
-
-                TestsStartClass testList = JsonConvert.DeserializeObject<TestsStartClass>(resMes.args[5]);
+                try
+                {
+                    double tmp = Int32.Parse(TimeTest.Text) / 60;
+                    double tmp1 = Int32.Parse(TimeTest.Text) % 60;
+                    Math.Round(tmp);
+                    TimeMin.Content = "(" + tmp + " мин ";
+                    if (tmp1 != 0) TimeMin.Content += tmp1 + " c";
+                    TimeMin.Content += ")";
+                }
+                catch
+                {
+                    TimeMin.Content = "(0 мин)";
+                }
+                testList = JsonConvert.DeserializeObject<TestsStartClass>(resMes.args[5]);
 
 
                 for (int i = 0; i < testList.id.Count; i++) TestsInPack.Items.Add(testList.id[i]);
                 for (int i = 0; i < testList.id.Count; i++) TestsInPack.SelectedItems.Add(testList.id[i]);
-                for (int i = 0; i < resMes2.args.Count; i = i + 3) TestsInPack.Items.Add(resMes2.args[i]);
+                if (resMes2.args.Count!= 1)
+                      for (int i = 0; i < resMes2.args.Count; i = i + 3) TestsInPack.Items.Add(resMes2.args[i]);
 
                 response = server.SendMsg("GetIPPc", Data.ServiceSel);
 
@@ -90,6 +104,24 @@ namespace DashBoardClient
             message = new Message();
         }
 
+        private void TimeTest_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            try
+            {
+                double tmp = Int32.Parse(TimeTest.Text) / 60;
+                double tmp1 = Int32.Parse(TimeTest.Text) % 60;
+                Math.Round(tmp);
+                TimeMin.Content = "(" + tmp + " мин ";
+                if (tmp1 != 0) TimeMin.Content += tmp1 + " c";
+                TimeMin.Content += ")";
+            }
+            catch
+            {
+                TimeMin.Content = "(0 мин)";
+            }
+        }
+
+
         private void SendPack(object sender, RoutedEventArgs e)
         {
             message = new Message();
@@ -97,9 +129,75 @@ namespace DashBoardClient
             if (NamePack.Text == "" || TimeTest.Text == "" || testsList.args.Count == 0) MessageBox.Show("Не все данные выбраны!");
             else
             {
+                TestsStartClass tests = new TestsStartClass();
+                Message removeTe = new Message();
+                for (int i = 0; i < TestsInPack.Items.Count; i++)
+                {
+                    if (!testsList.args.Contains(TestsInPack.Items[i].ToString()))
+                    {
+                        removeTe.Add(TestsInPack.Items[i].ToString());
+                    }
+                }
+                Message dep;
+                Message newDep;
                 try
                 {
-                    message.Add(IDPack.Text, NamePack.Text, JsonConvert.SerializeObject(testsList), TimeTest.Text, CountRestart.Text, IPList.Text);
+                    for (int j = 0; j < testList.id.Count;j++)
+                    {
+                        for(int q = 0; q < testsList.args.Count; q++)
+                        {
+                            if (testList.id[j].Equals(testsList.args[q]))
+                            {
+                                
+                                testsList.args.RemoveAt(q);
+                                
+                                q--;
+                                
+                                tests.restart.Add(testList.restart[j]);
+                                tests.time.Add(testList.time[j]);
+                                if (tests.id.Count() == 0)
+                                {
+                                    tests.start.Add("первый");
+                                    tests.dependon.Add("{\"args\":[\"not\"]}");
+                                }
+                                else
+                                {
+                                    tests.start.Add(tests.id.Contains(testList.start[j]) ? testList.start[j] : tests.id.Last());
+                                    dep = JsonConvert.DeserializeObject<Message>(testList.dependon[j]);
+                                    newDep = new Message();
+                                    for (int f = 0; f < dep.args.Count; f++)
+                                    {
+                                        if (tests.id.Contains(dep.args[f]))
+                                        {
+                                            newDep.args.Add(dep.args[f]);
+                                        }
+                                    }
+                                    tests.dependon.Add(newDep.args.Count == 0 ? "{\"args\":[\"not\"]}" : JsonConvert.SerializeObject(newDep));
+                                }
+                                tests.id.Add(testList.id[j]);
+                            }
+                        }
+                    }
+                   for(int j = 0; j < testsList.args.Count; j++)
+                    {
+                        tests.restart.Add("default");
+                        tests.time.Add("default");
+                        if (tests.id.Count() == 0)
+                        {
+                            tests.start.Add("первый");
+                            tests.dependon.Add("{\"args\":[\"not\"]}");
+                        }
+                        else
+                        {
+                            tests.start.Add(tests.id.Last());
+                            tests.dependon.Add("{\"args\":[\"not\"]}");
+                        }
+                        tests.id.Add(testsList.args[j]);
+                    }
+                    
+                    string te = JsonConvert.SerializeObject(tests);
+                    string re = JsonConvert.SerializeObject(removeTe);
+                    message.Add(IDPack.Text, NamePack.Text, te, TimeTest.Text, CountRestart.Text, IPList.Text, re);
                     request = JsonConvert.SerializeObject(message);
                     response = server.SendMsg("UpdatePackChange", Data.ServiceSel, request);
 

@@ -41,20 +41,7 @@ namespace DashBoardClient
         }
         public List<string> args { get; set; }
     }
-    public class TestsListClass
-    {
-        public TestsListClass()
-        {
-            tests = new List<string>();
-        }
-
-        public void Add(params string[] tmp)
-        {
-            for (int i = 0; i < tmp.Length; i++) tests.Add(tmp[i]);
-        }
-
-        public List<string> tests { get; set; }
-    }
+    
     public class TestsStartClass
     {
         public TestsStartClass()

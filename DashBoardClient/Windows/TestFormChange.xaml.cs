@@ -38,11 +38,9 @@ namespace DashBoardClient
 
         private void GetTestsForListView()
         {
-            TestName.Clear();
             TestID.Clear();
             MethodSelect.Items.Clear();
             ActiveSelect.IsChecked = false;
-            AuthorSelect.Items.Clear();
 
             message.Add(IDTest);
             request = JsonConvert.SerializeObject(message);
@@ -54,16 +52,12 @@ namespace DashBoardClient
 
                 response = server.SendMsg("GetAuthor", Data.ServiceSel);
                 resMes2 = JsonConvert.DeserializeObject<Message>(response);                               
-                for (int i = 0; i < resMes2.args.Count; i++) AuthorSelect.Items.Add(resMes2.args[i]);
 
-                try { AuthorSelect.Text = AuthorSelect.Items[0].ToString(); }
-                catch { }
+
                                
                 for (int i = 0; i < resMes.args.Count; i += 3)
                 {
-                    TestID.Text = IDTest;
-                    TestName.Text = resMes.args[i];
-                    AuthorSelect.SelectedIndex = AuthorSelect.Items.IndexOf(resMes.args[i + 1].ToString());
+                    TestID.Text = IDTest;      
                     ActiveSelect.IsChecked = Convert.ToBoolean(resMes.args[i + 2].ToString());
                 }
             }
@@ -75,7 +69,7 @@ namespace DashBoardClient
         {           
             try
             {
-                message.Add(IDTest, AuthorSelect.SelectedItem.ToString(), ActiveSelect.IsChecked.Value.ToString());
+                message.Add(IDTest, Data.NameUser, ActiveSelect.IsChecked.Value.ToString());
                 request = JsonConvert.SerializeObject(message);
                 response = server.SendMsg("UpdateTest", Data.ServiceSel, request);
                 if (JsonConvert.DeserializeObject<Message>(response).args[0].Equals("OK")) 

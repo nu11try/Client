@@ -61,7 +61,7 @@
         </ComboBox>
         <Label Content="Кол-во перезапусков в случае сбоя" HorizontalAlignment="Left" Margin="24,236,0,0" VerticalAlignment="Top" Foreground="White"/>
         <TextBox x:Name="TimeChange" Height="25" Margin="25,181,143,0" VerticalAlignment="Top" IsEnabled="False"/>
-        <Label Content="(15 мин)" HorizontalAlignment="Left" Margin="175,181,0,0" VerticalAlignment="Top" Foreground="White" Width="85"/>
+        <Label Content="(15 мин)" x:Name="TimeMin"  HorizontalAlignment="Left" Margin="175,181,0,0" VerticalAlignment="Top" Foreground="White" Width="103" Height="25"/>
 
     </Grid>
 </Window>

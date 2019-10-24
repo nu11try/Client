@@ -38,7 +38,6 @@ namespace DashBoardClient
         private void GetTestsForListView()
         {
             TestSelect.Items.Clear();
-            AuthorSelect.Items.Clear();
 
             message.Add("no_add");
             request = JsonConvert.SerializeObject(message);
@@ -54,14 +53,12 @@ namespace DashBoardClient
                 response = server.SendMsg("GetAuthor", Data.ServiceSel);
                 resMes2 = JsonConvert.DeserializeObject<Message>(response);
 
-                for (int i = 0; i < resMes2.args.Count; i++) AuthorSelect.Items.Add(resMes2.args[i]);
 
                 for (int i = 0; i < resMes.args.Count; i += 3) TestSelect.Items.Add(resMes.args[i] + " (" + resMes.args[i + 1] + ")");
 
                 try
                 {
                     TestSelect.Text = TestSelect.Items[0].ToString();
-                    AuthorSelect.Text = AuthorSelect.Items[0].ToString();
                 }
                 catch
                 {
@@ -76,22 +73,13 @@ namespace DashBoardClient
             {
                 string IDtest = TestSelect.SelectedItem.ToString().Split('(')[0];
                 IDtest = IDtest.Substring(0, IDtest.Length-1);
-                message.Add(IDtest, AuthorSelect.SelectedItem.ToString(), ActiveSelect.IsChecked.Value.ToString());
+                message.Add(IDtest, Data.NameUser, ActiveSelect.IsChecked.Value.ToString());
                 request = JsonConvert.SerializeObject(message);
                 response = server.SendMsg("AddTest", Data.ServiceSel, request);
                 if (JsonConvert.DeserializeObject<Message>(response).args[0].Equals("OK"))
                     MessageBox.Show("Поздравляем! Тест " + IDtest + " добавлен!");
                 else MessageBox.Show("Ошибка! Попробуйте позже или обратитесь в поддержку");
                 GetTestsForListView();
-                try
-                {
-                    TestSelect.Text = TestSelect.Items[0].ToString();
-                    AuthorSelect.Text = AuthorSelect.Items[0].ToString();
-                }
-                catch
-                {
-                    MessageBox.Show("Нет тестов на добавление!");
-                }
             }
             catch
             {

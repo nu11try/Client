@@ -41,7 +41,7 @@
         <Label Content="Макс. продол. выполнения теста" HorizontalAlignment="Left" Margin="25,463,0,0" VerticalAlignment="Top" Foreground="White" Width="237"/>
         <TextBox x:Name="TimeTest" HorizontalAlignment="Left" Height="20" Margin="27,498,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="104" Text="900"/>
         <Label Content="с" HorizontalAlignment="Left" Margin="137,493,0,0" VerticalAlignment="Top" Foreground="White" Width="41" Height="30"/>
-        <Label Content="(15 мин)" HorizontalAlignment="Left" Margin="184,493,0,0" VerticalAlignment="Top" Foreground="White" Width="78" Height="30"/>
+        <Label Content="(15 мин)" x:Name="TimeMin" HorizontalAlignment="Left" Margin="184,493,0,0" VerticalAlignment="Top" Foreground="White" Width="103" Height="30"/>
         <ComboBox x:Name="CountRestart" HorizontalAlignment="Left" Margin="26,571,0,0" VerticalAlignment="Top" Width="235" SelectedIndex="0">
             <TextBlock>0</TextBlock>
             <TextBlock>1</TextBlock>
