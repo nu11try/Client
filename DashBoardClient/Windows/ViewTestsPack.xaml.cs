@@ -25,12 +25,10 @@ namespace DashBoardClient
         public string NewName { get; set; }
         public string Time { get; set; }
         public string Restart { get; set; }
-        public string ResultExec { get; set; }
-        public string TimeExec { get; set; }
         public string Dependon { get; set; }
         public string Image { get; set; }
         public string Func { get; set; }
-        public bool IsEnabled { get; set; }
+        public string Browser { get; set; }
     }
 
     public partial class ViewTestsPack : Window
@@ -69,7 +67,7 @@ namespace DashBoardClient
                 message = JsonConvert.DeserializeObject<Message>(response);
                 Message dep;
                 TestsList test;
-                for (var i = 0; i < message.args.Count; i += 5)
+                for (var i = 0; i < message.args.Count; i += 6)
                 {
                     test = new TestsList();
                     test.ID = message.args[i];
@@ -78,7 +76,9 @@ namespace DashBoardClient
                     else test.Time = message.args[i + 2];
                     if (message.args[i + 3] == "default") test.Restart = "По умолчанию";
                     else test.Restart = message.args[i + 3];
-                    dep = JsonConvert.DeserializeObject<Message>(message.args[i + 4]);
+                    if (message.args[i + 4] == "default") test.Browser = "По умолчанию";
+                    else test.Browser = message.args[i + 4];
+                    dep = JsonConvert.DeserializeObject<Message>(message.args[i + 5]);
                     if (dep.args[0].Equals("not"))
                     {
                         test.Dependon = "Нет зависимостей";
@@ -88,7 +88,7 @@ namespace DashBoardClient
                     else
                     {
                         dep.args.ForEach(elem => test.Dependon = test.Dependon + elem + "\n");
-                        test.Dependon.Trim();
+                        test.Dependon = test.Dependon.Trim();
                         test.Image = "/DashBoardClient;component/Images/sver.png";
                         test.Func = "remove";
                     }
@@ -144,8 +144,8 @@ namespace DashBoardClient
                 {
                     string testIdsS = JsonConvert.SerializeObject(testIds);
                     message = new Message();
-                    message.Add(IDPack, Items1[j].ID, "last", testIdsS, "last", "last");
-                    request = JsonConvert.SerializeObject(message);//{\"args\":[\"not\"]}
+                    message.Add(IDPack, Items1[j].ID, "last", testIdsS, "last", "last", "last");
+                    request = JsonConvert.SerializeObject(message);
                     response = server.SendMsg("UpdateTestOfPack", Data.ServiceSel, request);
                     UpdateList();
                 }
@@ -173,7 +173,7 @@ namespace DashBoardClient
             if (Items1[j].Func.Equals("remove"))
             {
                 message = new Message();
-                message.Add(IDPack, Items1[j].ID, "last", "{\"args\":[\"not\"]}", "last", "last");
+                message.Add(IDPack, Items1[j].ID, "last", "{\"args\":[\"not\"]}", "last", "last", "last");
                 request = JsonConvert.SerializeObject(message);
                 response = server.SendMsg("UpdateTestOfPack", Data.ServiceSel, request);
                 UpdateList();

@@ -70,7 +70,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="ID" Width="250">
+                    <GridViewColumn Header="ID" Width="100">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock x:Name="NewName" Text="{Binding ID}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White"/>
@@ -81,6 +81,13 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock x:Name="NewName" Text="{Binding NewName}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Браузер" Width="150">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock x:Name="NewName" Text="{Binding Browser}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

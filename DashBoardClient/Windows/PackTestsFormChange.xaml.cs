@@ -76,6 +76,9 @@ namespace DashBoardClient
                 // Заполняется поле с количеством рестартов
                 if (response.args[3] == "default") Restart.SelectedIndex = 0;
                 else Restart.Text = response.args[3];
+                // Заполняется поле с браузером
+                if (response.args[4] == "default") Browser.SelectedIndex = 0;
+                else Browser.Text = response.args[4];
                 // -------------------------
             }
             catch { MessageBox.Show("Произошла ошибка! Обратитесь к поддержке!"); }
@@ -119,7 +122,7 @@ namespace DashBoardClient
             try
             {
                 Message message = new Message();
-                message.Add(IdPack, Name.Text, "last", "last", time, restart);
+                message.Add(IdPack, Name.Text, "last", "last", time, restart, Browser.Text);
                 response = JsonConvert.DeserializeObject<Message>(server.SendMsg("UpdateTestOfPack", Data.ServiceSel, JsonConvert.SerializeObject(message)));
                 if (response.args[0].Equals("ok")) MessageBox.Show("Тест успешно изменен");
             }

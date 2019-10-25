@@ -63,6 +63,7 @@ namespace DashBoardClient
                 NamePack.Text = resMes.args[1];
                 TimeTest.Text = resMes.args[3];
                 CountRestart.Text = resMes.args[4];
+                Browser.Text = resMes.args[6];
                 try
                 {
                     double tmp = Int32.Parse(TimeTest.Text) / 60;
@@ -155,6 +156,7 @@ namespace DashBoardClient
                                 
                                 tests.restart.Add(testList.restart[j]);
                                 tests.time.Add(testList.time[j]);
+                                tests.browser.Add(testList.browser[j]);
                                 if (tests.id.Count() == 0)
                                 {
                                     tests.start.Add("первый");
@@ -182,6 +184,7 @@ namespace DashBoardClient
                     {
                         tests.restart.Add("default");
                         tests.time.Add("default");
+                        tests.browser.Add("default");
                         if (tests.id.Count() == 0)
                         {
                             tests.start.Add("первый");
@@ -193,11 +196,12 @@ namespace DashBoardClient
                             tests.dependon.Add("{\"args\":[\"not\"]}");
                         }
                         tests.id.Add(testsList.args[j]);
+
                     }
                     
                     string te = JsonConvert.SerializeObject(tests);
                     string re = JsonConvert.SerializeObject(removeTe);
-                    message.Add(IDPack.Text, NamePack.Text, te, TimeTest.Text, CountRestart.Text, IPList.Text, re);
+                    message.Add(IDPack.Text, NamePack.Text, te, TimeTest.Text, CountRestart.Text, IPList.Text, re, Browser.Text);
                     request = JsonConvert.SerializeObject(message);
                     response = server.SendMsg("UpdatePackChange", Data.ServiceSel, request);
 

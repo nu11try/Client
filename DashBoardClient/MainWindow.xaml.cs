@@ -51,13 +51,14 @@ namespace DashBoardClient
             time = new List<string>();
             dependon = new List<string>();
             restart = new List<string>();
+            browser = new List<string>();
         }
         public List<string> id { get; set; }
         public List<string> start { get; set; }
         public List<string> time { get; set; }
         public List<string> dependon { get; set; }
         public List<string> restart { get; set; }
-
+        public List<string> browser { get; set; }
     }
 
     public partial class MainWindow : Window

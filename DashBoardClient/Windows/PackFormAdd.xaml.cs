@@ -101,7 +101,7 @@ namespace DashBoardClient
             {
                 try
                 {
-                    message.Add(NamePack.Text, JsonConvert.SerializeObject(testsList), TimeTest.Text, CountRestart.Text, IPList.Text);
+                    message.Add(NamePack.Text, JsonConvert.SerializeObject(testsList), TimeTest.Text, CountRestart.Text, IPList.Text, Browser.Text);
                     request = JsonConvert.SerializeObject(message);
                     response = server.SendMsg("AddPack", Data.ServiceSel, request);
                     if (JsonConvert.DeserializeObject<Message>(response).args[0].Equals("OK")) MessageBox.Show("Поздравляем! Набор добавлен!");
