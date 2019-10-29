@@ -66,21 +66,21 @@
             </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Width="50" Header="№">
+                    <GridViewColumn Width="30" Header="№">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate >
                                 <TextBlock x:Name="NumTest" Text="{Binding Count}" Tag="{Binding Name}" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Width="150" Header="Тест">
+                    <GridViewColumn Width="130" Header="Тест">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock x:Name="NameTest" Text="{Binding Name}" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Width="50" Header="S">
+                    <GridViewColumn Width="60" Header="Результат">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Button x:Name="ResultTest" Tag="{Binding ResultTest}" Height="25" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="25">

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,6 +22,7 @@ namespace DashBoardClient
     public partial class StatisticTest : Page
     {
         readonly ServerConnect server = new ServerConnect();
+        Message message = new Message();
         List<TestsViewClass> TestsListView;
         List<TestsInfoClass> TestsListInfo;
         int TestsListCount = 0;
@@ -40,25 +42,22 @@ namespace DashBoardClient
             TestsListView = new List<TestsViewClass>();
             try
             {
-                response = server.SendMsg("getTestsResult", Data.ServiceSel);
-                testsList = response.Split('╡');
-                if (testsList[0] == "no_result")
+                message = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetTestResult", Data.ServiceSel));
+                if (message.args[0] == "no_result")
                 {
                     MessageBox.Show("Нет результатов выполнения тестов или произошла ошибка!");
                     return;
                 }
 
-                for (var i = 0; i < testsList.Length - 1; i++)
+                for (var i = 0; i < message.args.Count; i += 4)
                 {
                     TestsViewClass test = new TestsViewClass();
-                    string[] testForList = testsList[i].Split('±');
-                    test.Count += i + 1;
-                    TestsListCount++;
-                    test.Name = testForList[0];
-                    if (testForList[1] == "Passed") test.ResultTest = "/DashBoardClient;component/Images/ok.png";
+                    test.Count += 1;
+                    test.Name = message.args[i];
+                    if (message.args[i + 1] == "Passed") test.ResultTest = "/DashBoardClient;component/Images/ok.png";
                     else test.ResultTest = "/DashBoardClient;component/Images/no.png";
                     test.Jira = "";
-                    test.Author = testForList[5];
+                    //test.Author = testForList[5];
 
                     TestsListView.Add(test);
                 }
@@ -77,79 +76,55 @@ namespace DashBoardClient
             List<dynamic> myItems = new List<dynamic>();
             List<string> rowName = new List<string>();
             List<string> result = new List<string>();
-            List<List<string>> listNameTest = new List<List<string>>();
+            List<string> listNameTest = new List<string>();
             dynamic myItem;
             IDictionary<string, object> myItemValues;
             TestsListInfo = new List<TestsInfoClass>();
             try
             {
-                response = server.SendMsg("getTestsResultInfo", Data.ServiceSel);
-                testsList = response.Split('╡');
-                if (testsList[0] == "no_result")
+                message = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetTestResultInfo", Data.ServiceSel));
+                if (message.args[0] == "no_result")
                 {
                     MessageBox.Show("Нет результатов выполнения тестов или произошла ошибка!");
                     return;
                 }
 
                 List<string> bufList = new List<string>();
-                for (var i = 0; i < testsList.Length - 1; i++)
+                for (var i = 0; i < message.args.Count; i += 4)
                 {
-                    string[] testForList = testsList[i].Split('±');
-                    rowName.Add(testForList[0]);
-                    result.Add(testForList[3]);
-                    // ПОМЕНЯТЬ ИНДЕКС
-                    bufList.Add(testForList[3]);
-                    if (bufList.Count == TestsListCount)
-                    {
-                        listNameTest.Add(bufList);
-                        bufList = new List<string>();
-                    }
+                    rowName.Add(message.args[i]);
+                    result.Add(message.args[i + 3]);
+                    // ПОМЕНЯТЬ ИНДЕКС                                        
+                    listNameTest.Add(message.args[i + 3]);
                 }
             }
             catch
             {
                 MessageBox.Show("Произошла ошибка! Обратитесь к поддержке!");
             }
-
-            // Populate the objects with dynamic columns                                  
-            int iFirst = 0;
-            int iThecond = 0;
-            for (var i = 0; i < TestsListCount; i++)
+            int index = 0;                               
+            for (var i = 0; i < listNameTest.Count / rowName.Distinct().Count(); i++)
             {
                 myItem = new System.Dynamic.ExpandoObject();
                 foreach (string column in rowName.Distinct())
                 {
                     myItemValues = (IDictionary<string, object>)myItem;
-                    try { myItemValues[column] = Math.Ceiling(Double.Parse(listNameTest[iFirst][iThecond].ToString())).ToString(); }
-                    catch
-                    {
-                        myItemValues[column] = listNameTest[iFirst][iThecond].ToString();
-                        //myItemValues[column] = "0";
-                    }
-                    iFirst++;
+                    try { myItemValues[column] = Math.Ceiling(Double.Parse(listNameTest[index].ToString())).ToString(); }
+                    catch { myItemValues[column] = listNameTest[index].ToString(); }
+                    index++;
                 }
-                iThecond++;
-                iFirst = 0;
                 myItems.Add(myItem);
             }
 
-            // Assuming that all objects have same columns - using first item to determine the columns
             List<TestsInfoClass> columns = new List<TestsInfoClass>();
-            try
-            {
-                myItemValues = (IDictionary<string, object>)myItems[0];
-            }
-            catch
-            {
-                return;
-            }
+            try { myItemValues = (IDictionary<string, object>)myItems[0]; }
+            catch { return; }
 
-            // Key is the column, value is the value
             foreach (var pair in myItemValues)
             {
                 TestsInfoClass column = new TestsInfoClass();
 
-                column.Date = pair.Key;                                
+                column.Date = pair.Key;
                 column.Result = pair.Key;
 
                 columns.Add(column);
@@ -171,7 +146,7 @@ namespace DashBoardClient
                 this.TestsInfo.Items.Add(item);
             }
 
-        }
+            }
         private void TestsView_ScrollChanged(object sender, ScrollChangedEventArgs e)
         {
             if (IsLoaded)
