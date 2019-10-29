@@ -75,8 +75,8 @@ namespace DashBoardClient
 
             List<dynamic> myItems = new List<dynamic>();
             List<string> rowName = new List<string>();
-            List<string> result = new List<string>();
-            List<string> listNameTest = new List<string>();
+            List<string> flag = new List<string>();
+            Dictionary<string, Dictionary<string,string>> listNameTest = new Dictionary<string, Dictionary<string, string> > ();
             dynamic myItem;
             IDictionary<string, object> myItemValues;
             TestsListInfo = new List<TestsInfoClass>();
@@ -88,30 +88,58 @@ namespace DashBoardClient
                     MessageBox.Show("Нет результатов выполнения тестов или произошла ошибка!");
                     return;
                 }
-
-                List<string> bufList = new List<string>();
-                for (var i = 0; i < message.args.Count; i += 4)
+                List<string> listDate = new List<string>();
+                Dictionary<string, string> bufList = new Dictionary<string, string>();
+                for (var i = 0; i < message.args.Count; i += 5)
                 {
-                    rowName.Add(message.args[i]);
-                    result.Add(message.args[i + 3]);
-                    // ПОМЕНЯТЬ ИНДЕКС                                        
-                    listNameTest.Add(message.args[i + 3]);
+                    if (!listDate.Contains(message.args[i])) listDate.Add(message.args[i]);
+                        for (var j = 0; j < message.args.Count; j += 5)
+                    {
+                        if (message.args[i + 4].Equals(message.args[j + 4]))
+                        {
+
+                                // ПОМЕНЯТЬ ИНДЕКС
+                                try
+                                {
+                                    bufList.Add(message.args[j], message.args[j + 3]);
+                                }
+                                catch { }
+                        }
+                    }
+                    try
+                    {
+                        if (!flag.Contains(message.args[i + 4])) listNameTest.Add(message.args[i + 4], bufList);
+                        flag.Add(message.args[i + 4]);
+                    }
+                    catch { }
+                    bufList = new Dictionary<string, string>();
                 }
+
+                foreach (var dic in listNameTest)
+                {
+                    for (var i = 0; i < listDate.Count; i++)
+                    {
+                        Dictionary<string, string> di = dic.Value;
+                        if (!dic.Value.ContainsKey(listDate[i]))
+                        {
+                            dic.Value.Add(listDate[i], "-");
+                        }
+                    }
+                }
+
             }
             catch
             {
-                MessageBox.Show("Произошла ошибка! Обратитесь к поддержке!");
+                MessageBox.Show("Нет результатов выполнения тестов или произошла ошибка!");
             }
-            int index = 0;                               
-            for (var i = 0; i < listNameTest.Count / rowName.Distinct().Count(); i++)
+            foreach (var dic in listNameTest)
             {
                 myItem = new System.Dynamic.ExpandoObject();
-                foreach (string column in rowName.Distinct())
+                myItemValues = (IDictionary<string, object>)myItem;
+                foreach (var column in dic.Value)
                 {
-                    myItemValues = (IDictionary<string, object>)myItem;
-                    try { myItemValues[column] = Math.Ceiling(Double.Parse(listNameTest[index].ToString())).ToString(); }
-                    catch { myItemValues[column] = listNameTest[index].ToString(); }
-                    index++;
+                    try { myItemValues[column.Key] = Math.Ceiling(Double.Parse(column.Value.ToString())).ToString(); }
+                    catch { myItemValues[column.Key] = column.Value; }
                 }
                 myItems.Add(myItem);
             }
