@@ -12,8 +12,8 @@ namespace DashBoardClient
     class ServerConnect
     {
         const int port = 8888;
-        //const string address = "172.31.197.232";
-        const string address = "127.0.0.1";
+        const string address = "172.31.197.232";
+        //const string address = "127.0.0.1";
 
         private Request request = new Request();
         string bufJSON;
