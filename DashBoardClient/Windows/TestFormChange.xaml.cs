@@ -42,34 +42,49 @@ namespace DashBoardClient
             MethodSelect.Items.Clear();
             ActiveSelect.IsChecked = false;
 
+            message = new Message();
             message.Add(IDTest);
             request = JsonConvert.SerializeObject(message);
             response = server.SendMsg("UpdateTestChange", Data.ServiceSel, request);
             resMes = JsonConvert.DeserializeObject<Message>(response);
+
+
+
+            message = new Message();
+            message.Add("", "","--");
+            request = JsonConvert.SerializeObject(message);
+            response = server.SendMsg("GetKPInfo", Data.ServiceSel, request);
+            Message resMes2 = JsonConvert.DeserializeObject<Message>(response);
+
+            message = new Message();
+            message.Add("", "", IDTest);
+            request = JsonConvert.SerializeObject(message);
+            response = server.SendMsg("GetKPInfo", Data.ServiceSel, request);
+            Message resMes3 = JsonConvert.DeserializeObject<Message>(response);
+
             if (resMes.args[0].Equals("error")) MessageBox.Show("Ошибка! Обратитесь к поддержке");                      
             else
             {
 
-                response = server.SendMsg("GetAuthor", Data.ServiceSel);
-                resMes2 = JsonConvert.DeserializeObject<Message>(response);                               
 
-
-                               
-                for (int i = 0; i < resMes.args.Count; i += 3)
+                for (int i = 0; i < resMes2.args.Count; i += 4) MethodSelect.Items.Add(resMes2.args[i] + " (" + resMes2.args[i + 3] + ")");
+                if (!resMes3.args[0].Equals("error"))
                 {
-                    TestID.Text = IDTest;      
-                    ActiveSelect.IsChecked = Convert.ToBoolean(resMes.args[i + 2].ToString());
+                    MethodSelect.Items.Add(resMes3.args[0] + " (" + resMes3.args[3] + ")");
+                    MethodSelect.Text = resMes3.args[0] + " (" + resMes3.args[3] + ")".ToString();
                 }
+                TestID.Text = IDTest;      
+                ActiveSelect.IsChecked = Convert.ToBoolean(resMes.args[2].ToString());
             }
             message = new Message();
-            resMes = new Message();
-            resMes = new Message();
         }
         private void SendTest(object sender, RoutedEventArgs e)
         {           
             try
             {
-                message.Add(IDTest, Data.NameUser, ActiveSelect.IsChecked.Value.ToString());
+                string idDoc = MethodSelect.SelectedItem.ToString().Split('(')[0];
+                idDoc = idDoc.Substring(0, idDoc.Length - 1);
+                message.Add(IDTest, Data.NameUser, ActiveSelect.IsChecked.Value.ToString(), idDoc);
                 request = JsonConvert.SerializeObject(message);
                 response = server.SendMsg("UpdateTest", Data.ServiceSel, request);
                 if (JsonConvert.DeserializeObject<Message>(response).args[0].Equals("OK")) 

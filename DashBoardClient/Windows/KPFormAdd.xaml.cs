@@ -42,17 +42,22 @@ namespace DashBoardClient
         {
             // 0 - name         
             // 1 - date
-            message.Add(id, idKP);
+            
+            message.Add(id, idKP, "");
             request = JsonConvert.SerializeObject(message);
             response = server.SendMsg("GetKPInfo", Data.ServiceSel, request);
             resMes = JsonConvert.DeserializeObject<Message>(response);
+            if (idKP.Equals("")){
+                resMes = new Message();
+                resMes.args.Add("error");
+            }
             if (resMes.args[0].Equals("error") && action == "update") MessageBox.Show("Ошибка! Обратитесь к поддержке");
             else
             {
                 if (!resMes.args[0].Equals("error"))
                 {
                     NameKP.Text = resMes.args[0];
-                    DateBlock.Text = resMes.args[1];
+                    DateBlock.Text = resMes.args[2];
                 }
                 else {
                     message = new Message(); 

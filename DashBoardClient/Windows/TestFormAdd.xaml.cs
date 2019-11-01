@@ -38,11 +38,18 @@ namespace DashBoardClient
         private void GetTestsForListView()
         {
             TestSelect.Items.Clear();
-
+            MethodSelect.Items.Clear();
+            message = new Message();
             message.Add("no_add");
             request = JsonConvert.SerializeObject(message);
             response = server.SendMsg("GetTests", Data.ServiceSel, request);
             resMes = JsonConvert.DeserializeObject<Message>(response);
+
+            message = new Message();
+            message.Add("","","--");
+            request = JsonConvert.SerializeObject(message);
+            response = server.SendMsg("GetKPInfo", Data.ServiceSel, request);
+            resMes2 = JsonConvert.DeserializeObject<Message>(response);
             if (resMes.args.Count == 0)
             {
                 MessageBox.Show("Нет тестов на добавление!");
@@ -50,15 +57,14 @@ namespace DashBoardClient
             }
             else
             {
-                response = server.SendMsg("GetAuthor", Data.ServiceSel);
-                resMes2 = JsonConvert.DeserializeObject<Message>(response);
-
 
                 for (int i = 0; i < resMes.args.Count; i += 3) TestSelect.Items.Add(resMes.args[i] + " (" + resMes.args[i + 1] + ")");
+                for (int i = 0; i < resMes2.args.Count; i += 4) MethodSelect.Items.Add(resMes2.args[i] + " (" + resMes2.args[i + 3] + ")");
 
                 try
                 {
                     TestSelect.Text = TestSelect.Items[0].ToString();
+                    MethodSelect.Text = MethodSelect.Items[0].ToString();
                 }
                 catch
                 {
@@ -72,8 +78,10 @@ namespace DashBoardClient
             try
             {
                 string IDtest = TestSelect.SelectedItem.ToString().Split('(')[0];
+                string idDoc = MethodSelect.SelectedItem.ToString().Split('(')[0];
                 IDtest = IDtest.Substring(0, IDtest.Length-1);
-                message.Add(IDtest, Data.NameUser, ActiveSelect.IsChecked.Value.ToString());
+                idDoc = idDoc.Substring(0, idDoc.Length - 1);
+                message.Add(IDtest, Data.NameUser, ActiveSelect.IsChecked.Value.ToString(), idDoc);
                 request = JsonConvert.SerializeObject(message);
                 response = server.SendMsg("AddTest", Data.ServiceSel, request);
                 if (JsonConvert.DeserializeObject<Message>(response).args[0].Equals("OK"))

@@ -15,6 +15,8 @@ namespace DashBoardClient
         // Новое (измененное) имя
         public string NewName { get; set; }
         // Ответственный за выполнение
-        public string Author { get; set; }       
+        public string Author { get; set; }
+        // кп
+        public string Kp { get; set; }
     }
 }

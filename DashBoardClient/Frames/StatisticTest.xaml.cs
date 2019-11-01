@@ -34,7 +34,19 @@ namespace DashBoardClient
             UpdateTestsView();
             UpdateTestsInfo();
             TestsView.ItemsSource = TestsListView;
-            //TestsInfo.ItemsSource = TestsListInfo;            
+            //TestsInfo.ItemsSource = TestsListInfo;    
+            TestsView.SelectionChanged += TestsView_SelectionChanged;
+            TestsInfo.SelectionChanged += TestsInfo_SelectionChanged;
+        }
+
+        private void TestsInfo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            TestsView.SelectedItem = TestsView.Items[TestsInfo.SelectedIndex];
+        }
+
+        private void TestsView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            TestsInfo.SelectedItem = TestsInfo.Items[TestsView.SelectedIndex];
         }
 
         private void UpdateTestsView()
@@ -49,17 +61,21 @@ namespace DashBoardClient
                     return;
                 }
 
+                List<string> ids = new List<string>();
                 for (var i = 0; i < message.args.Count; i += 4)
                 {
-                    TestsViewClass test = new TestsViewClass();
-                    test.Count += 1;
-                    test.Name = message.args[i];
-                    if (message.args[i + 1] == "Passed") test.ResultTest = "/DashBoardClient;component/Images/ok.png";
-                    else test.ResultTest = "/DashBoardClient;component/Images/no.png";
-                    test.Jira = "";
-                    //test.Author = testForList[5];
-
-                    TestsListView.Add(test);
+                    if (!ids.Contains(message.args[i]))
+                    {
+                        TestsViewClass test = new TestsViewClass();
+                        test.Count = TestsListView.Count + 1;
+                        test.Name = message.args[i];
+                        if (message.args[i + 1] == "Passed") test.ResultTest = "/DashBoardClient;component/Images/ok.png";
+                        else test.ResultTest = "/DashBoardClient;component/Images/no.png";
+                        test.Jira = "";
+                        //test.Author = testForList[5];
+                        ids.Add(test.Name);
+                        TestsListView.Add(test);
+                    }
                 }
             }
             catch
@@ -97,11 +113,11 @@ namespace DashBoardClient
                     {
                         if (message.args[i + 4].Equals(message.args[j + 4]))
                         {
-
+                            
                                 // ПОМЕНЯТЬ ИНДЕКС
                                 try
                                 {
-                                    bufList.Add(message.args[j], message.args[j + 3]);
+                                    bufList.Add(message.args[j], message.args[j + 1].Equals("Failed") && (!message.args[j + 3].Equals("TIMEOUT") && !message.args[j + 3].Equals("DEPENDEN ERROR")) ? "FAILED" : message.args[j + 3]);
                                 }
                                 catch { }
                         }

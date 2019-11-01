@@ -70,14 +70,18 @@ namespace DashBoardClient
                     test.ID = response.args[i];
                     test.Name = response.args[i + 1];
                     test.Author = response.args[i + 2];
-
+                    Message message = new Message();
+                    message.Add("","",response.args[i]);
+                    string request = JsonConvert.SerializeObject(message);
+                    test.Kp = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetKPInfo", Data.ServiceSel, request)).args[0];
+                    test.Kp = test.Kp.Equals("error") ? "" : test.Kp;
                     TestsList.Add(test);
                 }
             }
             catch { MessageBox.Show("Произошла ошибка! Обратитесь к поддержке!"); }
 
             DataContext = this;
-            TestsListView.ItemsSource = TestsList;      
+            TestsListView.ItemsSource = TestsList;
         }
     }
 }
