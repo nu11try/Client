@@ -66,7 +66,9 @@ namespace DashBoardClient
                         kp.Assc = resMes.args[i + 2];
                         kp.Author = resMes.args[i + 3];
                         kp.Date = resMes.args[i + 4];
-                        kp.Test = resMes.args[i + 5];
+                        Message tests = JsonConvert.DeserializeObject<Message>(resMes.args[i + 5]);
+                        tests.args.ForEach(elem => kp.Test = kp.Test + elem + "\n");
+                        kp.Test = kp.Test.Trim();
 
                         KPList.Add(kp);
                     }

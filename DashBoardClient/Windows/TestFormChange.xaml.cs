@@ -51,7 +51,7 @@ namespace DashBoardClient
 
 
             message = new Message();
-            message.Add("", "","--");
+            message.Add("", "","");
             request = JsonConvert.SerializeObject(message);
             response = server.SendMsg("GetKPInfo", Data.ServiceSel, request);
             Message resMes2 = JsonConvert.DeserializeObject<Message>(response);
@@ -70,7 +70,6 @@ namespace DashBoardClient
                 for (int i = 0; i < resMes2.args.Count; i += 4) MethodSelect.Items.Add(resMes2.args[i] + " (" + resMes2.args[i + 3] + ")");
                 if (!resMes3.args[0].Equals("error"))
                 {
-                    MethodSelect.Items.Add(resMes3.args[0] + " (" + resMes3.args[3] + ")");
                     MethodSelect.Text = resMes3.args[0] + " (" + resMes3.args[3] + ")".ToString();
                 }
                 TestID.Text = IDTest;      

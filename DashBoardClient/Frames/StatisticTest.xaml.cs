@@ -25,9 +25,6 @@ namespace DashBoardClient
         Message message = new Message();
         List<TestsViewClass> TestsListView;
         List<TestsInfoClass> TestsListInfo;
-        int TestsListCount = 0;
-        string response = "";
-        string[] testsList;
         public StatisticTest()
         {
             InitializeComponent();

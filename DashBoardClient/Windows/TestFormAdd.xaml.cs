@@ -46,7 +46,7 @@ namespace DashBoardClient
             resMes = JsonConvert.DeserializeObject<Message>(response);
 
             message = new Message();
-            message.Add("","","--");
+            message.Add("","","");
             request = JsonConvert.SerializeObject(message);
             response = server.SendMsg("GetKPInfo", Data.ServiceSel, request);
             resMes2 = JsonConvert.DeserializeObject<Message>(response);
