@@ -105,12 +105,13 @@ namespace DashBoardClient
                 message.Add(packs);
                 request = JsonConvert.SerializeObject(message);
                 response = server.SendMsg("StartTests", Data.ServiceSel, request);
+                if (JsonConvert.DeserializeObject<Message>(response).args[0] == "OK") MessageBox.Show("Набор(ы) отправлен(ы) на запуск!");
+                if (JsonConvert.DeserializeObject<Message>(response).args[0] == "ERROR") MessageBox.Show("Произошла ошибка запуска!");
+                if (JsonConvert.DeserializeObject<Message>(response).args[0] == "START") MessageBox.Show("Один из выбранных наборов находится в режиме запуска!");
+                UpdateList();
             }
             else MessageBox.Show("Не выбрано ни одного набора!");
-            if (JsonConvert.DeserializeObject<Message>(response).args[0] == "OK") MessageBox.Show("Набор(ы) отправлен(ы) на запуск!");
-            if (JsonConvert.DeserializeObject<Message>(response).args[0] == "ERROR") MessageBox.Show("Произошла ошибка запуска!");
-            if (JsonConvert.DeserializeObject<Message>(response).args[0] == "START") MessageBox.Show("Один из выбранных наборов находится в режиме запуска!");            
-            UpdateList();
+            
         }
     }
 }

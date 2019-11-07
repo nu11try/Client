@@ -67,7 +67,7 @@ namespace DashBoardClient
                 message = JsonConvert.DeserializeObject<Message>(response);
                 Message dep;
                 TestsList test;
-                for (var i = 0; i < message.args.Count; i += 6)
+                for (var i = 0; i < message.args.Count; i += 8)
                 {
                     test = new TestsList();
                     test.ID = message.args[i];
