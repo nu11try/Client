@@ -36,13 +36,7 @@
         <Button x:Name="CancelAut" Content="Отменить" HorizontalAlignment="Left" Margin="24,581,0,0" Width="232" Height="28" VerticalAlignment="Top" Click="CloseWindow"/>
         <Label Content="Название" HorizontalAlignment="Left" Margin="25,13,0,0" VerticalAlignment="Top" Foreground="White"/>
         <ListBox x:Name="weekDay" HorizontalAlignment="Left" Height="144" Margin="25,167,0,0" VerticalAlignment="Top" Width="100" SelectionMode="Multiple">
-            <TextBlock>ПН</TextBlock>
-            <TextBlock>ВТ</TextBlock>
-            <TextBlock>СР</TextBlock>
-            <TextBlock>ЧТ</TextBlock>
-            <TextBlock>ПТ</TextBlock>
-            <TextBlock>СБ</TextBlock>
-            <TextBlock>ВС</TextBlock>
+
         </ListBox>
         <Label Content="Дни недели" HorizontalAlignment="Left" Margin="25,136,0,0" VerticalAlignment="Top" Foreground="White"/>
         <ComboBox x:Name="hourSelected" HorizontalAlignment="Left" Margin="25,351,0,0" VerticalAlignment="Top" Width="50"/>

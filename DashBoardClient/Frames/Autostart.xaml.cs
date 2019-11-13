@@ -46,7 +46,7 @@ namespace DashBoardClient
                     if (response.args[i+5] == "regular") auto.Type = "Регулярно";
                     else if (response.args[i+5] == "one") auto.Type = "Единоразово";
                     Message packs = JsonConvert.DeserializeObject<Message> (response.args[i + 4]);
-                    auto.Pack = String.Join("-", packs.args.ToArray());
+                    auto.Pack = String.Join("\n", packs.args.ToArray());
                     auto.Time = response.args[i+3];
                     Message days = JsonConvert.DeserializeObject<Message>(response.args[i + 2]);
                     auto.Day = String.Join("-", days.args.ToArray());

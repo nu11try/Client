@@ -97,12 +97,10 @@ namespace DashBoardClient
 
         private void StartPacks(object sender, RoutedEventArgs e)
         {
-            string packs = "";
-            foreach (PacksWithTest listItem in PackListView.SelectedItems) packs += listItem.ID + "±";
-            if (packs.Length != 0) packs = packs.Substring(0, packs.Length - 1);
-            if (packs != "")
+            foreach (PacksWithTest listItem in PackListView.SelectedItems) message.Add(listItem.ID);
+  
+            if (message.args.Count != 0)
             {
-                message.Add(packs);
                 request = JsonConvert.SerializeObject(message);
                 response = server.SendMsg("StartTests", Data.ServiceSel, request);
                 if (JsonConvert.DeserializeObject<Message>(response).args[0] == "OK") MessageBox.Show("Набор(ы) отправлен(ы) на запуск!");

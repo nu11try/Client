@@ -67,7 +67,10 @@ namespace DashBoardClient
                         test.Count = TestsListView.Count + 1;
                         test.Name = message.args[i];
                         if (message.args[i + 1] == "Passed") test.ResultTest = "/DashBoardClient;component/Images/ok.png";
-                        else test.ResultTest = "/DashBoardClient;component/Images/no.png";
+                        if (message.args[i + 1] == "Failed") test.ResultTest = "/DashBoardClient;component/Images/no.png";
+                        if (message.args[i + 1] == "Warning") test.ResultTest = "/DashBoardClient;component/Images/warning.png";
+                        if (message.args[i + 2] == "DEPENDEN ERROR") test.ResultTest = "/DashBoardClient;component/Images/link_break.png";
+                        if (message.args[i + 2] == "TIMEOUT") test.ResultTest = "/DashBoardClient;component/Images/time.png";
                         test.Jira = "";
                         //test.Author = testForList[5];
                         ids.Add(test.Name);

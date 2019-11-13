@@ -24,10 +24,12 @@ namespace DashBoardClient
         Message response;
         string[] docAr = new string[] { };
         string Id = "";
+        string type = "";
         public AutostartAddChange()
         {
             InitializeComponent();
             Init();
+            type = "AddAutostart";
         }
 
         public AutostartAddChange(string ID)
@@ -38,19 +40,29 @@ namespace DashBoardClient
             Id = ID;
             message.Add(Id);
             string request = JsonConvert.SerializeObject(message);
-            response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetAutostartInfo", Data.ProjectName, request));
+            response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetAutostartInfo", Data.ServiceSel, request));
             if (response.args[0] == "error")
             {
                 MessageBox.Show("Произошла ошибка получения данных автотеста");
                 return;
             }
 
-            for (var i = 0; i < response.args.Count; i+= 7) {
+            for (var i = 0; i < response.args.Count; i += 7)
+            {
                 Message packs = JsonConvert.DeserializeObject<Message>(response.args[i + 4]);
-                 packs.args.ForEach(elem => {
-                     if (!packName.Items.Contains(elem))
-                         packName.Items.Add(elem);
-                     });
+                Message days = JsonConvert.DeserializeObject<Message>(response.args[i + 2]);
+                packs.args.ForEach(elem =>
+                {
+                    packName.SelectedItems.Add(elem);
+                });
+                days.args.ForEach(elem =>
+                {
+                    weekDay.SelectedItems.Add(elem);
+                });
+                hourSelected.SelectedItem = response.args[i+3].Split(':')[0];
+                minuteSelected.SelectedItem = response.args[i+3].Split(':')[1];
+                NameAut.Text = response.args[i];
+                type = "UpdateAutostart";
             }
         }
 
@@ -66,21 +78,27 @@ namespace DashBoardClient
                 if (i > 9) minuteSelected.Items.Add(i.ToString());
                 else minuteSelected.Items.Add("0" + i.ToString());
             }
-
+            weekDay.Items.Add("ПН");
+            weekDay.Items.Add("ВТ");
+            weekDay.Items.Add("СР");
+            weekDay.Items.Add("ЧТ");
+            weekDay.Items.Add("ПТ");
+            weekDay.Items.Add("СБ");
+            weekDay.Items.Add("ВС");
             hourSelected.SelectedIndex = 0;
             minuteSelected.SelectedIndex = 0;
 
 
             Message message = new Message();
             string request = JsonConvert.SerializeObject(message);
-            response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetPacksForList", Data.ProjectName, request));
+            response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetPacksForList", Data.ServiceSel, request));
             if (response.args[0] == "no_packs")
             {
                 MessageBox.Show("Нет доступных на добавление наборов");
                 return;
             }
 
-            for (var i = 0; i < response.args.Count; i+=8)
+            for (var i = 0; i < response.args.Count; i+=7)
             {
                 packName.Items.Add(response.args[i]);
             }
@@ -99,7 +117,7 @@ namespace DashBoardClient
                 Message message = new Message();
                 Message weekDays = new Message();
                 for (int i = 0; i < weekDay.SelectedItems.Count; i++) {
-                    weekDays.Add(((TextBlock)weekDay.SelectedItems[i]).Text);
+                    weekDays.Add(weekDay.SelectedItems[i].ToString());
                 }
 
                 string weekDaysS = JsonConvert.SerializeObject(weekDays);
@@ -109,9 +127,10 @@ namespace DashBoardClient
                     packs.Add((packName.SelectedItems[i]) + "");
                 }
                 string packsS = JsonConvert.SerializeObject(packs);
+                message.Add(Id.Equals("") ? NameAut.Text : Id);
                 message.Add(NameAut.Text, checkTranslateType.IsChecked == true? "regular":"one", weekDaysS, packsS, hourSelected.Text, minuteSelected.Text);
                 string request = JsonConvert.SerializeObject(message);
-                response = JsonConvert.DeserializeObject<Message>(server.SendMsg("AddAutostart", Data.ProjectName, request));
+                response = JsonConvert.DeserializeObject<Message>(server.SendMsg(type, Data.ServiceSel, request));
                 NameAut.Text = "";
                 hourSelected.SelectedIndex = 0;
                 minuteSelected.SelectedIndex = 0;

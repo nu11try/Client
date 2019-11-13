@@ -376,5 +376,35 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\report_magnify.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\warning.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\link_break.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bug_error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bug_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bug_delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bug_edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\bug_add.png" />
+    <Resource Include="Images\bug_delete.png" />
+    <Resource Include="Images\bug_edit.png" />
+    <Resource Include="Images\bug_error.png" />
+    <Resource Include="Images\link_break.png" />
+    <Resource Include="Images\report_magnify.png" />
+    <Resource Include="Images\warning.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

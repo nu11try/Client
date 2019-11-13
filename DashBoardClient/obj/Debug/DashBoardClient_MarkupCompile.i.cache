@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-E:\GitHub\Client\DashBoardClient\obj\Debug\
+C:\Users\User\Desktop\Client\DashBoardClient\obj\Debug\
 DashBoardClient
 none
 false
 DEBUG;TRACE
-E:\GitHub\Client\DashBoardClient\App.xaml
+C:\Users\User\Desktop\Client\DashBoardClient\App.xaml
 21-391396002
 
-30234198000
-15-669791116
+30-1819838468
+15-404020689
 Frames\ClearPage.xaml;Frames\Autostart.xaml;Frames\AddTests.xaml;Frames\Doc.xaml;MainWindow.xaml;Frames\Packs.xaml;Frames\StatisticTest.xaml;Windows\AutostartAddChange.xaml;Windows\FormShowCheckList.xaml;Windows\KPFormAdd.xaml;Windows\DocFormAdd.xaml;Windows\OpenKPList.xaml;Windows\ViewTestsPack.xaml;Windows\PackTestsFormChange.xaml;Windows\Auth.xaml;Frames\StartTests.xaml;Windows\OpenTestList.xaml;Windows\PackFormChange.xaml;Windows\PackFormAdd.xaml;Windows\TestFormChange.xaml;Windows\TestFormAdd.xaml;
 
 False
