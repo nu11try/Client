@@ -29,6 +29,8 @@ namespace DashBoardClient
         public string Image { get; set; }
         public string Func { get; set; }
         public string Browser { get; set; }
+        public string Duplicatebtn { get; set; }
+        public string DuplicateImg { get; set; }
     }
 
     public partial class ViewTestsPack : Window
@@ -67,7 +69,7 @@ namespace DashBoardClient
                 message = JsonConvert.DeserializeObject<Message>(response);
                 Message dep;
                 TestsList test;
-                for (var i = 0; i < message.args.Count; i += 8)
+                for (var i = 0; i < message.args.Count; i += 9)
                 {
                     test = new TestsList();
                     test.ID = message.args[i];
@@ -78,6 +80,16 @@ namespace DashBoardClient
                     else test.Restart = message.args[i + 3];
                     if (message.args[i + 4] == "default") test.Browser = "По умолчанию";
                     else test.Browser = message.args[i + 4];
+                    if (message.args[i + 6] == "not")
+                    {
+                        test.Duplicatebtn = "Visible";
+                        test.DuplicateImg = "/DashBoardClient;component/Images/open.png";
+                    }
+                    else 
+                    {
+                        test.Duplicatebtn = "Visible";
+                        test.DuplicateImg = "/DashBoardClient;component/Images/sver.png";
+                    }
                     dep = JsonConvert.DeserializeObject<Message>(message.args[i + 5]);
                     if (dep.args[0].Equals("not"))
                     {
@@ -108,6 +120,26 @@ namespace DashBoardClient
             PackTestsFormChange packTests = new PackTestsFormChange(request);
             packTests.ShowDialog();
 
+            UpdateList();
+        }
+
+        private void Duplicate(object sender, RoutedEventArgs e)
+        {
+            string id = (sender as Button).Tag.ToString();
+            if (id.Contains("(Дубликат"))
+            {
+                message = new Message();
+                message.Add(IDPack, id, "remove");
+                request = JsonConvert.SerializeObject(message);
+                response = server.SendMsg("UpdateDuplicate", Data.ServiceSel, request);
+            }
+            else
+            {
+                message = new Message();
+                message.Add(IDPack, id, "add");
+                request = JsonConvert.SerializeObject(message);
+                response = server.SendMsg("UpdateDuplicate", Data.ServiceSel, request);
+            }
             UpdateList();
         }
         private void Depen(object sender, RoutedEventArgs e)

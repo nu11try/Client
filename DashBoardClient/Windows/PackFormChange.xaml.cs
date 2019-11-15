@@ -78,12 +78,12 @@ namespace DashBoardClient
                     TimeMin.Content = "(0 мин)";
                 }
                 testList = JsonConvert.DeserializeObject<TestsStartClass>(resMes.args[5]);
+                if (resMes2.args.Count != 1)
+                    for (int i = 0; i < resMes2.args.Count; i = i + 3) TestsInPack.Items.Add(resMes2.args[i]);
 
-
-                for (int i = 0; i < testList.id.Count; i++) TestsInPack.Items.Add(testList.id[i]);
+               // for (int i = 0; i < testList.id.Count; i++) //TestsInPack.Items.Add(testList.id[i]);
                 for (int i = 0; i < testList.id.Count; i++) TestsInPack.SelectedItems.Add(testList.id[i]);
-                if (resMes2.args.Count!= 1)
-                      for (int i = 0; i < resMes2.args.Count; i = i + 3) TestsInPack.Items.Add(resMes2.args[i]);
+               
 
                 response = server.SendMsg("GetIPPc", Data.ServiceSel);
 
@@ -157,6 +157,7 @@ namespace DashBoardClient
                                 tests.restart.Add(testList.restart[j]);
                                 tests.time.Add(testList.time[j]);
                                 tests.browser.Add(testList.browser[j]);
+                                tests.duplicate.Add(testList.duplicate[j]);
                                 if (tests.id.Count() == 0)
                                 {
                                     tests.start.Add("первый");
@@ -185,6 +186,7 @@ namespace DashBoardClient
                         tests.restart.Add("default");
                         tests.time.Add("default");
                         tests.browser.Add("default");
+                        tests.duplicate.Add("not");
                         if (tests.id.Count() == 0)
                         {
                             tests.start.Add("первый");

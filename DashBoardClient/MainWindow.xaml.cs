@@ -52,6 +52,7 @@ namespace DashBoardClient
             dependon = new List<string>();
             restart = new List<string>();
             browser = new List<string>();
+            duplicate = new List<string>();
         }
         public List<string> id { get; set; }
         public List<string> start { get; set; }
@@ -59,6 +60,8 @@ namespace DashBoardClient
         public List<string> dependon { get; set; }
         public List<string> restart { get; set; }
         public List<string> browser { get; set; }
+
+        public List<string> duplicate { get; set; }
     }
 
     public partial class MainWindow : Window
