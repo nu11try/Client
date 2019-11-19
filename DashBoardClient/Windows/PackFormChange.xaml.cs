@@ -81,7 +81,7 @@ namespace DashBoardClient
                 if (resMes2.args.Count != 1)
                     for (int i = 0; i < resMes2.args.Count; i = i + 3) TestsInPack.Items.Add(resMes2.args[i]);
 
-               // for (int i = 0; i < testList.id.Count; i++) //TestsInPack.Items.Add(testList.id[i]);
+                for (int i = 0; i < testList.id.Count; i++) if(!TestsInPack.Items.Contains(testList.id[i])) TestsInPack.Items.Add(testList.id[i]);
                 for (int i = 0; i < testList.id.Count; i++) TestsInPack.SelectedItems.Add(testList.id[i]);
                
 
