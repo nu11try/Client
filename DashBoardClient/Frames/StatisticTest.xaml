@@ -35,7 +35,7 @@
         <ScrollViewer>
             <Grid Height="450" Width="1470" />
         </ScrollViewer>
-        <ListView ItemsSource="{Binding TestsListView}" x:Name="TestsView" Margin="5,5,375,0" FontSize="11" Background="#FF45454F" ScrollViewer.ScrollChanged="TestsView_ScrollChanged" 
+        <ListView ItemsSource="{Binding TestsListView}" x:Name="TestsView" Margin="5,5,304,0" FontSize="11" Background="#FF45454F" ScrollViewer.ScrollChanged="TestsView_ScrollChanged" 
                   ScrollViewer.VerticalScrollBarVisibility="Visible"
                     ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Visible">
             <ListView.BorderBrush>
@@ -73,14 +73,14 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Width="130" Header="Тест">
+                    <GridViewColumn Width="160" Header="Тест">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock x:Name="NameTest" Text="{Binding Name}" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Width="60" Header="Результат">
+                    <GridViewColumn Width="50" Header="Рез.">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Button x:Name="ResultTest" Tag="{Binding ResultTest}" Height="25" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="25">
@@ -112,7 +112,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <ListView ItemsSource="{Binding TestsListInfo}" x:Name="TestsInfo" Margin="425,5,20,0" FontSize="11" Background="#FF45454F" ScrollViewer.ScrollChanged="TestsInfo_ScrollChanged"
+        <ListView ItemsSource="{Binding TestsListInfo}" x:Name="TestsInfo" Margin="477,5,20,0" FontSize="11" Background="#FF45454F" ScrollViewer.ScrollChanged="TestsInfo_ScrollChanged"
                   ScrollViewer.VerticalScrollBarVisibility="Hidden"
                     ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Visible">
             <ListView.BorderBrush>

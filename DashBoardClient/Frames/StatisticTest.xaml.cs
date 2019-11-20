@@ -59,20 +59,36 @@ namespace DashBoardClient
                 }
 
                 List<string> ids = new List<string>();
-                for (var i = 0; i < message.args.Count; i += 4)
+                for (var i = 0; i < message.args.Count; i += 6)
                 {
                     if (!ids.Contains(message.args[i]))
                     {
+
+                        Message mess = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetVersion", Data.ServiceSel));
+                        
                         TestsViewClass test = new TestsViewClass();
                         test.Count = TestsListView.Count + 1;
                         test.Name = message.args[i];
-                        if (message.args[i + 1] == "Passed") test.ResultTest = "/DashBoardClient;component/Images/ok.png";
-                        if (message.args[i + 1] == "Failed") test.ResultTest = "/DashBoardClient;component/Images/no.png";
-                        if (message.args[i + 1] == "Warning") test.ResultTest = "/DashBoardClient;component/Images/warning.png";
-                        if (message.args[i + 2] == "DEPENDEN ERROR") test.ResultTest = "/DashBoardClient;component/Images/link_break.png";
-                        if (message.args[i + 2] == "TIMEOUT") test.ResultTest = "/DashBoardClient;component/Images/time.png";
+                        if (message.args[i + 4] != mess.args[0])
+                        {
+                            if (message.args[i + 1] == "Passed") test.ResultTest = "/DashBoardClient;component/Images/ok_no_version.png";
+                            if (message.args[i + 1] == "Failed") test.ResultTest = "/DashBoardClient;component/Images/no_no_version.png";
+                            if (message.args[i + 1] == "Warning") test.ResultTest = "/DashBoardClient;component/Images/warning_no_version.png";
+                            if (message.args[i + 2] == "DEPENDEN ERROR") test.ResultTest = "/DashBoardClient;component/Images/link_break_no_version.png";
+                            if (message.args[i + 2] == "TIMEOUT") test.ResultTest = "/DashBoardClient;component/Images/time_no_version.png";
+                            if (message.args[i + 2] == "no_version") test.ResultTest = "/DashBoardClient;component/Images/do_not_disturb_no_version.png";
+                        }
+                        else
+                        {
+                            if (message.args[i + 1] == "Passed") test.ResultTest = "/DashBoardClient;component/Images/ok.png";
+                            if (message.args[i + 1] == "Failed") test.ResultTest = "/DashBoardClient;component/Images/no.png";
+                            if (message.args[i + 1] == "Warning") test.ResultTest = "/DashBoardClient;component/Images/warning.png";
+                            if (message.args[i + 2] == "DEPENDEN ERROR") test.ResultTest = "/DashBoardClient;component/Images/link_break.png";
+                            if (message.args[i + 2] == "TIMEOUT") test.ResultTest = "/DashBoardClient;component/Images/time.png";
+                            if (message.args[i + 2] == "no_version") test.ResultTest = "/DashBoardClient;component/Images/do_not_disturb.png";
+                        }
                         test.Jira = "";
-                        //test.Author = testForList[5];
+                        test.Author = message.args[i + 5];
                         ids.Add(test.Name);
                         TestsListView.Add(test);
                     }
@@ -117,7 +133,7 @@ namespace DashBoardClient
                                 // ПОМЕНЯТЬ ИНДЕКС
                                 try
                                 {
-                                    bufList.Add(message.args[j], message.args[j + 1].Equals("Failed") && (!message.args[j + 3].Equals("TIMEOUT") && !message.args[j + 3].Equals("DEPENDEN ERROR")) ? "FAILED" : message.args[j + 3]);
+                                    bufList.Add(message.args[j], message.args[j + 1].Equals("Failed") && (!message.args[j + 3].Equals("TIMEOUT") && !message.args[j + 3].Equals("no_version") && !message.args[j + 3].Equals("DEPENDEN ERROR")) ? "FAILED" : message.args[j + 3]);
                                 }
                                 catch { }
                         }

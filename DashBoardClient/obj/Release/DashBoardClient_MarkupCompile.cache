@@ -4,11 +4,11 @@
 winexe
 C#
 .cs
-C:\programs\Dash\Client\DashBoardClient\obj\Debug\
+C:\programs\Dash\Client\DashBoardClient\obj\Release\
 DashBoardClient
 none
 false
-DEBUG;TRACE
+TRACE
 C:\programs\Dash\Client\DashBoardClient\App.xaml
 21-391396002
 
@@ -16,5 +16,5 @@ C:\programs\Dash\Client\DashBoardClient\App.xaml
 15850140219
 Frames\ClearPage.xaml;Frames\Autostart.xaml;Frames\AddTests.xaml;Frames\Doc.xaml;MainWindow.xaml;Frames\Packs.xaml;Frames\StatisticTest.xaml;Windows\AutostartAddChange.xaml;Windows\FormShowCheckList.xaml;Windows\KPFormAdd.xaml;Windows\DocFormAdd.xaml;Windows\OpenKPList.xaml;Windows\ViewTestsPack.xaml;Windows\PackTestsFormChange.xaml;Windows\Auth.xaml;Frames\StartTests.xaml;Windows\OpenTestList.xaml;Windows\PackFormChange.xaml;Windows\PackFormAdd.xaml;Windows\TestFormChange.xaml;Windows\TestFormAdd.xaml;
 
-False
+True
 
