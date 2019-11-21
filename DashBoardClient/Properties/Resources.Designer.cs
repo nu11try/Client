@@ -323,9 +323,29 @@ namespace DashBoardClient.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap time1 {
+        internal static System.Drawing.Bitmap traffic_lights_green {
             get {
-                object obj = ResourceManager.GetObject("time1", resourceCulture);
+                object obj = ResourceManager.GetObject("traffic_lights_green", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap traffic_lights_red {
+            get {
+                object obj = ResourceManager.GetObject("traffic_lights_red", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap traffic_lights_yellow {
+            get {
+                object obj = ResourceManager.GetObject("traffic_lights_yellow", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

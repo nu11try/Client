@@ -1,11 +1,11 @@
-﻿<Window x:Class="DashBoardClient.OpenTestList"
+﻿<Window x:Class="DashBoardClient.Jira"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DashBoardClient"
         mc:Ignorable="d"
-        Title="DashBoard" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="DashBoard" Height="450" Width="674.742" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style TargetType="{x:Type Button}">
             <Style.Triggers>
@@ -31,14 +31,9 @@
         </Style>
     </Window.Resources>
     <Grid Background="#42454A">
-        <Button x:Name="BtnStartPack" Content="" Margin="357,10,395,0" VerticalAlignment="Top" Height="40" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="48" Click="BtnStartPack_Click" >
+        <Button x:Name="addBug" Content="" Margin="10,10,611,0" VerticalAlignment="Top" Height="40" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="48" >
             <Button.Background>
-                <ImageBrush ImageSource="/DashBoardClient;component/Images/start.png" Stretch="Uniform"/>
-            </Button.Background>
-        </Button>
-        <Button Content="" Margin="409,10,345,0" VerticalAlignment="Top" Height="40" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="46" RenderTransformOrigin="0.07,0.681">
-            <Button.Background>
-                <ImageBrush ImageSource="/DashBoardClient;component/Images/stop.png" Stretch="Uniform"/>
+                <ImageBrush ImageSource="/DashBoardClient;component/Images/bug_add.png" Stretch="Uniform"/>
             </Button.Background>
         </Button>
         <ListView ItemsSource="{Binding TestList}" x:Name="TestsList" FontSize="11" Foreground="White" Margin="0,60,0,0">
@@ -69,40 +64,55 @@
             </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="ID" Width="auto">
+                    <GridViewColumn Header="Название" Width="150">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock x:Name="NewName" Text="{Binding ID}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <TextBlock x:Name="NewName" Text="{Binding name}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Имя" Width="auto">
+                    <GridViewColumn Header="Время" Width="150">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock x:Name="NewName" Text="{Binding NewName}" TextWrapping="Wrap" VerticalAlignment="Center" />
+                                <TextBlock x:Name="NewName" Text="{Binding time}" TextWrapping="Wrap" VerticalAlignment="Center" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Время" Width="auto">
+                    <GridViewColumn Header="Тип" Width="150">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock x:Name="TimeExec" Text="{Binding TimeExec}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock x:Name="NewName" Text="{Binding type}" TextWrapping="Wrap" VerticalAlignment="Center" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Результат" Width="auto">
+                    <GridViewColumn Header="Открыть" Width="70">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock x:Name="ResultExec" Text="{Binding ResultExec}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Width="auto" Header="Просмотр">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button x:Name="ShowBtn" Tag="{Binding ID}" Height="25" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="25" Click="ShowResult">
+                                <Button x:Name="ShowBtn" Tag="{Binding name}" Height="25" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="25" >
                                     <Button.Background>
-                                        <ImageBrush ImageSource="/DashBoardClient;component/Images/stat_test.png" Stretch="Uniform"/>
+                                        <ImageBrush ImageSource="/DashBoardClient;component/Images/bug.png" Stretch="Uniform"/>
+                                    </Button.Background>
+                                </Button>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Изменить" Width="70">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="ShowBtn" Tag="{Binding name}" Height="25" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="25" >
+                                    <Button.Background>
+                                        <ImageBrush ImageSource="/DashBoardClient;component/Images/bug_edit.png" Stretch="Uniform"/>
+                                    </Button.Background>
+                                </Button>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="70" Header="Удалить">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="ShowBtn" Tag="{Binding name}" Height="25" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="25" >
+                                    <Button.Background>
+                                        <ImageBrush ImageSource="/DashBoardClient;component/Images/bug_delete.png" Stretch="Uniform"/>
                                     </Button.Background>
                                 </Button>
                             </DataTemplate>

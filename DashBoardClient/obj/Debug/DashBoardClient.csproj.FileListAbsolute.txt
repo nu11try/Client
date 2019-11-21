@@ -395,3 +395,5 @@ C:\Users\User\Desktop\Client\DashBoardClient\obj\Debug\DashBoardClient.csproj.Ge
 C:\Users\User\Desktop\Client\DashBoardClient\obj\Debug\DashBoardClient.csproj.CopyComplete
 C:\Users\User\Desktop\Client\DashBoardClient\obj\Debug\DashBoardClient.exe
 C:\Users\User\Desktop\Client\DashBoardClient\obj\Debug\DashBoardClient.pdb
+C:\Users\User\Desktop\Client\DashBoardClient\obj\Debug\Windows\Jira.g.cs
+C:\Users\User\Desktop\Client\DashBoardClient\obj\Debug\Windows\Jira.baml

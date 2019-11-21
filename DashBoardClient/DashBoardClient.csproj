@@ -102,6 +102,9 @@
     <Compile Include="Windows\FormShowCheckList.xaml.cs">
       <DependentUpon>FormShowCheckList.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\Jira.xaml.cs">
+      <DependentUpon>Jira.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\KPFormAdd.xaml.cs">
       <DependentUpon>KPFormAdd.xaml</DependentUpon>
     </Compile>
@@ -188,6 +191,10 @@
     <Page Include="Windows\FormShowCheckList.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\Jira.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\KPFormAdd.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -354,11 +361,6 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\ok.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\jira.png" />
   </ItemGroup>
   <ItemGroup>
@@ -437,6 +439,21 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\do_not_disturb_no_version.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ok.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\bug.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\traffic_lights_green.png" />
+    <Resource Include="Images\traffic_lights_red.png" />
+    <Resource Include="Images\traffic_lights_yellow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\note_add.png" />
+    <Resource Include="Images\note_delete.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

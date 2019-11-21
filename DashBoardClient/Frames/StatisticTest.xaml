@@ -43,7 +43,7 @@
             </ListView.BorderBrush>
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    
                     <Setter Property="Height" Value="30"/>
                     <Setter Property="Template">
                         <Setter.Value>
@@ -66,21 +66,21 @@
             </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Width="30" Header="№">
+                    <GridViewColumn Width="auto" Header="№">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate >
                                 <TextBlock x:Name="NumTest" Text="{Binding Count}" Tag="{Binding Name}" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Width="160" Header="Тест">
+                    <GridViewColumn Width="270" Header="Тест">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock x:Name="NameTest" Text="{Binding Name}" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <TextBlock x:Name="NameTest" Text="{Binding Name}" Foreground="White" VerticalAlignment="Center"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Width="50" Header="Рез.">
+                    <GridViewColumn Width="auto" Header="Рез.">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Button x:Name="ResultTest" Tag="{Binding ResultTest}" Height="25" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="25">
@@ -91,21 +91,21 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Width="50" Header="Jira">
+                    <GridViewColumn Width="auto" Header="Jira">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Button x:Name="Jira" Tag="{Binding Jira}" Height="25" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="25">
                                     <Button.Background>
-                                        <ImageBrush ImageSource="/DashBoardClient;component/Images/jira.png" Stretch="Uniform"/>
+                                        <ImageBrush ImageSource="/DashBoardClient;component/Images/traffic_lights_green.png" Stretch="Uniform"/>
                                     </Button.Background>
                                 </Button>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Width="150" Header="Ответственный">
-                        <GridViewColumn.CellTemplate>
+                    <GridViewColumn Width="auto" Header="Ответственный" >
+                        <GridViewColumn.CellTemplate >
                             <DataTemplate>
-                                <TextBlock x:Name="Author" Text="{Binding Author}" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <TextBlock  x:Name="Author" Text="{Binding Author}" Foreground="White"  TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

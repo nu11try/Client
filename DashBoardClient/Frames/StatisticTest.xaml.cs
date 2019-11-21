@@ -59,13 +59,12 @@ namespace DashBoardClient
                 }
 
                 List<string> ids = new List<string>();
+                Dictionary<string, string> ress = new Dictionary<string, string>();
+                Message mess = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetVersion", Data.ServiceSel));
                 for (var i = 0; i < message.args.Count; i += 6)
                 {
                     if (!ids.Contains(message.args[i]))
                     {
-
-                        Message mess = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetVersion", Data.ServiceSel));
-                        
                         TestsViewClass test = new TestsViewClass();
                         test.Count = TestsListView.Count + 1;
                         test.Name = message.args[i];
@@ -87,9 +86,25 @@ namespace DashBoardClient
                             if (message.args[i + 2] == "TIMEOUT") test.ResultTest = "/DashBoardClient;component/Images/time.png";
                             if (message.args[i + 2] == "no_version") test.ResultTest = "/DashBoardClient;component/Images/do_not_disturb.png";
                         }
+                        Message args = new Message();
+                        args.Add(message.args[i + 4]);
+                        Message res = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetTestResultVersion", Data.ServiceSel, JsonConvert.SerializeObject(args)));
+
+                        if (res.args.Contains("Passed"))
+                        {
+                            test.ResultTest = "/DashBoardClient;component/Images/ok.png";
+                        }
+                        else
+                        {
+                            if (res.args.Contains("Warning"))
+                            {
+                                test.ResultTest = "/DashBoardClient;component/Images/warning.png";
+                            }
+                        }
                         test.Jira = "";
                         test.Author = message.args[i + 5];
                         ids.Add(test.Name);
+                        
                         TestsListView.Add(test);
                     }
                 }
