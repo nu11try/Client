@@ -83,7 +83,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn> -->
-                    <GridViewColumn DisplayMemberBinding="{Binding Count}" Header="Кол-во" Width="Auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Count}" Header="Кол-во" Width="auto"/>
                     <GridViewColumn Header="Имя" Width="auto">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -98,7 +98,7 @@
                     <GridViewColumn Header="Тесты" Width="auto">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Click="OpenTestList" Tag="{Binding ID}" Height="auto" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="25">
+                                <Button Click="OpenTestList" Tag="{Binding ID}" Height="25" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="25">
                                     <Button.Background>
                                         <ImageBrush ImageSource="/DashBoardClient;component/Images/test.png" Stretch="Uniform"/>
                                     </Button.Background>

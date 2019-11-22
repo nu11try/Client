@@ -41,7 +41,7 @@
             </ListView.BorderBrush>
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
-                    <!--<Setter Property="HorizontalContentAlignment" Value="Center"/> -->
+                    <Setter Property="HorizontalContentAlignment" Value ="Stretch"/>
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="ListBoxItem">
@@ -63,10 +63,10 @@
             </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Width="50" Header="Измен.">
+                    <GridViewColumn Width="auto" Header="Измен.">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate >
-                                <Button x:Name="changeBtn" Tag="{Binding ID}" Height="25" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="25" Click="ChangeBtnTest">
+                                <Button x:Name="changeBtn" Tag="{Binding ID}" Height="35" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="35" Click="ChangeBtnTest">
                                     <Button.Background>
                                         <ImageBrush ImageSource="/DashBoardClient;component/Images/set.png" Stretch="Uniform"/>
                                     </Button.Background>
@@ -87,10 +87,10 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     -->
-                    <GridViewColumn Width="50" Header="Чеклист">
+                    <GridViewColumn Width="auto" Header="Чеклист">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button x:Name="checkListBtn" Tag="{Binding ID}" Height="25" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="25" Click="ShowCheckList">
+                                <Button x:Name="checkListBtn" Tag="{Binding ID}" Height="35" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="35" Click="ShowCheckList">
                                     <Button.Background>
                                         <ImageBrush ImageSource="/DashBoardClient;component/Images/test.png" Stretch="Uniform"/>
                                     </Button.Background>
@@ -98,7 +98,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="ID" Width="150">
+                    <GridViewColumn Header="ID" Width="auto">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock x:Name="IDTest" Text="{Binding ID}" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"/>
@@ -112,14 +112,14 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Ответственный" Width="100">
+                    <GridViewColumn Header="Ответственный" Width="auto">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock x:Name="AuthorTest" Text="{Binding Author}" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="КП" Width="100">
+                    <GridViewColumn Header="КП" Width="auto">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock x:Name="AuthorTest" Text="{Binding Kp}" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"/>

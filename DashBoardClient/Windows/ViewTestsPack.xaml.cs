@@ -83,12 +83,12 @@ namespace DashBoardClient
                     if (message.args[i + 6] == "not")
                     {
                         test.Duplicatebtn = "Visible";
-                        test.DuplicateImg = "/DashBoardClient;component/Images/open.png";
+                        test.DuplicateImg = "/DashBoardClient;component/Images/note_add.png";
                     }
                     else 
                     {
                         test.Duplicatebtn = "Visible";
-                        test.DuplicateImg = "/DashBoardClient;component/Images/sver.png";
+                        test.DuplicateImg = "/DashBoardClient;component/Images/note_delete.png";
                     }
                     dep = JsonConvert.DeserializeObject<Message>(message.args[i + 5]);
                     if (dep.args[0].Equals("not"))

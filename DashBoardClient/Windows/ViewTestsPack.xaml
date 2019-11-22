@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DashBoardClient"
         mc:Ignorable="d"
-        Title="DashBoard" Height="450" Width="1256.175" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="DashBoard" Height="450" Width="1000" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style TargetType="{x:Type Button}">
             <Style.Triggers>
@@ -37,7 +37,7 @@
             </ListView.Background>
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="HorizontalContentAlignment" Value ="Stretch"/>
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="ListBoxItem">
@@ -59,10 +59,10 @@
             </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView >
-                    <GridViewColumn Header="Измен." Width="50" >
+                    <GridViewColumn Header="Измен." Width="auto" >
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button x:Name="changeBtn" Tag="{Binding ID}" Height="25" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="25" Click="ChangeTest">
+                                <Button x:Name="changeBtn" Tag="{Binding ID}" Height="35" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="35" Click="ChangeTest">
                                     <Button.Background>
                                         <ImageBrush ImageSource="/DashBoardClient;component/Images/set.png" Stretch="Uniform"/>
                                     </Button.Background>
@@ -70,45 +70,45 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="ID" Width="100">
-                        <GridViewColumn.CellTemplate>
+                    <GridViewColumn Header="ID" Width="auto">
+                        <GridViewColumn.CellTemplate >
                             <DataTemplate>
-                                <TextBlock x:Name="NewName" Text="{Binding ID}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White"/>
+                                <TextBlock x:Name="NewName" Text="{Binding ID}" TextWrapping="WrapWithOverflow" VerticalAlignment="Center"  HorizontalAlignment="Center"  Foreground="White"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Имя" Width="250">
+                    <GridViewColumn Header="Имя" Width="350">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock x:Name="NewName" Text="{Binding NewName}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White"/>
+                                <TextBlock x:Name="NewName" Text="{Binding NewName}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="White"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Браузер" Width="150">
+                    <GridViewColumn Header="Браузер" Width="auto">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock x:Name="NewName" Text="{Binding Browser}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Макс. время" Width="100">
+                    <GridViewColumn Header="Макс. время" Width="auto">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock x:Name="NewName" Text="{Binding Time}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Перезапусков" Width="125">
+                    <GridViewColumn Header="Перезапусков" Width="auto">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock x:Name="NewName" Text="{Binding Restart}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="" Width="40">
+                    <GridViewColumn Header="" Width="auto">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button x:Name="DependonBtn"  Tag="{Binding ID}" Height="25" BorderBrush="{x:Null}" Foreground="{x:Null}"  Width="25" Click="Depen">
+                                <Button x:Name="DependonBtn"  Tag="{Binding ID}" Height="35" BorderBrush="{x:Null}" Foreground="{x:Null}"  Width="35" Click="Depen">
                                     <Button.Background>
                                         <ImageBrush ImageSource="{Binding Image}" Stretch="Uniform"/>
                                     </Button.Background>
@@ -116,18 +116,18 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Зависимость" Width="300">
+                    <GridViewColumn Header="Зависимость" Width="auto">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock x:Name="Dependon" Text="{Binding Dependon}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Дубликат" Width="100">
+                    <GridViewColumn Header="Дубликат" Width="auto">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <Button Visibility="{Binding Duplicatebtn}" x:Name="Duplicatebtn"  Tag="{Binding ID}" Height="25" BorderBrush="{x:Null}" Foreground="{x:Null}"  Width="25" Click="Duplicate">
+                                    <Button Visibility="{Binding Duplicatebtn}" x:Name="Duplicatebtn"  Tag="{Binding ID}" Height="35" BorderBrush="{x:Null}" Foreground="{x:Null}"  Width="35" Click="Duplicate">
                                         <Button.Background >
                                             <ImageBrush x:Name="DuplicateImg"   ImageSource="{Binding DuplicateImg}" Stretch="Uniform"/>
                                         </Button.Background>

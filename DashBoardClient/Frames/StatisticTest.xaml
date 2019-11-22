@@ -66,6 +66,8 @@
             </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
+                    <GridViewColumn Width="0" Header="&#xA;">
+                    </GridViewColumn>
                     <GridViewColumn Width="auto" Header="№">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate >
@@ -83,7 +85,7 @@
                     <GridViewColumn Width="auto" Header="Рез.">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button x:Name="ResultTest" Tag="{Binding ResultTest}" Height="25" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="25">
+                                <Button x:Name="ResultTest" Tag="{Binding ResultTest}" Height="35" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="35">
                                     <Button.Background>
                                         <ImageBrush ImageSource="{Binding ResultTest}" Stretch="Uniform"/>
                                     </Button.Background>
@@ -94,9 +96,9 @@
                     <GridViewColumn Width="auto" Header="Jira">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button x:Name="Jira" Tag="{Binding Jira}" Height="25" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="25">
+                                <Button x:Name="Jira" Tag="{Binding Jira}" Height="35" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="35">
                                     <Button.Background>
-                                        <ImageBrush ImageSource="/DashBoardClient;component/Images/traffic_lights_green.png" Stretch="Uniform"/>
+                                        <ImageBrush ImageSource="/DashBoardClient;component/Images/green.png" Stretch="Uniform"/>
                                     </Button.Background>
                                 </Button>
                             </DataTemplate>

@@ -96,6 +96,11 @@
     <Compile Include="Frames\StatisticTest.xaml.cs">
       <DependentUpon>StatisticTest.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Windows\AutostartAddChange.xaml.cs">
       <DependentUpon>AutostartAddChange.xaml</DependentUpon>
     </Compile>
@@ -119,11 +124,6 @@
     </Compile>
     <Compile Include="Windows\PackTestsFormChange.xaml.cs">
       <DependentUpon>PackTestsFormChange.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Windows\Auth.xaml.cs">
       <DependentUpon>Auth.xaml</DependentUpon>
@@ -324,11 +324,6 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\time_no_version.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\open_arrow.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -401,12 +396,8 @@
     <Resource Include="Images\bug_delete.png" />
     <Resource Include="Images\bug_edit.png" />
     <Resource Include="Images\bug_error.png" />
-    <Resource Include="Images\link_break.png" />
     <Resource Include="Images\report_magnify.png" />
     <Resource Include="Images\warning.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\do_not_disturb.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\ok_no_version.png" />
@@ -418,27 +409,15 @@
     <None Include="Resources\no_no_version.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\no_no_version.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\warning_no_version.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\warning_no_version.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\link_break.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\link_break_no_version.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\time.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\do_not_disturb_no_version.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\ok.png" />
@@ -447,13 +426,28 @@
     <Resource Include="Resources\bug.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\traffic_lights_green.png" />
-    <Resource Include="Images\traffic_lights_red.png" />
-    <Resource Include="Images\traffic_lights_yellow.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\note_add.png" />
     <Resource Include="Images\note_delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\dependon.png" />
+    <Resource Include="Images\dependon_no_version.png" />
+    <Resource Include="Images\green.png" />
+    <Resource Include="Images\red.png" />
+    <Resource Include="Images\server_error.png" />
+    <Resource Include="Images\warning_no_version.png" />
+    <Resource Include="Images\yellow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\bug.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\clock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\bug_no_version.png" />
+    <Resource Include="Images\clock_no_version.png" />
+    <Resource Include="Images\server_error_no_version.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

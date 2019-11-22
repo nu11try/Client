@@ -73,9 +73,9 @@ namespace DashBoardClient.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap do_not_disturb {
+        internal static System.Drawing.Bitmap bug {
             get {
-                object obj = ResourceManager.GetObject("do_not_disturb", resourceCulture);
+                object obj = ResourceManager.GetObject("bug", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +83,9 @@ namespace DashBoardClient.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap do_not_disturb_no_version {
+        internal static System.Drawing.Bitmap dependon {
             get {
-                object obj = ResourceManager.GetObject("do_not_disturb_no_version", resourceCulture);
+                object obj = ResourceManager.GetObject("dependon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -96,6 +96,16 @@ namespace DashBoardClient.Properties {
         internal static System.Drawing.Bitmap doc {
             get {
                 object obj = ResourceManager.GetObject("doc", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap green {
+            get {
+                object obj = ResourceManager.GetObject("green", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -116,26 +126,6 @@ namespace DashBoardClient.Properties {
         internal static System.Drawing.Bitmap jira {
             get {
                 object obj = ResourceManager.GetObject("jira", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap link_break {
-            get {
-                object obj = ResourceManager.GetObject("link_break", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap link_break_no_version {
-            get {
-                object obj = ResourceManager.GetObject("link_break_no_version", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -166,6 +156,26 @@ namespace DashBoardClient.Properties {
         internal static System.Drawing.Bitmap no_no_version {
             get {
                 object obj = ResourceManager.GetObject("no_no_version", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap note_add {
+            get {
+                object obj = ResourceManager.GetObject("note_add", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap note_delete {
+            get {
+                object obj = ResourceManager.GetObject("note_delete", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -216,6 +226,16 @@ namespace DashBoardClient.Properties {
         internal static System.Drawing.Bitmap operac {
             get {
                 object obj = ResourceManager.GetObject("operac", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap server_error {
+            get {
+                object obj = ResourceManager.GetObject("server_error", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -313,46 +333,6 @@ namespace DashBoardClient.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap time_no_version {
-            get {
-                object obj = ResourceManager.GetObject("time_no_version", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap traffic_lights_green {
-            get {
-                object obj = ResourceManager.GetObject("traffic_lights_green", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap traffic_lights_red {
-            get {
-                object obj = ResourceManager.GetObject("traffic_lights_red", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap traffic_lights_yellow {
-            get {
-                object obj = ResourceManager.GetObject("traffic_lights_yellow", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap user {
             get {
                 object obj = ResourceManager.GetObject("user", resourceCulture);
@@ -376,6 +356,16 @@ namespace DashBoardClient.Properties {
         internal static System.Drawing.Bitmap warning_no_version {
             get {
                 object obj = ResourceManager.GetObject("warning_no_version", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap yellow {
+            get {
+                object obj = ResourceManager.GetObject("yellow", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

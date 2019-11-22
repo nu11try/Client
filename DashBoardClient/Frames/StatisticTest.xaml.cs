@@ -61,7 +61,7 @@ namespace DashBoardClient
                 List<string> ids = new List<string>();
                 Dictionary<string, string> ress = new Dictionary<string, string>();
                 Message mess = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetVersion", Data.ServiceSel));
-                for (var i = 0; i < message.args.Count; i += 6)
+                for (var i = 0; i < message.args.Count; i += 7)
                 {
                     if (!ids.Contains(message.args[i]))
                     {
@@ -71,23 +71,23 @@ namespace DashBoardClient
                         if (message.args[i + 4] != mess.args[0])
                         {
                             if (message.args[i + 1] == "Passed") test.ResultTest = "/DashBoardClient;component/Images/ok_no_version.png";
-                            if (message.args[i + 1] == "Failed") test.ResultTest = "/DashBoardClient;component/Images/no_no_version.png";
+                            if (message.args[i + 1] == "Failed") test.ResultTest = "/DashBoardClient;component/Images/bug_no_version.png";
                             if (message.args[i + 1] == "Warning") test.ResultTest = "/DashBoardClient;component/Images/warning_no_version.png";
-                            if (message.args[i + 2] == "DEPENDEN ERROR") test.ResultTest = "/DashBoardClient;component/Images/link_break_no_version.png";
-                            if (message.args[i + 2] == "TIMEOUT") test.ResultTest = "/DashBoardClient;component/Images/time_no_version.png";
-                            if (message.args[i + 2] == "no_version") test.ResultTest = "/DashBoardClient;component/Images/do_not_disturb_no_version.png";
+                            if (message.args[i + 2] == "DEPENDEN ERROR") test.ResultTest = "/DashBoardClient;component/Images/dependon_no_version.png";
+                            if (message.args[i + 2] == "TIMEOUT") test.ResultTest = "/DashBoardClient;component/Images/clock_no_version.png";
+                            if (message.args[i + 2] == "no_version") test.ResultTest = "/DashBoardClient;component/Images/server_error_no_version.png";
                         }
                         else
                         {
                             if (message.args[i + 1] == "Passed") test.ResultTest = "/DashBoardClient;component/Images/ok.png";
-                            if (message.args[i + 1] == "Failed") test.ResultTest = "/DashBoardClient;component/Images/no.png";
+                            if (message.args[i + 1] == "Failed") test.ResultTest = "/DashBoardClient;component/Images/bug.png";
                             if (message.args[i + 1] == "Warning") test.ResultTest = "/DashBoardClient;component/Images/warning.png";
-                            if (message.args[i + 2] == "DEPENDEN ERROR") test.ResultTest = "/DashBoardClient;component/Images/link_break.png";
+                            if (message.args[i + 2] == "DEPENDEN ERROR") test.ResultTest = "/DashBoardClient;component/Images/dependon.png";
                             if (message.args[i + 2] == "TIMEOUT") test.ResultTest = "/DashBoardClient;component/Images/time.png";
-                            if (message.args[i + 2] == "no_version") test.ResultTest = "/DashBoardClient;component/Images/do_not_disturb.png";
+                            if (message.args[i + 2] == "no_version") test.ResultTest = "/DashBoardClient;component/Images/server_error.png";
                         }
                         Message args = new Message();
-                        args.Add(message.args[i + 4]);
+                        args.Add(message.args[i + 6], message.args[i + 4]);
                         Message res = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetTestResultVersion", Data.ServiceSel, JsonConvert.SerializeObject(args)));
 
                         if (res.args.Contains("Passed"))
@@ -137,20 +137,18 @@ namespace DashBoardClient
                 }
                 List<string> listDate = new List<string>();
                 Dictionary<string, string> bufList = new Dictionary<string, string>();
-                for (var i = 0; i < message.args.Count; i += 5)
+                for (var i = 0; i < message.args.Count; i += 6)
                 {
-                    if (!listDate.Contains(message.args[i])) listDate.Add(message.args[i]);
-                        for (var j = 0; j < message.args.Count; j += 5)
+                    if (!listDate.Contains(message.args[i])) listDate.Add(message.args[i] +"\n"+message.args[i + 5].Replace(".", ":").Replace("_", "__"));
+                        for (var j = 0; j < message.args.Count; j += 6)
                     {
                         if (message.args[i + 4].Equals(message.args[j + 4]))
                         {
-                            
-                                // ПОМЕНЯТЬ ИНДЕКС
-                                try
-                                {
-                                    bufList.Add(message.args[j], message.args[j + 1].Equals("Failed") && (!message.args[j + 3].Equals("TIMEOUT") && !message.args[j + 3].Equals("no_version") && !message.args[j + 3].Equals("DEPENDEN ERROR")) ? "FAILED" : message.args[j + 3]);
-                                }
-                                catch { }
+                            try
+                            {
+                                bufList.Add(message.args[j]  + "\n" + message.args[j + 5].Replace(".", ":").Replace("_", "__"), message.args[j + 1].Equals("Failed") && (!message.args[j + 3].Equals("TIMEOUT") && !message.args[j + 3].Equals("no_version") && !message.args[j + 3].Equals("DEPENDEN ERROR")) ? "FAILED" : message.args[j + 3]);
+                            }
+                            catch { }
                         }
                     }
                     try
@@ -221,7 +219,7 @@ namespace DashBoardClient
                 this.TestsInfo.Items.Add(item);
             }
 
-            }
+        }
         private void TestsView_ScrollChanged(object sender, ScrollChangedEventArgs e)
         {
             if (IsLoaded)
