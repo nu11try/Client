@@ -75,7 +75,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Width="270" Header="Тест">
+                    <GridViewColumn Width="260" Header="Тест">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock x:Name="NameTest" Text="{Binding Name}" Foreground="White" VerticalAlignment="Center"/>
@@ -85,7 +85,7 @@
                     <GridViewColumn Width="auto" Header="Рез.">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button x:Name="ResultTest" Tag="{Binding ResultTest}" Height="35" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="35">
+                                <Button x:Name="ResultTest" Tag="{Binding Id}" Height="35" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="35">
                                     <Button.Background>
                                         <ImageBrush ImageSource="{Binding ResultTest}" Stretch="Uniform"/>
                                     </Button.Background>
@@ -96,9 +96,9 @@
                     <GridViewColumn Width="auto" Header="Jira">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button x:Name="Jira" Tag="{Binding Jira}" Height="35" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="35">
+                                <Button x:Name="Jira" Tag="{Binding Id}" Height="35" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="35" Click="Jira_Click">
                                     <Button.Background>
-                                        <ImageBrush ImageSource="/DashBoardClient;component/Images/green.png" Stretch="Uniform"/>
+                                        <ImageBrush ImageSource="{Binding Jira}" Stretch="Uniform"/>
                                     </Button.Background>
                                 </Button>
                             </DataTemplate>
@@ -146,7 +146,7 @@
             </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Width="100">
+                    <GridViewColumn Width="auto">
                         <GridViewColumn.Header>
                             <GridViewColumnHeader Tag="Name">"{Binding Result}"</GridViewColumnHeader>
                         </GridViewColumn.Header>

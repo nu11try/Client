@@ -397,3 +397,5 @@ C:\Users\User\Desktop\Client\DashBoardClient\obj\Debug\DashBoardClient.exe
 C:\Users\User\Desktop\Client\DashBoardClient\obj\Debug\DashBoardClient.pdb
 C:\Users\User\Desktop\Client\DashBoardClient\obj\Debug\Windows\Jira.g.cs
 C:\Users\User\Desktop\Client\DashBoardClient\obj\Debug\Windows\Jira.baml
+C:\Users\User\Desktop\Client\DashBoardClient\obj\Debug\Windows\AddBug.g.cs
+C:\Users\User\Desktop\Client\DashBoardClient\obj\Debug\Windows\AddBug.baml

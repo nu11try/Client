@@ -64,6 +64,7 @@ namespace DashBoardClient
                 TimeTest.Text = resMes.args[3];
                 CountRestart.Text = resMes.args[4];
                 Browser.Text = resMes.args[6];
+                
                 try
                 {
                     double tmp = Int32.Parse(TimeTest.Text) / 60;
@@ -101,6 +102,17 @@ namespace DashBoardClient
                     }
                 }
                 IPList.SelectedIndex = IPList.Items.IndexOf(resMes.args[2]);
+
+                response = server.SendMsg("GetStends", Data.ServiceSel);
+
+               Message stend = JsonConvert.DeserializeObject<Message>(response);
+
+                for (int i = 0; i < stend.args.Count; i ++)
+                {
+                    Stend.Items.Add(stend.args[i]);
+                }
+                Stend.SelectedIndex = IPList.Items.IndexOf(resMes.args[7]);
+                Stend.Text = resMes.args[7];
             }
             message = new Message();
         }
@@ -203,7 +215,7 @@ namespace DashBoardClient
                     
                     string te = JsonConvert.SerializeObject(tests);
                     string re = JsonConvert.SerializeObject(removeTe);
-                    message.Add(IDPack.Text, NamePack.Text, te, TimeTest.Text, CountRestart.Text, IPList.Text, re, Browser.Text);
+                    message.Add(IDPack.Text, NamePack.Text, te, TimeTest.Text, CountRestart.Text, IPList.Text, re, Browser.Text, Stend.Text);
                     request = JsonConvert.SerializeObject(message);
                     response = server.SendMsg("UpdatePackChange", Data.ServiceSel, request);
 

@@ -68,6 +68,18 @@ namespace DashBoardClient
                         if (IPList.Items.Count == 0) MessageBox.Show("Нет доступных машин!");
                         else IPList.SelectedIndex = 0;
                     }
+                    response = server.SendMsg("GetStends", Data.ServiceSel);
+                    message = JsonConvert.DeserializeObject<Message>(response);
+                    if (message.args.Count == 0) MessageBox.Show("Нет доступных стендов!");
+                    else
+                    {
+                        for (int i = 0; i < message.args.Count; i ++)
+                        {
+                            Stend.Items.Add(message.args[i]);
+                        }
+                        if (Stend.Items.Count == 0) MessageBox.Show("Нет доступных стендов!");
+                        else Stend.SelectedIndex = 0;
+                    }
                 }
             }
         }
@@ -101,7 +113,7 @@ namespace DashBoardClient
             {
                 try
                 {
-                    message.Add(NamePack.Text, JsonConvert.SerializeObject(testsList), TimeTest.Text, CountRestart.Text, IPList.Text, Browser.Text);
+                    message.Add(NamePack.Text, JsonConvert.SerializeObject(testsList), TimeTest.Text, CountRestart.Text, IPList.Text, Browser.Text, Stend.Text);
                     request = JsonConvert.SerializeObject(message);
                     response = server.SendMsg("AddPack", Data.ServiceSel, request);
                     if (JsonConvert.DeserializeObject<Message>(response).args[0].Equals("OK")) MessageBox.Show("Поздравляем! Набор добавлен!");

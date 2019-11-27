@@ -53,8 +53,6 @@ namespace DashBoardClient
         {
             FormShowCheckList checklist = new FormShowCheckList((sender as Button).Tag.ToString());
             checklist.ShowDialog();
-
-            UpdateList();
         }
 
         private void UpdateList()

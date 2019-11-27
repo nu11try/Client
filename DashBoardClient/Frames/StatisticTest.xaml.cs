@@ -30,7 +30,7 @@ namespace DashBoardClient
             InitializeComponent();
             UpdateTestsView();
             UpdateTestsInfo();
-            TestsView.ItemsSource = TestsListView;
+            
             //TestsInfo.ItemsSource = TestsListInfo;    
             TestsView.SelectionChanged += TestsView_SelectionChanged;
             TestsInfo.SelectionChanged += TestsInfo_SelectionChanged;
@@ -38,12 +38,25 @@ namespace DashBoardClient
 
         private void TestsInfo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            try { 
             TestsView.SelectedItem = TestsView.Items[TestsInfo.SelectedIndex];
+            }
+            catch
+            {
+
+            }
         }
 
         private void TestsView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            TestsInfo.SelectedItem = TestsInfo.Items[TestsView.SelectedIndex];
+            try
+            {
+                TestsInfo.SelectedItem = TestsInfo.Items[TestsView.SelectedIndex];
+            }
+            catch
+            {
+
+            }
         }
 
         private void UpdateTestsView()
@@ -101,8 +114,18 @@ namespace DashBoardClient
                                 test.ResultTest = "/DashBoardClient;component/Images/warning.png";
                             }
                         }
-                        test.Jira = "";
+                      
                         test.Author = message.args[i + 5];
+                        test.Id = message.args[i + 6];
+                        args = new Message();
+                        args.Add(message.args[i + 6]);
+                        res = JsonConvert.DeserializeObject<Message>(server.SendMsg("CheckErrors", Data.ServiceSel, JsonConvert.SerializeObject(args)));
+                        if(res.args[0] == "errors")
+                            test.Jira = "/DashBoardClient;component/Images/red.png";
+                        if (res.args[0] == "issue")
+                            test.Jira = "/DashBoardClient;component/Images/yellow.png";
+                        if (res.args[0] == "no issue")
+                            test.Jira = "/DashBoardClient;component/Images/green.png";
                         ids.Add(test.Name);
                         
                         TestsListView.Add(test);
@@ -114,9 +137,11 @@ namespace DashBoardClient
                 MessageBox.Show("Произошла ошибка! Обратитесь к поддержке!");
             }
             DataContext = this;
+            TestsView.ItemsSource = TestsListView;
         }
         private void UpdateTestsInfo()
         {
+            this.TestsInfo.Items.Clear();
             GridView gridView = new GridView();
             this.TestsInfo.View = gridView;
 
@@ -253,6 +278,7 @@ namespace DashBoardClient
             public string ResultTest { get; set; }
             public string Jira { get; set; }
             public string Author { get; set; }
+            public string Id { get; set; }
         }
 
         public class TestsInfoClass
@@ -260,6 +286,14 @@ namespace DashBoardClient
             public string Result { get; set; }
             public string Date { get; set; }
             public string Version { get; set; }
+        }
+
+        private void Jira_Click(object sender, RoutedEventArgs e)
+        {
+            Jira jira = new Jira((sender as Button).Tag.ToString());
+            jira.ShowDialog();
+            UpdateTestsView();
+            UpdateTestsInfo();
         }
     }
 }

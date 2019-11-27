@@ -101,6 +101,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Windows\AddBug.xaml.cs">
+      <DependentUpon>AddBug.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\AutostartAddChange.xaml.cs">
       <DependentUpon>AutostartAddChange.xaml</DependentUpon>
     </Compile>
@@ -181,6 +184,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Frames\StatisticTest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\AddBug.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -432,11 +439,9 @@
   <ItemGroup>
     <Resource Include="Images\dependon.png" />
     <Resource Include="Images\dependon_no_version.png" />
-    <Resource Include="Images\green.png" />
-    <Resource Include="Images\red.png" />
+    <Resource Include="Images\yellow.png" />
     <Resource Include="Images\server_error.png" />
     <Resource Include="Images\warning_no_version.png" />
-    <Resource Include="Images\yellow.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\bug.png" />
@@ -448,6 +453,10 @@
     <Resource Include="Images\bug_no_version.png" />
     <Resource Include="Images\clock_no_version.png" />
     <Resource Include="Images\server_error_no_version.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\green.png" />
+    <Resource Include="Images\red.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

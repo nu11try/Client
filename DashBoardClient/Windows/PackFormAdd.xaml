@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DashBoardClient"
         mc:Ignorable="d"
-        Title="Форма добавления тестов" Height="747.5" Width="303" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="#FF444444">
+        Title="Форма добавления тестов" Height="762.5" Width="303" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="#FF444444">
     <Window.Resources>
         <Style TargetType="{x:Type Button}">
             <Style.Triggers>
@@ -31,24 +31,24 @@
         </Style>
     </Window.Resources>
     <Grid Background="#FF45454F" Margin="0,0,0,-2">
-        <Button x:Name="SubmitTest" Content="Подтвердить" HorizontalAlignment="Left" Margin="25,618,0,0" Width="238" Height="28" VerticalAlignment="Top" Click="SendPack"/>
-        <Button x:Name="CancelTest" Content="Отменить" HorizontalAlignment="Left" Margin="25,658,0,0" Width="238" Height="28" VerticalAlignment="Top" Click="CloseWindow"/>
+        <Button x:Name="SubmitTest" Content="Подтвердить" HorizontalAlignment="Left" Margin="25,660,0,0" Width="238" Height="28" VerticalAlignment="Top" Click="SendPack"/>
+        <Button x:Name="CancelTest" Content="Отменить" HorizontalAlignment="Left" Margin="25,700,0,0" Width="238" Height="28" VerticalAlignment="Top" Click="CloseWindow"/>
         <Label Content="Название набора" HorizontalAlignment="Left" Margin="28,25,0,0" VerticalAlignment="Top" Foreground="White" Width="222" Height="26"/>
         <TextBox x:Name="NamePack" HorizontalAlignment="Left" Height="20" Margin="25,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="238"/>
-        <Label Content="Тесты" HorizontalAlignment="Left" Margin="28,172,0,0" VerticalAlignment="Top" Foreground="White" Width="222"/>
-        <ListBox x:Name="TestsInPack" HorizontalAlignment="Left" Height="166" Margin="25,206,0,0" VerticalAlignment="Top" Width="238" SelectionMode="Multiple">
+        <Label Content="Тесты" HorizontalAlignment="Left" Margin="28,214,0,0" VerticalAlignment="Top" Foreground="White" Width="222"/>
+        <ListBox x:Name="TestsInPack" HorizontalAlignment="Left" Height="166" Margin="25,248,0,0" VerticalAlignment="Top" Width="238" SelectionMode="Multiple">
         </ListBox>
-        <ComboBox x:Name="Browser" HorizontalAlignment="Left" Margin="25,423,0,0" VerticalAlignment="Top" Width="238" SelectedIndex="0" Height="20">
+        <ComboBox x:Name="Browser" HorizontalAlignment="Left" Margin="25,465,0,0" VerticalAlignment="Top" Width="238" SelectedIndex="0" Height="20">
             <TextBlock><Run Text="IE"/></TextBlock>
             <TextBlock><Run Text="Chrome"/></TextBlock>
             <TextBlock><Run Text="PhantomJs"/></TextBlock>
         </ComboBox>
-        <Label Content="Браузер" HorizontalAlignment="Left" Margin="28,392,0,0" VerticalAlignment="Top" Foreground="White" Width="222"/>
-        <Label Content="Макс. продол. выполнения теста" HorizontalAlignment="Left" Margin="28,458,0,0" VerticalAlignment="Top" Foreground="White" Width="222"/>
-        <TextBox x:Name="TimeTest" HorizontalAlignment="Left" Height="20" Margin="28,492,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="104" Text="900"/>
-        <Label Content="с" HorizontalAlignment="Left" Margin="139,488,0,0" VerticalAlignment="Top" Foreground="White" Width="41" Height="30"/>
-        <Label Content="(15 мин)"  x:Name="TimeMin" HorizontalAlignment="Left" Margin="186,488,0,0" VerticalAlignment="Top" Foreground="White" Width="101" Height="30"/>
-        <ComboBox x:Name="CountRestart" HorizontalAlignment="Left" Margin="25,567,0,0" VerticalAlignment="Top" Width="238" SelectedIndex="0" Height="20">
+        <Label Content="Браузер" HorizontalAlignment="Left" Margin="28,434,0,0" VerticalAlignment="Top" Foreground="White" Width="222"/>
+        <Label Content="Макс. продол. выполнения теста" HorizontalAlignment="Left" Margin="28,500,0,0" VerticalAlignment="Top" Foreground="White" Width="222"/>
+        <TextBox x:Name="TimeTest" HorizontalAlignment="Left" Height="20" Margin="28,534,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="104" Text="900"/>
+        <Label Content="с" HorizontalAlignment="Left" Margin="139,530,0,0" VerticalAlignment="Top" Foreground="White" Width="41" Height="30"/>
+        <Label Content="(15 мин)"  x:Name="TimeMin" HorizontalAlignment="Left" Margin="186,530,0,0" VerticalAlignment="Top" Foreground="White" Width="101" Height="30"/>
+        <ComboBox x:Name="CountRestart" HorizontalAlignment="Left" Margin="25,609,0,0" VerticalAlignment="Top" Width="238" SelectedIndex="0" Height="20">
             <TextBlock>0</TextBlock>
             <TextBlock>1</TextBlock>
             <TextBlock>2</TextBlock>
@@ -66,9 +66,11 @@
             <TextBlock>14</TextBlock>
             <TextBlock>15</TextBlock>
         </ComboBox>
-        <Label Content="Кол-во перезап. в случае сбоя" HorizontalAlignment="Left" Margin="28,536,0,0" VerticalAlignment="Top" Foreground="White" Width="222"/>
+        <Label Content="Кол-во перезап. в случае сбоя" HorizontalAlignment="Left" Margin="28,578,0,0" VerticalAlignment="Top" Foreground="White" Width="222"/>
         <Label Content="IP машины запуска" HorizontalAlignment="Left" Margin="28,97,0,0" VerticalAlignment="Top" Foreground="White" Width="222" Height="26"/>
         <ComboBox x:Name="IPList" HorizontalAlignment="Left" Margin="25,130,0,0" VerticalAlignment="Top" Width="238" Height="20"/>
+        <Label Content="Стенд" HorizontalAlignment="Left" Margin="28,155,0,0" VerticalAlignment="Top" Foreground="White" Width="222" Height="26"/>
+        <ComboBox x:Name="Stend" HorizontalAlignment="Left" Margin="25,188,0,0" VerticalAlignment="Top" Width="238" Height="20"/>
 
     </Grid>
 </Window>
