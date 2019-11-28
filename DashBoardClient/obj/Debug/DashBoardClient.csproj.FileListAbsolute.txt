@@ -399,3 +399,7 @@ C:\Users\User\Desktop\Client\DashBoardClient\obj\Debug\Windows\Jira.g.cs
 C:\Users\User\Desktop\Client\DashBoardClient\obj\Debug\Windows\Jira.baml
 C:\Users\User\Desktop\Client\DashBoardClient\obj\Debug\Windows\AddBug.g.cs
 C:\Users\User\Desktop\Client\DashBoardClient\obj\Debug\Windows\AddBug.baml
+C:\programs\Dash\Client\DashBoardClient\obj\Debug\Windows\AddBug.g.cs
+C:\programs\Dash\Client\DashBoardClient\obj\Debug\Windows\Jira.g.cs
+C:\programs\Dash\Client\DashBoardClient\obj\Debug\Windows\AddBug.baml
+C:\programs\Dash\Client\DashBoardClient\obj\Debug\Windows\Jira.baml
