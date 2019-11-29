@@ -278,7 +278,6 @@ E:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.csproj.CopyComplete
 E:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.exe
 E:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.pdb
 E:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.csprojAssemblyReference.cache
-C:\programs\Dash\Client\DashBoardClient\obj\Debug\DashBoardClient.csprojAssemblyReference.cache
 C:\programs\Dash\Client\DashBoardClient\obj\Debug\Frames\ClearPage.g.cs
 C:\programs\Dash\Client\DashBoardClient\obj\Debug\Frames\Autostart.g.cs
 C:\programs\Dash\Client\DashBoardClient\obj\Debug\Frames\AddTests.g.cs
@@ -403,3 +402,10 @@ C:\programs\Dash\Client\DashBoardClient\obj\Debug\Windows\AddBug.g.cs
 C:\programs\Dash\Client\DashBoardClient\obj\Debug\Windows\Jira.g.cs
 C:\programs\Dash\Client\DashBoardClient\obj\Debug\Windows\AddBug.baml
 C:\programs\Dash\Client\DashBoardClient\obj\Debug\Windows\Jira.baml
+C:\programs\Dash\Client\DashBoardClient\obj\Debug\Windows\waiter.g.cs
+C:\programs\Dash\Client\DashBoardClient\obj\Debug\Windows\waiter.baml
+C:\programs\Dash\Client\DashBoardClient\bin\Debug\CircularProgressBar.dll
+C:\programs\Dash\Client\DashBoardClient\bin\Debug\WinFormAnimation.dll
+C:\programs\Dash\Client\DashBoardClient\bin\Debug\System.IO.Ports.dll
+C:\programs\Dash\Client\DashBoardClient\bin\Debug\System.IO.Ports.xml
+C:\programs\Dash\Client\DashBoardClient\obj\Debug\DashBoardClient.csprojAssemblyReference.cache

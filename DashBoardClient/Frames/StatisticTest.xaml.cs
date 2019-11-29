@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -27,15 +28,33 @@ namespace DashBoardClient
         List<TestsInfoClass> TestsListInfo;
         public StatisticTest()
         {
+            
+            Thread thread = new Thread(new ThreadStart(StartForm));
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.Start();
             InitializeComponent();
             UpdateTestsView();
             UpdateTestsInfo();
-            
+
+
             //TestsInfo.ItemsSource = TestsListInfo;    
             TestsView.SelectionChanged += TestsView_SelectionChanged;
             TestsInfo.SelectionChanged += TestsInfo_SelectionChanged;
+            try { 
+                thread.Abort();
+            }
+            catch { }
         }
-
+        public void StartForm()
+        {
+            try
+            {
+                Thread.Sleep(1000);
+                waiter sp = new waiter();
+                sp.ShowDialog();
+            }
+            catch { }
+        }
         private void TestsInfo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try { 
@@ -290,10 +309,19 @@ namespace DashBoardClient
 
         private void Jira_Click(object sender, RoutedEventArgs e)
         {
+
             Jira jira = new Jira((sender as Button).Tag.ToString());
             jira.ShowDialog();
+            Thread thread = new Thread(new ThreadStart(StartForm));
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.Start();
             UpdateTestsView();
             UpdateTestsInfo();
+            try
+            {
+                thread.Abort();
+            }
+            catch { }
         }
     }
 }

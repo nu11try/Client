@@ -30,6 +30,7 @@
             </Setter>
             <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
         </Style>
+
     </Page.Resources>
     <Grid>
         <ScrollViewer>
@@ -162,5 +163,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        
+        
     </Grid>
 </Page>

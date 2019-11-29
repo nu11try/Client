@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -32,6 +33,7 @@ namespace DashBoardClient
         public static string ServiceSel { get; set; }
     }
 
+   
     public class Message
     {
         public Message() { args = new List<string>(); }
@@ -65,8 +67,8 @@ namespace DashBoardClient
     }
 
     public partial class MainWindow : Window
-    {        
-
+    {
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -168,5 +170,6 @@ namespace DashBoardClient
             Data.ProjectSel = SelecterProject.SelectedItem.ToString();
             Data.ServiceSel = JsonConvert.DeserializeObject<Message>(Data.ServiceName).args[project.args.IndexOf(SelecterProject.SelectedItem.ToString())];
         }
+
     }
 }

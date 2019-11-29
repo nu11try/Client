@@ -1,0 +1,132 @@
+﻿<Window x:Name="window" x:Class="DashBoardClient.waiter"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DashBoardClient"
+        mc:Ignorable="d"
+        Title=" " Height="200" Width="200" ResizeMode="NoResize" ShowInTaskbar="False" WindowStartupLocation="CenterScreen" Margin="0" Foreground="{x:Null}" Background="{x:Null}" AllowsTransparency="True" WindowStyle="None">
+    <Window.Resources>
+        <Storyboard x:Key="usamaliaquat" RepeatBehavior="Forever">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)" Storyboard.TargetName="ring1">
+                <EasingDoubleKeyFrame KeyTime="0:0:4" Value="720"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)" Storyboard.TargetName="ring2">
+                <EasingDoubleKeyFrame KeyTime="0:0:4.5" Value="720"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)" Storyboard.TargetName="ring3">
+                <EasingDoubleKeyFrame KeyTime="0:0:5" Value="720"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)" Storyboard.TargetName="ring4">
+                <EasingDoubleKeyFrame KeyTime="0:0:5.5" Value="720"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)" Storyboard.TargetName="ring5">
+                <EasingDoubleKeyFrame KeyTime="0:0:6" Value="720"/>
+            </DoubleAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.HorizontalAlignment)" Storyboard.TargetName="contentControl">
+                <DiscreteObjectKeyFrame KeyTime="0:0:4" Value="{x:Static HorizontalAlignment.Center}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.HorizontalAlignment)" Storyboard.TargetName="contentControl1">
+                <DiscreteObjectKeyFrame KeyTime="0:0:4" Value="{x:Static HorizontalAlignment.Center}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.HorizontalAlignment)" Storyboard.TargetName="contentControl2">
+                <DiscreteObjectKeyFrame KeyTime="0:0:4" Value="{x:Static HorizontalAlignment.Center}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.HorizontalAlignment)" Storyboard.TargetName="contentControl3">
+                <DiscreteObjectKeyFrame KeyTime="0:0:4" Value="{x:Static HorizontalAlignment.Center}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.HorizontalAlignment)" Storyboard.TargetName="contentControl4">
+                <DiscreteObjectKeyFrame KeyTime="0:0:4" Value="{x:Static HorizontalAlignment.Center}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="ring5">
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:6" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="ring4">
+                <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:5.5" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="ring3">
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:5" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="ring2">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:4.5" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="ring1">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:4" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+            <BeginStoryboard Storyboard="{StaticResource usamaliaquat}"/>
+        </EventTrigger>
+    </Window.Triggers>
+    <Grid>
+        <Grid.Resources>
+            <DataTemplate x:Key="Usama">
+                <Ellipse Width="25" Height="25" Fill="White"  VerticalAlignment="Top"/>
+            </DataTemplate>
+        </Grid.Resources>
+        <Grid Height="200" Width="200" >
+            <Grid x:Name="ring1"  RenderTransformOrigin="0.5,0.5">
+                <Grid.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Grid.RenderTransform>
+                <ContentControl x:Name="contentControl" ContentTemplate="{StaticResource Usama}" Content="{x:Null}"/>
+            </Grid>
+            <Grid x:Name="ring2" RenderTransformOrigin="0.5,0.5">
+                <Grid.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Grid.RenderTransform>
+                <ContentControl x:Name="contentControl1" ContentTemplate="{StaticResource Usama}" Content="{x:Null}"/>
+            </Grid>
+            <Grid x:Name="ring3" RenderTransformOrigin="0.5,0.5">
+                <Grid.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Grid.RenderTransform>
+                <ContentControl x:Name="contentControl2" ContentTemplate="{StaticResource Usama}" Content="{x:Null}"/>
+            </Grid>
+            <Grid x:Name="ring4"  RenderTransformOrigin="0.5,0.5">
+                <Grid.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Grid.RenderTransform>
+                <ContentControl x:Name="contentControl3" ContentTemplate="{StaticResource Usama}" Content="{x:Null}"/>
+            </Grid>
+            <Grid x:Name="ring5"  RenderTransformOrigin="0.5,0.5">
+                <Grid.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Grid.RenderTransform>
+                <ContentControl x:Name="contentControl4" ContentTemplate="{StaticResource Usama}" Content="{x:Null}" Foreground="{x:Null}"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

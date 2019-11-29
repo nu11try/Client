@@ -78,7 +78,6 @@
         <Image HorizontalAlignment="Left" Height="16" Margin="15,356,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="15" Source="Images/doc.png" Grid.Column="9"/>
         <Image HorizontalAlignment="Left" Height="15" Margin="15,419,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="15" Source="Images/stat.png" Grid.Column="9"/>
         <Image HorizontalAlignment="Left" Height="15" Margin="15,122,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="15" Source="Images/time.png" Grid.Column="9"/>
-
     </Grid>
 
 </Window>

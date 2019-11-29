@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,10 +27,28 @@ namespace DashBoardClient
         Message response;
         public Doc()
         {
+            Thread thread = new Thread(new ThreadStart(StartForm));
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.Start();
             InitializeComponent();
             UpdateList();
+            try
+            {
+                thread.Abort();
+            }
+            catch { }
         }
+        public void StartForm()
+        {
 
+            try
+            {
+                Thread.Sleep(1000);
+                waiter sp = new waiter();
+                sp.ShowDialog();
+            }
+            catch { }
+        }
         private void UpdateList()
         {
             DocList = new List<DocClass>();

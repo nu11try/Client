@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using Newtonsoft.Json;
@@ -12,8 +13,8 @@ namespace DashBoardClient
     class ServerConnect
     {
         const int port = 8888;
-        const string address = "172.17.42.40";
-       // const string address = "127.0.0.1";
+       // const string address = "172.17.42.40";
+        const string address = "127.0.0.1";
 
         private Request request = new Request();
         string bufJSON;
@@ -24,6 +25,9 @@ namespace DashBoardClient
         /// <param name="msg">Сообщение</param>
         /// <param name="service">Сервис</param>
         /// <returns></returns>
+        ///
+
+        
         public string SendMsg(string msg, string service)
         {
             request.Add(msg, service, "");
@@ -37,7 +41,7 @@ namespace DashBoardClient
             bufJSON = JsonConvert.SerializeObject(request);
             return ConnectServer(bufJSON);
         }
-
+        public static int w = 0;
         private string ConnectServer(string json)
         {
             TcpClient client = null;
