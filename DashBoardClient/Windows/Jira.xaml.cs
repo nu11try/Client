@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -39,11 +40,10 @@ namespace DashBoardClient
             id = TAG;
             InitializeComponent();
             Update();
-            
         }
         private void Update()
         {
-            
+            Thread thread = Waiter.ShowWaiter();
             JiraList.Items.Clear();
             Message args = new Message();
             args.Add(id);
@@ -59,6 +59,7 @@ namespace DashBoardClient
                 error.status = res.args[i + 5];
                 JiraList.Items.Add(error);
             }
+            Waiter.AbortWaiter(thread);
         }
         private void AddBug(object sender, RoutedEventArgs e)
         {

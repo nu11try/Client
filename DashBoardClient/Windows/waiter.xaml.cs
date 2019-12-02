@@ -21,16 +21,37 @@ namespace DashBoardClient
     /// <summary>
     /// Логика взаимодействия для waiter.xaml
     /// </summary>
-    public partial class waiter : Window
+    public partial class Waiter : Window
     {
-        public waiter()
+        public Waiter()
         {
             InitializeComponent();
-            
+
         }
 
+        public static Thread ShowWaiter()
+        {
+            Thread thread = new Thread(new ThreadStart(StartForm));
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.Start();
+            return thread;
+        }
 
+        private static void StartForm()
+        {
+            try
+            {
+                Thread.Sleep(1000);
+                Waiter sp = new Waiter();
+                sp.ShowDialog();
+            }
+            catch { }
+        }
+        public static void AbortWaiter(Thread thread)
+        {
+            thread.Abort();
+        }
     }
 
-    
+
 }

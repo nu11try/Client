@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -28,6 +29,7 @@ namespace DashBoardClient
         string request = "";
         public StatisticTest()
         {
+            Thread thread = Waiter.ShowWaiter();
             InitializeComponent();
 
             message = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetStends", Data.ServiceSel));
@@ -48,6 +50,7 @@ namespace DashBoardClient
             //TestsInfo.ItemsSource = TestsListInfo;    
             TestsView.SelectionChanged += TestsView_SelectionChanged;
             TestsInfo.SelectionChanged += TestsInfo_SelectionChanged;
+            Waiter.AbortWaiter(thread);
         }
 
         private void TestsInfo_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -306,19 +309,24 @@ namespace DashBoardClient
         {
             Jira jira = new Jira((sender as Button).Tag.ToString());
             jira.ShowDialog();
+            Thread thread = Waiter.ShowWaiter();
             UpdateTestsView();
             UpdateTestsInfo();
+            Waiter.AbortWaiter(thread);
         }
 
         private void SelectStend(object sender, SelectionChangedEventArgs e)
         {
+            Thread thread = Waiter.ShowWaiter();
             message = new Message();
             message.Add(StendSelected.SelectedItem.ToString());
+            
             request = JsonConvert.SerializeObject(message);
             message = new Message();
 
             UpdateTestsView();
             UpdateTestsInfo();
+            Waiter.AbortWaiter(thread);
         }
     }
 }
