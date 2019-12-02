@@ -35,7 +35,7 @@
 
     <Grid>
         <Button Content="Добавление теста" Height="30" Margin="315,10,325,0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="150" Click="Button_Click" Foreground="#FF2BAAC9" BorderBrush="White" Background="White"/>
-        <ListView ItemsSource="{Binding TestsList}" x:Name="TestsListView" Margin="0,115,5,0" FontSize="11" Background="#FF45454F">
+        <ListView ItemsSource="{Binding TestsList}" x:Name="TestsListView" Margin="0,55,5,0" FontSize="11" Background="#FF45454F">
             <ListView.BorderBrush>
                 <SolidColorBrush Color="{DynamicResource BackgroundColor}"/>
             </ListView.BorderBrush>
@@ -129,11 +129,5 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <TextBox Height="25" Margin="230,60,345,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Center" Width="215" BorderBrush="White"/>
-        <Button Content="Поиск" HorizontalAlignment="Center" Height="25" Margin="480,60,235,0" VerticalAlignment="Top" Width="75" Background="White" BorderBrush="White">
-            <Button.Foreground>
-                <SolidColorBrush Color="{DynamicResource ColorText}"/>
-            </Button.Foreground>
-        </Button>
     </Grid>
 </Page>

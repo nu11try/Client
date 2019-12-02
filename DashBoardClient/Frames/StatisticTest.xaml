@@ -32,10 +32,8 @@
         </Style>
     </Page.Resources>
     <Grid>
-        <ScrollViewer>
-            <Grid Height="450" Width="1470" />
-        </ScrollViewer>
-        <ListView ItemsSource="{Binding TestsListView}" x:Name="TestsView" Margin="5,5,304,0" FontSize="11" Background="#FF45454F" ScrollViewer.ScrollChanged="TestsView_ScrollChanged" 
+        <ScrollViewer/>
+        <ListView ItemsSource="{Binding TestsListView}" x:Name="TestsView" Margin="5,45,304,0" FontSize="11" Background="#FF45454F" ScrollViewer.ScrollChanged="TestsView_ScrollChanged" 
                   ScrollViewer.VerticalScrollBarVisibility="Visible"
                     ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Visible">
             <ListView.BorderBrush>
@@ -43,7 +41,7 @@
             </ListView.BorderBrush>
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
-                    
+
                     <Setter Property="Height" Value="30"/>
                     <Setter Property="Template">
                         <Setter.Value>
@@ -114,7 +112,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <ListView ItemsSource="{Binding TestsListInfo}" x:Name="TestsInfo" Margin="477,5,20,0" FontSize="11" Background="#FF45454F" ScrollViewer.ScrollChanged="TestsInfo_ScrollChanged"
+        <ListView ItemsSource="{Binding TestsListInfo}" x:Name="TestsInfo" Margin="477,45,20,0" FontSize="11" Background="#FF45454F" ScrollViewer.ScrollChanged="TestsInfo_ScrollChanged"
                   ScrollViewer.VerticalScrollBarVisibility="Hidden"
                     ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Visible">
             <ListView.BorderBrush>
@@ -158,9 +156,10 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    
+
                 </GridView>
             </ListView.View>
         </ListView>
+        <ComboBox x:Name="StendSelected" Margin="10,10,520,0" Height="25" VerticalAlignment="Top" SelectionChanged="SelectStend"/>
     </Grid>
 </Page>

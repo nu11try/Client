@@ -403,3 +403,7 @@ C:\programs\Dash\Client\DashBoardClient\obj\Debug\Windows\AddBug.g.cs
 C:\programs\Dash\Client\DashBoardClient\obj\Debug\Windows\Jira.g.cs
 C:\programs\Dash\Client\DashBoardClient\obj\Debug\Windows\AddBug.baml
 C:\programs\Dash\Client\DashBoardClient\obj\Debug\Windows\Jira.baml
+E:\GitHub\Client\DashBoardClient\obj\Debug\Windows\AddBug.g.cs
+E:\GitHub\Client\DashBoardClient\obj\Debug\Windows\Jira.g.cs
+E:\GitHub\Client\DashBoardClient\obj\Debug\Windows\AddBug.baml
+E:\GitHub\Client\DashBoardClient\obj\Debug\Windows\Jira.baml

@@ -25,9 +25,23 @@ namespace DashBoardClient
         Message message = new Message();
         List<TestsViewClass> TestsListView;
         List<TestsInfoClass> TestsListInfo;
+        string request = "";
         public StatisticTest()
         {
             InitializeComponent();
+
+            message = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetStends", Data.ServiceSel));
+            for (int i = 0; i < message.args.Count; i++)
+            {
+                StendSelected.Items.Add(message.args[i]);
+            }
+
+            StendSelected.SelectedIndex = 0;
+            message = new Message();
+            message.Add(StendSelected.SelectedItem.ToString());
+            request = JsonConvert.SerializeObject(message);
+            message = new Message();
+
             UpdateTestsView();
             UpdateTestsInfo();
             
@@ -39,7 +53,7 @@ namespace DashBoardClient
         private void TestsInfo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try { 
-            TestsView.SelectedItem = TestsView.Items[TestsInfo.SelectedIndex];
+                TestsView.SelectedItem = TestsView.Items[TestsInfo.SelectedIndex];
             }
             catch
             {
@@ -64,7 +78,7 @@ namespace DashBoardClient
             TestsListView = new List<TestsViewClass>();
             try
             {
-                message = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetTestResult", Data.ServiceSel));
+                message = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetTestResult", Data.ServiceSel, request));
                 if (message.args[0] == "no_result")
                 {
                     MessageBox.Show("Нет результатов выполнения тестов или произошла ошибка!");
@@ -154,7 +168,7 @@ namespace DashBoardClient
             TestsListInfo = new List<TestsInfoClass>();
             try
             {
-                message = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetTestResultInfo", Data.ServiceSel));
+                message = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetTestResultInfo", Data.ServiceSel, request));
                 if (message.args[0] == "no_result")
                 {
                     MessageBox.Show("Нет результатов выполнения тестов или произошла ошибка!");
@@ -292,6 +306,17 @@ namespace DashBoardClient
         {
             Jira jira = new Jira((sender as Button).Tag.ToString());
             jira.ShowDialog();
+            UpdateTestsView();
+            UpdateTestsInfo();
+        }
+
+        private void SelectStend(object sender, SelectionChangedEventArgs e)
+        {
+            message = new Message();
+            message.Add(StendSelected.SelectedItem.ToString());
+            request = JsonConvert.SerializeObject(message);
+            message = new Message();
+
             UpdateTestsView();
             UpdateTestsInfo();
         }
