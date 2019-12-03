@@ -39,7 +39,7 @@
                 <ImageBrush ImageSource="/DashBoardClient;component/Images/start.png" Stretch="Uniform"/>
             </Button.Background>
         </Button>
-        <Button Content="" Margin="409,10,345,0" VerticalAlignment="Top" Height="40" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="46">
+        <Button Content="" Margin="409,10,345,0" VerticalAlignment="Top" Height="40" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="46" Click="StopTests">
             <Button.Background>
                 <ImageBrush ImageSource="/DashBoardClient;component/Images/stop.png" Stretch="Uniform"/>
             </Button.Background>

@@ -111,5 +111,21 @@ namespace DashBoardClient
             else MessageBox.Show("Не выбрано ни одного набора!");
             
         }
+
+        private void StopTests(object sender, RoutedEventArgs e)
+        {
+            foreach (PacksWithTest listItem in PackListView.SelectedItems) message.Add(listItem.ID);
+
+            if (message.args.Count != 0)
+            {
+                request = JsonConvert.SerializeObject(message);
+                response = server.SendMsg("StopTests", Data.ServiceSel, request);
+                if (JsonConvert.DeserializeObject<Message>(response).args[0] == "OK") MessageBox.Show("Набор(ы) отправлен(ы) на остановку!");
+                if (JsonConvert.DeserializeObject<Message>(response).args[0] == "ERROR") MessageBox.Show("Произошла ошибка остановки!");
+                if (JsonConvert.DeserializeObject<Message>(response).args[0] == "NO_START") MessageBox.Show("Один из выбранных наборов не находится в режиме запуска!");
+                UpdateList();
+            }
+            else MessageBox.Show("Не выбрано ни одного набора!");
+        }
     }
 }
