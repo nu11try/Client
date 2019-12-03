@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DashBoardClient"
         mc:Ignorable="d"
-        Title="Jira" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="#FF444444">
+        Style="{StaticResource VS2012WindowStyleWithoutButton}"
+        Height="450" Width="800"  MinHeight="450" MinWidth="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="#FF444444">
     <Window.Resources>
         <Style TargetType="{x:Type Button}">
             <Style.Triggers>
@@ -31,14 +32,14 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <Button x:Name="bug" Content="" Margin="10,10,736,0" VerticalAlignment="Top" Height="40" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="48" Click="AddBug" >
+        <Button x:Name="bug" Content="" Margin="5,6,0,0" VerticalAlignment="Top" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="AddBug" HorizontalAlignment="Left" Width="48" >
             <Button.Background>
                 <ImageBrush ImageSource="/DashBoardClient;component/Images/bug_add.png" Stretch="Uniform"/>
             </Button.Background>
         </Button>
         <ListView ItemsSource="{Binding Errors}" x:Name="JiraList" Margin="0,55,5,0" FontSize="11" Background="#FF45454F">
             <ListView.BorderBrush>
-                <SolidColorBrush Color="{DynamicResource BackgroundColor}"/>
+                <SolidColorBrush Color="#45454f"/>
             </ListView.BorderBrush>
             <ListView.ItemContainerStyle>
 
@@ -112,7 +113,7 @@
                     <GridViewColumn Width="auto" Header="">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button x:Name="Jira" Tag="{Binding link}" Height="35" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="35" Click ="DeleteBug">
+                                <Button x:Name="Jira" Tag="{Binding link}" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="30" Click ="DeleteBug">
                                     <Button.Background>
                                         <ImageBrush ImageSource="/DashBoardClient;component/Images/bug_delete.png" Stretch="Uniform"/>
                                     </Button.Background>

@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DashBoardClient"
         mc:Ignorable="d"
-        Title="Jira" Height="209.065" Width="299.457" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="#FF444444">
+        Style="{StaticResource VS2012WindowStyleWithoutButton}"
+        Height="229.765" Width="299.457"  MinHeight="229.765" MinWidth="299.457" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" >
     <Window.Resources>
         <Style TargetType="{x:Type Button}">
             <Style.Triggers>
@@ -32,7 +33,7 @@
     </Window.Resources>
     <Grid>
         <Label Content="Id ошибки" HorizontalAlignment="Left" Margin="28,25,0,0" VerticalAlignment="Top" Foreground="White" Width="222" Height="26"/>
-        <TextBox x:Name="Id" HorizontalAlignment="Left" Height="20" Margin="25,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="238"/>
+        <TextBox x:Name="Id" HorizontalAlignment="Left" Height="30" Margin="25,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="238"/>
         <Button x:Name="ok" Content="Подтвердить" HorizontalAlignment="Left" Margin="25,96,0,0" Width="238" Height="28" VerticalAlignment="Top" Click="Send"/>
         <Button x:Name="Cancel" Content="Отменить" HorizontalAlignment="Left" Margin="25,136,0,0" Width="238" Height="28" VerticalAlignment="Top" Click="CloseWindow"/>
     </Grid>

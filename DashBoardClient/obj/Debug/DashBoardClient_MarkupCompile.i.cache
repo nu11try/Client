@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\programs\Dash\Client\DashBoardClient\App.xaml
-24768838392
+26-211260202
 
-33-497211132
+35574086807
 15850140219
-Frames\ClearPage.xaml;Frames\Autostart.xaml;Frames\AddTests.xaml;Frames\Doc.xaml;MainWindow.xaml;Frames\Packs.xaml;Frames\StatisticTest.xaml;Windows\AddBug.xaml;Windows\AutostartAddChange.xaml;Windows\FormShowCheckList.xaml;Windows\Jira.xaml;Windows\KPFormAdd.xaml;Windows\DocFormAdd.xaml;Windows\OpenKPList.xaml;Windows\ViewTestsPack.xaml;Windows\PackTestsFormChange.xaml;Windows\Auth.xaml;Frames\StartTests.xaml;Windows\OpenTestList.xaml;Windows\PackFormChange.xaml;Windows\PackFormAdd.xaml;Windows\TestFormChange.xaml;Windows\TestFormAdd.xaml;Windows\Waiter.xaml;
+Frames\ClearPage.xaml;Frames\Autostart.xaml;Frames\AddTests.xaml;Frames\Doc.xaml;MainWindow.xaml;Frames\Packs.xaml;Frames\StatisticTest.xaml;Styles\CustomizedWindow\VS2012WindowStyle.xaml;Styles\CustomizedWindow\VS2012WindowStyleWithoutButton.xaml;Windows\AddBug.xaml;Windows\AutostartAddChange.xaml;Windows\FormShowCheckList.xaml;Windows\Jira.xaml;Windows\KPFormAdd.xaml;Windows\DocFormAdd.xaml;Windows\OpenKPList.xaml;Windows\ViewTestsPack.xaml;Windows\PackTestsFormChange.xaml;Windows\Auth.xaml;Frames\StartTests.xaml;Windows\OpenTestList.xaml;Windows\PackFormChange.xaml;Windows\PackFormAdd.xaml;Windows\TestFormChange.xaml;Windows\TestFormAdd.xaml;Windows\Waiter.xaml;
 
 True
 

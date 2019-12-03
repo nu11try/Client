@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DashBoardClient"
         mc:Ignorable="d"
-        Title="Форма добавления документов" Height="286" Width="294" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="#FF444444">
+        Style="{StaticResource VS2012WindowStyleWithoutButton}"
+         Height="286" Width="294" MinHeight="286" MinWidth="294"  WindowStartupLocation="CenterScreen" Background="#FF444444">
     <Window.Resources>
         <Style TargetType="{x:Type Button}">
             <Style.Triggers>
@@ -31,8 +32,8 @@
         </Style>
     </Window.Resources>
     <Grid Background="#FF45454F" Margin="0,0,0,-4">
-        <TextBox x:Name="PimLink" Height="25" Margin="25,65,25,0" VerticalAlignment="Top"/>
-        <DatePicker x:Name="DateBlock" Height="25" Margin="22,110,28,0" VerticalAlignment="Top" SelectedDateFormat="Short"/>
+        <TextBox x:Name="PimLink" Height="30" Margin="25,65,25,0" VerticalAlignment="Top"/>
+        <DatePicker x:Name="DateBlock" Height="30" Margin="22,110,28,0" VerticalAlignment="Top" SelectedDateFormat="Short"/>
         <Button x:Name="SubmitTest" Content="Подтвердить" HorizontalAlignment="Left" Margin="22,157,0,0" Width="238" Height="28" VerticalAlignment="Top" Click="SendDoc"/>
         <Button x:Name="CancelTest" Content="Отменить" HorizontalAlignment="Left" Margin="22,197,0,0" Width="238" Height="28" VerticalAlignment="Top" Click="CloseWindow"/>
         <Label Content="Ссылка на ПиМ" HorizontalAlignment="Left" Margin="25,34,0,0" VerticalAlignment="Top" Foreground="White"/>

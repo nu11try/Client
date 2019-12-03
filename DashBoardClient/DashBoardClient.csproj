@@ -101,6 +101,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Styles\CustomizedWindow\VS2012WindowStyle.cs" />
+    <Compile Include="Styles\CustomizedWindow\VS2012WindowStyleWithoutButton.cs" />
     <Compile Include="Windows\AddBug.xaml.cs">
       <DependentUpon>AddBug.xaml</DependentUpon>
     </Compile>
@@ -189,6 +191,14 @@
     <Page Include="Frames\StatisticTest.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\CustomizedWindow\VS2012WindowStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\CustomizedWindow\VS2012WindowStyleWithoutButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Windows\AddBug.xaml">
       <SubType>Designer</SubType>

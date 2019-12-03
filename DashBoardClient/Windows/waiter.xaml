@@ -68,7 +68,7 @@
     <Grid>
         <Grid.Resources>
             <DataTemplate x:Key="Usama">
-                <Ellipse Width="25" Height="25" Fill="White"  VerticalAlignment="Top"/>
+                <Ellipse Width="30" Height="30" Fill="White"  VerticalAlignment="Top"/>
             </DataTemplate>
         </Grid.Resources>
         <Grid Height="200" Width="200" >

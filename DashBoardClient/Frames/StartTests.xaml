@@ -46,7 +46,7 @@
         </Button>
         <ListView ItemsSource="{Binding PacksList}" x:Name="PackListView" Margin="0,70,0,0" FontSize="11" Foreground="White">
             <ListView.Background>
-                <SolidColorBrush Color="{DynamicResource BackgroundColor}"/>
+               <SolidColorBrush Color="#45454f"/>
             </ListView.Background>
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
@@ -98,7 +98,7 @@
                     <GridViewColumn Header="Тесты" Width="auto">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Click="OpenTestList" Tag="{Binding ID}" Height="25" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="25">
+                                <Button Click="OpenTestList" Tag="{Binding ID}" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="30">
                                     <Button.Background>
                                         <ImageBrush ImageSource="/DashBoardClient;component/Images/test.png" Stretch="Uniform"/>
                                     </Button.Background>

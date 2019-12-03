@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DashBoardClient"
         mc:Ignorable="d"
-        Title="Форма изменения тестов" Height="859.49" Width="303" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="#FF444444">
+        Style="{StaticResource VS2012WindowStyleWithoutButton}"
+        MinHeight="878.364" MinWidth="303" Height="878.364" Width="303" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="#FF444444">
     <Window.Resources>
         <Style TargetType="{x:Type Button}">
             <Style.Triggers>
@@ -34,12 +35,12 @@
         <Button x:Name="SubmitTest" Content="Подтвердить" HorizontalAlignment="Left" Margin="22,750,0,0" Width="238" Height="28" VerticalAlignment="Top" Click="SendPack"/>
         <Button x:Name="CancelTest" Content="Отменить" HorizontalAlignment="Left" Margin="22,790,0,0" Width="238" Height="28" VerticalAlignment="Top"/>
         <Label Content="ID набора" HorizontalAlignment="Left" Margin="23,25,0,0" VerticalAlignment="Top" Foreground="White" Width="107"/>
-        <TextBox x:Name="IDPack" HorizontalAlignment="Left" Height="20" Margin="25,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="240" IsEnabled="False"/>
+        <TextBox x:Name="IDPack" HorizontalAlignment="Left" Height="30" Margin="25,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="240" IsEnabled="False"/>
         <Label Content="Тесты" HorizontalAlignment="Left" Margin="23,310,0,0" VerticalAlignment="Top" Foreground="White" Width="107"/>
         <ListBox x:Name="TestsInPack" HorizontalAlignment="Left" Height="165" Margin="23,345,0,0" VerticalAlignment="Top" Width="240" SelectionMode="Multiple">
         </ListBox>
         <Label Content="Макс. продол. выполнения теста" HorizontalAlignment="Left" Margin="22,590,0,0" VerticalAlignment="Top" Foreground="White" Width="237"/>
-        <TextBox x:Name="TimeTest" HorizontalAlignment="Left" Height="20" Margin="24,625,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="104" Text="900"/>
+        <TextBox x:Name="TimeTest" HorizontalAlignment="Left" Height="30" Margin="24,625,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="104" Text="900"/>
         <Label Content="с" HorizontalAlignment="Left" Margin="134,620,0,0" VerticalAlignment="Top" Foreground="White" Width="41" Height="30"/>
         <Label Content="(15 мин)" x:Name="TimeMin" HorizontalAlignment="Left" Margin="181,620,0,0" VerticalAlignment="Top" Foreground="White" Width="103" Height="30"/>
         <ComboBox x:Name="CountRestart" HorizontalAlignment="Left" Margin="23,698,0,0" VerticalAlignment="Top" Width="235" SelectedIndex="0">
@@ -64,8 +65,8 @@
         <Label Content="IP машины запуска" HorizontalAlignment="Left" Margin="26,167,0,0" VerticalAlignment="Top" Foreground="White" Width="122"/>
         <ComboBox x:Name="IPList" HorizontalAlignment="Left" Margin="25,200,0,0" VerticalAlignment="Top" Width="233"/>
         <Label Content="Название набора" HorizontalAlignment="Left" Margin="23,95,0,0" VerticalAlignment="Top" Foreground="White" Width="107"/>
-        <TextBox x:Name="NamePack" HorizontalAlignment="Left" Height="20" Margin="25,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="240"/>
-        <ComboBox x:Name="Browser" HorizontalAlignment="Left" Margin="23,556,0,0" VerticalAlignment="Top" Width="238" SelectedIndex="0" Height="20">
+        <TextBox x:Name="NamePack" HorizontalAlignment="Left" Height="30" Margin="25,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="240"/>
+        <ComboBox x:Name="Browser" HorizontalAlignment="Left" Margin="23,556,0,0" VerticalAlignment="Top" Width="238" SelectedIndex="0" Height="30">
             <TextBlock><Run Text="IE"/></TextBlock>
             <TextBlock><Run Text="Chrome"/></TextBlock>
             <TextBlock><Run Text="PhantomJs"/></TextBlock>

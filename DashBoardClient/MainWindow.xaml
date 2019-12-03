@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DashBoardClient"
         mc:Ignorable="d"
+         Style="{StaticResource VS2012WindowStyle}"
         Title="DashBoard" Width="1280" Height="724" ScrollViewer.VerticalScrollBarVisibility="Disabled" MinWidth="1280" MinHeight="724" WindowStartupLocation="CenterScreen" Background="#FF323439" Loaded="Window_Loaded">
     <Window.Resources>
         <Style x:Key="button of navigation" TargetType="{x:Type Button}">
@@ -47,12 +48,12 @@
             <ColumnDefinition Width="263*"/>
         </Grid.ColumnDefinitions>
         <Grid Grid.ColumnSpan="10" Margin="0,0,22,0" Grid.RowSpan="2">
-            <Canvas HorizontalAlignment="Left" Width="198" Background="#FF45454F">
+            <Canvas HorizontalAlignment="Left" Width="198" Background="#FF45454F" Margin="0,-31,-1,0">
                 <Canvas.Effect>
                     <DropShadowEffect BlurRadius="16" Direction="364" ShadowDepth="2"/>
                 </Canvas.Effect>
-                <Image Height="58" Canvas.Left="10" Width="58" RenderTransformOrigin="0.5,0.5" Source="Images/user.png" Canvas.Top="8" HorizontalAlignment="Center" VerticalAlignment="Center" Panel.ZIndex="5" OpacityMask="#FF2BAAC9"/>
-                <ComboBox x:Name="SelecterProject" Height="22" Canvas.Left="73" Canvas.Top="40" Width="119" SelectionChanged="ChangeProject" Loaded="SelecterProject_Loaded"/>
+                <Image Height="58" Canvas.Left="10" Width="58" RenderTransformOrigin="0.5,0.5" Source="Images/user.png" Canvas.Top="37" HorizontalAlignment="Center" VerticalAlignment="Center" Panel.ZIndex="5" OpacityMask="#FF2BAAC9"/>
+                <ComboBox x:Name="SelecterProject" Height="22" Canvas.Left="73" Canvas.Top="69" Width="119" SelectionChanged="ChangeProject" Loaded="SelecterProject_Loaded"/>
             </Canvas>
         </Grid>
         <Button Style="{StaticResource button of navigation}" Content="Запуск" HorizontalAlignment="Left" Height="29" Margin="0,113,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="198" Grid.ColumnSpan="10" Background="#FF45454F" BorderBrush="#FF45454F" Foreground="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="36,1,1,1" Click="StartTests"/>
@@ -69,7 +70,7 @@
         <Button Style="{StaticResource button of navigation}" Content="Операции" HorizontalAlignment="Left" Height="29" Margin="0,288,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="198" Grid.ColumnSpan="10" Background="#FF45454F" BorderBrush="#FF45454F" Foreground="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="36,1,1,1" Click="OperacTest"/>
         <Button Style="{StaticResource button of navigation}" Content="Документация" HorizontalAlignment="Left" Height="29" Margin="0,347,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="198" Grid.ColumnSpan="10" Background="#FF45454F" BorderBrush="#FF45454F" Foreground="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="36,1,1,1" Click="Doc"/>
         <Button Style="{StaticResource button of navigation}" Content="Эффективность" HorizontalAlignment="Left" Height="29" Margin="0,411,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="198" Grid.ColumnSpan="10" Background="#FF45454F" BorderBrush="#FF45454F" Foreground="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="36,1,1,1"/>
-        <Label x:Name="LabelUserName" Content="" Grid.Column="9" HorizontalAlignment="Left" Height="25" Margin="73,10,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="103" Foreground="White" VerticalContentAlignment="Center"/>
+        <Label x:Name="LabelUserName" Content="" Grid.Column="9" HorizontalAlignment="Left" Height="30" Margin="82,10,0,0" VerticalAlignment="Top" Width="104" Foreground="White" VerticalContentAlignment="Center" Grid.RowSpan="2"/>
         <Frame x:Name="Frame" Content="" Grid.Column="9" Grid.RowSpan="2" NavigationUIVisibility="Hidden" Margin="203,0,0,0" FontSize="18" Foreground="White" Grid.ColumnSpan="2"/>
         <Image HorizontalAlignment="Left" Height="15" Margin="15,151,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="15" Source="Images/test.png" Grid.Column="9"/>
         <Image HorizontalAlignment="Left" Height="15" Margin="15,180,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="15" Source="Images/group.png" Grid.Column="9"/>

@@ -37,7 +37,7 @@
         <Button Content="Добавление набора" Height="30" Margin="315,10,325,0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="150" Foreground="#FF2BAAC9" BorderBrush="White" Background="White" Click="AddPack"/>
         <ListView ItemsSource="{Binding PackList}" x:Name="PackListView" Margin="0,55,5,0" FontSize="11" Background="#FF45454F">
             <ListView.BorderBrush>
-                <SolidColorBrush Color="{DynamicResource BackgroundColor}"/>
+               <SolidColorBrush Color="#45454f"/>
             </ListView.BorderBrush>
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
@@ -66,7 +66,7 @@
                     <GridViewColumn Width="auto" Header="Измен.">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate >
-                                <Button x:Name="changeBtn" Tag="{Binding ID}" Height="25" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="25" Click="ChangePack">
+                                <Button x:Name="changeBtn" Tag="{Binding ID}" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="30" Click="ChangePack">
                                     <Button.Background>
                                         <ImageBrush ImageSource="/DashBoardClient;component/Images/set.png" Stretch="Uniform"/>
                                     </Button.Background>
@@ -77,7 +77,7 @@
                     <GridViewColumn Width="auto" Header="Тесты">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button x:Name="testsBtn" Tag="{Binding ID}" Height="25" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="25" Click="ChangeTests">
+                                <Button x:Name="testsBtn" Tag="{Binding ID}" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="30" Click="ChangeTests">
                                     <Button.Background>
                                         <ImageBrush ImageSource="/DashBoardClient;component/Images/test.png" Stretch="Uniform"/>
                                     </Button.Background>

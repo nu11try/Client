@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DashBoardClient"
         mc:Ignorable="d"
-        Title=" " Height="270.5" Width="258" Background="#FF323439" ResizeMode="NoResize" ShowInTaskbar="False" WindowStartupLocation="CenterScreen">
+        Style="{StaticResource VS2012WindowStyleWithoutButton}"
+        Title=" " Height="237.469" Width="258"  MinHeight="237.469" MinWidth="258" MaxHeight="237.469" MaxWidth="258" Background="#FF323439"  WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style TargetType="{x:Type Button}">
             <Style.Triggers>
