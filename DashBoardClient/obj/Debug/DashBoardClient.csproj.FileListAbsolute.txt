@@ -409,3 +409,5 @@ E:\GitHub\Client\DashBoardClient\obj\Debug\Windows\AddBug.baml
 E:\GitHub\Client\DashBoardClient\obj\Debug\Windows\Jira.baml
 C:\programs\Dash\Client\DashBoardClient\obj\Debug\Windows\Waiter.g.cs
 C:\programs\Dash\Client\DashBoardClient\obj\Debug\Windows\Waiter.baml
+E:\GitHub\Client\DashBoardClient\obj\Debug\Windows\Waiter.g.cs
+E:\GitHub\Client\DashBoardClient\obj\Debug\Windows\Waiter.baml

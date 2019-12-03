@@ -53,7 +53,7 @@ namespace DashBoardClient
             }
             catch
             {
-                MessageBox.Show("Произошла ошибка! Обратитесь к поддержке!");
+                //MessageBox.Show("Произошла ошибка! Обратитесь к поддержке!");
             }
             DataContext = this;
 

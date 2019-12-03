@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -28,9 +29,10 @@ namespace DashBoardClient
 
         public AddTests()
         {
+            Thread thread = Waiter.ShowWaiter();
             InitializeComponent();
-
-            UpdateList();           
+            UpdateList();
+            Waiter.AbortWaiter(thread);
         }     
 
         private void Button_Click(object sender, RoutedEventArgs e)

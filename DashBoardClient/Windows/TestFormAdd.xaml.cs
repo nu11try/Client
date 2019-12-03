@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -31,10 +32,12 @@ namespace DashBoardClient
         string[] tests = new string[] { };
         public TestFormAdd()
         {
+            Thread thread = Waiter.ShowWaiter();
             InitializeComponent();
             GetTestsForListView();
+            Waiter.AbortWaiter(thread);
         }
-
+            
         private void GetTestsForListView()
         {
             TestSelect.Items.Clear();
@@ -52,14 +55,18 @@ namespace DashBoardClient
             resMes2 = JsonConvert.DeserializeObject<Message>(response);
             if (resMes.args.Count == 0)
             {
-                MessageBox.Show("Нет тестов на добавление!");
+                //MessageBox.Show("Нет тестов на добавление!");
                 return;
             }
             else
             {
 
                 for (int i = 0; i < resMes.args.Count; i += 3) TestSelect.Items.Add(resMes.args[i] + " (" + resMes.args[i + 1] + ")");
-                for (int i = 0; i < resMes2.args.Count; i += 4) MethodSelect.Items.Add(resMes2.args[i] + " (" + resMes2.args[i + 3] + ")");
+                try
+                {
+                    for (int i = 0; i < resMes2.args.Count; i += 4) MethodSelect.Items.Add(resMes2.args[i] + " (" + resMes2.args[i + 3] + ")");
+                }
+                catch { }
 
                 try
                 {
@@ -68,7 +75,7 @@ namespace DashBoardClient
                 }
                 catch
                 {
-                    MessageBox.Show("Нет тестов на добавление!");
+                    //MessageBox.Show("Нет тестов на добавление!");
                 }
             }
             message = new Message();
@@ -94,6 +101,7 @@ namespace DashBoardClient
                 MessageBox.Show("Не все данные выбраны!");
             }
             message = new Message();
+            this.Close();
         }
 
         private void CloseWindow(object sender, RoutedEventArgs e)

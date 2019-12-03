@@ -28,8 +28,7 @@ namespace DashBoardClient
         List<TestsInfoClass> TestsListInfo;
         string request = "";
         public StatisticTest()
-        {
-            Thread thread = Waiter.ShowWaiter();
+        {            
             InitializeComponent();
 
             message = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetStends", Data.ServiceSel));
@@ -44,13 +43,14 @@ namespace DashBoardClient
             request = JsonConvert.SerializeObject(message);
             message = new Message();
 
+            Thread thread = Waiter.ShowWaiter();
             UpdateTestsView();
             UpdateTestsInfo();
-            
+            Waiter.AbortWaiter(thread);
+
             //TestsInfo.ItemsSource = TestsListInfo;    
             TestsView.SelectionChanged += TestsView_SelectionChanged;
-            TestsInfo.SelectionChanged += TestsInfo_SelectionChanged;
-            Waiter.AbortWaiter(thread);
+            TestsInfo.SelectionChanged += TestsInfo_SelectionChanged;           
         }
 
         private void TestsInfo_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -84,7 +84,7 @@ namespace DashBoardClient
                 message = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetTestResult", Data.ServiceSel, request));
                 if (message.args[0] == "no_result")
                 {
-                    MessageBox.Show("Нет результатов выполнения тестов или произошла ошибка!");
+                    //MessageBox.Show("Нет результатов выполнения тестов или произошла ошибка!");
                     return;
                 }
 
@@ -151,7 +151,7 @@ namespace DashBoardClient
             }
             catch
             {
-                MessageBox.Show("Произошла ошибка! Обратитесь к поддержке!");
+                //MessageBox.Show("Произошла ошибка! Обратитесь к поддержке!");
             }
             DataContext = this;
             TestsView.ItemsSource = TestsListView;
@@ -174,7 +174,7 @@ namespace DashBoardClient
                 message = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetTestResultInfo", Data.ServiceSel, request));
                 if (message.args[0] == "no_result")
                 {
-                    MessageBox.Show("Нет результатов выполнения тестов или произошла ошибка!");
+                    //MessageBox.Show("Нет результатов выполнения тестов или произошла ошибка!");
                     return;
                 }
                 List<string> listDate = new List<string>();
@@ -217,7 +217,7 @@ namespace DashBoardClient
             }
             catch
             {
-                MessageBox.Show("Нет результатов выполнения тестов или произошла ошибка!");
+                //MessageBox.Show("Нет результатов выполнения тестов или произошла ошибка!");
             }
             foreach (var dic in listNameTest)
             {
