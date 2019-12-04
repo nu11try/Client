@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:DashBoardClient"
         mc:Ignorable="d"
         Style="{StaticResource VS2012WindowStyleWithoutButton}"
-        Title=" " Height="237.469" Width="258"  MinHeight="237.469" MinWidth="258" MaxHeight="237.469" MaxWidth="258" Background="#FF323439"  WindowStartupLocation="CenterScreen">
+        Title=" " Height="249.544" Width="258"  MinHeight="237.469" MinWidth="258" MaxHeight="237.469" MaxWidth="258" Background="#FF323439"  WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style TargetType="{x:Type Button}">
             <Style.Triggers>
@@ -43,7 +43,7 @@
                 <DropShadowEffect BlurRadius="10" Direction="283" Opacity="0.6" ShadowDepth="2"/>
             </PasswordBox.Effect>
         </PasswordBox>
-        <Button x:Name="btnAuth" Content="Вход" HorizontalAlignment="Left" Margin="85,166,0,0" VerticalAlignment="Top" Width="75" Background="#FF2BAAC9" Foreground="White" BorderBrush="#FF2BAAC9" BorderThickness="1" Click="EnterAuth">
+        <Button x:Name="btnAuth" Content="Вход" Margin="85,151,82,20" Background="#FF2BAAC9" Foreground="White" BorderBrush="#FF2BAAC9" BorderThickness="1" Click="EnterAuth">
             <Button.Effect>
                 <DropShadowEffect BlurRadius="10" Direction="283" Opacity="0.6" ShadowDepth="2"/>
             </Button.Effect>

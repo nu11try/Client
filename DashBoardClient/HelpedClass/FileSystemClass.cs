@@ -32,13 +32,19 @@ namespace DashBoardClient.HelpedClass
         public string ReadConfigFile()
         {
             string config = "";
-            using (StreamReader sr = new StreamReader(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + configName, Encoding.Default))
+            try
             {
-                while (!sr.EndOfStream)
+                using (StreamReader sr = new StreamReader(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + configName, Encoding.Default))
                 {
-                    config = sr.ReadLine();
+                    while (!sr.EndOfStream)
+                    {
+                        config = sr.ReadLine();
+                    }
+                    sr.Close();
                 }
-                sr.Close();
+            } catch{
+                config = "";
+                File.Create(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + configName);
             }
             return config;
         }

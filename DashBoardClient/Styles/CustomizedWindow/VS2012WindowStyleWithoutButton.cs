@@ -54,6 +54,14 @@ namespace DashBoardClient
 
         void CloseButtonClick(object sender, RoutedEventArgs e)
         {
+            sender.ForWindowFromTemplate(w =>
+            {
+                if (w.ToString().Contains("Auth"))
+                {
+                    Environment.Exit(0);
+                }
+            });
+
             sender.ForWindowFromTemplate(w => w.Close());
         }
 
