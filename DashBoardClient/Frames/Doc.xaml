@@ -37,7 +37,7 @@
         <Button Content="Добавить документ" Height="30" Margin="330,10,320,0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="150" Foreground="#FF2BAAC9" BorderBrush="White" Background="White" Click="AddDoc"/>
         <ListView ItemsSource="{Binding DocList}" x:Name="DocListView" Margin="0,55,5,0" FontSize="11" Background="#FF45454F">
             <ListView.BorderBrush>
-                <SolidColorBrush Color="{DynamicResource BackgroundColor}"/>
+               <SolidColorBrush Color="#45454f"/>
             </ListView.BorderBrush>
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
@@ -66,7 +66,7 @@
                     <GridViewColumn Width="auto" Header="КП.">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate >
-                                <Button x:Name="kpBtn" Tag="{Binding ID}" Height="35" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="35" Click="OpenKPDoc">
+                                <Button x:Name="kpBtn" Tag="{Binding ID}" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="30" Click="OpenKPDoc">
                                     <Button.Background>
                                         <ImageBrush ImageSource="/DashBoardClient;component/Images/open.png" Stretch="Uniform"/>
                                     </Button.Background>
@@ -77,7 +77,7 @@
                     <GridViewColumn Width="auto" Header="Ред. ">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button x:Name="redBtn" Tag="{Binding ID}" Height="35" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="35" Click="UpdateDoc">
+                                <Button x:Name="redBtn" Tag="{Binding ID}" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="30" Click="UpdateDoc">
                                     <Button.Background>
                                         <ImageBrush ImageSource="/DashBoardClient;component/Images/set.png" Stretch="Uniform"/>
                                     </Button.Background>

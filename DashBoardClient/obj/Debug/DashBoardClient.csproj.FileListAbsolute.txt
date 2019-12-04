@@ -411,3 +411,7 @@ C:\programs\Dash\Client\DashBoardClient\obj\Debug\Windows\Waiter.g.cs
 C:\programs\Dash\Client\DashBoardClient\obj\Debug\Windows\Waiter.baml
 E:\GitHub\Client\DashBoardClient\obj\Debug\Windows\Waiter.g.cs
 E:\GitHub\Client\DashBoardClient\obj\Debug\Windows\Waiter.baml
+C:\programs\Dash\Client\DashBoardClient\obj\Debug\Styles\CustomizedWindow\VS2012WindowStyle.baml
+C:\programs\Dash\Client\DashBoardClient\obj\Debug\Styles\CustomizedWindow\VS2012WindowStyleWithoutButton.baml
+C:\programs\Dash\Client\DashBoardClient\obj\Debug\Styles\CustomizedWindow\VS2012WindowStyle.g.cs
+C:\programs\Dash\Client\DashBoardClient\obj\Debug\Styles\CustomizedWindow\VS2012WindowStyleWithoutButton.g.cs

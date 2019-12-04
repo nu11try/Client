@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DashBoardClient"
         mc:Ignorable="d"
-        Title="DashBoard" Height="450" Width="1000" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Style="{StaticResource VS2012WindowStyleWithoutButton}"
+         Height="450" Width="1000" MinHeight="450" MinWidth="1000"  WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style TargetType="{x:Type Button}">
             <Style.Triggers>
@@ -33,7 +34,7 @@
     <Grid>
         <ListView ItemsSource="{Binding TestList}" x:Name="TestList" FontSize="11" AllowDrop="True" PreviewMouseLeftButtonDown="TestList_PreviewMouseLeftButtonDown" MouseMove="TestList_MouseMove" DragEnter="TestList_DragEnter" Drop="TestList_Drop">
             <ListView.Background>
-                <SolidColorBrush Color="{DynamicResource BackgroundColor}"/>
+                <SolidColorBrush Color="#45454f"/>
             </ListView.Background>
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
@@ -62,7 +63,7 @@
                     <GridViewColumn Header="Измен." Width="auto" >
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button x:Name="changeBtn" Tag="{Binding ID}" Height="35" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="35" Click="ChangeTest">
+                                <Button x:Name="changeBtn" Tag="{Binding ID}" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="30" Click="ChangeTest">
                                     <Button.Background>
                                         <ImageBrush ImageSource="/DashBoardClient;component/Images/set.png" Stretch="Uniform"/>
                                     </Button.Background>
@@ -108,7 +109,7 @@
                     <GridViewColumn Header="" Width="auto">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button x:Name="DependonBtn"  Tag="{Binding ID}" Height="35" BorderBrush="{x:Null}" Foreground="{x:Null}"  Width="35" Click="Depen">
+                                <Button x:Name="DependonBtn"  Tag="{Binding ID}" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}"  Width="30" Click="Depen">
                                     <Button.Background>
                                         <ImageBrush ImageSource="{Binding Image}" Stretch="Uniform"/>
                                     </Button.Background>
@@ -127,7 +128,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <Button Visibility="{Binding Duplicatebtn}" x:Name="Duplicatebtn"  Tag="{Binding ID}" Height="35" BorderBrush="{x:Null}" Foreground="{x:Null}"  Width="35" Click="Duplicate">
+                                    <Button Visibility="{Binding Duplicatebtn}" x:Name="Duplicatebtn"  Tag="{Binding ID}" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}"  Width="30" Click="Duplicate">
                                         <Button.Background >
                                             <ImageBrush x:Name="DuplicateImg"   ImageSource="{Binding DuplicateImg}" Stretch="Uniform"/>
                                         </Button.Background>

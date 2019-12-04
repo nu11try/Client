@@ -46,7 +46,7 @@
         </Button>
         <ListView ItemsSource="{Binding PacksList}" x:Name="PackListView" Margin="0,70,0,0" FontSize="11" Foreground="White">
             <ListView.Background>
-                <SolidColorBrush Color="{DynamicResource BackgroundColor}"/>
+                <SolidColorBrush Color="#45454f"/>
             </ListView.Background>
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">

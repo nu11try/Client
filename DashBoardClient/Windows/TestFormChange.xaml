@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DashBoardClient"
         mc:Ignorable="d"
-        Title="Форма изменения теста" Height="368.459" Width="294" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="#FF444444">
+         Style="{StaticResource VS2012WindowStyleWithoutButton}"
+          Height="384.291" Width="294" MinHeight="384.291" MinWidth="294" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="#FF444444">
     <Window.Resources>
         <Style TargetType="{x:Type Button}">
             <Style.Triggers>
@@ -31,9 +32,9 @@
         </Style>
     </Window.Resources>
     <Grid Background="#FF45454F" Margin="0,0,0,-4">
-        <TextBox x:Name="TestID" Height="25" Margin="25,65,25,0" VerticalAlignment="Top" IsEnabled="False"/>
-        <ComboBox x:Name="MethodSelect" Height="25" Margin="25,147,25,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="ActiveSelect" Content="Показывать ли в статистике?" HorizontalAlignment="Left" Height="20" Margin="25,202,0,0" VerticalAlignment="Top" Width="238" Foreground="White"/>
+        <TextBox x:Name="TestID" Height="30" Margin="25,65,25,0" VerticalAlignment="Top" IsEnabled="False"/>
+        <ComboBox x:Name="MethodSelect" Height="30" Margin="25,147,25,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="ActiveSelect" Content="Показывать ли в статистике?" HorizontalAlignment="Left" Height="30" Margin="25,202,0,0" VerticalAlignment="Top" Width="238" Foreground="White"/>
         <Button x:Name="SubmitTest" Content="Подтвердить" HorizontalAlignment="Left" Margin="25,257,0,0" Width="238" Height="28" VerticalAlignment="Top" Click="SendTest"/>
         <Button x:Name="CancelTest" Content="Отменить" HorizontalAlignment="Left" Margin="25,297,0,0" Width="238" Height="28" VerticalAlignment="Top" Click="CloseWindow"/>
         <Label Content="ID" HorizontalAlignment="Left" Margin="25,34,0,0" VerticalAlignment="Top" Foreground="White"/>

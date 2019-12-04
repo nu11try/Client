@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DashBoardClient"
         mc:Ignorable="d"
-        Title="DashBoard" Height="450" Width="852.119" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Style="{StaticResource VS2012WindowStyleWithoutButton}"
+        MinHeight="450" MinWidth="852.119" Height="450" Width="852.119" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style TargetType="{x:Type Button}">
             <Style.Triggers>
@@ -37,11 +38,11 @@
         </Grid.ColumnDefinitions>
         <ListView ItemsSource="{Binding KPList}" x:Name="KPListView" FontSize="11" Foreground="White" Grid.ColumnSpan="2" Margin="0,55,0,0">
             <ListView.Background>
-                <SolidColorBrush Color="{DynamicResource BackgroundColor}"/>
+               <SolidColorBrush Color="#45454f"/>
             </ListView.Background>
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="HorizontalContentAlignment" Value ="Stretch"/>
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="ListBoxItem">
@@ -66,7 +67,7 @@
                     <GridViewColumn Header="Ред." Width="50">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button x:Name="kpUpd" Tag="{Binding ID}" Height="40" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="25" Click="UpdateKP">
+                                <Button x:Name="kpUpd" Tag="{Binding ID}" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="30" Click="UpdateKP">
                                     <Button.Background>
                                         <ImageBrush ImageSource="/DashBoardClient;component/Images/set.png" Stretch="Uniform"/>
                                     </Button.Background>
@@ -77,21 +78,21 @@
                     <GridViewColumn Header="ID" Width="150">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock x:Name="NewName" Text="{Binding ID}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <TextBlock x:Name="NewName" Text="{Binding ID}"  VerticalAlignment="Center" HorizontalAlignment="left"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn Header="Имя" Width="150">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock x:Name="Name" Text="{Binding Name}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <TextBlock x:Name="Name" Text="{Binding Name}"  VerticalAlignment="Center" HorizontalAlignment="left"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn Header="Шагов АСц" Width="100">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock x:Name="StepAssc" Text="{Binding Assc}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <TextBlock x:Name="StepAssc" Text="{Binding Assc}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -100,7 +101,7 @@
                     <GridViewColumn Header="Автотест" Width="150">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock x:Name="Test" Text="{Binding Test}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <TextBlock x:Name="Test" Text="{Binding Test}"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

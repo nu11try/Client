@@ -1,12 +1,5 @@
 ﻿
-FC:\programs\Dash\Client\DashBoardClient\App.xaml;;
-FC:\programs\Dash\Client\DashBoardClient\Frames\ClearPage.xaml;;
-FC:\programs\Dash\Client\DashBoardClient\Frames\Autostart.xaml;;
-FC:\programs\Dash\Client\DashBoardClient\Frames\AddTests.xaml;;
-FC:\programs\Dash\Client\DashBoardClient\Frames\Doc.xaml;;
-FC:\programs\Dash\Client\DashBoardClient\MainWindow.xaml;;
-FC:\programs\Dash\Client\DashBoardClient\Frames\Packs.xaml;;
-FC:\programs\Dash\Client\DashBoardClient\Frames\StatisticTest.xaml;;
+
 FC:\programs\Dash\Client\DashBoardClient\Windows\AddBug.xaml;;
 FC:\programs\Dash\Client\DashBoardClient\Windows\AutostartAddChange.xaml;;
 FC:\programs\Dash\Client\DashBoardClient\Windows\FormShowCheckList.xaml;;
@@ -17,7 +10,6 @@ FC:\programs\Dash\Client\DashBoardClient\Windows\OpenKPList.xaml;;
 FC:\programs\Dash\Client\DashBoardClient\Windows\ViewTestsPack.xaml;;
 FC:\programs\Dash\Client\DashBoardClient\Windows\PackTestsFormChange.xaml;;
 FC:\programs\Dash\Client\DashBoardClient\Windows\Auth.xaml;;
-FC:\programs\Dash\Client\DashBoardClient\Frames\StartTests.xaml;;
 FC:\programs\Dash\Client\DashBoardClient\Windows\OpenTestList.xaml;;
 FC:\programs\Dash\Client\DashBoardClient\Windows\PackFormChange.xaml;;
 FC:\programs\Dash\Client\DashBoardClient\Windows\PackFormAdd.xaml;;

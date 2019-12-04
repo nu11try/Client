@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DashBoardClient"
         mc:Ignorable="d"
-        Title="Форма добавления автостарта" Height="656" Width="294" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="#FF444444">
+         Style="{StaticResource VS2012WindowStyleWithoutButton}"
+         Height="670.667" Width="294"   MinHeight="656" MinWidth="294" WindowStartupLocation="CenterScreen" Background="#FF444444">
     <Window.Resources>
         <Style TargetType="{x:Type Button}">
             <Style.Triggers>
@@ -31,7 +32,7 @@
         </Style>
     </Window.Resources>
     <Grid Background="#FF45454F" Margin="0,0,0,-4">
-        <TextBox x:Name="NameAut" Height="25" Margin="25,44,25,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="NameAut" Height="30" Margin="25,44,25,0" VerticalAlignment="Top"/>
         <Button x:Name="SubmitAut" Content="Подтвердить" HorizontalAlignment="Left" Margin="25,541,0,0" Width="231" Height="28" VerticalAlignment="Top" Click="SendDoc"/>
         <Button x:Name="CancelAut" Content="Отменить" HorizontalAlignment="Left" Margin="24,581,0,0" Width="232" Height="28" VerticalAlignment="Top" Click="CloseWindow"/>
         <Label Content="Название" HorizontalAlignment="Left" Margin="25,13,0,0" VerticalAlignment="Top" Foreground="White"/>

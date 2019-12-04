@@ -37,7 +37,7 @@
         <Button Content="Добавление автостарт" Height="30" Margin="330,10,295,0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="175" Foreground="#FF2BAAC9" BorderBrush="White" Background="White" Click="AddAutostart"/>
         <ListView ItemsSource="{Binding}" x:Name="AutoListView" Margin="0,55,5,0" FontSize="11" Background="#FF45454F">
             <ListView.BorderBrush>
-                <SolidColorBrush Color="{DynamicResource BackgroundColor}"/>
+               <SolidColorBrush Color="#45454f"/>
             </ListView.BorderBrush>
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
@@ -66,7 +66,7 @@
                     <GridViewColumn Width="auto">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate >
-                                <Button x:Name="changeBtn" Tag="{Binding ID}" Height="35" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="35" Click="chgAutostart">
+                                <Button x:Name="changeBtn" Tag="{Binding ID}" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="30" Click="chgAutostart">
                                     <Button.Background>
                                         <ImageBrush ImageSource="/DashBoardClient;component/Images/set.png" Stretch="Uniform"/>
                                     </Button.Background>
