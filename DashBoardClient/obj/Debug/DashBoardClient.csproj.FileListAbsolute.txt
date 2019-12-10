@@ -421,3 +421,13 @@ C:\programs\Dash\Client\DashBoardClient\obj\Debug\DashBoardClient.exe.manifest
 C:\programs\Dash\Client\DashBoardClient\obj\Debug\DashBoardClient.application
 C:\programs\Dash\Client\DashBoardClient\bin\Debug\ToastNotifications.dll
 C:\programs\Dash\Client\DashBoardClient\bin\Debug\ToastNotifications.Messages.dll
+E:\GitHub\Client\DashBoardClient\bin\Debug\DashBoardClient.exe.manifest
+E:\GitHub\Client\DashBoardClient\bin\Debug\DashBoardClient.application
+E:\GitHub\Client\DashBoardClient\bin\Debug\ToastNotifications.dll
+E:\GitHub\Client\DashBoardClient\bin\Debug\ToastNotifications.Messages.dll
+E:\GitHub\Client\DashBoardClient\obj\Debug\Styles\CustomizedWindow\VS2012WindowStyle.baml
+E:\GitHub\Client\DashBoardClient\obj\Debug\Styles\CustomizedWindow\VS2012WindowStyleWithoutButton.baml
+E:\GitHub\Client\DashBoardClient\obj\Debug\Styles\CustomizedWindow\VS2012WindowStyle.g.cs
+E:\GitHub\Client\DashBoardClient\obj\Debug\Styles\CustomizedWindow\VS2012WindowStyleWithoutButton.g.cs
+E:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.exe.manifest
+E:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.application

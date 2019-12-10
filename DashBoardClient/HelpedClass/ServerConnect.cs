@@ -14,11 +14,13 @@ namespace DashBoardClient
     class ServerConnect
     {
         const int port = 8888;
-       const string address = "172.17.42.40";
-       // const string address = "172.31.197.232";
+        //const string address = "172.17.42.40";
+        const string address = "172.31.197.232";
 
         private Request request = new Request();
         string bufJSON;
+        string nameText;
+        Random rnd = new Random();
 
         /// <summary>
         /// Функциия для запуска запроса на коннект к серверу
@@ -30,7 +32,9 @@ namespace DashBoardClient
         {
             request.Add(msg, service, "");
             bufJSON = JsonConvert.SerializeObject(request);
-            File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + "param.txt", bufJSON);
+            nameText = "\\" + rnd.Next() + ".txt";
+            File.Delete(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + nameText);
+            File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + nameText, bufJSON);
             return ConnectServer(bufJSON);
         }
 
@@ -38,7 +42,9 @@ namespace DashBoardClient
         {
             request.Add(msg, service, param);
             bufJSON = JsonConvert.SerializeObject(request);
-            File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + "param.txt", bufJSON);
+            nameText = "\\" + rnd.Next() + ".txt";
+            File.Delete(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + nameText);
+            File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + nameText, bufJSON);
             return ConnectServer(bufJSON);
         }
 
@@ -78,8 +84,8 @@ namespace DashBoardClient
 
                 client = new TcpClient(address, port);
                 NetworkStream stream = client.GetStream();
-                byte[] data = File.ReadAllBytes(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + "\\param.txt");
-                File.Delete(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + "\\param.txt");
+                byte[] data = File.ReadAllBytes(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + nameText);
+                File.Delete(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + nameText);
 
                 int bufferSize = 1024;
                 byte[] dataLength = BitConverter.GetBytes(data.Length);
@@ -93,10 +99,11 @@ namespace DashBoardClient
                     bytesSent += curDataSize;
                     bytesLeft -= curDataSize;
                 }
-                File.WriteAllBytes(AppDomain.CurrentDomain.BaseDirectory + "param.txt", data);
-                string param = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "param.txt").Replace("\n", " ");
-                File.Delete(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + "\\param.txt");
+                File.WriteAllBytes(AppDomain.CurrentDomain.BaseDirectory + nameText, data);
+                string param = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + nameText).Replace("\n", " ");
+                File.Delete(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + nameText);
 
+                nameText = "\\" + rnd.Next() + ".txt";
                 byte[] fileSizeBytes = new byte[4];
                 int bytes = stream.Read(fileSizeBytes, 0, 4);
                 int dataLengthResponse = BitConverter.ToInt32(fileSizeBytes, 0);
@@ -112,9 +119,9 @@ namespace DashBoardClient
                     bytesRead += curDataSize;
                     bytesLeft -= curDataSize;
                 }
-                File.WriteAllBytes(AppDomain.CurrentDomain.BaseDirectory + "param.txt", data);
-                param = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "param.txt").Replace("\n", " ");
-                File.Delete(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + "\\param.txt");
+                File.WriteAllBytes(AppDomain.CurrentDomain.BaseDirectory + nameText, data);
+                param = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + nameText).Replace("\n", " ");
+                File.Delete(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + nameText);
                 response = param;
             }
             catch (Exception ex)
