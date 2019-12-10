@@ -32,23 +32,37 @@ namespace DashBoardClient
         {
             request.Add(msg, service, "");
             bufJSON = JsonConvert.SerializeObject(request);
+<<<<<<< HEAD
             nameText = "\\" + rnd.Next() + ".txt";
             File.Delete(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + nameText);
             File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + nameText, bufJSON);
             return ConnectServer(bufJSON);
+=======
+            Random rnd = new Random();
+            string nameText = "\\" + rnd.Next() + ".txt";
+            File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + nameText, bufJSON);
+            return ConnectServer(bufJSON, nameText);
+>>>>>>> b7a624da91eb61ff4bc7a955ad27ef0f7853372e
         }
 
         public string SendMsg(string msg, string service, string param)
         {
             request.Add(msg, service, param);
             bufJSON = JsonConvert.SerializeObject(request);
+<<<<<<< HEAD
             nameText = "\\" + rnd.Next() + ".txt";
             File.Delete(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + nameText);
             File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + nameText, bufJSON);
             return ConnectServer(bufJSON);
+=======
+            Random rnd = new Random();
+            string nameText = "\\" + rnd.Next() + ".txt";
+            File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + nameText, bufJSON);
+            return ConnectServer(bufJSON, nameText);
+>>>>>>> b7a624da91eb61ff4bc7a955ad27ef0f7853372e
         }
 
-        private string ConnectServer(string json)
+        private string ConnectServer(string json, string nameText)
         {
             TcpClient client = null;
             StringBuilder builder = new StringBuilder();
@@ -85,6 +99,10 @@ namespace DashBoardClient
                 client = new TcpClient(address, port);
                 NetworkStream stream = client.GetStream();
                 byte[] data = File.ReadAllBytes(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + nameText);
+<<<<<<< HEAD
+=======
+
+>>>>>>> b7a624da91eb61ff4bc7a955ad27ef0f7853372e
                 File.Delete(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + nameText);
 
                 int bufferSize = 1024;
@@ -99,6 +117,11 @@ namespace DashBoardClient
                     bytesSent += curDataSize;
                     bytesLeft -= curDataSize;
                 }
+<<<<<<< HEAD
+=======
+                Random rnd = new Random();
+                nameText = "\\" + rnd.Next() + ".txt";
+>>>>>>> b7a624da91eb61ff4bc7a955ad27ef0f7853372e
                 File.WriteAllBytes(AppDomain.CurrentDomain.BaseDirectory + nameText, data);
                 string param = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + nameText).Replace("\n", " ");
                 File.Delete(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + nameText);
@@ -119,6 +142,11 @@ namespace DashBoardClient
                     bytesRead += curDataSize;
                     bytesLeft -= curDataSize;
                 }
+<<<<<<< HEAD
+=======
+                rnd = new Random();
+                nameText = "\\" + rnd.Next() + ".txt";
+>>>>>>> b7a624da91eb61ff4bc7a955ad27ef0f7853372e
                 File.WriteAllBytes(AppDomain.CurrentDomain.BaseDirectory + nameText, data);
                 param = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + nameText).Replace("\n", " ");
                 File.Delete(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + nameText);
@@ -126,7 +154,9 @@ namespace DashBoardClient
             }
             catch (Exception ex)
             {
+                
                 MessageBox.Show(ex.Message);
+                Environment.Exit(0);
             }
             request = new Request();
             bufJSON = "";
