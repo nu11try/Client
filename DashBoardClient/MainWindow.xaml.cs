@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -41,7 +43,7 @@ namespace DashBoardClient
         }
         public List<string> args { get; set; }
     }
-    
+
     public class TestsStartClass
     {
         public TestsStartClass()
@@ -63,16 +65,56 @@ namespace DashBoardClient
 
         public List<string> duplicate { get; set; }
     }
+   
 
     public partial class MainWindow : Window
-    {        
+    {
 
-        public MainWindow()
+        public static MainViewModel _vm = new MainViewModel();
+        public  MainWindow()
         {
             InitializeComponent();
+            var myThread = new Thread(ThreadFunction);
+            myThread.Start();
         }
 
-        private void StartTests(object sender, RoutedEventArgs e)
+
+        public void ThreadFunction()
+        {
+            string response;
+            ServerConnect server = new ServerConnect();
+           
+            while (true)
+            {
+                try
+                {
+                    Thread.Sleep(500);
+                    Action action1 = () => SelectProj();
+                    Dispatcher.Invoke(action1);
+                    if (Data.ServiceSel != null)
+                    {
+                        response = server.SendMsg("GetPush", Data.ServiceSel);
+                        Message mess = JsonConvert.DeserializeObject<Message>(response);
+                        if (mess.args[0] == "push")
+                        {
+                            if (mess.args[1] == "pack")
+                            {
+                                Action action = () => _vm.SuccCastMess("Набор \"" + mess.args[2] + "\" пройден");
+                                Dispatcher.Invoke(action);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Thread.Sleep(1000);
+                    }
+                }
+                catch { }           
+            }
+        }
+
+
+        private  void StartTests(object sender, RoutedEventArgs e)
         {
             if (SelecterProject.Text.ToString() != "")
             {
@@ -161,12 +203,16 @@ namespace DashBoardClient
 
         public void SelectProj()
         {
-            Message project = new Message();                        
+            try
+            {
+                Message project = new Message();
 
-            project = JsonConvert.DeserializeObject<Message>(Data.ProjectName);
+                project = JsonConvert.DeserializeObject<Message>(Data.ProjectName);
 
-            Data.ProjectSel = SelecterProject.SelectedItem.ToString();
-            Data.ServiceSel = JsonConvert.DeserializeObject<Message>(Data.ServiceName).args[project.args.IndexOf(SelecterProject.SelectedItem.ToString())];
+                Data.ProjectSel = SelecterProject.SelectedItem.ToString();
+                Data.ServiceSel = JsonConvert.DeserializeObject<Message>(Data.ServiceName).args[project.args.IndexOf(SelecterProject.SelectedItem.ToString())];
+            }
+            catch { }
         }
     }
 }

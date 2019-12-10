@@ -37,7 +37,7 @@
                   ScrollViewer.VerticalScrollBarVisibility="Visible"
                     ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Visible">
             <ListView.BorderBrush>
-               <SolidColorBrush Color="#45454f"/>
+                <SolidColorBrush Color="#45454f"/>
             </ListView.BorderBrush>
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
@@ -83,7 +83,7 @@
                     <GridViewColumn Width="auto" Header="Рез.">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button x:Name="ResultTest" Tag="{Binding Id}" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="30">
+                                <Button x:Name="ResultTest" Tag="{Binding Id}" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="30" Click="ShowResult">
                                     <Button.Background>
                                         <ImageBrush ImageSource="{Binding ResultTest}" Stretch="Uniform"/>
                                     </Button.Background>
@@ -116,7 +116,7 @@
                   ScrollViewer.VerticalScrollBarVisibility="Hidden"
                     ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Visible">
             <ListView.BorderBrush>
-               <SolidColorBrush Color="#45454f"/>
+                <SolidColorBrush Color="#45454f"/>
             </ListView.BorderBrush>
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
@@ -160,6 +160,6 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <ComboBox x:Name="StendSelected" Margin="10,10,520,0" Height="30" VerticalAlignment="Top" SelectionChanged="SelectStend"/>
+        <ComboBox x:Name="StendSelected" Margin="10,10,520,0" Height="25" VerticalAlignment="Top" SelectionChanged="SelectStend"/>
     </Grid>
 </Page>

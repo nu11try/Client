@@ -1,20 +1,11 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
 namespace DashBoardClient
 {
     /// <summary>
@@ -28,7 +19,7 @@ namespace DashBoardClient
         List<TestsInfoClass> TestsListInfo;
         string request = "";
         public StatisticTest()
-        {            
+        {
             InitializeComponent();
 
             message = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetStends", Data.ServiceSel));
@@ -43,19 +34,20 @@ namespace DashBoardClient
             request = JsonConvert.SerializeObject(message);
             message = new Message();
 
-            Thread thread = Waiter.ShowWaiter();
+            //Thread thread = Waiter.ShowWaiter();
             UpdateTestsView();
             UpdateTestsInfo();
-            Waiter.AbortWaiter(thread);
+            //Waiter.AbortWaiter(thread);
 
             //TestsInfo.ItemsSource = TestsListInfo;    
             TestsView.SelectionChanged += TestsView_SelectionChanged;
-            TestsInfo.SelectionChanged += TestsInfo_SelectionChanged;           
+            TestsInfo.SelectionChanged += TestsInfo_SelectionChanged;
         }
 
         private void TestsInfo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            try { 
+            try
+            {
                 TestsView.SelectedItem = TestsView.Items[TestsInfo.SelectedIndex];
             }
             catch
@@ -131,20 +123,20 @@ namespace DashBoardClient
                                 test.ResultTest = "/DashBoardClient;component/Images/warning.png";
                             }
                         }
-                      
+
                         test.Author = message.args[i + 5];
                         test.Id = message.args[i + 6];
                         args = new Message();
                         args.Add(message.args[i + 6]);
                         res = JsonConvert.DeserializeObject<Message>(server.SendMsg("CheckErrors", Data.ServiceSel, JsonConvert.SerializeObject(args)));
-                        if(res.args[0] == "errors")
+                        if (res.args[0] == "errors")
                             test.Jira = "/DashBoardClient;component/Images/red.png";
                         if (res.args[0] == "issue")
                             test.Jira = "/DashBoardClient;component/Images/yellow.png";
                         if (res.args[0] == "no issue")
                             test.Jira = "/DashBoardClient;component/Images/green.png";
                         ids.Add(test.Name);
-                        
+
                         TestsListView.Add(test);
                     }
                 }
@@ -165,7 +157,7 @@ namespace DashBoardClient
             List<dynamic> myItems = new List<dynamic>();
             List<string> rowName = new List<string>();
             List<string> flag = new List<string>();
-            Dictionary<string, Dictionary<string,string>> listNameTest = new Dictionary<string, Dictionary<string, string> > ();
+            Dictionary<string, Dictionary<string, string>> listNameTest = new Dictionary<string, Dictionary<string, string>>();
             dynamic myItem;
             IDictionary<string, object> myItemValues;
             TestsListInfo = new List<TestsInfoClass>();
@@ -181,14 +173,14 @@ namespace DashBoardClient
                 Dictionary<string, string> bufList = new Dictionary<string, string>();
                 for (var i = 0; i < message.args.Count; i += 6)
                 {
-                    if (!listDate.Contains(message.args[i])) listDate.Add(message.args[i] +"\n"+message.args[i + 5].Replace(".", ":").Replace("_", "__"));
-                        for (var j = 0; j < message.args.Count; j += 6)
+                    if (!listDate.Contains(message.args[i])) listDate.Add(message.args[i] + "\n" + message.args[i + 5].Replace(".", ":").Replace("_", "__"));
+                    for (var j = 0; j < message.args.Count; j += 6)
                     {
                         if (message.args[i + 4].Equals(message.args[j + 4]))
                         {
                             try
                             {
-                                bufList.Add(message.args[j]  + "\n" + message.args[j + 5].Replace(".", ":").Replace("_", "__"), message.args[j + 1].Equals("Failed") && (!message.args[j + 3].Equals("TIMEOUT") && !message.args[j + 3].Equals("no_version") && !message.args[j + 3].Equals("DEPENDEN ERROR")) ? "FAILED" : message.args[j + 3]);
+                                bufList.Add(message.args[j] + "\n" + message.args[j + 5].Replace(".", ":").Replace("_", "__"), message.args[j + 1].Equals("Failed") && (!message.args[j + 3].Equals("TIMEOUT") && !message.args[j + 3].Equals("no_version") && !message.args[j + 3].Equals("DEPENDEN ERROR")) ? "FAILED" : message.args[j + 3]);
                             }
                             catch { }
                         }
@@ -309,24 +301,38 @@ namespace DashBoardClient
         {
             Jira jira = new Jira((sender as Button).Tag.ToString());
             jira.ShowDialog();
-            Thread thread = Waiter.ShowWaiter();
+            //Thread thread = Waiter.ShowWaiter();
             UpdateTestsView();
             UpdateTestsInfo();
-            Waiter.AbortWaiter(thread);
+            //Waiter.AbortWaiter(thread);
         }
 
         private void SelectStend(object sender, SelectionChangedEventArgs e)
         {
-            Thread thread = Waiter.ShowWaiter();
+            //Thread thread = Waiter.ShowWaiter();
             message = new Message();
             message.Add(StendSelected.SelectedItem.ToString());
-            
+
             request = JsonConvert.SerializeObject(message);
             message = new Message();
 
             UpdateTestsView();
             UpdateTestsInfo();
-            Waiter.AbortWaiter(thread);
+            //Waiter.AbortWaiter(thread);
+        }
+        private void ShowResult(object sender, RoutedEventArgs e)
+        {
+            Thread thread = Waiter.ShowWaiter();
+            try
+            {
+                System.Diagnostics.Process.Start("file://pur-test01/ATST/" + Data.ServiceSel.ToUpper() + "/Tests/" + (sender as Button).Tag.ToString() + "/Res1/Report/run_results.html");
+                Waiter.AbortWaiter(thread);
+            }
+            catch
+            {
+                Waiter.AbortWaiter(thread);
+                MessageBox.Show("Нет результата по тесту!");
+            }
         }
     }
 }

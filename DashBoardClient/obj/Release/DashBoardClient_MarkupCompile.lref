@@ -7,8 +7,10 @@ FC:\programs\Dash\Client\DashBoardClient\Frames\Doc.xaml;;
 FC:\programs\Dash\Client\DashBoardClient\MainWindow.xaml;;
 FC:\programs\Dash\Client\DashBoardClient\Frames\Packs.xaml;;
 FC:\programs\Dash\Client\DashBoardClient\Frames\StatisticTest.xaml;;
+FC:\programs\Dash\Client\DashBoardClient\Windows\AddBug.xaml;;
 FC:\programs\Dash\Client\DashBoardClient\Windows\AutostartAddChange.xaml;;
 FC:\programs\Dash\Client\DashBoardClient\Windows\FormShowCheckList.xaml;;
+FC:\programs\Dash\Client\DashBoardClient\Windows\Jira.xaml;;
 FC:\programs\Dash\Client\DashBoardClient\Windows\KPFormAdd.xaml;;
 FC:\programs\Dash\Client\DashBoardClient\Windows\DocFormAdd.xaml;;
 FC:\programs\Dash\Client\DashBoardClient\Windows\OpenKPList.xaml;;
@@ -21,4 +23,5 @@ FC:\programs\Dash\Client\DashBoardClient\Windows\PackFormChange.xaml;;
 FC:\programs\Dash\Client\DashBoardClient\Windows\PackFormAdd.xaml;;
 FC:\programs\Dash\Client\DashBoardClient\Windows\TestFormChange.xaml;;
 FC:\programs\Dash\Client\DashBoardClient\Windows\TestFormAdd.xaml;;
+FC:\programs\Dash\Client\DashBoardClient\Windows\Waiter.xaml;;
 

@@ -231,6 +231,4 @@ namespace DashBoardClient
             message = new Message();
         }
     }
-
-
 }

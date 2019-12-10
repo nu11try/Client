@@ -9,6 +9,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Styles/CustomizedWindow/VS2012WindowStyle.xaml" />
                 <ResourceDictionary Source="Styles/CustomizedWindow/VS2012WindowStyleWithoutButton.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ToastNotifications.Messages;component/Themes/Default.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 

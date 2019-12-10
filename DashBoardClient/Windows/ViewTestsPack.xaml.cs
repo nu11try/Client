@@ -58,7 +58,7 @@ namespace DashBoardClient
 
         private void UpdateList()
         {
-
+            
             Items = new ObservableCollection<TestsList>();
             message = new Message();
             try
@@ -163,6 +163,7 @@ namespace DashBoardClient
             }
             if (Items1[j].Func.Equals("ok"))
             {
+                
                 if (f != j) return;
                 flag = 0;
                 Message testIds = new Message();

@@ -24,7 +24,7 @@ namespace DashBoardClient
     {
         TestFormAdd formAdd;
         readonly ServerConnect server = new ServerConnect();
-        public List<AddedTests> TestsList { get; set; }        
+        public List<AddedTests> TestsList { get; set; }
         Message response = new Message();
 
         public AddTests()
@@ -33,7 +33,7 @@ namespace DashBoardClient
             InitializeComponent();
             UpdateList();
             Waiter.AbortWaiter(thread);
-        }     
+        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -59,19 +59,19 @@ namespace DashBoardClient
 
         private void UpdateList()
         {
-            TestsList = new List<AddedTests>();                       
+            TestsList = new List<AddedTests>();
             try
             {
                 response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetTests", Data.ServiceSel));
 
                 for (var i = 0; i < response.args.Count; i += 3)
                 {
-                    AddedTests test = new AddedTests();                    
+                    AddedTests test = new AddedTests();
                     test.ID = response.args[i];
                     test.Name = response.args[i + 1];
                     test.Author = response.args[i + 2];
                     Message message = new Message();
-                    message.Add("","",response.args[i]);
+                    message.Add("", "", response.args[i]);
                     string request = JsonConvert.SerializeObject(message);
                     test.Kp = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetKPInfo", Data.ServiceSel, request)).args[0];
                     test.Kp = test.Kp.Equals("error") ? "" : test.Kp;

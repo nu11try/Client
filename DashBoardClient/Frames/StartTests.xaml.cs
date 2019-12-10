@@ -103,10 +103,25 @@ namespace DashBoardClient
             {
                 request = JsonConvert.SerializeObject(message);
                 response = server.SendMsg("StartTests", Data.ServiceSel, request);
-                if (JsonConvert.DeserializeObject<Message>(response).args[0] == "OK") MessageBox.Show("Набор(ы) отправлен(ы) на запуск!");
-                if (JsonConvert.DeserializeObject<Message>(response).args[0] == "ERROR") MessageBox.Show("Произошла ошибка запуска!");
-                if (JsonConvert.DeserializeObject<Message>(response).args[0] == "START") MessageBox.Show("Один из выбранных наборов находится в режиме запуска!");
+                if (JsonConvert.DeserializeObject<Message>(response).args[0] == "OK")
+                    if (message.args.Count == 1)
+                    {
+                        MainWindow._vm.SuccCastMess("Набор " + message.args[0] + " отправлен на запуск");
+                    }
+                    else
+                    {
+                        string temp = "Наборы - ";
+                        for (int i = 0; i < message.args.Count; i++)
+                        {
+                            temp += message.args[i] + ", ";
+                        }
+                        temp += "отправлен на запуск";
+                        MainWindow._vm.SuccCastMess(temp);
+                    }
+                if (JsonConvert.DeserializeObject<Message>(response).args[0] == "ERROR") MainWindow._vm.ErrCastMess("Произошла ошибка запуска!");
+                if (JsonConvert.DeserializeObject<Message>(response).args[0] == "START") MainWindow._vm.WarCastMess("Один из выбранных наборов находится в режиме запуска!");
                 UpdateList();
+               
             }
             else MessageBox.Show("Не выбрано ни одного набора!");
             

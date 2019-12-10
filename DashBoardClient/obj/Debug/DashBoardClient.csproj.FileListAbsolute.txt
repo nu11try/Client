@@ -419,3 +419,5 @@ C:\programs\Dash\Client\DashBoardClient\bin\Debug\DashBoardClient.exe.manifest
 C:\programs\Dash\Client\DashBoardClient\bin\Debug\DashBoardClient.application
 C:\programs\Dash\Client\DashBoardClient\obj\Debug\DashBoardClient.exe.manifest
 C:\programs\Dash\Client\DashBoardClient\obj\Debug\DashBoardClient.application
+C:\programs\Dash\Client\DashBoardClient\bin\Debug\ToastNotifications.dll
+C:\programs\Dash\Client\DashBoardClient\bin\Debug\ToastNotifications.Messages.dll

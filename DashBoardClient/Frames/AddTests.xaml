@@ -37,7 +37,7 @@
         <Button Content="Добавление теста" Height="30" Margin="315,10,325,0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="150" Click="Button_Click" Foreground="#FF2BAAC9" BorderBrush="White" Background="White"/>
         <ListView ItemsSource="{Binding TestsList}" x:Name="TestsListView" Margin="0,55,5,0" FontSize="11" Background="#FF45454F">
             <ListView.BorderBrush>
-               <SolidColorBrush Color="#45454f"/>
+                <SolidColorBrush Color="#45454f"/>
             </ListView.BorderBrush>
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
@@ -101,7 +101,7 @@
                     <GridViewColumn Header="ID" Width="auto">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock x:Name="IDTest" Text="{Binding ID}" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <TextBlock x:Name="IDTest" Text="{Binding ID}" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -115,14 +115,14 @@
                     <GridViewColumn Header="Ответственный" Width="auto">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock x:Name="AuthorTest" Text="{Binding Author}" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <TextBlock x:Name="AuthorTest" Text="{Binding Author}" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn Header="КП" Width="auto">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock x:Name="AuthorTest" Text="{Binding Kp}" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <TextBlock x:Name="AuthorTest" Text="{Binding Kp}" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
