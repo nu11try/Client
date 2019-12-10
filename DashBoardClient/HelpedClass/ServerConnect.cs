@@ -30,19 +30,23 @@ namespace DashBoardClient
         {
             request.Add(msg, service, "");
             bufJSON = JsonConvert.SerializeObject(request);
-            File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + "param.txt", bufJSON);
-            return ConnectServer(bufJSON);
+            Random rnd = new Random();
+            string nameText = "\\" + rnd.Next() + ".txt";
+            File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + nameText, bufJSON);
+            return ConnectServer(bufJSON, nameText);
         }
 
         public string SendMsg(string msg, string service, string param)
         {
             request.Add(msg, service, param);
             bufJSON = JsonConvert.SerializeObject(request);
-            File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + "param.txt", bufJSON);
-            return ConnectServer(bufJSON);
+            Random rnd = new Random();
+            string nameText = "\\" + rnd.Next() + ".txt";
+            File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + nameText, bufJSON);
+            return ConnectServer(bufJSON, nameText);
         }
 
-        private string ConnectServer(string json)
+        private string ConnectServer(string json, string nameText)
         {
             TcpClient client = null;
             StringBuilder builder = new StringBuilder();
@@ -78,8 +82,9 @@ namespace DashBoardClient
 
                 client = new TcpClient(address, port);
                 NetworkStream stream = client.GetStream();
-                byte[] data = File.ReadAllBytes(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + "\\param.txt");
-                File.Delete(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + "\\param.txt");
+                byte[] data = File.ReadAllBytes(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + nameText);
+
+                File.Delete(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + nameText);
 
                 int bufferSize = 1024;
                 byte[] dataLength = BitConverter.GetBytes(data.Length);
@@ -93,9 +98,11 @@ namespace DashBoardClient
                     bytesSent += curDataSize;
                     bytesLeft -= curDataSize;
                 }
-                File.WriteAllBytes(AppDomain.CurrentDomain.BaseDirectory + "param.txt", data);
-                string param = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "param.txt").Replace("\n", " ");
-                File.Delete(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + "\\param.txt");
+                Random rnd = new Random();
+                nameText = "\\" + rnd.Next() + ".txt";
+                File.WriteAllBytes(AppDomain.CurrentDomain.BaseDirectory + nameText, data);
+                string param = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + nameText).Replace("\n", " ");
+                File.Delete(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + nameText);
 
                 byte[] fileSizeBytes = new byte[4];
                 int bytes = stream.Read(fileSizeBytes, 0, 4);
@@ -112,14 +119,18 @@ namespace DashBoardClient
                     bytesRead += curDataSize;
                     bytesLeft -= curDataSize;
                 }
-                File.WriteAllBytes(AppDomain.CurrentDomain.BaseDirectory + "param.txt", data);
-                param = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "param.txt").Replace("\n", " ");
-                File.Delete(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + "\\param.txt");
+                rnd = new Random();
+                nameText = "\\" + rnd.Next() + ".txt";
+                File.WriteAllBytes(AppDomain.CurrentDomain.BaseDirectory + nameText, data);
+                param = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + nameText).Replace("\n", " ");
+                File.Delete(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + nameText);
                 response = param;
             }
             catch (Exception ex)
             {
+                
                 MessageBox.Show(ex.Message);
+                Environment.Exit(0);
             }
             request = new Request();
             bufJSON = "";

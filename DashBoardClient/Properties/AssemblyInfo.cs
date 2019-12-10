@@ -7,11 +7,11 @@ using System.Windows;
 // Общие сведения об этой сборке предоставляются следующим набором
 // набор атрибутов. Измените значения этих атрибутов, чтобы изменить сведения,
 // связанные со сборкой.
-[assembly: AssemblyTitle("DashBoardClient")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Asylum")]
+[assembly: AssemblyDescription("клиент дашборда")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("DashBoardClient")]
+[assembly: AssemblyCompany("OTR")]
+[assembly: AssemblyProduct("Asylum")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

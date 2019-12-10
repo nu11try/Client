@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("releasenotes.css")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("virus.ico")]
 
 
