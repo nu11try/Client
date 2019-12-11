@@ -33,7 +33,7 @@ namespace DashBoardClient
         {
             request.Add(msg, service, "");
             bufJSON = JsonConvert.SerializeObject(request);
-            nameText = DateTime.Now.ToString("ddMMyyyyhhmmssfff");
+            nameText = "\\" + DateTime.Now.ToString("ddMMyyyyhhmmssfff");
             File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + nameText, bufJSON);
             return ConnectServer(bufJSON, nameText);
         }
@@ -42,7 +42,7 @@ namespace DashBoardClient
         {
             request.Add(msg, service, param);
             bufJSON = JsonConvert.SerializeObject(request);
-            nameText = DateTime.Now.ToString("ddMMyyyyhhmmfffss");
+            nameText = "\\" + DateTime.Now.ToString("ddMMyyyyhhmmfffss");
             File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + nameText, bufJSON);
             return ConnectServer(bufJSON, nameText);
         }
@@ -72,7 +72,7 @@ namespace DashBoardClient
                     bytesSent += curDataSize;
                     bytesLeft -= curDataSize;
                 }
-                nameText = DateTime.Now.ToString("MMddyyyyhhmmssfff");
+                nameText = "\\" + DateTime.Now.ToString("MMddyyyyhhmmssfff");
 
                 File.WriteAllBytes(AppDomain.CurrentDomain.BaseDirectory + nameText, data);
                 string param = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + nameText).Replace("\n", " ");
@@ -95,7 +95,7 @@ namespace DashBoardClient
                     bytesLeft -= curDataSize;
                 }
 
-                nameText = DateTime.Now.ToString("ddyyyyhhMMmmssfff");
+                nameText = "\\" + DateTime.Now.ToString("ddyyyyhhMMmmssfff");
 
                 File.WriteAllBytes(AppDomain.CurrentDomain.BaseDirectory + nameText, data);
                 param = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + nameText).Replace("\n", " ");

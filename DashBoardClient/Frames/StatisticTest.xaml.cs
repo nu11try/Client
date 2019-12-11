@@ -18,6 +18,7 @@ namespace DashBoardClient
         List<TestsViewClass> TestsListView;
         List<TestsInfoClass> TestsListInfo;
         string request = "";
+        bool select = false;
         public StatisticTest()
         {
             InitializeComponent();
@@ -34,10 +35,10 @@ namespace DashBoardClient
             request = JsonConvert.SerializeObject(message);
             message = new Message();
 
-            //Thread thread = Waiter.ShowWaiter();
+            Thread thread = Waiter.ShowWaiter();
             UpdateTestsView();
             UpdateTestsInfo();
-            //Waiter.AbortWaiter(thread);
+            Waiter.AbortWaiter(thread);
 
             //TestsInfo.ItemsSource = TestsListInfo;    
             TestsView.SelectionChanged += TestsView_SelectionChanged;
@@ -301,15 +302,20 @@ namespace DashBoardClient
         {
             Jira jira = new Jira((sender as Button).Tag.ToString());
             jira.ShowDialog();
-            //Thread thread = Waiter.ShowWaiter();
+            Thread thread = Waiter.ShowWaiter();
             UpdateTestsView();
             UpdateTestsInfo();
-            //Waiter.AbortWaiter(thread);
+            Waiter.AbortWaiter(thread);
         }
 
         private void SelectStend(object sender, SelectionChangedEventArgs e)
         {
-            //Thread thread = Waiter.ShowWaiter();
+            Thread thread = null;
+            select = true;
+            if (select)
+            {
+                thread = Waiter.ShowWaiter();                
+            }
             message = new Message();
             message.Add(StendSelected.SelectedItem.ToString());
 
@@ -318,7 +324,11 @@ namespace DashBoardClient
 
             UpdateTestsView();
             UpdateTestsInfo();
-            //Waiter.AbortWaiter(thread);
+            try
+            {
+                Waiter.AbortWaiter(thread);
+            }
+            catch { }
         }
         private void ShowResult(object sender, RoutedEventArgs e)
         {
