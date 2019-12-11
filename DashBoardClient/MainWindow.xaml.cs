@@ -74,12 +74,14 @@ namespace DashBoardClient
         public  MainWindow()
         {
             InitializeComponent();
-            var myThread = new Thread(ThreadFunction);
-            myThread.Start();
+            var push = new Thread(Push);
+            push.Start();
+            var testsNow = new Thread(TestsNow);
+            testsNow.Start();
         }
 
 
-        public void ThreadFunction()
+        public void Push()
         {
             string response;
             ServerConnect server = new ServerConnect();
@@ -113,7 +115,47 @@ namespace DashBoardClient
             }
         }
 
-
+        public void TestsNow()
+        {
+            string response;
+            ServerConnect server = new ServerConnect();
+            int flag = 1;
+            while (true)
+            {
+                try
+                {
+                    Action action1 = () => SelectProj();
+                    Dispatcher.Invoke(action1);
+                    if (Data.ServiceSel != null)
+                    {         
+                        response = server.SendMsg("GetNowTests", Data.ServiceSel, "{\"args\":[\""+ flag +"\"]}");
+                        Message mess = JsonConvert.DeserializeObject<Message>(response);
+                        flag = 0;
+                        string text = "";
+                        Action action;
+                        if (mess.args.Count == 0)  action = () => nowTests.Text = text;
+                        for (int i = 0; i < mess.args.Count; i += 3)
+                        {
+                            if (mess.args[i + 1] != null && mess.args[i+1] != "not")    
+                            {
+                                DateTime time = DateTime.Now;
+                                int sec = time.DayOfYear * 24 * 60 * 60 + time.Hour * 60 * 60 + time.Minute * 60 + time.Second;
+                                text += mess.args[i] + "\n" + mess.args[i + 1] + " - " + (sec - Int32.Parse(mess.args[i + 2])) + "c"; 
+                            }
+                        }
+                         action = () => nowTests.Text = text;
+                        Dispatcher.Invoke(action);
+                        Thread.Sleep(500);
+                    }
+                    else
+                    {
+                        Thread.Sleep(1000);
+                    }
+                }
+                catch { }
+            }
+        }
+        
         private  void StartTests(object sender, RoutedEventArgs e)
         {
             if (SelecterProject.Text.ToString() != "")

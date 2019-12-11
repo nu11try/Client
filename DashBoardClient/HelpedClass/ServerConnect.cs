@@ -15,12 +15,10 @@ namespace DashBoardClient
     {
         const int port = 8888;
         //const string address = "172.17.42.40";
-        const string address = "172.31.197.232";
+        const string address = "172.31.197.89";
 
         private Request request = new Request();
         string bufJSON;
-        string nameText;
-        Random rnd = new Random();
 
         /// <summary>
         /// Функциия для запуска запроса на коннект к серверу
@@ -32,34 +30,20 @@ namespace DashBoardClient
         {
             request.Add(msg, service, "");
             bufJSON = JsonConvert.SerializeObject(request);
-<<<<<<< HEAD
-            nameText = "\\" + rnd.Next() + ".txt";
-            File.Delete(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + nameText);
-            File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + nameText, bufJSON);
-            return ConnectServer(bufJSON);
-=======
             Random rnd = new Random();
-            string nameText = "\\" + rnd.Next() + ".txt";
+            string nameText = "\\" + rnd.Next() + rnd.Next() + ".txt";
             File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + nameText, bufJSON);
             return ConnectServer(bufJSON, nameText);
->>>>>>> b7a624da91eb61ff4bc7a955ad27ef0f7853372e
         }
 
         public string SendMsg(string msg, string service, string param)
         {
             request.Add(msg, service, param);
             bufJSON = JsonConvert.SerializeObject(request);
-<<<<<<< HEAD
-            nameText = "\\" + rnd.Next() + ".txt";
-            File.Delete(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + nameText);
-            File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + nameText, bufJSON);
-            return ConnectServer(bufJSON);
-=======
             Random rnd = new Random();
             string nameText = "\\" + rnd.Next() + ".txt";
             File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + nameText, bufJSON);
             return ConnectServer(bufJSON, nameText);
->>>>>>> b7a624da91eb61ff4bc7a955ad27ef0f7853372e
         }
 
         private string ConnectServer(string json, string nameText)
@@ -99,10 +83,7 @@ namespace DashBoardClient
                 client = new TcpClient(address, port);
                 NetworkStream stream = client.GetStream();
                 byte[] data = File.ReadAllBytes(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + nameText);
-<<<<<<< HEAD
-=======
 
->>>>>>> b7a624da91eb61ff4bc7a955ad27ef0f7853372e
                 File.Delete(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + nameText);
 
                 int bufferSize = 1024;
@@ -117,16 +98,14 @@ namespace DashBoardClient
                     bytesSent += curDataSize;
                     bytesLeft -= curDataSize;
                 }
-<<<<<<< HEAD
-=======
                 Random rnd = new Random();
-                nameText = "\\" + rnd.Next() + ".txt";
->>>>>>> b7a624da91eb61ff4bc7a955ad27ef0f7853372e
+                nameText = "\\" + rnd.Next() + rnd.Next() + ".txt";
+
                 File.WriteAllBytes(AppDomain.CurrentDomain.BaseDirectory + nameText, data);
                 string param = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + nameText).Replace("\n", " ");
                 File.Delete(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + nameText);
 
-                nameText = "\\" + rnd.Next() + ".txt";
+
                 byte[] fileSizeBytes = new byte[4];
                 int bytes = stream.Read(fileSizeBytes, 0, 4);
                 int dataLengthResponse = BitConverter.ToInt32(fileSizeBytes, 0);
@@ -142,11 +121,9 @@ namespace DashBoardClient
                     bytesRead += curDataSize;
                     bytesLeft -= curDataSize;
                 }
-<<<<<<< HEAD
-=======
-                rnd = new Random();
-                nameText = "\\" + rnd.Next() + ".txt";
->>>>>>> b7a624da91eb61ff4bc7a955ad27ef0f7853372e
+
+                nameText = "\\" + rnd.Next() + rnd.Next() + ".txt";
+
                 File.WriteAllBytes(AppDomain.CurrentDomain.BaseDirectory + nameText, data);
                 param = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + nameText).Replace("\n", " ");
                 File.Delete(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + nameText);
