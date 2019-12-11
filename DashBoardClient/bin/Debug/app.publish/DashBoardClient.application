@@ -14,7 +14,7 @@
     <framework targetVersion="4.7.2" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="DashBoardClient.exe.manifest" size="6237">
+    <dependentAssembly dependencyType="install" codebase="Application Files\DashBoardClient_3_0_0_1\DashBoardClient.exe.manifest" size="6237">
       <assemblyIdentity name="DashBoardClient.exe" version="3.0.0.1" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
