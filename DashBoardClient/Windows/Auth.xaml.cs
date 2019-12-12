@@ -1,18 +1,7 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-
 namespace DashBoardClient
 {
     /// <summary>
@@ -42,15 +31,18 @@ namespace DashBoardClient
             loginAuth.GotFocus += LoginAuth_GotFocus;
             passAuth.LostFocus += PassAuth_LostFocus;
             passAuth.GotFocus += PassAuth_GotFocus;
-            string SavedParam = "";
-            SavedParam = fileSystem.ReadConfigFile();
-            message = JsonConvert.DeserializeObject<Message>(SavedParam);
 
-            if (SavedParam != "")
+
+            Message mess = new Message();
+            mess.Add(Dns.GetHostByName(Dns.GetHostName()).AddressList[0].ToString());
+            request = JsonConvert.SerializeObject(mess);
+            response = server.SendMsg("getAuth", "", request);
+            message = JsonConvert.DeserializeObject<Message>(response);
+            if (message.args[0] != "no")
             {
-                Data.Token = message.args[0];
+
                 Data.Security = message.args[1];
-                Data.NameUser = message.args[4];
+                Data.NameUser = message.args[0];
                 Data.ProjectName = message.args[3];
                 Data.ServiceName = message.args[2];
 
@@ -61,7 +53,7 @@ namespace DashBoardClient
         }
 
         private void EnterAuth(object sender, RoutedEventArgs e)
-        {                 
+        {
             string login = loginAuth.Text.ToString();
             string password = passAuth.Password.ToString();
 
@@ -69,7 +61,7 @@ namespace DashBoardClient
 
             if (login != "" && password != "")
             {
-                message.Add(login, password);
+                message.Add(login, password, Dns.GetHostByName(Dns.GetHostName()).AddressList[0].ToString());
                 request = JsonConvert.SerializeObject(message);
                 response = server.SendMsg("Auth", "", request);
                 message = JsonConvert.DeserializeObject<Message>(response);
@@ -77,19 +69,10 @@ namespace DashBoardClient
                 else if (message.args[0] == "no") MessageBox.Show("Неверные данные");
                 else
                 {
-                    Data.Token = message.args[0];
-                    Data.Security = message.args[1];
-                    Data.NameUser = message.args[4];
-                    Data.ProjectName = message.args[3];
-                    Data.ServiceName = message.args[2];
-                    configArg.Add(message.args[0], message.args[1], message.args[2],
-                        message.args[3], message.args[4]);
-                    fileSystem.WriteConfigFile(JsonConvert.SerializeObject(configArg));
-
                     Init();
                 }
             }
-            else MessageBox.Show("Данные не заполнены");            
+            else MessageBox.Show("Данные не заполнены");
         }
         private void LoginAuth_LostFocus(object sender, RoutedEventArgs e)
         {
@@ -128,7 +111,7 @@ namespace DashBoardClient
         private void SelectEditAuth(object sender, RoutedEventArgs e)
         {
             if (loginAuth.Text.ToString() == "Логин") loginAuth.Text = "";
-            else if (passAuth.Password.ToString() == "Password") passAuth.Password = "";            
+            else if (passAuth.Password.ToString() == "Password") passAuth.Password = "";
         }
     }
 }
