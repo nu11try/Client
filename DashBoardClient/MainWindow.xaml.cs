@@ -140,7 +140,7 @@ namespace DashBoardClient
                             {
                                 DateTime time = DateTime.Now;
                                 int sec = time.DayOfYear * 24 * 60 * 60 + time.Hour * 60 * 60 + time.Minute * 60 + time.Second;
-                                text += mess.args[i] + "\n" + mess.args[i + 1] + " - " + (sec - Int32.Parse(mess.args[i + 2])) + "c"; 
+                                text += mess.args[i] + "\n" + mess.args[i + 1] + " - " + (sec - Int32.Parse(mess.args[i + 2])) + "c\n"; 
                             }
                         }
                          action = () => nowTests.Text = text;
