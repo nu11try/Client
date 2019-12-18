@@ -1,6 +1,9 @@
 ﻿using Newtonsoft.Json;
+using System;
+using System.IO;
 using System.Net;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
 namespace DashBoardClient
 {
@@ -18,7 +21,7 @@ namespace DashBoardClient
 
         string response;
         string request;
-
+        string addres = "172.31.197.232";
         public Auth()
         {
             InitializeComponent();
@@ -36,8 +39,13 @@ namespace DashBoardClient
             Message mess = new Message();
             mess.Add(Dns.GetHostByName(Dns.GetHostName()).AddressList[0].ToString());
             request = JsonConvert.SerializeObject(mess);
-            response = server.SendMsg("getAuth", "", request);
+            response = server.SendMsg("GetAuth", "", request);
             message = JsonConvert.DeserializeObject<Message>(response);
+            try
+            {
+                addres = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\server.conf");
+            }
+            catch { }
             if (message.args[0] != "no")
             {
 
@@ -45,6 +53,7 @@ namespace DashBoardClient
                 Data.NameUser = message.args[0];
                 Data.ProjectName = message.args[3];
                 Data.ServiceName = message.args[2];
+                Data.IPServer = addres;
 
                 mainWindow.Show();
 
@@ -112,6 +121,11 @@ namespace DashBoardClient
         {
             if (loginAuth.Text.ToString() == "Логин") loginAuth.Text = "";
             else if (passAuth.Password.ToString() == "Password") passAuth.Password = "";
+        }
+        private void GetSettings(object sender, MouseButtonEventArgs e)
+        {
+            Settings settings = new Settings();
+            settings.ShowDialog();
         }
     }
 }

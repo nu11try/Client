@@ -6,9 +6,29 @@
         xmlns:local="clr-namespace:DashBoardClient"
         mc:Ignorable="d"
          Style="{StaticResource VS2012WindowStyle}"
-        Title="DashBoard" Width="1280" Height="724" ScrollViewer.VerticalScrollBarVisibility="Disabled" MinWidth="1280" MinHeight="724" WindowStartupLocation="CenterScreen" Background="#FF323439" Loaded="Window_Loaded">
+        Title="DashBoard" Width="1280" Height="724" ScrollViewer.VerticalScrollBarVisibility="Disabled" MinWidth="1280" MinHeight="724" WindowStartupLocation="CenterScreen" Background="#FF323439" Loaded="Window_Loaded" Closed="CloseProcess">
     <Window.Resources>
         <Style x:Key="button of navigation" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid>
+                            <Border Name="Head">
+                                <Rectangle   Fill="Transparent"  />
+                            </Border>
+                            <ContentPresenter   x:Name="PART_Button"  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"   VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Margin="36,6,0,7"  />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" TargetName="Head" Value="#555561"/>
+                                <Setter Property="BorderBrush" TargetName="Head" Value="#FF3C7FB1"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="button of gear" TargetType="{x:Type Button}">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
@@ -34,45 +54,42 @@
             <RowDefinition Height="0*"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0*"/>
-            <ColumnDefinition Width="0*"/>
-            <ColumnDefinition Width="0*"/>
-            <ColumnDefinition Width="0*"/>
-            <ColumnDefinition Width="0*"/>
-            <ColumnDefinition Width="0*"/>
-            <ColumnDefinition Width="0*"/>
-            <ColumnDefinition Width="0*"/>
-            <ColumnDefinition Width="0*"/>
-            <ColumnDefinition Width="55*"/>
-            <ColumnDefinition Width="263*"/>
-        </Grid.ColumnDefinitions>
         <Grid Grid.ColumnSpan="10" Margin="0,0,22,0" Grid.RowSpan="2">
             <Canvas HorizontalAlignment="Left" Width="198" Background="#FF45454F" Margin="0,-31,-1,0">
                 <Canvas.Effect>
                     <DropShadowEffect BlurRadius="16" Direction="364" ShadowDepth="2"/>
                 </Canvas.Effect>
-                <Image Height="58" Canvas.Left="10" Width="58" RenderTransformOrigin="0.5,0.5" Source="Images/user.png" Canvas.Top="37" HorizontalAlignment="Center" VerticalAlignment="Center" Panel.ZIndex="5" OpacityMask="#FF2BAAC9"/>
-                <ComboBox x:Name="SelecterProject" Height="22" Canvas.Left="73" Canvas.Top="69" Width="119" SelectionChanged="ChangeProject" Loaded="SelecterProject_Loaded"/>
-                <TextBlock x:Name="nowTests" Canvas.Left="10" Foreground="White" TextWrapping="Wrap" Text="" Canvas.Top="478" Height="219" Width="182"/>
+                <ComboBox x:Name="SelecterProject" Height="22" Canvas.Left="13" Canvas.Top="65" Width="172" SelectionChanged="ChangeProject" Loaded="SelecterProject_Loaded"/>
+                <TextBlock x:Name="nowTests" Canvas.Left="10" Foreground="White" TextWrapping="Wrap" Text="" Canvas.Top="478" Height="203" Width="182"/>
+                <Label x:Name="versionLabel" Content="Версия - " Canvas.Top="678" Width="191" Canvas.Left="4" Foreground="White"/>
+
             </Canvas>
         </Grid>
-        <Button Style="{StaticResource button of navigation}" Content="Запуск" HorizontalAlignment="Left" Height="29" Margin="0,113,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="198" Grid.ColumnSpan="10" Background="#FF45454F" BorderBrush="#FF45454F" Foreground="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="36,1,1,1" Click="StartTests"/>
-        <Button Style="{StaticResource button of navigation}" Content="Тесты" HorizontalAlignment="Left" Height="29" Margin="0,142,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="198" Grid.ColumnSpan="10" Background="#FF45454F" BorderBrush="#FF45454F" Foreground="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="36,1,1,1" Click="AddTest"/>
-        <Button Style="{StaticResource button of navigation}" Content="Наборы" HorizontalAlignment="Left" Height="29" Margin="0,171,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="198" Grid.ColumnSpan="10" Background="#FF45454F" BorderBrush="#FF45454F" Foreground="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="35,1,1,1" Click="Packs"/>
-        <Button Style="{StaticResource button of navigation}" Content="Автозапуск" HorizontalAlignment="Left" Height="29" Margin="0,200,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="198" Grid.ColumnSpan="10" Background="#FF45454F" BorderBrush="#FF45454F" Foreground="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="36,1,1,1" Click="Autostart"/>
+        <Button Style="{StaticResource button of navigation}" Content="Запуск" HorizontalAlignment="Left" Height="29" Margin="0,113,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="198" Grid.ColumnSpan="12" Background="#FF45454F" BorderBrush="#FF45454F" Foreground="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="36,1,1,1" Click="StartTests"/>
+        <Button Style="{StaticResource button of navigation}" Content="Тесты" HorizontalAlignment="Left" Height="29" Margin="0,142,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="198" Grid.ColumnSpan="12" Background="#FF45454F" BorderBrush="#FF45454F" Foreground="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="36,1,1,1" Click="AddTest"/>
+        <Button Style="{StaticResource button of navigation}" Content="Наборы" HorizontalAlignment="Left" Height="29" Margin="0,171,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="198" Grid.ColumnSpan="12" Background="#FF45454F" BorderBrush="#FF45454F" Foreground="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="35,1,1,1" Click="Packs"/>
+        <Button Style="{StaticResource button of navigation}" Content="Автозапуск" HorizontalAlignment="Left" Height="29" Margin="0,200,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="198" Grid.ColumnSpan="12" Background="#FF45454F" BorderBrush="#FF45454F" Foreground="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="36,1,1,1" Click="Autostart"/>
         <Label Content="АВТОТЕСТЫ" HorizontalAlignment="Left" Height="30" Margin="10,83,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="176" VerticalContentAlignment="Center" Foreground="#FF6A6A6A" Padding="5,5,1,5" Grid.Column="9"/>
         <Label Content="АВТОТЕСТЫ" HorizontalAlignment="Left" Height="30" Margin="10,83,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="176" VerticalContentAlignment="Center" Foreground="#FF6A6A6A" Padding="5,5,1,5" Grid.Column="9"/>
-        <Button Style="{StaticResource button of navigation}" Content="Автозапуск" HorizontalAlignment="Left" Height="29" Margin="0,200,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="198" Grid.ColumnSpan="10" Background="#FF45454F" BorderBrush="#FF45454F" Foreground="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="36,1,1,1" Click="Autostart"/>
+        <Button Style="{StaticResource button of navigation}" Content="Автозапуск" HorizontalAlignment="Left" Height="29" Margin="0,200,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="198" Grid.ColumnSpan="12" Background="#FF45454F" BorderBrush="#FF45454F" Foreground="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="36,1,1,1" Click="Autostart"/>
         <Label Content="СТАТИСТИКА" HorizontalAlignment="Left" Height="30" Margin="10,229,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="176" VerticalContentAlignment="Center" Foreground="#FF6A6A6A" Padding="5,5,1,5" Grid.Column="9"/>
         <Label Content="ДОКУМЕНТАЦИЯ" HorizontalAlignment="Left" Height="30" Margin="10,317,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="176" VerticalContentAlignment="Center" Foreground="#FF6A6A6A" Padding="5,5,1,5" Grid.Column="9"/>
         <Label Content="АВТОТЕСТЫ" HorizontalAlignment="Left" Height="30" Margin="10,381,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="176" VerticalContentAlignment="Center" Foreground="#FF6A6A6A" Padding="5,5,1,5" Grid.Column="9"/>
-        <Button Style="{StaticResource button of navigation}" Content="Тесты" HorizontalAlignment="Left" Height="29" Margin="0,259,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="198" Grid.ColumnSpan="10" Background="#FF45454F" BorderBrush="#FF45454F" Foreground="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="35,1,1,1" Click="StatisticTest"/>
-        <Button Style="{StaticResource button of navigation}" Content="Операции" HorizontalAlignment="Left" Height="29" Margin="0,288,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="198" Grid.ColumnSpan="10" Background="#FF45454F" BorderBrush="#FF45454F" Foreground="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="36,1,1,1" Click="OperacTest"/>
-        <Button Style="{StaticResource button of navigation}" Content="Документация" HorizontalAlignment="Left" Height="29" Margin="0,347,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="198" Grid.ColumnSpan="10" Background="#FF45454F" BorderBrush="#FF45454F" Foreground="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="36,1,1,1" Click="Doc"/>
-        <Button Style="{StaticResource button of navigation}" Content="Эффективность" HorizontalAlignment="Left" Height="29" Margin="0,411,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="198" Grid.ColumnSpan="10" Background="#FF45454F" BorderBrush="#FF45454F" Foreground="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="36,1,1,1"/>
-        <Label x:Name="LabelUserName" Content="" Grid.Column="9" HorizontalAlignment="Left" Height="30" Margin="82,10,0,0" VerticalAlignment="Top" Width="104" Foreground="White" VerticalContentAlignment="Center" Grid.RowSpan="2"/>
-        <Frame x:Name="Frame" Content="" Grid.Column="9" Grid.RowSpan="2" NavigationUIVisibility="Hidden" Margin="203,0,0,0" FontSize="18" Foreground="White" Grid.ColumnSpan="2"/>
+        <Button Style="{StaticResource button of navigation}" Content="Тесты" HorizontalAlignment="Left" Height="29" Margin="0,259,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="198" Grid.ColumnSpan="12" Background="#FF45454F" BorderBrush="#FF45454F" Foreground="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="35,1,1,1" Click="StatisticTest"/>
+        <Button Style="{StaticResource button of navigation}" Content="Графики" HorizontalAlignment="Left" Height="29" Margin="0,288,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="198" Grid.ColumnSpan="12" Background="#FF45454F" BorderBrush="#FF45454F" Foreground="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="36,1,1,1"/>
+        <Button Style="{StaticResource button of navigation}" Content="Документация" HorizontalAlignment="Left" Height="29" Margin="0,347,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="198" Grid.ColumnSpan="12" Background="#FF45454F" BorderBrush="#FF45454F" Foreground="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="36,1,1,1" Click="Doc"/>
+        <Button Style="{StaticResource button of navigation}" Content="Эффективность" HorizontalAlignment="Left" Height="29" Margin="0,411,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="198" Grid.ColumnSpan="12" Background="#FF45454F" BorderBrush="#FF45454F" Foreground="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="36,1,1,1"/>
+        <Label x:Name="LabelUserName" Content="" Grid.Column="9" Height="40" Margin="15,-5,0,0" VerticalAlignment="Top" Foreground="White" VerticalContentAlignment="Center" Grid.RowSpan="2" HorizontalAlignment="Left" Width="120" FontSize="14"/>
+        <Frame x:Name="Frame" Content="" Grid.RowSpan="2" NavigationUIVisibility="Hidden" FontSize="18" Foreground="White" RenderTransformOrigin="0.5,0.5" Margin="200,0,0,0">
+            <Frame.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-0.062"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Frame.RenderTransform>
+        </Frame>
         <Image HorizontalAlignment="Left" Height="15" Margin="15,151,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="15" Source="Images/test.png" Grid.Column="9"/>
         <Image HorizontalAlignment="Left" Height="15" Margin="15,180,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="15" Source="Images/group.png" Grid.Column="9"/>
         <Image HorizontalAlignment="Left" Height="15" Margin="15,209,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="15" Source="Images/auto_start.png" Grid.Column="9"/>
@@ -81,6 +98,14 @@
         <Image HorizontalAlignment="Left" Height="16" Margin="15,356,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="15" Source="Images/doc.png" Grid.Column="9"/>
         <Image HorizontalAlignment="Left" Height="15" Margin="15,419,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="15" Source="Images/stat.png" Grid.Column="9"/>
         <Image HorizontalAlignment="Left" Height="15" Margin="15,122,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="15" Source="Images/time.png" Grid.Column="9"/>
+        <Image Width="25" Grid.ColumnSpan="10" Margin="150,0,0,0" Grid.RowSpan="2" Cursor="Hand" MouseDown="GetSettings" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left">
+            <Image.OpacityMask>
+                <ImageBrush ImageSource="Images/gear.png"/>
+            </Image.OpacityMask>
+            <Image.Source>
+                <BitmapImage UriSource="Images/gear.png"/>
+            </Image.Source>
+        </Image>
 
     </Grid>
 

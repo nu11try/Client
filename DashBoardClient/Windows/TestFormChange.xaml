@@ -32,8 +32,8 @@
         </Style>
     </Window.Resources>
     <Grid Background="#FF45454F" Margin="0,0,0,-4">
-        <TextBox x:Name="TestID" Height="30" Margin="25,65,25,0" VerticalAlignment="Top" IsEnabled="False"/>
-        <ComboBox x:Name="MethodSelect" Height="30" Margin="25,147,25,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="TestID" Height="25" Margin="25,65,25,0" VerticalAlignment="Top" IsEnabled="False"/>
+        <ComboBox x:Name="MethodSelect" Height="28" Margin="25,147,25,0" VerticalAlignment="Top"/>
         <CheckBox x:Name="ActiveSelect" Content="Показывать ли в статистике?" HorizontalAlignment="Left" Height="30" Margin="25,202,0,0" VerticalAlignment="Top" Width="238" Foreground="White"/>
         <Button x:Name="SubmitTest" Content="Подтвердить" HorizontalAlignment="Left" Margin="25,257,0,0" Width="238" Height="28" VerticalAlignment="Top" Click="SendTest"/>
         <Button x:Name="CancelTest" Content="Отменить" HorizontalAlignment="Left" Margin="25,297,0,0" Width="238" Height="28" VerticalAlignment="Top" Click="CloseWindow"/>

@@ -85,17 +85,17 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Программа и методика (ПиМ)" Width="auto">
+                    <GridViewColumn Header="Программа и методика (ПиМ)" Width="880">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock x:Name="pim" Text="{Binding Pim}" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <TextBlock x:Name="pim" Text="{Binding Pim}" Foreground="White" TextWrapping="NoWrap" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn Header="Добавлен" Width="auto">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock x:Name="date" Text="{Binding Date}" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <TextBlock x:Name="date" Text="{Binding Date}" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

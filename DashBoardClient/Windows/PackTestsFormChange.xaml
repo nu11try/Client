@@ -36,7 +36,7 @@
         <Button x:Name="SubmitTest" Content="Подтвердить" HorizontalAlignment="Left" Margin="21,317,0,0" Width="238" Height="28" VerticalAlignment="Top" Click="SendMsg"/>
         <Button x:Name="CancelTest" Content="Отменить" HorizontalAlignment="Left" Margin="21,357,0,0" Width="238" Height="28" VerticalAlignment="Top" Click="CloseWindow"/>
         <Label Content="Название" HorizontalAlignment="Left" Margin="22,29,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <ComboBox x:Name="Time" Height="30" Margin="21,117,29,0" VerticalAlignment="Top" SelectionChanged="ChangeTime">
+        <ComboBox x:Name="Time" Height="28" Margin="21,117,29,0" VerticalAlignment="Top" SelectionChanged="ChangeTime">
             <ComboBoxItem>По умолчанию</ComboBoxItem>
             <ComboBoxItem>Изменить</ComboBoxItem>
         </ComboBox>
@@ -61,9 +61,9 @@
             <TextBlock>15</TextBlock>
         </ComboBox>
         <Label Content="Кол-во перезапусков в случае сбоя" HorizontalAlignment="Left" Margin="21,245,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <TextBox x:Name="TimeChange" Height="30" Margin="22,162,146,0" VerticalAlignment="Top" IsEnabled="False"/>
+        <TextBox x:Name="TimeChange" Height="23" Margin="22,162,146,0" VerticalAlignment="Top" IsEnabled="False"/>
         <Label Content="(15 мин)" x:Name="TimeMin"  HorizontalAlignment="Left" Margin="172,162,0,0" VerticalAlignment="Top" Foreground="White" Width="103" Height="30"/>
-        <ComboBox x:Name="Browser" HorizontalAlignment="Left" Margin="22,220,0,0" VerticalAlignment="Top" Width="238" SelectedIndex="0" Height="30">
+        <ComboBox x:Name="Browser" HorizontalAlignment="Left" Margin="22,220,0,0" VerticalAlignment="Top" Width="238" SelectedIndex="0" Height="25">
             <TextBlock><Run Text="По умолчанию"/></TextBlock>
             <TextBlock><Run Text="IE"/></TextBlock>
             <TextBlock><Run Text="Chrome"/></TextBlock>

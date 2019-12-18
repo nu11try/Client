@@ -14,9 +14,7 @@ namespace DashBoardClient
     class ServerConnect
     {
         const int port = 8888;
-        //const string address = "172.17.42.40";
-        const string address = "172.31.197.89";
-      //  const string address = "172.31.197.232";
+        string address = Data.IPServer;
 
         private Request request = new Request();
         string bufJSON;
@@ -78,7 +76,34 @@ namespace DashBoardClient
             string response = "";
             try
             {
-                client = new TcpClient(address, port);
+                if (Data.IPServer == null)
+                {
+                    try
+                    {
+                        Data.IPServer = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\server.conf");
+                        if (Data.IPServer.Equals("") || Data.IPServer == null)
+                        {
+                            Settings settings = new Settings();
+                            settings.ShowDialog();
+                        }
+                    }
+                    catch 
+                    {
+                        Settings settings = new Settings();
+                        settings.ShowDialog();
+                    }                    
+                }
+                try
+                {
+                    client = new TcpClient(Data.IPServer, port);
+                }
+                catch {
+                    MessageBox.Show("Невозможно подключиться к серверу! Смените IP, если это не даст результата, напишите в поддержку!");
+                    Settings settings = new Settings();
+                    settings.ShowDialog();
+                    Data.IPServer = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\server.conf");
+                    client = new TcpClient(Data.IPServer, port);
+                }
                 NetworkStream stream = client.GetStream();
 
                 while (true)

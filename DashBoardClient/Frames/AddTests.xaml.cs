@@ -29,10 +29,10 @@ namespace DashBoardClient
 
         public AddTests()
         {
-            Thread thread = Waiter.ShowWaiter();
+            //Thread thread = Waiter.ShowWaiter();
             InitializeComponent();
             UpdateList();
-            Waiter.AbortWaiter(thread);
+            //Waiter.AbortWaiter(thread);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

@@ -32,10 +32,10 @@ namespace DashBoardClient
         string[] tests = new string[] { };
         public TestFormAdd()
         {
-            Thread thread = Waiter.ShowWaiter();
+            //Thread thread = Waiter.ShowWaiter();
             InitializeComponent();
             GetTestsForListView();
-            Waiter.AbortWaiter(thread);
+            //Waiter.AbortWaiter(thread);
         }
             
         private void GetTestsForListView()

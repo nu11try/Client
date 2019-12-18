@@ -75,13 +75,13 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="ID" Width="150">
+                    <!--<GridViewColumn Header="ID" Width="150">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock x:Name="NewName" Text="{Binding ID}"  VerticalAlignment="Center" HorizontalAlignment="left"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
+                    </GridViewColumn>-->
                     <GridViewColumn Header="Имя" Width="150">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>

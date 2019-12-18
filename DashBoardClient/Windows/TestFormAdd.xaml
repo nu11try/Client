@@ -32,9 +32,9 @@
         </Style>
     </Window.Resources>
     <Grid Background="#FF45454F" Margin="0,0,0,-3">
-        <ComboBox x:Name="TestSelect" Height="30" Margin="25,65,25,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="MethodSelect" Height="30" Margin="25,141,25,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="ActiveSelect" Content="Показывать ли в статистике?" HorizontalAlignment="Left" Height="30" Margin="25,196,0,0" VerticalAlignment="Top" Width="238" Foreground="White"/>
+        <ComboBox x:Name="TestSelect" Height="25" Margin="25,65,25,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="MethodSelect" Height="24" Margin="25,141,25,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="ActiveSelect" Content="Показывать ли в статистике?" HorizontalAlignment="Left" Height="30" Margin="25,180,0,0" VerticalAlignment="Top" Width="238" Foreground="White"/>
         <Button x:Name="SubmitTest" Content="Подтвердить" HorizontalAlignment="Left" Margin="25,226,0,0" Width="238" Height="28" VerticalAlignment="Top" Click="SendTest"/>
         <Button x:Name="CancelTest" Content="Отменить" HorizontalAlignment="Left" Margin="25,266,0,0" Width="238" Height="28" VerticalAlignment="Top" Click="CloseWindow"/>
         <Label Content="Выберите тест" HorizontalAlignment="Left" Margin="25,34,0,0" VerticalAlignment="Top" Foreground="White"/>

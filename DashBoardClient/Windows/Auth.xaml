@@ -48,6 +48,11 @@
                 <DropShadowEffect BlurRadius="10" Direction="283" Opacity="0.6" ShadowDepth="2"/>
             </Button.Effect>
         </Button>
+        <Image Height="25" Width="25" Grid.ColumnSpan="1" Margin="200,10,17,154" Grid.RowSpan="1" Cursor="Hand" MouseDown="GetSettings" Source="/DashBoardClient;component/Images/gear.png">
+            <Image.OpacityMask>
+                <ImageBrush ImageSource="/DashBoardClient;component/Images/gear.png"/>
+            </Image.OpacityMask>
+        </Image>
 
     </Grid>
 </Window>

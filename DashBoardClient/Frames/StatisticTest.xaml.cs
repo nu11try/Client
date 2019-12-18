@@ -17,6 +17,7 @@ namespace DashBoardClient
         Message message = new Message();
         List<TestsViewClass> TestsListView;
         List<TestsInfoClass> TestsListInfo;
+        string response = "";
         string request = "";
         bool select = false;
         public StatisticTest()
@@ -35,10 +36,10 @@ namespace DashBoardClient
             request = JsonConvert.SerializeObject(message);
             message = new Message();
 
-            Thread thread = Waiter.ShowWaiter();
+            //Thread thread = Waiter.ShowWaiter();
             UpdateTestsView();
             UpdateTestsInfo();
-            Waiter.AbortWaiter(thread);
+            //Waiter.AbortWaiter(thread);
 
             //TestsInfo.ItemsSource = TestsListInfo;    
             TestsView.SelectionChanged += TestsView_SelectionChanged;
@@ -316,7 +317,11 @@ namespace DashBoardClient
             Thread thread = Waiter.ShowWaiter();
             try
             {
-                System.Diagnostics.Process.Start("file://pur-test01/ATST/" + Data.ServiceSel.ToUpper() + "/Tests/" + (sender as Button).Tag.ToString() + "/Res1/Report/run_results.html");
+                Message mess = new Message();
+                mess.Add(Data.ServiceSel);
+                response = server.SendMsg("GetPathToResult", Data.ServiceSel, JsonConvert.SerializeObject(mess));
+                mess = JsonConvert.DeserializeObject<Message>(response);
+                System.Diagnostics.Process.Start("file://pur-test01/ATST/" + mess.args[0].Replace("Z:\\\\", "").Replace("\\\\", "/") + "/" + (sender as Button).Tag.ToString() + "/Res1/Report/run_results.html");
                 Waiter.AbortWaiter(thread);
             }
             catch
