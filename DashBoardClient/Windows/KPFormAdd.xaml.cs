@@ -36,6 +36,7 @@ namespace DashBoardClient
             if (actionType == "update") action = "update";
             ID = id;
             IDKP = idKP;
+            DateBlock.SelectedDate = DateTime.Today;
         }
 
         private void GetKPInfo(string id, string idKP)
@@ -65,6 +66,7 @@ namespace DashBoardClient
                 }
             }
             message = new Message();
+            DateBlock.SelectedDate = DateTime.Today;
         }
 
         private void SendDoc(object sender, RoutedEventArgs e)
@@ -105,6 +107,7 @@ namespace DashBoardClient
                 MessageBox.Show("Не все данные выбраны!");
             }
             message = new Message();
+            DateBlock.SelectedDate = DateTime.Today;
         }
 
         private void CloseWindow(object sender, RoutedEventArgs e)

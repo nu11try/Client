@@ -72,7 +72,9 @@ namespace DashBoardClient
 
         private void UpdateTestsView()
         {
+            server.SendMsg("CheckErrors", Data.ServiceSel);
             TestsListView = new List<TestsViewClass>();
+            TestsView.ItemsSource = TestsListView;
             try
             {
                 message = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetTestResult", Data.ServiceSel, request));
@@ -113,7 +115,7 @@ namespace DashBoardClient
                     test.Id = message.args[i + 6];
                     Message args = new Message();
                     args.Add(message.args[i + 6]);
-                    Message res = JsonConvert.DeserializeObject<Message>(server.SendMsg("CheckErrors", Data.ServiceSel, JsonConvert.SerializeObject(args)));
+                    Message res = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetErrorsStatus", Data.ServiceSel, JsonConvert.SerializeObject(args)));
                     if (res.args[0] == "errors")
                         test.Jira = "/DashBoardClient;component/Images/red.png";
                     if (res.args[0] == "issue")
@@ -130,7 +132,7 @@ namespace DashBoardClient
             }
             DataContext = this;
             TestsView.ItemsSource = TestsListView;
-            
+
         }
         private void UpdateTestsInfo()
         {
@@ -235,7 +237,7 @@ namespace DashBoardClient
             foreach (dynamic item in myItems)
             {
                 this.TestsInfo.Items.Add(item);
-            }         
+            }
         }
         private void TestsView_ScrollChanged(object sender, ScrollChangedEventArgs e)
         {
@@ -296,7 +298,7 @@ namespace DashBoardClient
             select = true;
             if (select)
             {
-                thread = Waiter.ShowWaiter();                
+                thread = Waiter.ShowWaiter();
             }
             message = new Message();
             message.Add(StendSelected.SelectedItem.ToString());

@@ -31,6 +31,7 @@ namespace DashBoardClient
         public DocFormAdd()
         {
             InitializeComponent();
+            DateBlock.SelectedDate = DateTime.Today;
         }
 
         public DocFormAdd(string id)
@@ -39,6 +40,7 @@ namespace DashBoardClient
             GetDocInfo(id);
             action = "update";
             ID = id;
+            DateBlock.SelectedDate = DateTime.Today;
         }
 
         private void GetDocInfo(string id)
@@ -57,6 +59,7 @@ namespace DashBoardClient
                 DateBlock.Text = resMes.args[1];
             }
             message = new Message();
+            DateBlock.SelectedDate = DateTime.Today;
         }
 
         private void SendDoc(object sender, RoutedEventArgs e)
@@ -98,6 +101,7 @@ namespace DashBoardClient
 
             message = new Message();
             request = "";
+            DateBlock.SelectedDate = DateTime.Today;
         }
 
         private void CloseWindow(object sender, RoutedEventArgs e)

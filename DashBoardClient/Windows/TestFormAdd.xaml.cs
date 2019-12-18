@@ -32,10 +32,10 @@ namespace DashBoardClient
         string[] tests = new string[] { };
         public TestFormAdd()
         {
-            //Thread thread = Waiter.ShowWaiter();
+            Thread thread = Waiter.ShowWaiter();
             InitializeComponent();
             GetTestsForListView();
-            //Waiter.AbortWaiter(thread);
+            Waiter.AbortWaiter(thread);
         }
             
         private void GetTestsForListView()
@@ -61,10 +61,10 @@ namespace DashBoardClient
             else
             {
 
-                for (int i = 0; i < resMes.args.Count; i += 3) TestSelect.Items.Add(resMes.args[i] + " (" + resMes.args[i + 1] + ")");
+                for (int i = 0; i < resMes.args.Count; i += 3) TestSelect.Items.Add(resMes.args[i] + " [" + resMes.args[i + 1] + "]");
                 try
                 {
-                    for (int i = 0; i < resMes2.args.Count; i += 4) MethodSelect.Items.Add(resMes2.args[i] + " (" + resMes2.args[i + 3] + ")");
+                    for (int i = 0; i < resMes2.args.Count; i += 4) MethodSelect.Items.Add(resMes2.args[i] + " [" + resMes2.args[i + 3] + "]");
                 }
                 catch { }
 
@@ -84,8 +84,8 @@ namespace DashBoardClient
         {            
             try
             {
-                string IDtest = TestSelect.SelectedItem.ToString().Split('(')[0];
-                string idDoc = MethodSelect.SelectedItem.ToString().Split('(')[0];
+                string IDtest = TestSelect.SelectedItem.ToString().Split('[')[0];
+                string idDoc = MethodSelect.SelectedItem.ToString().Split('[')[0];
                 IDtest = IDtest.Substring(0, IDtest.Length-1);
                 idDoc = idDoc.Substring(0, idDoc.Length - 1);
                 message.Add(IDtest, Data.NameUser, ActiveSelect.IsChecked.Value.ToString(), idDoc);

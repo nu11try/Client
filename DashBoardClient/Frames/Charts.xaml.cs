@@ -27,7 +27,7 @@ namespace DashBoardClient
         public ChartValues<CustomerVm> Customers { get; set; }
         public static SeriesCollection SeriesCollection { get; private set; }
         ServerConnect server = new ServerConnect();
-        public static Dictionary<string,Brush> hiddenTests;
+        public static Dictionary<string, Brush> hiddenTests;
         public static Dictionary<string, IChartValues> valuesTests;
         public Charts()
         {
@@ -42,7 +42,7 @@ namespace DashBoardClient
                 CheckBox checkBox = new CheckBox();
                 checkBox.Name = services.args[i];
                 checkBox.Margin = new Thickness(
-                   i / 1 * 80, (i * 20) - i /  2* 40, 0, 0);
+                   i / 3 * 80, (i * 20) - i / 3 * 60, 0, 0);
                 if (checkBox.Name == Data.ServiceSel)
                     checkBox.IsChecked = true;
                 projects.Children.Add(checkBox);
@@ -50,7 +50,7 @@ namespace DashBoardClient
                 textBox.Text = project.args[i];
 
                 textBox.Margin = new Thickness(
-                     i / 1 * 80 + 20, (i * 20) - i / 2 *40, 20, 20);
+                    i / 3 * 80 + 20, (i * 20) - i / 3 * 60, 20, 20);
                 textBox.Foreground = Brushes.White;
                 projects.Children.Add(textBox);
             }
@@ -66,9 +66,9 @@ namespace DashBoardClient
         internal static void Visible(string text)
         {
             int flag = -1;
-            for(int i = 0; i < SeriesCollection.Count; i++)
+            for (int i = 0; i < SeriesCollection.Count; i++)
             {
-                if(SeriesCollection[i].Title == text && !hiddenTests.ContainsKey(text))
+                if (SeriesCollection[i].Title == text && !hiddenTests.ContainsKey(text))
                 {
                     LineSeries lineSeries = (LineSeries)SeriesCollection[i];
                     hiddenTests.Add(lineSeries.Title, lineSeries.Stroke);
@@ -77,7 +77,7 @@ namespace DashBoardClient
                     break;
                 }
             }
-            if(flag != -1)
+            if (flag != -1)
             {
                 LineSeries lineSeries = (LineSeries)SeriesCollection[flag];
                 lineSeries.Stroke = Brushes.Transparent;
@@ -87,7 +87,7 @@ namespace DashBoardClient
             {
                 for (int i = 0; i < SeriesCollection.Count; i++)
                 {
-                    if(text == SeriesCollection[i].Title)
+                    if (text == SeriesCollection[i].Title)
                     {
                         LineSeries lineSeries = (LineSeries)SeriesCollection[i];
                         lineSeries.Values = valuesTests[text];
@@ -106,14 +106,14 @@ namespace DashBoardClient
             mess.Add(after.SelectedDate.ToString());
             mess.Add(before.SelectedDate.ToString());
             mess.Add(StendSelected.SelectedItem.ToString());
-            for (int i =0; i < projects.Children.Count; i+=2)
+            for (int i = 0; i < projects.Children.Count; i += 2)
             {
                 CheckBox checkBox = (CheckBox)projects.Children[i];
                 if (checkBox.IsChecked == true)
-                mess.Add(checkBox.Name);
+                    mess.Add(checkBox.Name);
             }
 
-            Message response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetCharts", Data.ServiceSel,JsonConvert.SerializeObject(mess)));
+            Message response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetCharts", Data.ServiceSel, JsonConvert.SerializeObject(mess)));
             List<string> tests = new List<string>();
             List<List<string>> results = new List<List<string>>();
             List<List<string>> versions = new List<List<string>>();
@@ -126,8 +126,8 @@ namespace DashBoardClient
                     results[tests.IndexOf(test.args[6])].Add(test.args[1]);
                     versions[tests.IndexOf(test.args[6])].Add(test.args[4]);
                 }
-                 else
-                 {
+                else
+                {
                     tests.Add(test.args[6]);
                     results.Add(new List<string>());
                     results[tests.IndexOf(test.args[6])].Add(test.args[1]);
@@ -136,16 +136,17 @@ namespace DashBoardClient
                 }
                 if (version.Contains(test.args[4]))
                 {
-                    
+
                 }
                 else
                 {
                     version.Add(test.args[4]);
                 }
             });
-            for(int i = 0; i < versions.Count; i++)
+            for (int i = 0; i < versions.Count; i++)
             {
-                if (versions[i].Count != version.Count) {
+                if (versions[i].Count != version.Count)
+                {
                     for (int j = 0; j < version.Count; j++)
                     {
                         if (!versions[i].Contains(version[j]))
@@ -183,14 +184,14 @@ namespace DashBoardClient
                     CustomerVm vm = new CustomerVm
                     {
                         Value = results[i][j] == "" ? double.NaN : double.Parse(results[i][j]),
-                        Show =  results[i][j] == "" ? "" : tests[i] + ": " +results[i][j] + "c"
+                        Show = results[i][j] == "" ? "" : tests[i] + ": " + results[i][j] + "c"
                     };
                     lineSeries.Values.Add(vm);
-                    
+
                 }
                 SeriesCollection.Add(lineSeries);
             }
-            
+
             Labels.Labels = version;
             //let create a mapper so LiveCharts know how to plot our CustomerViewModel class
             var customerVmMapper = Mappers.Xy<CustomerVm>()

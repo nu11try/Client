@@ -30,7 +30,7 @@
     <InstallUrl>\\172.31.197.220\atst\client\</InstallUrl>
     <ProductName>Asylum</ProductName>
     <PublisherName>OTR</PublisherName>
-    <ApplicationRevision>16</ApplicationRevision>
+    <ApplicationRevision>20</ApplicationRevision>
     <ApplicationVersion>3.0.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>

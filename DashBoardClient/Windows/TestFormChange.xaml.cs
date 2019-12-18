@@ -67,7 +67,7 @@ namespace DashBoardClient
             {
 
 
-                for (int i = 0; i < resMes2.args.Count; i += 4) MethodSelect.Items.Add(resMes2.args[i] + " (" + resMes2.args[i + 3] + ")");
+                for (int i = 0; i < resMes2.args.Count; i += 4) MethodSelect.Items.Add(resMes2.args[i] + " [" + resMes2.args[i + 3] + "]");
                 if (!resMes3.args[0].Equals("error"))
                 {
                     MethodSelect.Text = resMes3.args[0] + " (" + resMes3.args[3] + ")".ToString();
@@ -81,7 +81,7 @@ namespace DashBoardClient
         {           
             try
             {
-                string idDoc = MethodSelect.SelectedItem.ToString().Split('(')[0];
+                string idDoc = MethodSelect.SelectedItem.ToString().Split('[')[0];
                 idDoc = idDoc.Substring(0, idDoc.Length - 1);
                 message.Add(IDTest, Data.NameUser, ActiveSelect.IsChecked.Value.ToString(), idDoc);
                 request = JsonConvert.SerializeObject(message);
