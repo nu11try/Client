@@ -144,6 +144,14 @@
     </Compile>
     <Compile Include="Styles\CustomizedWindow\VS2012WindowStyle.cs" />
     <Compile Include="Styles\CustomizedWindow\VS2012WindowStyleWithoutButton.cs" />
+    <Compile Include="Styles\CustomTooltipAndLegend\ChartPoint.cs" />
+    <Compile Include="Styles\CustomTooltipAndLegend\CustomersLegend.xaml.cs">
+      <DependentUpon>CustomersLegend.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Styles\CustomTooltipAndLegend\CustomersTooltip.xaml.cs">
+      <DependentUpon>CustomersTooltip.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Styles\CustomTooltipAndLegend\CustomerVm.cs" />
     <Compile Include="Utilities\EnumBooleanConverter.cs" />
     <Compile Include="Utilities\NotificationLifetimeType.cs" />
     <Compile Include="Utilities\PositionProviderType.cs" />
@@ -248,6 +256,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Styles\CustomizedWindow\VS2012WindowStyleWithoutButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\CustomTooltipAndLegend\CustomersLegend.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\CustomTooltipAndLegend\CustomersTooltip.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

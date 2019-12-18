@@ -5,15 +5,34 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:DashBoardClient"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
       xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
-      Title="ClearPage">
 
-    <Grid>
-        <lvc:CartesianChart>
-            <lvc:CartesianChart.Series>
-                <lvc:LineSeries Values="{Binding Values}" />
-            </lvc:CartesianChart.Series>
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Charts">
+
+    <Grid Margin="0,70,0,0">
+        <Grid Margin ="596,-71,0,385" x:Name="projects"/>
+        <lvc:CartesianChart Series="{Binding SeriesCollection}" LegendLocation="Right" Loaded="CartesianChart_Loaded">
+            <lvc:CartesianChart.AxisX >
+                <lvc:Axis Name="Labels" LabelsRotation="-15">
+                    <lvc:Axis.Separator>
+                        <lvc:Separator Step="1"></lvc:Separator>
+                    </lvc:Axis.Separator>
+                </lvc:Axis>
+            </lvc:CartesianChart.AxisX>
+            <lvc:CartesianChart.DataTooltip>
+                <local:CustomersTooltip/>
+            </lvc:CartesianChart.DataTooltip>
+            <lvc:CartesianChart.ChartLegend>
+                <local:CustomersLegend></local:CustomersLegend>
+            </lvc:CartesianChart.ChartLegend>
         </lvc:CartesianChart>
+        <TextBlock Foreground="White" HorizontalAlignment="Left" Margin="29,-62,0,0" TextWrapping="Wrap" Text="С:" VerticalAlignment="Top"/>
+        <TextBlock Foreground="White" HorizontalAlignment="Left" Margin="149,-62,0,0" TextWrapping="Wrap" Text="До:" VerticalAlignment="Top"/>
+        <DatePicker HorizontalAlignment="Left" Name="after" Margin="44,-66,0,0" VerticalAlignment="Top"/>
+        <DatePicker HorizontalAlignment="Left" Name="before" Margin="172,-66,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="StendSelected" Margin="277,-67,0,0" Height="25" VerticalAlignment="Top" SelectionChanged="SelectStend" HorizontalAlignment="Left" Width="314"/>
+        <Button Content="Print" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="44,-37,0,0" Click="Button_Click"/>
+      
     </Grid>
 </Page>
