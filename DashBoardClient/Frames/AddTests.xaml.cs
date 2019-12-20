@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -24,15 +25,23 @@ namespace DashBoardClient
     {
         TestFormAdd formAdd;
         readonly ServerConnect server = new ServerConnect();
-        public List<AddedTests> TestsList { get; set; }
         Message response = new Message();
+
+        int flag = 0;
+        private Point startPoint = new Point();
+        private ObservableCollection<AddedTests> Items = new ObservableCollection<AddedTests>();
+        private int startIndex = -1;
+
+
+
 
         public AddTests()
         {
-            //Thread thread = Waiter.ShowWaiter();
+            Thread thread = Waiter.ShowWaiter();
             InitializeComponent();
-            UpdateList();
-            //Waiter.AbortWaiter(thread);
+            GetPim();
+            //UpdateList();
+            Waiter.AbortWaiter(thread);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -42,7 +51,14 @@ namespace DashBoardClient
 
             UpdateList();
         }
-
+        private void GetPim()
+        {
+            response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetDocSelect", Data.ServiceSel));
+            foreach (var el in response.args)
+            {
+                PIMSelect.Items.Add(el);
+            }
+        }
         private void ChangeBtnTest(object sender, RoutedEventArgs e)
         {
             TestFormChange testChange = new TestFormChange((sender as Button).Tag.ToString());
@@ -59,7 +75,7 @@ namespace DashBoardClient
 
         private void UpdateList()
         {
-            TestsList = new List<AddedTests>();
+            Items = new ObservableCollection<AddedTests>();
             try
             {
                 response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetTests", Data.ServiceSel));
@@ -75,13 +91,142 @@ namespace DashBoardClient
                     string request = JsonConvert.SerializeObject(message);
                     test.Kp = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetKPInfo", Data.ServiceSel, request)).args[0];
                     test.Kp = test.Kp.Equals("error") ? "" : test.Kp;
-                    TestsList.Add(test);
+                    Items.Add(test);
                 }
             }
             catch { MessageBox.Show("Произошла ошибка! Обратитесь к поддержке!"); }
 
             DataContext = this;
-            TestsListView.ItemsSource = TestsList;
+            List.ItemsSource = Items;
+        }
+        private void TestList_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            // Get current mouse position
+            startPoint = e.GetPosition(null);
+        }
+
+        // Helper to search up the VisualTree
+        private static T FindAnchestor<T>(DependencyObject current)
+            where T : DependencyObject
+        {
+            do
+            {
+                if (current is T)
+                {
+                    return (T)current;
+                }
+                current = VisualTreeHelper.GetParent(current);
+            }
+            while (current != null);
+            return null;
+        }
+
+        private void TestList_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (flag == 1) return;
+            // Get the current mouse position
+            Point mousePos = e.GetPosition(null);
+            Vector diff = startPoint - mousePos;
+
+            if (e.LeftButton == MouseButtonState.Pressed &&
+                (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance ||
+                       Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance))
+            {
+                // Get the dragged ListViewItem
+                ListView listView = sender as ListView;
+                ListViewItem listViewItem = FindAnchestor<ListViewItem>((DependencyObject)e.OriginalSource);
+                if (listViewItem == null) return;           // Abort
+                                                            // Find the data behind the ListViewItem
+                AddedTests item = (AddedTests)listView.ItemContainerGenerator.ItemFromContainer(listViewItem);
+                if (item == null) return;                   // Abort
+                                                            // Initialize the drag & drop operation
+                startIndex = List.SelectedIndex;
+                DataObject dragData = new DataObject("tests", item);
+                DragDrop.DoDragDrop(listViewItem, dragData, DragDropEffects.Copy | DragDropEffects.Move);
+            }
+        }
+
+        private void TestList_DragEnter(object sender, DragEventArgs e)
+        {
+            if (!e.Data.GetDataPresent("tests") || sender != e.Source)
+            {
+                e.Effects = DragDropEffects.None;
+            }
+        }
+
+        private void TestList_Drop(object sender, DragEventArgs e)
+        {
+            int index = -1;
+
+            if (e.Data.GetDataPresent("tests") && sender == e.Source)
+            {
+                // Get the drop ListViewItem destination
+                ListView listView = sender as ListView;
+                ListViewItem listViewItem = FindAnchestor<ListViewItem>((DependencyObject)e.OriginalSource);
+                if (listViewItem == null)
+                {
+                    // Abort
+                    e.Effects = DragDropEffects.None;
+                    return;
+                }
+                // Find the data behind the ListViewItem
+                AddedTests item = (AddedTests)listView.ItemContainerGenerator.ItemFromContainer(listViewItem);
+                // Move item into observable collection 
+                // (this will be automatically reflected to TestList.ItemsSource)
+                e.Effects = DragDropEffects.Move;
+                index = Items.IndexOf(item);
+                if (startIndex >= 0 && index >= 0)
+                {
+                    Items.Move(startIndex, index);
+                }
+                startIndex = -1;
+                Message message = new Message();
+                Message ids = new Message();
+                for (int i = 0; i < Items.Count; i++)
+                {
+                    ids.Add(Items.ElementAt<AddedTests>(i).ID);
+                }
+                message.Add(JsonConvert.SerializeObject(ids));
+                String request = JsonConvert.SerializeObject(message);
+                server.SendMsg("ChangePositionTests", Data.ServiceSel, request);
+            }
+        }
+
+        private void DeleteTest_Click(object sender, RoutedEventArgs e)
+        {
+            Message message = new Message();
+            message.Add((sender as Button).Tag.ToString());
+            server.SendMsg("DeleteTest", Data.ServiceSel, JsonConvert.SerializeObject(message));
+            Thread thread = Waiter.ShowWaiter();
+            UpdateList();
+            Waiter.AbortWaiter(thread);
+        }
+        private void SelectCurPim(object sender, SelectionChangedEventArgs e)
+        {
+            if (PIMSelect.SelectedItem.ToString().Equals("Все"))
+            {
+                Message message = new Message();
+                message.Add("all");
+                string request = JsonConvert.SerializeObject(message);
+                response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetKPSelect", Data.ServiceSel, request));
+
+                foreach (var el in response.args)
+                {
+                    KPSelect.Items.Add(el);
+                }
+            }
+            else if (!PIMSelect.SelectedItem.ToString().Equals(""))
+            {
+                Message message = new Message();
+                message.Add(PIMSelect.SelectedItem.ToString());
+                string request = JsonConvert.SerializeObject(message);
+                response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetKPSelect", Data.ServiceSel, request));
+
+                foreach (var el in response.args)
+                {
+                    KPSelect.Items.Add(el);
+                }
+            }
         }
     }
 }

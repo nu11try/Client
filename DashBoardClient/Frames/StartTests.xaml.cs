@@ -13,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using System.Threading;
 namespace DashBoardClient
 {
     /// <summary>
@@ -40,14 +40,16 @@ namespace DashBoardClient
         }
         OpenTestList testList;
         Message message = new Message();
-        readonly ServerConnect server = new ServerConnect();       
+        readonly ServerConnect server = new ServerConnect();
         string response = "";
         string request = "";
 
         public StartTests()
         {
+            Thread thread = Waiter.ShowWaiter();
             InitializeComponent();
             UpdateList();
+            Waiter.AbortWaiter(thread);
         }
 
         private void UpdateList()
@@ -57,7 +59,7 @@ namespace DashBoardClient
             PackList = new List<PacksWithTest>();
             try
             {
-                message = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetPacksForList", Data.ServiceSel));                
+                message = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetPacksForList", Data.ServiceSel));
                 if (message.args[0] == "no_packs")
                 {
                     MessageBox.Show("Нет добавленных наборов");
@@ -74,7 +76,7 @@ namespace DashBoardClient
                     pack.IP = message.args[i + 5];
                     if (message.args[i + 6] == "no_start") pack.Status = "Не запущено";
                     else pack.Status = "Запущено";
-                     
+
                     PackList.Add(pack);
                 }
             }
@@ -90,15 +92,15 @@ namespace DashBoardClient
         }
 
         private void OpenTestList(object sender, RoutedEventArgs e)
-        {            
-            testList = new OpenTestList((string)((Button)e.OriginalSource).Tag);            
+        {
+            testList = new OpenTestList((string)((Button)e.OriginalSource).Tag);
             testList.ShowDialog();
         }
 
         private void StartPacks(object sender, RoutedEventArgs e)
         {
             foreach (PacksWithTest listItem in PackListView.SelectedItems) message.Add(listItem.ID);
-  
+
             if (message.args.Count != 0)
             {
                 request = JsonConvert.SerializeObject(message);
@@ -121,10 +123,10 @@ namespace DashBoardClient
                 if (JsonConvert.DeserializeObject<Message>(response).args[0] == "ERROR") MainWindow._vm.ErrCastMess("Произошла ошибка запуска!");
                 if (JsonConvert.DeserializeObject<Message>(response).args[0] == "START") MainWindow._vm.WarCastMess("Один из выбранных наборов находится в режиме запуска!");
                 UpdateList();
-               
+
             }
             else MessageBox.Show("Не выбрано ни одного набора!");
-            
+
         }
 
         private void StopTests(object sender, RoutedEventArgs e)

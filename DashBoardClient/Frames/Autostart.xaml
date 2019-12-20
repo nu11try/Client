@@ -45,7 +45,7 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="ListBoxItem">
-                                <Border Name="Border" Background="Transparent">
+                                <Border Name="Border" Background="Transparent" BorderBrush="#007ACC" Margin="0" BorderThickness="1,0,1,1">
                                     <GridViewRowPresenter/>
                                 </Border>
                                 <ControlTemplate.Triggers>

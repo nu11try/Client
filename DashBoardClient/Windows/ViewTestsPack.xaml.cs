@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
+using System.Threading;
 
 namespace DashBoardClient
 {
@@ -51,9 +52,11 @@ namespace DashBoardClient
 
         public ViewTestsPack(string TAG)
         {
+            Thread thread = Waiter.ShowWaiter();
             IDPack = TAG;
             InitializeComponent();
             UpdateList();
+            Waiter.AbortWaiter(thread);
         }
 
         private void UpdateList()

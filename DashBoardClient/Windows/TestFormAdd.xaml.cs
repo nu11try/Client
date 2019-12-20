@@ -32,12 +32,10 @@ namespace DashBoardClient
         string[] tests = new string[] { };
         public TestFormAdd()
         {
-            Thread thread = Waiter.ShowWaiter();
             InitializeComponent();
             GetTestsForListView();
-            Waiter.AbortWaiter(thread);
         }
-            
+
         private void GetTestsForListView()
         {
             TestSelect.Items.Clear();
@@ -49,7 +47,7 @@ namespace DashBoardClient
             resMes = JsonConvert.DeserializeObject<Message>(response);
 
             message = new Message();
-            message.Add("","","");
+            message.Add("", "", "");
             request = JsonConvert.SerializeObject(message);
             response = server.SendMsg("GetKPInfo", Data.ServiceSel, request);
             resMes2 = JsonConvert.DeserializeObject<Message>(response);
@@ -60,7 +58,7 @@ namespace DashBoardClient
             }
             else
             {
-
+                MethodSelect.Items.Add("--");
                 for (int i = 0; i < resMes.args.Count; i += 3) TestSelect.Items.Add(resMes.args[i] + " [" + resMes.args[i + 1] + "]");
                 try
                 {
@@ -81,12 +79,12 @@ namespace DashBoardClient
             message = new Message();
         }
         private void SendTest(object sender, RoutedEventArgs e)
-        {            
+        {
             try
             {
                 string IDtest = TestSelect.SelectedItem.ToString().Split('[')[0];
                 string idDoc = MethodSelect.SelectedItem.ToString().Split('[')[0];
-                IDtest = IDtest.Substring(0, IDtest.Length-1);
+                IDtest = IDtest.Substring(0, IDtest.Length - 1);
                 idDoc = idDoc.Substring(0, idDoc.Length - 1);
                 message.Add(IDtest, Data.NameUser, ActiveSelect.IsChecked.Value.ToString(), idDoc);
                 request = JsonConvert.SerializeObject(message);

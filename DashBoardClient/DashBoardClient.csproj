@@ -153,6 +153,7 @@
     </Compile>
     <Compile Include="Styles\CustomTooltipAndLegend\CustomerVm.cs" />
     <Compile Include="Utilities\EnumBooleanConverter.cs" />
+    <Compile Include="Utilities\FreeRAM.cs" />
     <Compile Include="Utilities\NotificationLifetimeType.cs" />
     <Compile Include="Utilities\PositionProviderType.cs" />
     <Compile Include="Windows\AddBug.xaml.cs">
@@ -208,8 +209,8 @@
     <Compile Include="Windows\TestFormAdd.xaml.cs">
       <DependentUpon>TestFormAdd.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Waiter.xaml.cs">
-      <DependentUpon>Waiter.xaml</DependentUpon>
+    <Compile Include="Windows\waiter.xaml.cs">
+      <DependentUpon>waiter.xaml</DependentUpon>
     </Compile>
     <Page Include="Frames\Charts.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -335,9 +336,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\Waiter.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Windows\waiter.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

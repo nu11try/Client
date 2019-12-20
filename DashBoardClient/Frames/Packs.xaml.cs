@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,8 +27,10 @@ namespace DashBoardClient
         Message message;
         public Packs()
         {
+            Thread thread = Waiter.ShowWaiter();
             InitializeComponent();
-            UpdateList();           
+            UpdateList();
+            Waiter.AbortWaiter(thread);
         }
 
         private void UpdateList()
@@ -81,6 +84,15 @@ namespace DashBoardClient
             catch { MessageBox.Show("s"); }
             
             UpdateList();
+        }
+        private void DeletePack_Click(object sender, RoutedEventArgs e)
+        {
+            Message message = new Message();
+            message.Add((sender as Button).Tag.ToString());
+            server.SendMsg("DeletePack", Data.ServiceSel, JsonConvert.SerializeObject(message));
+            Thread thread = Waiter.ShowWaiter();
+            UpdateList();
+            Waiter.AbortWaiter(thread);
         }
     }
 }

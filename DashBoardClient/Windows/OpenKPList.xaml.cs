@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -41,10 +42,12 @@ namespace DashBoardClient
         string request = "";
         string response = "";
         public OpenKPList(string ID)
-        {            
+        {
+            Thread thread = Waiter.ShowWaiter();
             InitializeComponent();
             id = ID;
             Update(id);
+            Waiter.AbortWaiter(thread);
         }
 
         private void Update(string ID)

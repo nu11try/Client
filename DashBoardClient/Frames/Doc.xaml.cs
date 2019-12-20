@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,8 +27,10 @@ namespace DashBoardClient
         Message response;
         public Doc()
         {
+            Thread thread = Waiter.ShowWaiter();
             InitializeComponent();
             UpdateList();
+            Waiter.AbortWaiter(thread);
         }
 
         private void UpdateList()
@@ -42,7 +45,7 @@ namespace DashBoardClient
                 {
                     DocClass doc = new DocClass();                   
                     doc.ID = response.args[i];
-                    doc.Pim = response.args[i + 1];
+                    doc.Pim = response.args[i + 1].Split('/').Last().Split('.')[0];
                     doc.Date = response.args[i + 2];
 
                     DocList.Add(doc);

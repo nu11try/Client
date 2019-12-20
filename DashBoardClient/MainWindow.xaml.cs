@@ -24,7 +24,6 @@ namespace DashBoardClient
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
-
     static class Data
     {
         public static string TestsSelectedForStart { get; set; }
@@ -86,10 +85,10 @@ namespace DashBoardClient
             {
                 versionLabel.Content = "Версия - unknown";
             }
-            var push = new Thread(Push);
-            push.Start();
-            var testsNow = new Thread(TestsNow);
-            testsNow.Start();
+           // var push = new Thread(Push);
+         //   push.Start();
+          //  var testsNow = new Thread(TestsNow);
+           // testsNow.Start();
         }
 
 
@@ -176,6 +175,7 @@ namespace DashBoardClient
                 Frame.Navigate(new StartTests());
             }
             else MessageBox.Show("Не выбран проект!");
+            FreeRAM.Free();
         }
 
         private void AddTest(object sender, RoutedEventArgs e)
@@ -186,6 +186,7 @@ namespace DashBoardClient
                 Frame.Navigate(new AddTests());
             }
             else MessageBox.Show("Не выбран проект!");
+            FreeRAM.Free();
         }
 
         private void Packs(object sender, RoutedEventArgs e)
@@ -196,6 +197,7 @@ namespace DashBoardClient
                 Frame.Navigate(new Packs());
             }
             else MessageBox.Show("Не выбран проект!");
+            FreeRAM.Free();
         }
 
         private void Autostart(object sender, RoutedEventArgs e)
@@ -206,6 +208,7 @@ namespace DashBoardClient
                 Frame.Navigate(new Autostart());
             }
             else MessageBox.Show("Не выбран проект!");
+            FreeRAM.Free();
         }
 
         private void Doc(object sender, RoutedEventArgs e)
@@ -216,6 +219,7 @@ namespace DashBoardClient
                 Frame.Navigate(new Doc());
             }
             else MessageBox.Show("Не выбран проект!");
+            FreeRAM.Free();
         }
 
         private void ChangeProject(object sender, SelectionChangedEventArgs e)
@@ -224,6 +228,7 @@ namespace DashBoardClient
             /*ComboBox comboBox = (ComboBox)sender;
             string selectedItem = comboBox.SelectedItem.ToString();            
             Data.ProjectName = selectedItem.ToString();*/
+            FreeRAM.Free();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -234,6 +239,7 @@ namespace DashBoardClient
             foreach (var proj in message.args) SelecterProject.Items.Add(proj);
             SelecterProject.SelectedIndex = 0;
             LabelUserName.Content = Data.NameUser;
+            FreeRAM.Free();
         }
 
         private void StatisticTest(object sender, RoutedEventArgs e)
@@ -244,6 +250,7 @@ namespace DashBoardClient
                 Frame.Navigate(new StatisticTest());
             }
             else MessageBox.Show("Не выбран проект!");
+            FreeRAM.Free();
         }
         private void SelecterProject_Loaded(object sender, RoutedEventArgs e)
         {
@@ -259,6 +266,7 @@ namespace DashBoardClient
                 Frame.Navigate(new Charts());
             }
             else MessageBox.Show("Не выбран проект!");
+            FreeRAM.Free();
         }
 
         public void SelectProj()
@@ -279,6 +287,7 @@ namespace DashBoardClient
         {
             Settings settings = new Settings();
             settings.ShowDialog();
+             FreeRAM.Free();
         }
 
         private void CloseProcess(object sender, EventArgs e)

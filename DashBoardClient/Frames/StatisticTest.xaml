@@ -32,7 +32,9 @@
         </Style>
     </Page.Resources>
     <Grid>
+     
         <ScrollViewer/>
+
         <ListView ItemsSource="{Binding TestsListView}" x:Name="TestsView" Margin="5,45,304,0" FontSize="11" Background="#FF45454F" ScrollViewer.ScrollChanged="TestsView_ScrollChanged" 
                   ScrollViewer.VerticalScrollBarVisibility="Visible"
                     ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Visible">
@@ -46,7 +48,7 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="ListBoxItem">
-                                <Border Name="Border" Background="Transparent">
+                                <Border Name="Border" Background="Transparent" BorderBrush="#007ACC" Margin="0" BorderThickness="1,0,1,1">
                                     <GridViewRowPresenter/>
                                 </Border>
                                 <ControlTemplate.Triggers>
@@ -126,7 +128,7 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="ListBoxItem">
-                                <Border Name="Border" Background="Transparent">
+                                <Border Name="Border" Background="Transparent" BorderBrush="#007ACC" Margin="0" BorderThickness="1,0,1,1">
                                     <GridViewRowPresenter/>
                                 </Border>
                                 <ControlTemplate.Triggers>

@@ -41,11 +41,11 @@
             </ListView.BorderBrush>
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                  
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="ListBoxItem">
-                                <Border Name="Border" Background="Transparent">
+                                <Border Name="Border" Background="Transparent" BorderBrush="#007ACC" Margin="0" BorderThickness="1,0,1,1">
                                     <GridViewRowPresenter/>
                                 </Border>
                                 <ControlTemplate.Triggers>
@@ -85,7 +85,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Программа и методика (ПиМ)" Width="880">
+                    <GridViewColumn Header="Программа и методика (ПиМ)" Width="400">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock x:Name="pim" Text="{Binding Pim}" Foreground="White" TextWrapping="NoWrap" VerticalAlignment="Center" HorizontalAlignment="Left"/>

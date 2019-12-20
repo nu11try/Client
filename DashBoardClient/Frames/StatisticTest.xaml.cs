@@ -36,14 +36,14 @@ namespace DashBoardClient
             request = JsonConvert.SerializeObject(message);
             message = new Message();
 
-            //Thread thread = Waiter.ShowWaiter();
+            
             UpdateTestsView();
             UpdateTestsInfo();
-            //Waiter.AbortWaiter(thread);
-
+            
             //TestsInfo.ItemsSource = TestsListInfo;    
             TestsView.SelectionChanged += TestsView_SelectionChanged;
             TestsInfo.SelectionChanged += TestsInfo_SelectionChanged;
+
         }
 
         private void TestsInfo_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -144,6 +144,8 @@ namespace DashBoardClient
             List<string> rowName = new List<string>();
             List<string> flag = new List<string>();
             Dictionary<string, Dictionary<string, string>> listNameTest = new Dictionary<string, Dictionary<string, string>>();
+             Dictionary<string, Dictionary<string, string>> listNameTest1 = new Dictionary<string, Dictionary<string, string>>();
+            List<string> sort = new List<string>();
             dynamic myItem;
             IDictionary<string, object> myItemValues;
             TestsListInfo = new List<TestsInfoClass>();
@@ -157,10 +159,12 @@ namespace DashBoardClient
                 }
                 List<string> listDate = new List<string>();
                 Dictionary<string, string> bufList = new Dictionary<string, string>();
-                for (var i = 0; i < message.args.Count; i += 6)
+                for (var i = 0; i < message.args.Count; i += 7)
                 {
-                    if (!listDate.Contains(message.args[i])) listDate.Add(message.args[i] + "\n" + message.args[i + 5].Replace(".", ":").Replace("_", "__"));
-                    for (var j = 0; j < message.args.Count; j += 6)
+
+                    
+                    if (!listDate.Contains(message.args[i] + "\n" + message.args[i + 5].Replace(".", ":").Replace("_", "__"))) listDate.Add(message.args[i] + "\n" + message.args[i + 5].Replace(".", ":").Replace("_", "__"));
+                    for (var j = 0; j < message.args.Count; j += 7)
                     {
                         if (message.args[i + 4].Equals(message.args[j + 4]))
                         {
@@ -179,17 +183,23 @@ namespace DashBoardClient
                     catch { }
                     bufList = new Dictionary<string, string>();
                 }
-
+                message = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetVersions", Data.ServiceSel, request));
+               
                 foreach (var dic in listNameTest)
                 {
-                    for (var i = 0; i < listDate.Count; i++)
+                    Dictionary<string, string> d = new Dictionary<string, string>();
+                    for (var i = 0; i < message.args.Count; i++)
                     {
-                        Dictionary<string, string> di = dic.Value;
-                        if (!dic.Value.ContainsKey(listDate[i]))
+                        if (!dic.Value.ContainsKey(message.args[i]))
                         {
-                            dic.Value.Add(listDate[i], "-");
+                            d.Add(message.args[i], "-");
+                        }
+                        else
+                        {
+                            d.Add(message.args[i], dic.Value[message.args[i]]);
                         }
                     }
+                    listNameTest1.Add(dic.Key, d);
                 }
 
             }
@@ -197,7 +207,8 @@ namespace DashBoardClient
             {
                 //MessageBox.Show("Нет результатов выполнения тестов или произошла ошибка!");
             }
-            foreach (var dic in listNameTest)
+           
+            foreach (var dic in listNameTest1)
             {
                 myItem = new System.Dynamic.ExpandoObject();
                 myItemValues = (IDictionary<string, object>)myItem;

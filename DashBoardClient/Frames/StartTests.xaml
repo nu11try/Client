@@ -57,7 +57,7 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="ListBoxItem">
-                                <Border Name="Border" Background="Transparent">
+                                <Border Name="Border" Background="Transparent" BorderBrush="#007ACC" Margin="0" BorderThickness="1,0,1,1">
                                     <GridViewRowPresenter/>
                                 </Border>
                                 <ControlTemplate.Triggers>
@@ -75,7 +75,7 @@
             </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
-                    
+
                     <!-- <GridViewColumn Header="Выбор" Width="50">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -84,10 +84,10 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn> -->
                     <GridViewColumn DisplayMemberBinding="{Binding Count}" Header="Кол-во" Width="auto"/>
-                    <GridViewColumn Header="Имя" Width="auto">
+                    <GridViewColumn Header="Имя" Width="550">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock x:Name="NewName" Text="{Binding Name}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Tag="{Binding ID}"/>
+                                <TextBlock x:Name="NewName" Text="{Binding Name}" TextWrapping="NoWrap" VerticalAlignment="Center" HorizontalAlignment="Left" Tag="{Binding ID}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

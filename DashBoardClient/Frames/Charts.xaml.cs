@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,6 +25,74 @@ namespace DashBoardClient
     /// </summary>
     public partial class Charts : Page
     {
+        public class MyDate
+        {
+            public MyDate(string start, string end) {
+                if(start == "")
+                {
+                    start = "09.12.2010";
+                }
+                if (end == "")
+                {
+                    end = "01.12.2100";
+                }
+                dayStart = Int32.Parse(start.Split('.')[0]);
+                mounthStart = Int32.Parse(start.Split('.')[1]);
+                yearStart = Int32.Parse(start.Split('.')[2].Split(' ')[0]);
+
+                dayEnd = Int32.Parse(end.Split('.')[0]);
+                mounthEnd = Int32.Parse(end.Split('.')[1]);
+                yearEnd = Int32.Parse(end.Split('.')[2].Split(' ')[0]);
+            }
+            public Boolean Compare(string date)
+            {
+                
+                int day = Int32.Parse(date.Split(' ')[0]);
+                string mounthS = date.Split(' ')[1];
+                int mounth = 0;
+                if (mounthS == "января")
+                    mounth = 1;
+                if (mounthS == "февраля")
+                    mounth = 2;
+                if (mounthS == "марта")
+                    mounth = 3;
+                if (mounthS == "апреля")
+                    mounth = 4;
+                if (mounthS == "мая")
+                    mounth = 5;
+                if (mounthS == "июня")
+                    mounth = 6;
+                if (mounthS == "июля")
+                    mounth = 7;
+                if (mounthS == "августа")
+                    mounth = 8;
+                if (mounthS == "сентября")
+                    mounth = 9;
+                if (mounthS == "октября")
+                    mounth = 10;
+                if (mounthS == "ноября")
+                    mounth = 11;
+                if (mounthS == "декабря")
+                    mounth = 12;
+                int year = Int32.Parse(date.Split(' ')[2]);
+                if (yearStart > year)
+                    if (mounthStart > mounth)
+                        if (dayStart > day)
+                            return false;
+                if (yearEnd < year)
+                    if (mounthEnd < mounth)
+                        if (dayEnd < day)
+                            return false;
+                return true;
+            }
+            public int dayStart { get; set; }
+            public int mounthStart { get; set; }
+            public int yearStart { get; set; }
+
+            public int dayEnd { get; set; }
+            public int mounthEnd { get; set; }
+            public int yearEnd { get; set; }
+        }
         public ChartValues<CustomerVm> Customers { get; set; }
         public static SeriesCollection SeriesCollection { get; private set; }
         ServerConnect server = new ServerConnect();
@@ -42,7 +111,7 @@ namespace DashBoardClient
                 CheckBox checkBox = new CheckBox();
                 checkBox.Name = services.args[i];
                 checkBox.Margin = new Thickness(
-                   i / 3 * 80, (i * 20) - i / 3 * 60, 0, 0);
+                   i / 3 * 140, (i * 20) - i / 3 * 60, 0, 0);
                 if (checkBox.Name == Data.ServiceSel)
                     checkBox.IsChecked = true;
                 projects.Children.Add(checkBox);
@@ -50,7 +119,7 @@ namespace DashBoardClient
                 textBox.Text = project.args[i];
 
                 textBox.Margin = new Thickness(
-                    i / 3 * 80 + 20, (i * 20) - i / 3 * 60, 20, 20);
+                    i / 3 * 140 + 20, (i * 20) - i / 3 * 60, 20, 20);
                 textBox.Foreground = Brushes.White;
                 projects.Children.Add(textBox);
             }
@@ -60,7 +129,7 @@ namespace DashBoardClient
                 StendSelected.Items.Add(message.args[i]);
             }
             StendSelected.SelectedIndex = 0;
-            createCharts();
+            СreateCharts();
         }
 
         internal static void Visible(string text)
@@ -100,11 +169,11 @@ namespace DashBoardClient
             }
         }
 
-        public void createCharts()
+        public void СreateCharts()
         {
+            Thread thread = Waiter.ShowWaiter();
             Message mess = new Message();
-            mess.Add(after.SelectedDate.ToString());
-            mess.Add(before.SelectedDate.ToString());
+            MyDate myDate = new MyDate(after.SelectedDate.ToString(), before.SelectedDate.ToString());
             mess.Add(StendSelected.SelectedItem.ToString());
             for (int i = 0; i < projects.Children.Count; i += 2)
             {
@@ -116,42 +185,49 @@ namespace DashBoardClient
             Message response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetCharts", Data.ServiceSel, JsonConvert.SerializeObject(mess)));
             List<string> tests = new List<string>();
             List<List<string>> results = new List<List<string>>();
-            List<List<string>> versions = new List<List<string>>();
-            List<string> version = new List<string>();
-            response.args.ForEach(elem =>
+            List<List<string>> dates = new List<List<string>>();
+            List<string> date = new List<string>();
+            try
             {
-                Message test = JsonConvert.DeserializeObject<Message>(elem);
-                if (tests.Contains(test.args[6]))
+                response.args.ForEach(elem =>
                 {
-                    results[tests.IndexOf(test.args[6])].Add(test.args[1]);
-                    versions[tests.IndexOf(test.args[6])].Add(test.args[4]);
-                }
-                else
-                {
-                    tests.Add(test.args[6]);
-                    results.Add(new List<string>());
-                    results[tests.IndexOf(test.args[6])].Add(test.args[1]);
-                    versions.Add(new List<string>());
-                    versions[tests.IndexOf(test.args[6])].Add(test.args[4]);
-                }
-                if (version.Contains(test.args[4]))
-                {
-
-                }
-                else
-                {
-                    version.Add(test.args[4]);
-                }
-            });
-            for (int i = 0; i < versions.Count; i++)
-            {
-                if (versions[i].Count != version.Count)
-                {
-                    for (int j = 0; j < version.Count; j++)
+                    Message test = JsonConvert.DeserializeObject<Message>(elem);
+                    if (myDate.Compare(test.args[4]))
                     {
-                        if (!versions[i].Contains(version[j]))
+                        if (tests.Contains(test.args[6]))
                         {
-                            versions[i].Insert(j, version[j]);
+                            results[tests.IndexOf(test.args[6])].Add(test.args[1]);
+                            dates[tests.IndexOf(test.args[6])].Add(test.args[4]);
+                        }
+                        else
+                        {
+                            tests.Add(test.args[6]);
+                            results.Add(new List<string>());
+                            results[tests.IndexOf(test.args[6])].Add(test.args[1]);
+                            dates.Add(new List<string>());
+                            dates[tests.IndexOf(test.args[6])].Add(test.args[4]);
+                        }
+                        if (date.Contains(test.args[4]))
+                        {
+
+                        }
+                        else
+                        {
+                            date.Add(test.args[4]);
+                        }
+                    }
+                });
+            }
+            catch { }
+            for (int i = 0; i < dates.Count; i++)
+            {
+                if (dates[i].Count != date.Count)
+                {
+                    for (int j = 0; j < date.Count; j++)
+                    {
+                        if (!dates[i].Contains(date[j]))
+                        {
+                            dates[i].Insert(j, date[j]);
                             results[i].Insert(j, "");
                         }
                     }
@@ -159,16 +235,16 @@ namespace DashBoardClient
             }
             SeriesCollection.Clear();
             string temp = "";
-            for (int i = 0; i < version.Count; i++)
+            for (int i = 0; i < date.Count; i++)
             {
-                version[i] = version[i].Split('|')[0];
-                if (version[i] == temp)
+                date[i] = date[i].Split('|')[0];
+                if (date[i] == temp)
                 {
-                    version[i] = "";
+                    date[i] = "";
                 }
                 else
                 {
-                    temp = version[i];
+                    temp = date[i];
                 }
             }
             for (int i = 0; i < tests.Count; i++)
@@ -176,7 +252,7 @@ namespace DashBoardClient
                 LineSeries lineSeries = new LineSeries()
                 {
                     Title = tests[i],
-                    Fill = Brushes.Transparent
+                    Fill = Brushes.Transparent,
                 };
                 lineSeries.Values = new ChartValues<CustomerVm>();
                 for (int j = 0; j < results[i].Count; j++)
@@ -191,8 +267,12 @@ namespace DashBoardClient
                 }
                 SeriesCollection.Add(lineSeries);
             }
-
-            Labels.Labels = version;
+            LineSeries lineSeries1 = new LineSeries();
+            lineSeries1.Stroke = Brushes.Transparent;
+            lineSeries1.Title = "";
+            lineSeries1.Values = new ChartValues<CustomerVm>();
+            SeriesCollection.Add(lineSeries1);
+            Labels.Labels = date;
             //let create a mapper so LiveCharts know how to plot our CustomerViewModel class
             var customerVmMapper = Mappers.Xy<CustomerVm>()
             .X((value, index) => index) // lets use the position of the item as X
@@ -201,6 +281,7 @@ namespace DashBoardClient
             //lets save the mapper globally
             Charting.For<CustomerVm>(customerVmMapper);
             DataContext = this;
+             Waiter.AbortWaiter(thread);
         }
         private void SelectStend(object sender, SelectionChangedEventArgs e)
         {
@@ -209,7 +290,7 @@ namespace DashBoardClient
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            createCharts();
+            СreateCharts();
         }
 
         private void CartesianChart_Loaded(object sender, RoutedEventArgs e)

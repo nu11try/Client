@@ -345,8 +345,6 @@ C:\programs\Dash\Client\DashBoardClient\obj\Debug\Windows\AddBug.g.cs
 C:\programs\Dash\Client\DashBoardClient\obj\Debug\Windows\Jira.g.cs
 C:\programs\Dash\Client\DashBoardClient\obj\Debug\Windows\AddBug.baml
 C:\programs\Dash\Client\DashBoardClient\obj\Debug\Windows\Jira.baml
-C:\programs\Dash\Client\DashBoardClient\obj\Debug\Windows\Waiter.g.cs
-C:\programs\Dash\Client\DashBoardClient\obj\Debug\Windows\Waiter.baml
 C:\programs\Dash\Client\DashBoardClient\obj\Debug\Styles\CustomizedWindow\VS2012WindowStyle.baml
 C:\programs\Dash\Client\DashBoardClient\obj\Debug\Styles\CustomizedWindow\VS2012WindowStyleWithoutButton.baml
 C:\programs\Dash\Client\DashBoardClient\obj\Debug\Styles\CustomizedWindow\VS2012WindowStyle.g.cs
@@ -461,3 +459,5 @@ E:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.application
 E:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.csproj.CopyComplete
 E:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.exe
 E:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.pdb
+C:\programs\Dash\Client\DashBoardClient\obj\Debug\Windows\waiter.g.cs
+C:\programs\Dash\Client\DashBoardClient\obj\Debug\Windows\waiter.baml

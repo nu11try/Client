@@ -35,7 +35,7 @@
 
     <Grid>
         <Button Content="Добавление теста" Height="30" Margin="315,10,325,0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="150" Click="Button_Click" Foreground="#FF2BAAC9" BorderBrush="White" Background="White"/>
-        <ListView ItemsSource="{Binding TestsList}" x:Name="TestsListView" Margin="0,55,5,0" FontSize="11" Background="#FF45454F">
+        <ListView ItemsSource="{Binding TestList}" x:Name="List" Margin="0,100,5,0" FontSize="11" Background="#FF45454F"  AllowDrop="True" PreviewMouseLeftButtonDown="TestList_PreviewMouseLeftButtonDown" MouseMove="TestList_MouseMove" DragEnter="TestList_DragEnter" Drop="TestList_Drop">
             <ListView.BorderBrush>
                 <SolidColorBrush Color="#45454f"/>
             </ListView.BorderBrush>
@@ -45,7 +45,7 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="ListBoxItem">
-                                <Border Name="Border" Background="Transparent">
+                                <Border Name="Border" Background="Transparent" BorderBrush="#007ACC" Margin="0" BorderThickness="1,0,1,1">
                                     <GridViewRowPresenter/>
                                 </Border>
                                 <ControlTemplate.Triggers>
@@ -126,8 +126,24 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
+                    <GridViewColumn Width="auto" Header="Удаление">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="deleteTest" Tag="{Binding ID}" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="30" Click="DeleteTest_Click">
+                                    <Button.Background>
+                                        <ImageBrush ImageSource="/DashBoardClient;component/Images/sver.png" Stretch="Uniform"/>
+                                    </Button.Background>
+                                </Button>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                 </GridView>
+
             </ListView.View>
         </ListView>
+        <ComboBox x:Name="PIMSelect" HorizontalAlignment="Left" Margin="100,58,0,0" VerticalAlignment="Top" Width="165" SelectionChanged="SelectCurPim"/>
+        <ComboBox x:Name="KPSelect" HorizontalAlignment="Left" Margin="360,58,0,0" VerticalAlignment="Top" Width="165"/>
+        <Label Content="Выберите ПиМ" HorizontalAlignment="Left" Margin="5,54,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="Выберите КП" HorizontalAlignment="Left" Margin="275,55,0,0" VerticalAlignment="Top" Foreground="White"/>
     </Grid>
 </Page>

@@ -37,15 +37,15 @@
         <Button Content="Добавление набора" Height="30" Margin="315,10,325,0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="150" Foreground="#FF2BAAC9" BorderBrush="White" Background="White" Click="AddPack"/>
         <ListView ItemsSource="{Binding PackList}" x:Name="PackListView" Margin="0,55,5,0" FontSize="11" Background="#FF45454F">
             <ListView.BorderBrush>
-               <SolidColorBrush Color="#45454f"/>
+                <SolidColorBrush Color="#45454f"/>
             </ListView.BorderBrush>
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="ListBoxItem">
-                                <Border Name="Border" Background="Transparent">
+                                <Border Name="Border" Background="Transparent" BorderBrush="#007ACC" Margin="0" BorderThickness="1,0,1,1">
                                     <GridViewRowPresenter/>
                                 </Border>
                                 <ControlTemplate.Triggers>
@@ -85,17 +85,10 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="ID" Width="auto">
+                    <GridViewColumn Header="Имя" Width="500">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock x:Name="IDTest" Text="{Binding ID}" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Имя" Width="auto">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock x:Name="NameTest" Text="{Binding Name}" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <TextBlock x:Name="NameTest" Text="{Binding Name}" Foreground="White" TextWrapping="NoWrap" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -117,6 +110,17 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock x:Name="RestartCount" Text="{Binding RestartCount}" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="auto" Header="Удаление">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="deletePack" Tag="{Binding ID}" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="30" Click="DeletePack_Click">
+                                    <Button.Background>
+                                        <ImageBrush ImageSource="/DashBoardClient;component/Images/sver.png" Stretch="Uniform"/>
+                                    </Button.Background>
+                                </Button>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

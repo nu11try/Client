@@ -34,6 +34,7 @@ namespace DashBoardClient
             Thread thread = new Thread(new ThreadStart(StartForm));
             thread.SetApartmentState(ApartmentState.STA);
             thread.Start();
+            thread.Join(400);
             return thread;
         }
 
@@ -41,8 +42,8 @@ namespace DashBoardClient
         {
             try
             {
-                //Thread.Sleep(1000);
                 Waiter sp = new Waiter();
+                
                 sp.ShowDialog();
             }
             catch { }

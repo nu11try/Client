@@ -43,7 +43,7 @@ namespace DashBoardClient
         }
         private void Update()
         {
-            //Thread thread = Waiter.ShowWaiter();
+            Thread thread = Waiter.ShowWaiter();
             JiraList.Items.Clear();
             Message args = new Message();
             args.Add(id);
@@ -59,7 +59,7 @@ namespace DashBoardClient
                 error.status = res.args[i + 5];
                 JiraList.Items.Add(error);
             }
-            //Waiter.AbortWaiter(thread);
+            Waiter.AbortWaiter(thread);
         }
         private void AddBug(object sender, RoutedEventArgs e)
         {
