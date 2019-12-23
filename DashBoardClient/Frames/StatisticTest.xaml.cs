@@ -72,7 +72,7 @@ namespace DashBoardClient
 
         private void UpdateTestsView()
         {
-            server.SendMsg("CheckErrors", Data.ServiceSel);
+            string error = server.SendMsg("CheckErrors", Data.ServiceSel);
             TestsListView = new List<TestsViewClass>();
             TestsView.ItemsSource = TestsListView;
             try
@@ -91,7 +91,7 @@ namespace DashBoardClient
                 {
                     TestsViewClass test = new TestsViewClass();
                     test.Count = TestsListView.Count + 1;
-                    test.Name = message.args[i];
+                    test.Name = message.args[i + 6];
                     if (message.args[i + 4] != mess.args[0])
                     {
                         if (message.args[i + 1] == "Passed") test.ResultTest = "/DashBoardClient;component/Images/ok_no_version.png";

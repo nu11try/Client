@@ -21,7 +21,8 @@ namespace DashBoardClient
 
         string response;
         string request;
-        string addres = "172.31.197.232";
+        //string addres = "172.31.197.200";
+        string addres = "172.17.42.32";
         public Auth()
         {
             InitializeComponent();

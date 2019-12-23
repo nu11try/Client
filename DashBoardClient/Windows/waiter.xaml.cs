@@ -42,9 +42,9 @@ namespace DashBoardClient
         {
             try
             {
-                Waiter sp = new Waiter();
+                //Waiter sp = new Waiter();
                 
-                sp.ShowDialog();
+                //sp.ShowDialog();
             }
             catch { }
         }

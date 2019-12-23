@@ -32,15 +32,12 @@ namespace DashBoardClient
         private ObservableCollection<AddedTests> Items = new ObservableCollection<AddedTests>();
         private int startIndex = -1;
 
-
-
-
         public AddTests()
         {
             Thread thread = Waiter.ShowWaiter();
             InitializeComponent();
-            GetPim();
-            //UpdateList();
+            //GetPim();
+            UpdateList();
             Waiter.AbortWaiter(thread);
         }
 

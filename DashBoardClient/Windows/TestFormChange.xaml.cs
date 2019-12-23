@@ -48,8 +48,6 @@ namespace DashBoardClient
             response = server.SendMsg("UpdateTestChange", Data.ServiceSel, request);
             resMes = JsonConvert.DeserializeObject<Message>(response);
 
-
-
             message = new Message();
             message.Add("", "","");
             request = JsonConvert.SerializeObject(message);
@@ -65,9 +63,11 @@ namespace DashBoardClient
             if (resMes.args[0].Equals("error")) MessageBox.Show("Ошибка! Обратитесь к поддержке");                      
             else
             {
-
-
-                for (int i = 0; i < resMes2.args.Count; i += 4) MethodSelect.Items.Add(resMes2.args[i] + " [" + resMes2.args[i + 3] + "]");
+                MethodSelect.Items.Add("- [-]");
+                for (int i = 0; i < resMes2.args.Count; i += 4)
+                {
+                    if (!resMes2.args[i].Equals("-")) MethodSelect.Items.Add(resMes2.args[i] + " [" + resMes2.args[i + 3] + "]");
+                }
                 if (!resMes3.args[0].Equals("error"))
                 {
                     MethodSelect.Text = resMes3.args[0] + " (" + resMes3.args[3] + ")".ToString();
@@ -83,9 +83,18 @@ namespace DashBoardClient
             {
                 string idDoc = MethodSelect.SelectedItem.ToString().Split('[')[0];
                 idDoc = idDoc.Substring(0, idDoc.Length - 1);
-                message.Add(IDTest, Data.NameUser, ActiveSelect.IsChecked.Value.ToString(), idDoc);
-                request = JsonConvert.SerializeObject(message);
-                response = server.SendMsg("UpdateTest", Data.ServiceSel, request);
+                if (idDoc.Equals("-"))
+                {
+                    message.Add(IDTest, Data.NameUser, ActiveSelect.IsChecked.Value.ToString(), idDoc);
+                    request = JsonConvert.SerializeObject(message);
+                    response = server.SendMsg("UpdateTest", Data.ServiceSel, request);
+                }
+                else
+                {
+                    message.Add(IDTest, Data.NameUser, ActiveSelect.IsChecked.Value.ToString(), idDoc);
+                    request = JsonConvert.SerializeObject(message);
+                    response = server.SendMsg("UpdateTest ", Data.ServiceSel, request);
+                }
                 if (JsonConvert.DeserializeObject<Message>(response).args[0].Equals("OK")) 
                     MessageBox.Show("Поздравляем! Информация по тесту " + IDTest + " обновлена!");                
                 else MessageBox.Show("Ошибка! Попробуйте позже или обратитесь в поддержку");

@@ -58,11 +58,14 @@ namespace DashBoardClient
             }
             else
             {
-                MethodSelect.Items.Add("--");
+                MethodSelect.Items.Add("- [-]");
                 for (int i = 0; i < resMes.args.Count; i += 3) TestSelect.Items.Add(resMes.args[i] + " [" + resMes.args[i + 1] + "]");
                 try
                 {
-                    for (int i = 0; i < resMes2.args.Count; i += 4) MethodSelect.Items.Add(resMes2.args[i] + " [" + resMes2.args[i + 3] + "]");
+                    for (int i = 0; i < resMes2.args.Count; i += 4)
+                    {
+                        if (!resMes2.args[i].Equals("-")) MethodSelect.Items.Add(resMes2.args[i] + " [" + resMes2.args[i + 3] + "]");
+                    }
                 }
                 catch { }
 
@@ -86,9 +89,18 @@ namespace DashBoardClient
                 string idDoc = MethodSelect.SelectedItem.ToString().Split('[')[0];
                 IDtest = IDtest.Substring(0, IDtest.Length - 1);
                 idDoc = idDoc.Substring(0, idDoc.Length - 1);
-                message.Add(IDtest, Data.NameUser, ActiveSelect.IsChecked.Value.ToString(), idDoc);
-                request = JsonConvert.SerializeObject(message);
-                response = server.SendMsg("AddTest", Data.ServiceSel, request);
+                if (idDoc.Equals("-"))
+                {
+                    message.Add(IDtest, Data.NameUser, ActiveSelect.IsChecked.Value.ToString(), idDoc);
+                    request = JsonConvert.SerializeObject(message);
+                    response = server.SendMsg("AddTechTest", Data.ServiceSel, request);
+                }
+                else
+                {
+                    message.Add(IDtest, Data.NameUser, ActiveSelect.IsChecked.Value.ToString(), idDoc);
+                    request = JsonConvert.SerializeObject(message);
+                    response = server.SendMsg("AddTest", Data.ServiceSel, request);
+                }
                 if (JsonConvert.DeserializeObject<Message>(response).args[0].Equals("OK"))
                     MessageBox.Show("Поздравляем! Тест " + IDtest + " добавлен!");
                 else MessageBox.Show("Ошибка! Попробуйте позже или обратитесь в поддержку");
