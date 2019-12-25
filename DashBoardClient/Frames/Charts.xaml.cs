@@ -124,11 +124,15 @@ namespace DashBoardClient
                 projects.Children.Add(textBox);
             }
             Message message = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetStends", Data.ServiceSel));
+            int flag = -1;
             for (int i = 0; i < message.args.Count; i++)
             {
                 StendSelected.Items.Add(message.args[i]);
+                if (message.args[i] == Data.StendSel)
+                    flag = i;
             }
-            StendSelected.SelectedIndex = 0;
+
+            StendSelected.SelectedIndex = flag;
             СreateCharts();
         }
 

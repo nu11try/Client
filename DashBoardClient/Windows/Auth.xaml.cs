@@ -21,8 +21,9 @@ namespace DashBoardClient
 
         string response;
         string request;
+        string addres;
         //string addres = "172.31.197.200";
-        string addres = "172.17.42.32";
+        //string addres = "172.17.42.32";
         public Auth()
         {
             InitializeComponent();
@@ -47,19 +48,24 @@ namespace DashBoardClient
                 addres = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\server.conf");
             }
             catch { }
-            if (message.args[0] != "no")
+            try
             {
+                if (message.args[0] != "no")
+                {
 
-                Data.Security = message.args[1];
-                Data.NameUser = message.args[0];
-                Data.ProjectName = message.args[3];
-                Data.ServiceName = message.args[2];
-                Data.IPServer = addres;
+                    Data.Security = message.args[1];
+                    Data.NameUser = message.args[0];
+                    Data.ProjectName = message.args[3];
+                    Data.ServiceName = message.args[2];
+                    Data.IPServer = addres;
+                    Data.Stend = message.args[4];
 
-                mainWindow.Show();
+                    mainWindow.Show();
 
-                this.Close();
+                    this.Close();
+                }
             }
+            catch { }
         }
 
         private void EnterAuth(object sender, RoutedEventArgs e)

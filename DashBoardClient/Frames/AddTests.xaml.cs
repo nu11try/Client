@@ -36,7 +36,6 @@ namespace DashBoardClient
         {
             Thread thread = Waiter.ShowWaiter();
             InitializeComponent();
-            //GetPim();
             UpdateList();
             Waiter.AbortWaiter(thread);
         }
@@ -47,14 +46,6 @@ namespace DashBoardClient
             formAdd.ShowDialog();
 
             UpdateList();
-        }
-        private void GetPim()
-        {
-            response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetDocSelect", Data.ServiceSel));
-            foreach (var el in response.args)
-            {
-                PIMSelect.Items.Add(el);
-            }
         }
         private void ChangeBtnTest(object sender, RoutedEventArgs e)
         {
@@ -77,7 +68,7 @@ namespace DashBoardClient
             {
                 response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetTests", Data.ServiceSel));
 
-                for (var i = 0; i < response.args.Count; i += 3)
+                for (var i = 0; i < response.args.Count; i += 5)
                 {
                     AddedTests test = new AddedTests();
                     test.ID = response.args[i];
@@ -86,8 +77,8 @@ namespace DashBoardClient
                     Message message = new Message();
                     message.Add("", "", response.args[i]);
                     string request = JsonConvert.SerializeObject(message);
-                    test.Kp = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetKPInfo", Data.ServiceSel, request)).args[0];
-                    test.Kp = test.Kp.Equals("error") ? "" : test.Kp;
+                    test.Kp = response.args[i + 4];
+                    test.Sort = response.args[i + 3];
                     Items.Add(test);
                 }
             }
@@ -172,20 +163,23 @@ namespace DashBoardClient
                 // (this will be automatically reflected to TestList.ItemsSource)
                 e.Effects = DragDropEffects.Move;
                 index = Items.IndexOf(item);
+                Message ids = new Message();
+                ids.Add(Items.ElementAt<AddedTests>(startIndex).ID, Items.ElementAt<AddedTests>(index).Sort);
                 if (startIndex >= 0 && index >= 0)
                 {
                     Items.Move(startIndex, index);
                 }
-                startIndex = -1;
+
                 Message message = new Message();
-                Message ids = new Message();
                 for (int i = 0; i < Items.Count; i++)
                 {
-                    ids.Add(Items.ElementAt<AddedTests>(i).ID);
+                    ids.Add(Items[i].ID, Items[i].Sort);
                 }
+
                 message.Add(JsonConvert.SerializeObject(ids));
                 String request = JsonConvert.SerializeObject(message);
                 server.SendMsg("ChangePositionTests", Data.ServiceSel, request);
+                startIndex = -1;
             }
         }
 
@@ -197,33 +191,6 @@ namespace DashBoardClient
             Thread thread = Waiter.ShowWaiter();
             UpdateList();
             Waiter.AbortWaiter(thread);
-        }
-        private void SelectCurPim(object sender, SelectionChangedEventArgs e)
-        {
-            if (PIMSelect.SelectedItem.ToString().Equals("Все"))
-            {
-                Message message = new Message();
-                message.Add("all");
-                string request = JsonConvert.SerializeObject(message);
-                response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetKPSelect", Data.ServiceSel, request));
-
-                foreach (var el in response.args)
-                {
-                    KPSelect.Items.Add(el);
-                }
-            }
-            else if (!PIMSelect.SelectedItem.ToString().Equals(""))
-            {
-                Message message = new Message();
-                message.Add(PIMSelect.SelectedItem.ToString());
-                string request = JsonConvert.SerializeObject(message);
-                response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetKPSelect", Data.ServiceSel, request));
-
-                foreach (var el in response.args)
-                {
-                    KPSelect.Items.Add(el);
-                }
-            }
-        }
+        }      
     }
 }

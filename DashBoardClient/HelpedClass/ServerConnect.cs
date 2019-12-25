@@ -186,7 +186,7 @@ namespace DashBoardClient
             }
             catch (Exception ex)
             {
-                MessageBox.Show("sdfsdf " + ex.Message);
+                MessageBox.Show(ex.Message);
                 Environment.Exit(0);
             }
             request = new Request();

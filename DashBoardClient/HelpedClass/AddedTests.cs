@@ -18,5 +18,6 @@ namespace DashBoardClient
         public string Author { get; set; }
         // кп
         public string Kp { get; set; }
+        public string Sort { get; set; }
     }
 }

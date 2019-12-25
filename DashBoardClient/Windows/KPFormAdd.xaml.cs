@@ -31,9 +31,12 @@ namespace DashBoardClient
         string response = "";
         public KPFormAdd(string id, string idKP, string actionType)
         {
-            InitializeComponent();
-            GetKPInfo(id, idKP);
-            if (actionType == "update") action = "update";
+            InitializeComponent();            
+            if (actionType == "update")
+            {
+                GetKPInfo(id, idKP);
+                action = "update";
+            }
             ID = id;
             IDKP = idKP;
             DateBlock.SelectedDate = DateTime.Today;

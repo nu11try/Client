@@ -35,7 +35,7 @@
 
     <Grid>
         <Button Content="Добавление теста" Height="30" Margin="315,10,325,0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="150" Click="Button_Click" Foreground="#FF2BAAC9" BorderBrush="White" Background="White"/>
-        <ListView ItemsSource="{Binding TestList}" x:Name="List" Margin="0,100,5,0" FontSize="11" Background="#FF45454F"  AllowDrop="True" PreviewMouseLeftButtonDown="TestList_PreviewMouseLeftButtonDown" MouseMove="TestList_MouseMove" DragEnter="TestList_DragEnter" Drop="TestList_Drop">
+        <ListView ItemsSource="{Binding TestList}" x:Name="List" Margin="0,65,5,0" FontSize="11" Background="#FF45454F"  AllowDrop="True" PreviewMouseLeftButtonDown="TestList_PreviewMouseLeftButtonDown" MouseMove="TestList_MouseMove" DragEnter="TestList_DragEnter" Drop="TestList_Drop">
             <ListView.BorderBrush>
                 <SolidColorBrush Color="#45454f"/>
             </ListView.BorderBrush>
@@ -45,7 +45,7 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="ListBoxItem">
-                                <Border Name="Border" Background="Transparent" BorderBrush="#007ACC" Margin="0" BorderThickness="1,0,1,1">
+                                <Border Name="Border" Background="Transparent" BorderBrush="#E9E5E1" Margin="0" BorderThickness="1,0,1,1">
                                     <GridViewRowPresenter/>
                                 </Border>
                                 <ControlTemplate.Triggers>
@@ -141,9 +141,5 @@
 
             </ListView.View>
         </ListView>
-        <ComboBox x:Name="PIMSelect" HorizontalAlignment="Left" Margin="100,58,0,0" VerticalAlignment="Top" Width="165" SelectionChanged="SelectCurPim"/>
-        <ComboBox x:Name="KPSelect" HorizontalAlignment="Left" Margin="360,58,0,0" VerticalAlignment="Top" Width="165"/>
-        <Label Content="Выберите ПиМ" HorizontalAlignment="Left" Margin="5,54,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <Label Content="Выберите КП" HorizontalAlignment="Left" Margin="275,55,0,0" VerticalAlignment="Top" Foreground="White"/>
     </Grid>
 </Page>

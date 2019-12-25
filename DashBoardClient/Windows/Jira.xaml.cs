@@ -47,6 +47,7 @@ namespace DashBoardClient
             JiraList.Items.Clear();
             Message args = new Message();
             args.Add(id);
+            server.SendMsg("CheckErrors", Data.ServiceSel, JsonConvert.SerializeObject(args));
             Message res = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetErrors", Data.ServiceSel, JsonConvert.SerializeObject(args)));
             for (int i = 0; i < res.args.Count; i += 6)
             {

@@ -63,14 +63,15 @@ namespace DashBoardClient
             if (resMes.args[0].Equals("error")) MessageBox.Show("Ошибка! Обратитесь к поддержке");                      
             else
             {
-                MethodSelect.Items.Add("- [-]");
+                //MethodSelect.Items.Add("- [-]");
+                //resMes2.args.RemoveAt(3);
                 for (int i = 0; i < resMes2.args.Count; i += 4)
                 {
                     if (!resMes2.args[i].Equals("-")) MethodSelect.Items.Add(resMes2.args[i] + " [" + resMes2.args[i + 3] + "]");
                 }
                 if (!resMes3.args[0].Equals("error"))
                 {
-                    MethodSelect.Text = resMes3.args[0] + " (" + resMes3.args[3] + ")".ToString();
+                    MethodSelect.Text = resMes3.args[0] + " [" + resMes3.args[3] + "]".ToString();
                 }
                 TestID.Text = IDTest;      
                 ActiveSelect.IsChecked = Convert.ToBoolean(resMes.args[2].ToString());

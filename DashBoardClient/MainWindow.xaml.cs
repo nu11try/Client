@@ -36,6 +36,8 @@ namespace DashBoardClient
         public static string ServiceSel { get; set; }
         public static string IPServer { get; set; }
         public static string ProjectFolder { get; set; }
+        public static string StendSel { get; set; }
+        public static string Stend { get; set; }
     }
 
     public class Message
@@ -279,6 +281,7 @@ namespace DashBoardClient
 
                 Data.ProjectSel = SelecterProject.SelectedItem.ToString();
                 Data.ServiceSel = JsonConvert.DeserializeObject<Message>(Data.ServiceName).args[project.args.IndexOf(SelecterProject.SelectedItem.ToString())];
+                Data.StendSel = JsonConvert.DeserializeObject<Message>(Data.Stend).args[project.args.IndexOf(SelecterProject.SelectedItem.ToString())];
             }
             catch { }
         }

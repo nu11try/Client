@@ -15,6 +15,7 @@ namespace DashBoardClient
     {
         readonly ServerConnect server = new ServerConnect();
         Message message = new Message();
+        Message testsRes = new Message();
         List<TestsViewClass> TestsListView;
         List<TestsInfoClass> TestsListInfo;
         string response = "";
@@ -23,23 +24,24 @@ namespace DashBoardClient
         public StatisticTest()
         {
             InitializeComponent();
-
-            message = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetStends", Data.ServiceSel));
+            string w = server.SendMsg("GetStends", Data.ServiceSel);
+            message = JsonConvert.DeserializeObject<Message>(w);
+            int flag = -1;
             for (int i = 0; i < message.args.Count; i++)
             {
                 StendSelected.Items.Add(message.args[i]);
+                if (message.args[i] == Data.StendSel)
+                    flag = i;
             }
 
-            StendSelected.SelectedIndex = 0;
-            message = new Message();
+            StendSelected.SelectedIndex = flag;
             message.Add(StendSelected.SelectedItem.ToString());
-            request = JsonConvert.SerializeObject(message);
             message = new Message();
 
-            
+
             UpdateTestsView();
             UpdateTestsInfo();
-            
+
             //TestsInfo.ItemsSource = TestsListInfo;    
             TestsView.SelectionChanged += TestsView_SelectionChanged;
             TestsInfo.SelectionChanged += TestsInfo_SelectionChanged;
@@ -78,6 +80,7 @@ namespace DashBoardClient
             try
             {
                 message = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetTestResult", Data.ServiceSel, request));
+                testsRes = message;
                 if (message.args[0] == "no_result")
                 {
                     //MessageBox.Show("Нет результатов выполнения тестов или произошла ошибка!");
@@ -86,12 +89,14 @@ namespace DashBoardClient
 
 
                 Dictionary<string, string> ress = new Dictionary<string, string>();
-                Message mess = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetVersion", Data.ServiceSel));
-                for (var i = 0; i < message.args.Count; i += 7)
+                Message tmp = new Message();
+                tmp.Add(StendSelected.SelectedItem.ToString());
+                Message mess = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetVersion", Data.ServiceSel, JsonConvert.SerializeObject(tmp)));
+                for (var i = 0; i < message.args.Count; i += 8)
                 {
                     TestsViewClass test = new TestsViewClass();
                     test.Count = TestsListView.Count + 1;
-                    test.Name = message.args[i + 6];
+                    test.Name = message.args[i];
                     if (message.args[i + 4] != mess.args[0])
                     {
                         if (message.args[i + 1] == "Passed") test.ResultTest = "/DashBoardClient;component/Images/ok_no_version.png";
@@ -113,14 +118,11 @@ namespace DashBoardClient
 
                     test.Author = message.args[i + 5];
                     test.Id = message.args[i + 6];
-                    Message args = new Message();
-                    args.Add(message.args[i + 6]);
-                    Message res = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetErrorsStatus", Data.ServiceSel, JsonConvert.SerializeObject(args)));
-                    if (res.args[0] == "errors")
+                    if (message.args[7] == "errors")
                         test.Jira = "/DashBoardClient;component/Images/red.png";
-                    if (res.args[0] == "issue")
+                    if (message.args[7] == "issue")
                         test.Jira = "/DashBoardClient;component/Images/yellow.png";
-                    if (res.args[0] == "no issue")
+                    if (message.args[7] == "no issue")
                         test.Jira = "/DashBoardClient;component/Images/green.png";
 
                     TestsListView.Add(test);
