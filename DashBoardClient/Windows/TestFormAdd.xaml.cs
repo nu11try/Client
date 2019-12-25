@@ -59,7 +59,7 @@ namespace DashBoardClient
             else
             {
                 MethodSelect.Items.Add("- [-]");
-                for (int i = 0; i < resMes.args.Count; i += 3) TestSelect.Items.Add(resMes.args[i] + " [" + resMes.args[i + 1] + "]");
+                for (int i = 0; i < resMes.args.Count; i += 4) TestSelect.Items.Add(resMes.args[i] + " [" + resMes.args[i + 1] + "]");
                 try
                 {
                     for (int i = 0; i < resMes2.args.Count; i += 4)
