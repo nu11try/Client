@@ -370,6 +370,8 @@ C:\programs\Dash\Client\DashBoardClient\obj\Debug\Frames\Charts.baml
 C:\programs\Dash\Client\DashBoardClient\obj\Debug\Windows\Settings.baml
 C:\programs\Dash\Client\DashBoardClient\obj\Debug\Styles\CustomTooltipAndLegend\CustomersLegend.baml
 C:\programs\Dash\Client\DashBoardClient\obj\Debug\Styles\CustomTooltipAndLegend\CustomersTooltip.baml
+C:\programs\Dash\Client\DashBoardClient\obj\Debug\Windows\waiter.g.cs
+C:\programs\Dash\Client\DashBoardClient\obj\Debug\Windows\waiter.baml
 E:\GitHub\Client\DashBoardClient\bin\Debug\DashBoardClient.exe.config
 E:\GitHub\Client\DashBoardClient\bin\Debug\DashBoardClient.exe.manifest
 E:\GitHub\Client\DashBoardClient\bin\Debug\DashBoardClient.application
@@ -417,7 +419,7 @@ E:\GitHub\Client\DashBoardClient\obj\Debug\Windows\PackFormChange.g.cs
 E:\GitHub\Client\DashBoardClient\obj\Debug\Windows\PackFormAdd.g.cs
 E:\GitHub\Client\DashBoardClient\obj\Debug\Windows\TestFormChange.g.cs
 E:\GitHub\Client\DashBoardClient\obj\Debug\Windows\TestFormAdd.g.cs
-E:\GitHub\Client\DashBoardClient\obj\Debug\Windows\Waiter.g.cs
+E:\GitHub\Client\DashBoardClient\obj\Debug\Windows\waiter.g.cs
 E:\GitHub\Client\DashBoardClient\obj\Debug\App.g.cs
 E:\GitHub\Client\DashBoardClient\obj\Debug\GeneratedInternalTypeHelper.g.cs
 E:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient_MarkupCompile.cache
@@ -450,7 +452,7 @@ E:\GitHub\Client\DashBoardClient\obj\Debug\Windows\PackFormChange.baml
 E:\GitHub\Client\DashBoardClient\obj\Debug\Windows\PackFormAdd.baml
 E:\GitHub\Client\DashBoardClient\obj\Debug\Windows\TestFormChange.baml
 E:\GitHub\Client\DashBoardClient\obj\Debug\Windows\TestFormAdd.baml
-E:\GitHub\Client\DashBoardClient\obj\Debug\Windows\Waiter.baml
+E:\GitHub\Client\DashBoardClient\obj\Debug\Windows\waiter.baml
 E:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.g.resources
 E:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.Properties.Resources.resources
 E:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.csproj.GenerateResource.cache
@@ -459,5 +461,3 @@ E:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.application
 E:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.csproj.CopyComplete
 E:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.exe
 E:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.pdb
-C:\programs\Dash\Client\DashBoardClient\obj\Debug\Windows\waiter.g.cs
-C:\programs\Dash\Client\DashBoardClient\obj\Debug\Windows\waiter.baml

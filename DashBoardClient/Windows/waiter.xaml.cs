@@ -23,37 +23,48 @@ namespace DashBoardClient
     /// </summary>
     public partial class Waiter : Window
     {
+        static Thread thread = null;
         public Waiter()
         {
             InitializeComponent();
-
         }
 
         public static Thread ShowWaiter()
         {
-            Thread thread = new Thread(new ThreadStart(StartForm));
+            thread = new Thread(new ThreadStart(StartForm));
             thread.SetApartmentState(ApartmentState.STA);
             thread.Start();
-            thread.Join(400);
+            //thread.Join(400);
             return thread;
         }
 
         private static void StartForm()
         {
-            try
+            Waiter sp = new Waiter();
+            if (!Data.Abort)
             {
-                Waiter sp = new Waiter();
                 try
-                {
-                    sp.ShowDialog();
+                {                    
+                    try
+                    {
+                        Data.Abort = true;                      
+                        sp.ShowDialog();
+                    }
+                    catch { }
                 }
                 catch { }
             }
-            catch { }
+            else
+            {
+                sp.Close();
+                thread.Abort();
+                Data.Abort = false;
+            }
         }
         public static void AbortWaiter(Thread thread)
         {
-            thread.Abort();
+            Data.Abort = true;
+            StartForm();
         }
     }
 

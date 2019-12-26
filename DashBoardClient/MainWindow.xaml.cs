@@ -38,6 +38,7 @@ namespace DashBoardClient
         public static string ProjectFolder { get; set; }
         public static string StendSel { get; set; }
         public static string Stend { get; set; }
+        public static bool Abort { get; set; }
     }
 
     public class Message
@@ -79,18 +80,24 @@ namespace DashBoardClient
         public MainWindow()
         {
             InitializeComponent();
+            Data.Abort = false;
             try
             {
                 versionLabel.Content = "Версия - " + ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString();
             }
-            catch 
+            catch
             {
                 versionLabel.Content = "Версия - unknown";
             }
-           // var push = new Thread(Push);
-         //   push.Start();
-          //  var testsNow = new Thread(TestsNow);
-           // testsNow.Start();
+            try
+            {
+                /*
+                var push = new Thread(Push);
+                push.Start();
+                var testsNow = new Thread(TestsNow);
+                testsNow.Start();*/
+            }
+            catch { }
         }
 
 
@@ -171,57 +178,92 @@ namespace DashBoardClient
 
         private void StartTests(object sender, RoutedEventArgs e)
         {
-            if (SelecterProject.Text.ToString() != "")
+            try
             {
-                SelectProj();
-                Frame.Navigate(new StartTests());
+                if (SelecterProject.Text.ToString() != "")
+                {
+                    SelectProj();
+                    Frame.Navigate(new StartTests());
+                }
+                else MessageBox.Show("Не выбран проект!");
             }
-            else MessageBox.Show("Не выбран проект!");
-            FreeRAM.Free();
+            catch { }
+            finally
+            {
+                FreeRAM.Free();
+            }
         }
 
         private void AddTest(object sender, RoutedEventArgs e)
         {
-            if (SelecterProject.Text.ToString() != "")
+            try
             {
-                SelectProj();
-                Frame.Navigate(new AddTests());
+                if (SelecterProject.Text.ToString() != "")
+                {
+                    SelectProj();
+                    Frame.Navigate(new AddTests());
+                }
+                else MessageBox.Show("Не выбран проект!");
             }
-            else MessageBox.Show("Не выбран проект!");
-            FreeRAM.Free();
+            catch { }
+            finally
+            {
+                FreeRAM.Free();
+            }
         }
 
         private void Packs(object sender, RoutedEventArgs e)
         {
-            if (SelecterProject.Text.ToString() != "")
+            try
             {
-                SelectProj();
-                Frame.Navigate(new Packs());
+                if (SelecterProject.Text.ToString() != "")
+                {
+                    SelectProj();
+                    Frame.Navigate(new Packs());
+                }
+                else MessageBox.Show("Не выбран проект!");
             }
-            else MessageBox.Show("Не выбран проект!");
-            FreeRAM.Free();
+            catch { }
+            finally
+            {
+                FreeRAM.Free();
+            }
         }
 
         private void Autostart(object sender, RoutedEventArgs e)
         {
-            if (SelecterProject.Text.ToString() != "")
+            try
             {
-                SelectProj();
-                Frame.Navigate(new Autostart());
+                if (SelecterProject.Text.ToString() != "")
+                {
+                    SelectProj();
+                    Frame.Navigate(new Autostart());
+                }
+                else MessageBox.Show("Не выбран проект!");
             }
-            else MessageBox.Show("Не выбран проект!");
-            FreeRAM.Free();
+            catch { }
+            finally
+            {
+                FreeRAM.Free();
+            }
         }
 
         private void Doc(object sender, RoutedEventArgs e)
         {
-            if (SelecterProject.Text.ToString() != "")
+            try
             {
-                SelectProj();
-                Frame.Navigate(new Doc());
+                if (SelecterProject.Text.ToString() != "")
+                {
+                    SelectProj();
+                    Frame.Navigate(new Doc());
+                }
+                else MessageBox.Show("Не выбран проект!");
             }
-            else MessageBox.Show("Не выбран проект!");
-            FreeRAM.Free();
+            catch { }
+            finally
+            {
+                FreeRAM.Free();
+            }
         }
 
         private void ChangeProject(object sender, SelectionChangedEventArgs e)
@@ -235,24 +277,38 @@ namespace DashBoardClient
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Message message = new Message();
-            message = JsonConvert.DeserializeObject<Message>(Data.ProjectName);
+            try
+            {
+                Message message = new Message();
+                message = JsonConvert.DeserializeObject<Message>(Data.ProjectName);
 
-            foreach (var proj in message.args) SelecterProject.Items.Add(proj);
-            SelecterProject.SelectedIndex = 0;
-            LabelUserName.Content = Data.NameUser;
-            FreeRAM.Free();
+                foreach (var proj in message.args) SelecterProject.Items.Add(proj);
+                SelecterProject.SelectedIndex = 0;
+                LabelUserName.Content = Data.NameUser;
+            }
+            catch { }
+            finally
+            {
+                FreeRAM.Free();
+            }
         }
 
         private void StatisticTest(object sender, RoutedEventArgs e)
         {
-            if (SelecterProject.Text.ToString() != "")
+            try
             {
-                SelectProj();
-                Frame.Navigate(new StatisticTest());
+                if (SelecterProject.Text.ToString() != "")
+                {
+                    SelectProj();
+                    Frame.Navigate(new StatisticTest());
+                }
+                else MessageBox.Show("Не выбран проект!");
             }
-            else MessageBox.Show("Не выбран проект!");
-            FreeRAM.Free();
+            catch { }
+            finally
+            {
+                FreeRAM.Free();
+            }
         }
         private void SelecterProject_Loaded(object sender, RoutedEventArgs e)
         {
@@ -261,14 +317,21 @@ namespace DashBoardClient
 
         private void OperacTest(object sender, RoutedEventArgs e)
         {
-            //MessageBox.Show("Находится в разработке");       
-            if (SelecterProject.Text.ToString() != "")
+            try
             {
-                SelectProj();
-                Frame.Navigate(new Charts());
+                //MessageBox.Show("Находится в разработке");       
+                if (SelecterProject.Text.ToString() != "")
+                {
+                    SelectProj();
+                    Frame.Navigate(new Charts());
+                }
+                else MessageBox.Show("Не выбран проект!");
             }
-            else MessageBox.Show("Не выбран проект!");
-            FreeRAM.Free();
+            catch { }
+            finally
+            {
+                FreeRAM.Free();
+            }
         }
 
         public void SelectProj()
@@ -284,13 +347,24 @@ namespace DashBoardClient
                 Data.StendSel = JsonConvert.DeserializeObject<Message>(Data.Stend).args[project.args.IndexOf(SelecterProject.SelectedItem.ToString())];
             }
             catch { }
+            finally
+            {
+                FreeRAM.Free();
+            }
         }
 
         private void GetSettings(object sender, MouseButtonEventArgs e)
         {
-            Settings settings = new Settings();
-            settings.ShowDialog();
-             FreeRAM.Free();
+            try
+            {
+                Settings settings = new Settings();
+                settings.ShowDialog();
+            }
+            catch { }
+            finally
+            {
+                FreeRAM.Free();
+            }
         }
 
         private void CloseProcess(object sender, EventArgs e)

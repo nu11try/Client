@@ -24,14 +24,16 @@ namespace DashBoardClient
         public StatisticTest()
         {
             InitializeComponent();
+            StendSelected.Items.Add("");
+
             string w = server.SendMsg("GetStends", Data.ServiceSel);
             message = JsonConvert.DeserializeObject<Message>(w);
-            int flag = -1;
+            int flag = 0;
             for (int i = 0; i < message.args.Count; i++)
             {
                 StendSelected.Items.Add(message.args[i]);
-                if (message.args[i] == Data.StendSel)
-                    flag = i;
+                /*if (message.args[i] == Data.StendSel)
+                    flag = i;*/
             }
 
             StendSelected.SelectedIndex = flag;
@@ -59,7 +61,6 @@ namespace DashBoardClient
 
             }
         }
-
         private void TestsView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try
@@ -71,7 +72,6 @@ namespace DashBoardClient
 
             }
         }
-
         private void UpdateTestsView()
         {
             string error = server.SendMsg("CheckErrors", Data.ServiceSel);
@@ -118,11 +118,11 @@ namespace DashBoardClient
 
                     test.Author = message.args[i + 5];
                     test.Id = message.args[i + 6];
-                    if (message.args[7] == "errors")
+                    if (message.args[i + 7] == "errors")
                         test.Jira = "/DashBoardClient;component/Images/red.png";
-                    if (message.args[7] == "issue")
+                    if (message.args[i + 7] == "issue")
                         test.Jira = "/DashBoardClient;component/Images/yellow.png";
-                    if (message.args[7] == "no issue")
+                    if (message.args[i + 7] == "no issue")
                         test.Jira = "/DashBoardClient;component/Images/green.png";
 
                     TestsListView.Add(test);
@@ -146,7 +146,7 @@ namespace DashBoardClient
             List<string> rowName = new List<string>();
             List<string> flag = new List<string>();
             Dictionary<string, Dictionary<string, string>> listNameTest = new Dictionary<string, Dictionary<string, string>>();
-             Dictionary<string, Dictionary<string, string>> listNameTest1 = new Dictionary<string, Dictionary<string, string>>();
+            Dictionary<string, Dictionary<string, string>> listNameTest1 = new Dictionary<string, Dictionary<string, string>>();
             List<string> sort = new List<string>();
             dynamic myItem;
             IDictionary<string, object> myItemValues;
@@ -164,7 +164,7 @@ namespace DashBoardClient
                 for (var i = 0; i < message.args.Count; i += 7)
                 {
 
-                    
+
                     if (!listDate.Contains(message.args[i] + "\n" + message.args[i + 5].Replace(".", ":").Replace("_", "__"))) listDate.Add(message.args[i] + "\n" + message.args[i + 5].Replace(".", ":").Replace("_", "__"));
                     for (var j = 0; j < message.args.Count; j += 7)
                     {
@@ -186,7 +186,7 @@ namespace DashBoardClient
                     bufList = new Dictionary<string, string>();
                 }
                 message = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetVersions", Data.ServiceSel, request));
-               
+
                 foreach (var dic in listNameTest)
                 {
                     Dictionary<string, string> d = new Dictionary<string, string>();
@@ -209,7 +209,7 @@ namespace DashBoardClient
             {
                 //MessageBox.Show("Нет результатов выполнения тестов или произошла ошибка!");
             }
-           
+
             foreach (var dic in listNameTest1)
             {
                 myItem = new System.Dynamic.ExpandoObject();
@@ -264,7 +264,6 @@ namespace DashBoardClient
                 }
             }
         }
-
         private void TestsInfo_ScrollChanged(object sender, ScrollChangedEventArgs e)
         {
             if (IsLoaded)
@@ -277,24 +276,6 @@ namespace DashBoardClient
                 }
             }
         }
-
-        private class TestsViewClass
-        {
-            public int Count { get; set; }
-            public string Name { get; set; }
-            public string ResultTest { get; set; }
-            public string Jira { get; set; }
-            public string Author { get; set; }
-            public string Id { get; set; }
-        }
-
-        public class TestsInfoClass
-        {
-            public string Result { get; set; }
-            public string Date { get; set; }
-            public string Version { get; set; }
-        }
-
         private void Jira_Click(object sender, RoutedEventArgs e)
         {
             Jira jira = new Jira((sender as Button).Tag.ToString());
@@ -304,7 +285,6 @@ namespace DashBoardClient
             UpdateTestsInfo();
             Waiter.AbortWaiter(thread);
         }
-
         private void SelectStend(object sender, SelectionChangedEventArgs e)
         {
             Thread thread = null;
@@ -326,6 +306,7 @@ namespace DashBoardClient
                 Waiter.AbortWaiter(thread);
             }
             catch { }
+
         }
         private void ShowResult(object sender, RoutedEventArgs e)
         {
@@ -345,5 +326,21 @@ namespace DashBoardClient
                 MessageBox.Show("Нет результата по тесту!");
             }
         }
+        private class TestsViewClass
+        {
+            public int Count { get; set; }
+            public string Name { get; set; }
+            public string ResultTest { get; set; }
+            public string Jira { get; set; }
+            public string Author { get; set; }
+            public string Id { get; set; }
+        }
+        public class TestsInfoClass
+        {
+            public string Result { get; set; }
+            public string Date { get; set; }
+            public string Version { get; set; }
+        }
+
     }
 }
