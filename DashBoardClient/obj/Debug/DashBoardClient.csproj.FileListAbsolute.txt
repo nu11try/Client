@@ -417,7 +417,6 @@ E:\GitHub\Client\DashBoardClient\obj\Debug\Windows\PackFormChange.g.cs
 E:\GitHub\Client\DashBoardClient\obj\Debug\Windows\PackFormAdd.g.cs
 E:\GitHub\Client\DashBoardClient\obj\Debug\Windows\TestFormChange.g.cs
 E:\GitHub\Client\DashBoardClient\obj\Debug\Windows\TestFormAdd.g.cs
-E:\GitHub\Client\DashBoardClient\obj\Debug\Windows\waiter.g.cs
 E:\GitHub\Client\DashBoardClient\obj\Debug\App.g.cs
 E:\GitHub\Client\DashBoardClient\obj\Debug\GeneratedInternalTypeHelper.g.cs
 E:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient_MarkupCompile.cache
@@ -450,7 +449,6 @@ E:\GitHub\Client\DashBoardClient\obj\Debug\Windows\PackFormChange.baml
 E:\GitHub\Client\DashBoardClient\obj\Debug\Windows\PackFormAdd.baml
 E:\GitHub\Client\DashBoardClient\obj\Debug\Windows\TestFormChange.baml
 E:\GitHub\Client\DashBoardClient\obj\Debug\Windows\TestFormAdd.baml
-E:\GitHub\Client\DashBoardClient\obj\Debug\Windows\waiter.baml
 E:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.g.resources
 E:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.Properties.Resources.resources
 E:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.csproj.GenerateResource.cache
@@ -463,3 +461,7 @@ C:\programs\Dash\Client\DashBoardClient\obj\Debug\Windows\TestsShow.g.cs
 C:\programs\Dash\Client\DashBoardClient\obj\Debug\Windows\TestsShow.baml
 C:\programs\Dash\Client\DashBoardClient\obj\Debug\Styles\WaiterForm.g.cs
 C:\programs\Dash\Client\DashBoardClient\obj\Debug\Styles\WaiterForm.baml
+E:\GitHub\Client\DashBoardClient\obj\Debug\Styles\WaiterForm.g.cs
+E:\GitHub\Client\DashBoardClient\obj\Debug\Windows\TestsShow.g.cs
+E:\GitHub\Client\DashBoardClient\obj\Debug\Styles\WaiterForm.baml
+E:\GitHub\Client\DashBoardClient\obj\Debug\Windows\TestsShow.baml

@@ -84,6 +84,7 @@ namespace DashBoardClient
                             PimLink.Text = "";
                             DateBlock.Text = "";
                         }
+                        if (JsonConvert.DeserializeObject<Message>(response).args[0].Equals("ISSET")) MessageBox.Show("Добавление невозможно! Такой документ уже существует!", "Ошибка");
                     }
                     else if (action == "update")
                     {
@@ -91,6 +92,7 @@ namespace DashBoardClient
                         request = JsonConvert.SerializeObject(message);
                         response = server.SendMsg("UpdateDoc", Data.ServiceSel, request);
                         if (JsonConvert.DeserializeObject<Message>(response).args[0].Equals("OK")) MessageBox.Show("Поздравляем! Документ обновлен!");
+                        if (JsonConvert.DeserializeObject<Message>(response).args[0].Equals("ISSET")) MessageBox.Show("Обновление невозможно! Такой документ уже существует!", "Ошибка");                        
                     }
                 }
             }

@@ -62,7 +62,7 @@
             </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Width="auto" Header="КП.">
+                    <GridViewColumn Width="40" Header="Тесты">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate >
                                 <Button x:Name="kpBtn" Tag="{Binding ID}" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="30" Click="OpenKPDoc">

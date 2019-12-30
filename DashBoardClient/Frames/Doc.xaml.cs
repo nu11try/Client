@@ -63,6 +63,7 @@ namespace DashBoardClient
                     {
                         doc.Pim = response.args[i + 1].Split('/').Last().Replace(".docx", "");
                     }
+                    if (doc.Pim == null) doc.Pim = response.args[i + 1].Split('/').Last();
                     doc.Date = response.args[i + 2];
 
                     DocList.Add(doc);
