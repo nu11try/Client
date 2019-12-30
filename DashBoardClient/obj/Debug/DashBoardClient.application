@@ -14,14 +14,14 @@
     <framework targetVersion="4.7.2" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="DashBoardClient.exe.manifest" size="7591">
+    <dependentAssembly dependencyType="install" codebase="DashBoardClient.exe.manifest" size="7592">
       <assemblyIdentity name="DashBoardClient.exe" version="3.0.1.28" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>cF62I83tY+dOfoa8OLZ7Tva8pZ1Fc4kvNSlrbhJbMUE=</dsig:DigestValue>
+        <dsig:DigestValue>wR1H7gEyUEZ+NMlUX+6Z78HiIL1A+/ppVWrbzhNR9IE=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

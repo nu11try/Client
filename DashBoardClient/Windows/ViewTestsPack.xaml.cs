@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using System.Threading;
+using System.ComponentModel;
 
 namespace DashBoardClient
 {
@@ -49,14 +50,21 @@ namespace DashBoardClient
 
         readonly ServerConnect server = new ServerConnect();
         string IDPack = "";
-
+        BackgroundWorker bw;
         public ViewTestsPack(string TAG)
         {
-            Thread thread = Waiter.ShowWaiter();
             IDPack = TAG;
             InitializeComponent();
-            UpdateList();
-            Waiter.AbortWaiter(thread);
+            bw = new BackgroundWorker();
+            bw.DoWork += (obj, ea) => {
+                UpdateList();
+            };
+            bw.RunWorkerAsync();
+            bw.RunWorkerCompleted += (obj, ea) => {
+
+                wait.Opacity = 0;
+                TestList.ItemsSource = Items;
+            };
         }
 
         private void UpdateList()
@@ -112,7 +120,7 @@ namespace DashBoardClient
             }
             catch { MessageBox.Show("Произошла ошибка! Обратитесь к поддержке!"); }
 
-            TestList.ItemsSource = Items;
+            
         }
 
         private void ChangeTest(object sender, RoutedEventArgs e)
@@ -123,7 +131,16 @@ namespace DashBoardClient
             PackTestsFormChange packTests = new PackTestsFormChange(request);
             packTests.ShowDialog();
 
-            UpdateList();
+            bw = new BackgroundWorker();
+            bw.DoWork += (obj, ea) => {
+                UpdateList();
+            };
+            bw.RunWorkerAsync();
+            bw.RunWorkerCompleted += (obj, ea) => {
+
+                wait.Opacity = 0;
+                TestList.ItemsSource = Items;
+            };
         }
 
         private void Duplicate(object sender, RoutedEventArgs e)
@@ -143,7 +160,16 @@ namespace DashBoardClient
                 request = JsonConvert.SerializeObject(message);
                 response = server.SendMsg("UpdateDuplicate", Data.ServiceSel, request);
             }
-            UpdateList();
+            bw = new BackgroundWorker();
+            bw.DoWork += (obj, ea) => {
+                UpdateList();
+            };
+            bw.RunWorkerAsync();
+            bw.RunWorkerCompleted += (obj, ea) => {
+
+                wait.Opacity = 0;
+                TestList.ItemsSource = Items;
+            };
         }
         private void Depen(object sender, RoutedEventArgs e)
         {
@@ -183,11 +209,29 @@ namespace DashBoardClient
                     message.Add(IDPack, Items1[j].ID, "last", testIdsS, "last", "last", "last");
                     request = JsonConvert.SerializeObject(message);
                     response = server.SendMsg("UpdateTestOfPack", Data.ServiceSel, request);
-                    UpdateList();
+                    bw = new BackgroundWorker();
+                    bw.DoWork += (obj, ea) => {
+                        UpdateList();
+                    };
+                    bw.RunWorkerAsync();
+                    bw.RunWorkerCompleted += (obj, ea) => {
+
+                        wait.Opacity = 0;
+                        TestList.ItemsSource = Items;
+                    };
                 }
                 else
                 {
-                    UpdateList();
+                    bw = new BackgroundWorker();
+                    bw.DoWork += (obj, ea) => {
+                        UpdateList();
+                    };
+                    bw.RunWorkerAsync();
+                    bw.RunWorkerCompleted += (obj, ea) => {
+
+                        wait.Opacity = 0;
+                        TestList.ItemsSource = Items;
+                    };
                     return;
                 }
             }
@@ -212,7 +256,16 @@ namespace DashBoardClient
                 message.Add(IDPack, Items1[j].ID, "last", "{\"args\":[\"not\"]}", "last", "last", "last");
                 request = JsonConvert.SerializeObject(message);
                 response = server.SendMsg("UpdateTestOfPack", Data.ServiceSel, request);
-                UpdateList();
+                bw = new BackgroundWorker();
+                bw.DoWork += (obj, ea) => {
+                    UpdateList();
+                };
+                bw.RunWorkerAsync();
+                bw.RunWorkerCompleted += (obj, ea) => {
+
+                    wait.Opacity = 0;
+                    TestList.ItemsSource = Items;
+                };
             }
 
 

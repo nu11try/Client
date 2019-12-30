@@ -32,7 +32,7 @@
         <DatePicker HorizontalAlignment="Left" Name="after" Margin="44,-66,0,0" VerticalAlignment="Top"/>
         <DatePicker HorizontalAlignment="Left" Name="before" Margin="172,-66,0,0" VerticalAlignment="Top"/>
         <ComboBox x:Name="StendSelected" Margin="277,-67,0,0" Height="25" VerticalAlignment="Top" SelectionChanged="SelectStend" HorizontalAlignment="Left" Width="314"/>
-        <Button Content="Сформировать" HorizontalAlignment="Left" VerticalAlignment="Top" Width="91" Margin="44,-37,0,0" Click="Button_Click" Height="22"/>
-      
+        <Button Name="print" Content="Сформировать" HorizontalAlignment="Left" VerticalAlignment="Top" Width="91" Margin="44,-37,0,0" Click="Button_Click" Height="22"/>
+        <local:WaiterForm x:Name="wait" ></local:WaiterForm>
     </Grid>
 </Page>

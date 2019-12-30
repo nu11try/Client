@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -49,11 +50,22 @@ namespace DashBoardClient
         
         string IDTest = "";
         List<Сomment> list;
+        BackgroundWorker bw;
         public FormShowCheckList(string TAG)
         {
             IDTest = TAG;
             InitializeComponent();
-            GetCheckList();
+            
+            bw = new BackgroundWorker();
+            bw.DoWork += (obj, ea) => {
+                GetCheckList();
+            };
+            bw.RunWorkerAsync();
+            bw.RunWorkerCompleted += (obj, ea) => {
+
+                wait.Opacity = 0;
+                CommentsList.ItemsSource = list;
+            };
         }
         private void GetCheckList()
         {
@@ -95,9 +107,6 @@ namespace DashBoardClient
                 }
             }
             catch { MessageBox.Show("Произошла ошибка! Обратитесь к поддержке!"); }
-
-            DataContext = this;
-            CommentsList.ItemsSource = list;
         }
     }
 }

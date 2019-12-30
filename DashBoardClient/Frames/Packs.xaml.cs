@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -22,15 +23,25 @@ namespace DashBoardClient
     /// </summary>
     public partial class Packs : Page
     {
+        
         readonly ServerConnect server = new ServerConnect();
         public List<PacksWithTest> PackList { get; set; }
         Message message;
+        BackgroundWorker bw;
         public Packs()
         {
-            Thread thread = Waiter.ShowWaiter();
             InitializeComponent();
-            UpdateList();
-            Waiter.AbortWaiter(thread);
+            bw = new BackgroundWorker();
+            bw.DoWork += (obj, ea) => {
+                UpdateList();
+            };
+            bw.RunWorkerAsync();
+            bw.RunWorkerCompleted += (obj, ea) => {
+
+                wait.Opacity = 0;
+                PackListView.ItemsSource = PackList;
+            };
+
         }
 
         private void UpdateList()
@@ -58,41 +69,73 @@ namespace DashBoardClient
             {
                 //MessageBox.Show("Произошла ошибка! Обратитесь к поддержке!");
             }
-            DataContext = this;
 
-            DataContext = this;
-            PackListView.ItemsSource = PackList;
+            
         }
 
         private void AddPack(object sender, RoutedEventArgs e)
         {
             PackFormAdd addPack = new PackFormAdd();
             try { addPack.ShowDialog(); }
-            catch { MessageBox.Show(""); }            
-            UpdateList();
+            catch { MessageBox.Show(""); }
+            bw = new BackgroundWorker();
+            bw.DoWork += (obj, ea) => {
+                UpdateList();
+            };
+            bw.RunWorkerAsync();
+            bw.RunWorkerCompleted += (obj, ea) => {
+
+                wait.Opacity = 0;
+                PackListView.ItemsSource = PackList;
+            };
         }
         private void ChangePack(object sender, RoutedEventArgs e)
         {
             PackFormChange packChange = new PackFormChange((sender as Button).Tag.ToString());
             packChange.ShowDialog();
-            UpdateList();
+            bw = new BackgroundWorker();
+            bw.DoWork += (obj, ea) => {
+                UpdateList();
+            };
+            bw.RunWorkerAsync();
+            bw.RunWorkerCompleted += (obj, ea) => {
+
+                wait.Opacity = 0;
+                PackListView.ItemsSource = PackList;
+            };
         }
         private void ChangeTests(object sender, RoutedEventArgs e)
         {
             ViewTestsPack viewTests = new ViewTestsPack((sender as Button).Tag.ToString());
             try { viewTests.ShowDialog(); }
             catch { MessageBox.Show("s"); }
-            
-            UpdateList();
+
+            bw = new BackgroundWorker();
+            bw.DoWork += (obj, ea) => {
+                UpdateList();
+            };
+            bw.RunWorkerAsync();
+            bw.RunWorkerCompleted += (obj, ea) => {
+
+                wait.Opacity = 0;
+                PackListView.ItemsSource = PackList;
+            };
         }
         private void DeletePack_Click(object sender, RoutedEventArgs e)
         {
             Message message = new Message();
             message.Add((sender as Button).Tag.ToString());
             server.SendMsg("DeletePack", Data.ServiceSel, JsonConvert.SerializeObject(message));
-            Thread thread = Waiter.ShowWaiter();
-            UpdateList();
-            Waiter.AbortWaiter(thread);
+            bw = new BackgroundWorker();
+            bw.DoWork += (obj, ea) => {
+                UpdateList();
+            };
+            bw.RunWorkerAsync();
+            bw.RunWorkerCompleted += (obj, ea) => {
+
+                wait.Opacity = 0;
+                PackListView.ItemsSource = PackList;
+            };
         }
     }
 }

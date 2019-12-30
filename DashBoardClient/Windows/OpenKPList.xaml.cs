@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -41,21 +42,30 @@ namespace DashBoardClient
         Message resMes = new Message();
         string request = "";
         string response = "";
+        BackgroundWorker bw;
         public OpenKPList(string ID)
         {
-            Thread thread = Waiter.ShowWaiter();
+            //Thread thread = Waiter.ShowWaiter();
             InitializeComponent();
             id = ID;
-            Update(id);
-            Waiter.AbortWaiter(thread);
+            bw = new BackgroundWorker();
+            bw.DoWork += (obj, ea) => {
+                Update();
+            };
+            bw.RunWorkerAsync();
+            bw.RunWorkerCompleted += (obj, ea) => {
+
+                wait.Opacity = 0;
+                KPListView.ItemsSource = KPList;
+            };
         }
 
-        private void Update(string ID)
+        private void Update()
         {
             KPList = new List<KP>();
             try
             {
-                message.Add(ID);
+                message.Add(id);
                 request = JsonConvert.SerializeObject(message);
                 response = server.SendMsg("GetKPForDoc", Data.ServiceSel, request);
                 resMes = JsonConvert.DeserializeObject<Message>(response);
@@ -83,8 +93,7 @@ namespace DashBoardClient
                 return;
             }
 
-            DataContext = this;
-            KPListView.ItemsSource = KPList;
+           
             message = new Message();    
         }
 
@@ -93,14 +102,32 @@ namespace DashBoardClient
             //KPFormAdd kPFormAdd = new KPFormAdd((sender as Button).Tag.ToString());
             KPFormAdd kPFormAdd = new KPFormAdd(id, "", "add");
             kPFormAdd.ShowDialog();
-            Update(id);
+            bw = new BackgroundWorker();
+            bw.DoWork += (obj, ea) => {
+                Update();
+            };
+            bw.RunWorkerAsync();
+            bw.RunWorkerCompleted += (obj, ea) => {
+
+                wait.Opacity = 0;
+                KPListView.ItemsSource = KPList;
+            };
         }
         private void UpdateKP(object sender, RoutedEventArgs e)
         {
             //KPFormAdd kPFormAdd = new KPFormAdd((sender as Button).Tag.ToString());            
             KPFormAdd kPFormAdd = new KPFormAdd(id, (sender as Button).Tag.ToString(), "update");
             kPFormAdd.ShowDialog();
-            Update(id);
+            bw = new BackgroundWorker();
+            bw.DoWork += (obj, ea) => {
+                Update();
+            };
+            bw.RunWorkerAsync();
+            bw.RunWorkerCompleted += (obj, ea) => {
+
+                wait.Opacity = 0;
+                KPListView.ItemsSource = KPList;
+            };
         }
     }
 }

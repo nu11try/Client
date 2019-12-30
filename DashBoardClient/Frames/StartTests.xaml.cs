@@ -14,6 +14,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Threading;
+using System.ComponentModel;
+
 namespace DashBoardClient
 {
     /// <summary>
@@ -43,18 +45,26 @@ namespace DashBoardClient
         readonly ServerConnect server = new ServerConnect();
         string response = "";
         string request = "";
-
+        BackgroundWorker bw;
         public StartTests()
         {
-            Thread thread = Waiter.ShowWaiter();
             InitializeComponent();
-            UpdateList();
-            Waiter.AbortWaiter(thread);
+            bw = new BackgroundWorker();
+            bw.DoWork += (obj, ea) => {
+                UpdateList();
+            };
+            bw.RunWorkerAsync();
+            bw.RunWorkerCompleted += (obj, ea) => {
+
+                wait.Opacity = 0;
+                PackListView.ItemsSource = PackList;
+            };
+
         }
 
         private void UpdateList()
         {
-            PackListView.ItemsSource = "";
+            
 
             PackList = new List<PacksWithTest>();
             try
@@ -84,10 +94,7 @@ namespace DashBoardClient
             {
                 MessageBox.Show("Произошла ошибка! Обратитесь к поддержке!");
             }
-            DataContext = this;
 
-            DataContext = this;
-            PackListView.ItemsSource = PackList;
             message = new Message();
         }
 
@@ -122,7 +129,16 @@ namespace DashBoardClient
                     }
                 if (JsonConvert.DeserializeObject<Message>(response).args[0] == "ERROR") MainWindow._vm.ErrCastMess("Произошла ошибка запуска!");
                 if (JsonConvert.DeserializeObject<Message>(response).args[0] == "START") MainWindow._vm.WarCastMess("Один из выбранных наборов находится в режиме запуска!");
-                UpdateList();
+                bw = new BackgroundWorker();
+                bw.DoWork += (obj, ea) => {
+                    UpdateList();
+                };
+                bw.RunWorkerAsync();
+                bw.RunWorkerCompleted += (obj, ea) => {
+
+                    wait.Opacity = 0;
+                    PackListView.ItemsSource = PackList;
+                };
 
             }
             else MessageBox.Show("Не выбрано ни одного набора!");
@@ -140,7 +156,16 @@ namespace DashBoardClient
                 if (JsonConvert.DeserializeObject<Message>(response).args[0] == "OK") MessageBox.Show("Набор(ы) отправлен(ы) на остановку!");
                 if (JsonConvert.DeserializeObject<Message>(response).args[0] == "ERROR") MessageBox.Show("Произошла ошибка остановки!");
                 if (JsonConvert.DeserializeObject<Message>(response).args[0] == "NO_START") MessageBox.Show("Один из выбранных наборов не находится в режиме запуска!");
-                UpdateList();
+                bw = new BackgroundWorker();
+                bw.DoWork += (obj, ea) => {
+                    UpdateList();
+                };
+                bw.RunWorkerAsync();
+                bw.RunWorkerCompleted += (obj, ea) => {
+
+                    wait.Opacity = 0;
+                    PackListView.ItemsSource = PackList;
+                };
             }
             else MessageBox.Show("Не выбрано ни одного набора!");
         }

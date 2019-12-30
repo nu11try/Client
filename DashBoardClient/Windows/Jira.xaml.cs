@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -35,16 +36,26 @@ namespace DashBoardClient
     {
         string id;
         readonly ServerConnect server = new ServerConnect();
+        List<Errors> EList;
+        BackgroundWorker bw;
         public Jira(string TAG)
         {
             id = TAG;
             InitializeComponent();
-            Update();
+            bw = new BackgroundWorker();
+            bw.DoWork += (obj, ea) => {
+                Update();
+            };
+            bw.RunWorkerAsync();
+            bw.RunWorkerCompleted += (obj, ea) => {
+
+                wait.Opacity = 0;
+                JiraList.ItemsSource = EList;
+            };
         }
         private void Update()
         {
-            Thread thread = Waiter.ShowWaiter();
-            JiraList.Items.Clear();
+            EList = new List<Errors>();
             Message args = new Message();
             args.Add(id);
             server.SendMsg("CheckErrors", Data.ServiceSel, JsonConvert.SerializeObject(args));
@@ -56,11 +67,10 @@ namespace DashBoardClient
                 error.link = res.args[i + 1];
                 error.type = res.args[i + 2];
                 error.data = res.args[i + 3];
-                error.executor = res.args[i + 4];
-                error.status = res.args[i + 5];
-                JiraList.Items.Add(error);
-            }
-            Waiter.AbortWaiter(thread);
+                error.executor = res.args[i + 5];
+                error.status = res.args[i + 4];
+                EList.Add(error);
+            }         
         }
         private void AddBug(object sender, RoutedEventArgs e)
         {
@@ -75,6 +85,15 @@ namespace DashBoardClient
             args.Add(id, link);
             Message res = JsonConvert.DeserializeObject<Message>(server.SendMsg("DeleteBug", Data.ServiceSel, JsonConvert.SerializeObject(args)));
             Update();
+        }
+
+        private void JiraList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (JiraList.SelectedItems.Count == 1)
+            {
+                Errors error = (Errors)JiraList.SelectedItem;
+                System.Diagnostics.Process.Start("https://job-jira.otr.ru/browse/" + error.link);
+            }
         }
     }
 }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DashBoardClient"
         mc:Ignorable="d"
-        Style="{StaticResource VS2012WindowStyleWithoutButton}"
+        Style="{StaticResource VS2012WindowStyleWithoutButton}"       
         MinHeight="450" MinWidth="852.119" Height="450" Width="852.119" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style TargetType="{x:Type Button}">
@@ -46,7 +46,7 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="ListBoxItem">
-                                <Border Name="Border" Background="Transparent">
+                                <Border Name="Border" Background="Transparent" BorderBrush="#E9E5E1" Margin="0" BorderThickness="1,0,1,1">
                                     <GridViewRowPresenter/>
                                 </Border>
                                 <ControlTemplate.Triggers>
@@ -109,5 +109,6 @@
             </ListView.View>
         </ListView>
         <Button Content="Добавить КП" Height="30" Margin="330,10,314,0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="150" Foreground="#FF2BAAC9" BorderBrush="White" Background="White" Click="AddKP" Grid.ColumnSpan="2"/>
+        <local:WaiterForm x:Name="wait" ></local:WaiterForm>
     </Grid>
 </Window>

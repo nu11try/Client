@@ -35,13 +35,12 @@
 
     <Grid>
         <Button Content="Добавление теста" Height="30" Margin="315,10,325,0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="150" Click="Button_Click" Foreground="#FF2BAAC9" BorderBrush="White" Background="White"/>
-        <ListView ItemsSource="{Binding TestList}" x:Name="List" Margin="0,65,5,0" FontSize="11" Background="#FF45454F"  AllowDrop="True" PreviewMouseLeftButtonDown="TestList_PreviewMouseLeftButtonDown" MouseMove="TestList_MouseMove" DragEnter="TestList_DragEnter" Drop="TestList_Drop">
+        <ListView ItemsSource="{Binding DocList}" x:Name="DocListView" Margin="0,55,5,0" FontSize="11" Background="#FF45454F"  AllowDrop="True" PreviewMouseLeftButtonDown="TestList_PreviewMouseLeftButtonDown" MouseMove="TestList_MouseMove" DragEnter="TestList_DragEnter" Drop="TestList_Drop">
             <ListView.BorderBrush>
                 <SolidColorBrush Color="#45454f"/>
             </ListView.BorderBrush>
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment" Value ="Stretch"/>
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="ListBoxItem">
@@ -63,83 +62,35 @@
             </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Width="auto" Header="Измен.">
+                    <GridViewColumn Width="auto" Header="КП.">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate >
-                                <Button x:Name="changeBtn" Tag="{Binding ID}" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="30" Click="ChangeBtnTest">
+                                <Button x:Name="kpBtn" Tag="{Binding ID}" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="30" Click="OpenKPDoc">
                                     <Button.Background>
-                                        <ImageBrush ImageSource="/DashBoardClient;component/Images/set.png" Stretch="Uniform"/>
+                                        <ImageBrush ImageSource="/DashBoardClient;component/Images/open.png" Stretch="Uniform"/>
                                     </Button.Background>
                                 </Button>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <!--
-                    <GridViewColumn Width="50" Header="Инфо.">
+                    <GridViewColumn Header="Программа и методика (ПиМ)" Width="400">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button x:Name="infoBtn" Tag="{Binding ID}" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="30">
-                                    <Button.Background>
-                                        <ImageBrush ImageSource="/DashBoardClient;component/Images/test.png" Stretch="Uniform"/>
-                                    </Button.Background>
-                                </Button>
+                                <TextBlock x:Name="pim" Text="{Binding Pim}" Foreground="White" TextWrapping="NoWrap" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    -->
-                    <GridViewColumn Width="auto" Header="Чеклист">
+                    <GridViewColumn Header="Добавлен" Width="auto">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button x:Name="checkListBtn" Tag="{Binding ID}" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="30" Click="ShowCheckList">
-                                    <Button.Background>
-                                        <ImageBrush ImageSource="/DashBoardClient;component/Images/test.png" Stretch="Uniform"/>
-                                    </Button.Background>
-                                </Button>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="ID" Width="auto">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock x:Name="IDTest" Text="{Binding ID}" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Имя" Width="600">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock x:Name="NameTest" Text="{Binding Name}" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Ответственный" Width="auto">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock x:Name="AuthorTest" Text="{Binding Author}" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="КП" Width="auto">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock x:Name="AuthorTest" Text="{Binding Kp}" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Width="auto" Header="Удаление">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button x:Name="deleteTest" Tag="{Binding ID}" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="30" Click="DeleteTest_Click">
-                                    <Button.Background>
-                                        <ImageBrush ImageSource="/DashBoardClient;component/Images/sver.png" Stretch="Uniform"/>
-                                    </Button.Background>
-                                </Button>
+                                <TextBlock x:Name="date" Text="{Binding Date}" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                 </GridView>
-
             </ListView.View>
         </ListView>
+        <local:WaiterForm x:Name="wait" ></local:WaiterForm>
     </Grid>
+
 </Page>

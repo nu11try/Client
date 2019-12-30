@@ -370,8 +370,6 @@ C:\programs\Dash\Client\DashBoardClient\obj\Debug\Frames\Charts.baml
 C:\programs\Dash\Client\DashBoardClient\obj\Debug\Windows\Settings.baml
 C:\programs\Dash\Client\DashBoardClient\obj\Debug\Styles\CustomTooltipAndLegend\CustomersLegend.baml
 C:\programs\Dash\Client\DashBoardClient\obj\Debug\Styles\CustomTooltipAndLegend\CustomersTooltip.baml
-C:\programs\Dash\Client\DashBoardClient\obj\Debug\Windows\waiter.g.cs
-C:\programs\Dash\Client\DashBoardClient\obj\Debug\Windows\waiter.baml
 E:\GitHub\Client\DashBoardClient\bin\Debug\DashBoardClient.exe.config
 E:\GitHub\Client\DashBoardClient\bin\Debug\DashBoardClient.exe.manifest
 E:\GitHub\Client\DashBoardClient\bin\Debug\DashBoardClient.application
@@ -461,3 +459,7 @@ E:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.application
 E:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.csproj.CopyComplete
 E:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.exe
 E:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.pdb
+C:\programs\Dash\Client\DashBoardClient\obj\Debug\Windows\TestsShow.g.cs
+C:\programs\Dash\Client\DashBoardClient\obj\Debug\Windows\TestsShow.baml
+C:\programs\Dash\Client\DashBoardClient\obj\Debug\Styles\WaiterForm.g.cs
+C:\programs\Dash\Client\DashBoardClient\obj\Debug\Styles\WaiterForm.baml

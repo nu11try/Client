@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,9 +19,14 @@ namespace DashBoardClient
         Message testsRes = new Message();
         List<TestsViewClass> TestsListView;
         List<TestsInfoClass> TestsListInfo;
+        List<TestsInfoClass> columns = new List<TestsInfoClass>();
+        List<dynamic> myItems = new List<dynamic>();
         string response = "";
         string request = "";
+        string stend;
         bool select = false;
+        BackgroundWorker bw;
+            GridView gridView = new GridView();
         public StatisticTest()
         {
             InitializeComponent();
@@ -32,8 +38,8 @@ namespace DashBoardClient
             for (int i = 0; i < message.args.Count; i++)
             {
                 StendSelected.Items.Add(message.args[i]);
-                /*if (message.args[i] == Data.StendSel)
-                    flag = i;*/
+                if (message.args[i] == Data.StendSel)
+                    flag = i;
             }
 
             StendSelected.SelectedIndex = flag;
@@ -41,9 +47,34 @@ namespace DashBoardClient
             message = new Message();
 
 
-            UpdateTestsView();
-            UpdateTestsInfo();
+            this.TestsInfo.Items.Clear();
+            gridView = new GridView();
+            this.TestsInfo.View = gridView;
+            stend = StendSelected.SelectedItem.ToString();
+            bw = new BackgroundWorker();
+            bw.DoWork += (obj, ea) => {
+                UpdateTestsView();
+                UpdateTestsInfo();
+            };
+            bw.RunWorkerAsync();
+            bw.RunWorkerCompleted += (obj, ea) => {
 
+                wait.Opacity = 0;
+                TestsView.ItemsSource = TestsListView;
+                gridView.Columns.Clear();
+
+                foreach (var column in columns)
+                {
+                    var binding = new Binding(column.Date);
+
+                    gridView.Columns.Add(new GridViewColumn { Header = column.Date, DisplayMemberBinding = binding });
+                }
+                foreach (dynamic item in myItems)
+                {
+                    this.TestsInfo.Items.Add(item);
+                }
+            };
+            
             //TestsInfo.ItemsSource = TestsListInfo;    
             TestsView.SelectionChanged += TestsView_SelectionChanged;
             TestsInfo.SelectionChanged += TestsInfo_SelectionChanged;
@@ -76,7 +107,7 @@ namespace DashBoardClient
         {
             string error = server.SendMsg("CheckErrors", Data.ServiceSel);
             TestsListView = new List<TestsViewClass>();
-            TestsView.ItemsSource = TestsListView;
+            
             try
             {
                 message = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetTestResult", Data.ServiceSel, request));
@@ -90,7 +121,7 @@ namespace DashBoardClient
 
                 Dictionary<string, string> ress = new Dictionary<string, string>();
                 Message tmp = new Message();
-                tmp.Add(StendSelected.SelectedItem.ToString());
+                tmp.Add(stend);
                 Message mess = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetVersion", Data.ServiceSel, JsonConvert.SerializeObject(tmp)));
                 for (var i = 0; i < message.args.Count; i += 8)
                 {
@@ -132,17 +163,13 @@ namespace DashBoardClient
             {
                 //MessageBox.Show("Произошла ошибка! Обратитесь к поддержке!");
             }
-            DataContext = this;
-            TestsView.ItemsSource = TestsListView;
+           
 
         }
         private void UpdateTestsInfo()
         {
-            this.TestsInfo.Items.Clear();
-            GridView gridView = new GridView();
-            this.TestsInfo.View = gridView;
 
-            List<dynamic> myItems = new List<dynamic>();
+            myItems = new List<dynamic>();
             List<string> rowName = new List<string>();
             List<string> flag = new List<string>();
             Dictionary<string, Dictionary<string, string>> listNameTest = new Dictionary<string, Dictionary<string, string>>();
@@ -222,7 +249,7 @@ namespace DashBoardClient
                 myItems.Add(myItem);
             }
 
-            List<TestsInfoClass> columns = new List<TestsInfoClass>();
+            columns = new List<TestsInfoClass>();
             try { myItemValues = (IDictionary<string, object>)myItems[0]; }
             catch { return; }
 
@@ -237,20 +264,10 @@ namespace DashBoardClient
             }
 
             // Add the column definitions to the list view
-            gridView.Columns.Clear();
-
-            foreach (var column in columns)
-            {
-                var binding = new Binding(column.Date);
-
-                gridView.Columns.Add(new GridViewColumn { Header = column.Date, DisplayMemberBinding = binding });
-            }
+            
 
             // Add all items to the list
-            foreach (dynamic item in myItems)
-            {
-                this.TestsInfo.Items.Add(item);
-            }
+            
         }
         private void TestsView_ScrollChanged(object sender, ScrollChangedEventArgs e)
         {
@@ -280,51 +297,94 @@ namespace DashBoardClient
         {
             Jira jira = new Jira((sender as Button).Tag.ToString());
             jira.ShowDialog();
-            Thread thread = Waiter.ShowWaiter();
-            UpdateTestsView();
-            UpdateTestsInfo();
-            Waiter.AbortWaiter(thread);
-        }
-        private void SelectStend(object sender, SelectionChangedEventArgs e)
-        {
-            Thread thread = null;
-            select = true;
-            if (select)
-            {
-                thread = Waiter.ShowWaiter();
-            }
+            wait.Opacity = 1;
             message = new Message();
             message.Add(StendSelected.SelectedItem.ToString());
 
             request = JsonConvert.SerializeObject(message);
             message = new Message();
+            this.TestsInfo.Items.Clear();
+            gridView = new GridView();
+            this.TestsInfo.View = gridView;
+            stend = StendSelected.SelectedItem.ToString();
+            bw = new BackgroundWorker();
+            bw.DoWork += (obj, ea) => {
+                UpdateTestsView();
+                UpdateTestsInfo();
+            };
+            bw.RunWorkerAsync();
+            bw.RunWorkerCompleted += (obj, ea) => {
 
-            UpdateTestsView();
-            UpdateTestsInfo();
-            try
-            {
-                Waiter.AbortWaiter(thread);
-            }
-            catch { }
+                wait.Opacity = 0;
+                TestsView.ItemsSource = TestsListView;
+                gridView.Columns.Clear();
 
+                foreach (var column in columns)
+                {
+                    var binding = new Binding(column.Date);
+
+                    gridView.Columns.Add(new GridViewColumn { Header = column.Date, DisplayMemberBinding = binding });
+                }
+                foreach (dynamic item in myItems)
+                {
+                    this.TestsInfo.Items.Add(item);
+                }
+            };
+        }
+        private void SelectStend(object sender, SelectionChangedEventArgs e)
+        {
+            wait.Opacity = 1;
+            message = new Message();
+            message.Add(StendSelected.SelectedItem.ToString());
+
+            request = JsonConvert.SerializeObject(message);
+            message = new Message();
+            this.TestsInfo.Items.Clear();
+            gridView = new GridView();
+            this.TestsInfo.View = gridView;
+            stend = StendSelected.SelectedItem.ToString();
+            bw = new BackgroundWorker();
+            bw.DoWork += (obj, ea) => {
+                UpdateTestsView();
+                UpdateTestsInfo();
+            };
+            bw.RunWorkerAsync();
+            bw.RunWorkerCompleted += (obj, ea) => {
+
+                wait.Opacity = 0;
+                TestsView.ItemsSource = TestsListView;
+                gridView.Columns.Clear();
+
+                foreach (var column in columns)
+                {
+                    var binding = new Binding(column.Date);
+
+                    gridView.Columns.Add(new GridViewColumn { Header = column.Date, DisplayMemberBinding = binding });
+                }
+                foreach (dynamic item in myItems)
+                {
+                    this.TestsInfo.Items.Add(item);
+                }
+            };
         }
         private void ShowResult(object sender, RoutedEventArgs e)
         {
-            Thread thread = Waiter.ShowWaiter();
-            try
-            {
-                Message mess = new Message();
+            Message mess = new Message();
+            wait.Opacity = 1;
+            bw = new BackgroundWorker();
+            bw.DoWork += (obj, ea) => {
+              
                 mess.Add(Data.ServiceSel);
                 response = server.SendMsg("GetPathToResult", Data.ServiceSel, JsonConvert.SerializeObject(mess));
-                mess = JsonConvert.DeserializeObject<Message>(response);
+                mess = JsonConvert.DeserializeObject<Message>(response); ;
+            };
+            bw.RunWorkerAsync();
+            bw.RunWorkerCompleted += (obj, ea) => {
+
+                wait.Opacity = 0;
                 System.Diagnostics.Process.Start("file://pur-test01/ATST/" + mess.args[0].Replace("Z:\\\\", "").Replace("\\\\", "/") + "/" + (sender as Button).Tag.ToString() + "/Res1/Report/run_results.html");
-                Waiter.AbortWaiter(thread);
-            }
-            catch
-            {
-                Waiter.AbortWaiter(thread);
-                MessageBox.Show("Нет результата по тесту!");
-            }
+            };
+           
         }
         private class TestsViewClass
         {

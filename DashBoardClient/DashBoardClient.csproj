@@ -152,6 +152,9 @@
       <DependentUpon>CustomersTooltip.xaml</DependentUpon>
     </Compile>
     <Compile Include="Styles\CustomTooltipAndLegend\CustomerVm.cs" />
+    <Compile Include="Styles\WaiterForm.xaml.cs">
+      <DependentUpon>WaiterForm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utilities\EnumBooleanConverter.cs" />
     <Compile Include="Utilities\FreeRAM.cs" />
     <Compile Include="Utilities\NotificationLifetimeType.cs" />
@@ -179,6 +182,9 @@
     </Compile>
     <Compile Include="Windows\OpenKPList.xaml.cs">
       <DependentUpon>OpenKPList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\TestsShow.xaml.cs">
+      <DependentUpon>TestsShow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\ViewTestsPack.xaml.cs">
       <DependentUpon>ViewTestsPack.xaml</DependentUpon>
@@ -208,9 +214,6 @@
     </Compile>
     <Compile Include="Windows\TestFormAdd.xaml.cs">
       <DependentUpon>TestFormAdd.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\waiter.xaml.cs">
-      <DependentUpon>waiter.xaml</DependentUpon>
     </Compile>
     <Page Include="Frames\Charts.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -268,6 +271,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Styles\WaiterForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\AddBug.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -297,6 +304,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Windows\OpenKPList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\TestsShow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -335,10 +346,6 @@
     <Page Include="Windows\TestFormAdd.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\waiter.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

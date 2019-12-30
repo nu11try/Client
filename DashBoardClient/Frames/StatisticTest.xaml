@@ -163,5 +163,6 @@
             </ListView.View>
         </ListView>
         <ComboBox x:Name="StendSelected" Margin="10,10,520,0" Height="25" VerticalAlignment="Top" SelectionChanged="SelectStend"/>
+        <local:WaiterForm x:Name="wait" ></local:WaiterForm>
     </Grid>
 </Page>

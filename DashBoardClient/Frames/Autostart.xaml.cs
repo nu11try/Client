@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -22,16 +23,25 @@ namespace DashBoardClient
     /// </summary>
     public partial class Autostart : Page
     {
+        
         readonly ServerConnect server = new ServerConnect();
         public List<AutoClass> AutoList { get; set; }
         Message response;
-
+        BackgroundWorker bw;
         public Autostart()
         {
-            Thread thread = Waiter.ShowWaiter();
             InitializeComponent();
-            UpdateList();
-            Waiter.AbortWaiter(thread);
+            bw = new BackgroundWorker();
+            bw.DoWork += (obj, ea) => {
+                UpdateList();
+            };
+            bw.RunWorkerAsync();
+            bw.RunWorkerCompleted += (obj, ea) => {
+
+                wait.Opacity = 0;
+                AutoListView.ItemsSource = AutoList;
+            };
+            
         }
 
         private void UpdateList()
@@ -63,7 +73,6 @@ namespace DashBoardClient
                 MessageBox.Show("Произошла ошибка! Обратитесь к поддержке!");
             }
             DataContext = this;
-            AutoListView.ItemsSource = AutoList;
         }
 
         public class AutoClass
@@ -82,13 +91,31 @@ namespace DashBoardClient
             //AutostartAdd autoAdd = new AutostartAdd((sender as Button).Tag.ToString());
             AutostartAddChange autoAdd = new AutostartAddChange();
             autoAdd.ShowDialog();
-            UpdateList();                        
+            bw = new BackgroundWorker();
+            bw.DoWork += (obj, ea) => {
+                UpdateList();
+            };
+            bw.RunWorkerAsync();
+            bw.RunWorkerCompleted += (obj, ea) => {
+
+                wait.Opacity = 0;
+                AutoListView.ItemsSource = AutoList;
+            };
         }
         private void chgAutostart(object sender, RoutedEventArgs e)
         {
             AutostartAddChange autoChg = new AutostartAddChange((sender as Button).Tag.ToString());            
             autoChg.ShowDialog();
-            UpdateList();
+            bw = new BackgroundWorker();
+            bw.DoWork += (obj, ea) => {
+                UpdateList();
+            };
+            bw.RunWorkerAsync();
+            bw.RunWorkerCompleted += (obj, ea) => {
+
+                wait.Opacity = 0;
+                AutoListView.ItemsSource = AutoList;
+            };
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -25,12 +26,21 @@ namespace DashBoardClient
         readonly ServerConnect server = new ServerConnect();
         public List<DocClass> DocList { get; set; }
         Message response;
+        BackgroundWorker bw;
         public Doc()
         {
-            Thread thread = Waiter.ShowWaiter();
             InitializeComponent();
-            UpdateList();
-            Waiter.AbortWaiter(thread);
+            bw = new BackgroundWorker();
+            bw.DoWork += (obj, ea) => {
+                UpdateList();
+            };
+            bw.RunWorkerAsync();
+            bw.RunWorkerCompleted += (obj, ea) => {
+
+                wait.Opacity = 0;
+                DocListView.ItemsSource = DocList;
+            };
+            
         }
 
         private void UpdateList()
@@ -45,7 +55,14 @@ namespace DashBoardClient
                 {
                     DocClass doc = new DocClass();                   
                     doc.ID = response.args[i];
-                    doc.Pim = response.args[i + 1].Split('/').Last().Split('.')[0];
+                    if (response.args[i + 1].Contains(".doc"))
+                    {
+                        doc.Pim = response.args[i + 1].Split('/').Last().Replace(".doc", "");
+                    }
+                    if (response.args[i + 1].Contains(".docx"))
+                    {
+                        doc.Pim = response.args[i + 1].Split('/').Last().Replace(".docx", "");
+                    }
                     doc.Date = response.args[i + 2];
 
                     DocList.Add(doc);
@@ -55,8 +72,7 @@ namespace DashBoardClient
             {
                 MessageBox.Show("Произошла ошибка! Обратитесь к поддержке!");
             }
-            DataContext = this;
-            DocListView.ItemsSource = DocList;
+
         }
 
         public class DocClass
@@ -77,14 +93,32 @@ namespace DashBoardClient
         {
             DocFormAdd docFormAdd = new DocFormAdd((sender as Button).Tag.ToString());
             docFormAdd.ShowDialog();
-            UpdateList();
+            bw = new BackgroundWorker();
+            bw.DoWork += (obj, ea) => {
+                UpdateList();
+            };
+            bw.RunWorkerAsync();
+            bw.RunWorkerCompleted += (obj, ea) => {
+
+                wait.Opacity = 0;
+                DocListView.ItemsSource = DocList;
+            };
         }
 
         private void OpenKPDoc(object sender, RoutedEventArgs e)
         {
             OpenKPList kPList = new OpenKPList((sender as Button).Tag.ToString());
             kPList.ShowDialog();
-            UpdateList();
+            bw = new BackgroundWorker();
+            bw.DoWork += (obj, ea) => {
+                UpdateList();
+            };
+            bw.RunWorkerAsync();
+            bw.RunWorkerCompleted += (obj, ea) => {
+
+                wait.Opacity = 0;
+                DocListView.ItemsSource = DocList;
+            };
         }
     }
 }

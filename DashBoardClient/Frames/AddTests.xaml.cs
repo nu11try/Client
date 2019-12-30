@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -19,73 +20,96 @@ using System.Windows.Shapes;
 namespace DashBoardClient
 {
     /// <summary>
-    /// Логика взаимодействия для AddTests.xaml
+    /// Логика взаимодействия для Doc.xaml
     /// </summary>
     public partial class AddTests : Page
     {
-        TestFormAdd formAdd;
-        readonly ServerConnect server = new ServerConnect();
-        Message response = new Message();
-
-        int flag = 0;
         private Point startPoint = new Point();
-        private ObservableCollection<AddedTests> Items = new ObservableCollection<AddedTests>();
+        private ObservableCollection<DocClass> Items = new ObservableCollection<DocClass>();
         private int startIndex = -1;
-
+        readonly ServerConnect server = new ServerConnect();
+        public List<DocClass> DocList { get; set; }
+        Message response;
+        BackgroundWorker bw;
         public AddTests()
         {
-            Thread thread = Waiter.ShowWaiter();
             InitializeComponent();
-            UpdateList();
-            Waiter.AbortWaiter(thread);
+            bw = new BackgroundWorker();
+            bw.DoWork += (obj, ea) => {
+                UpdateList();
+                };
+            bw.RunWorkerAsync();
+            bw.RunWorkerCompleted += (obj, ea) => {
+
+                wait.Opacity = 0;
+                DocListView.ItemsSource = Items;
+            };
+            
+
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            formAdd = new TestFormAdd();
-            formAdd.ShowDialog();
-
-            UpdateList();
-        }
-        private void ChangeBtnTest(object sender, RoutedEventArgs e)
-        {
-            TestFormChange testChange = new TestFormChange((sender as Button).Tag.ToString());
-            testChange.ShowDialog();
-
-            UpdateList();
-        }
-
-        private void ShowCheckList(object sender, RoutedEventArgs e)
-        {
-            FormShowCheckList checklist = new FormShowCheckList((sender as Button).Tag.ToString());
-            checklist.ShowDialog();
-        }
-
         private void UpdateList()
         {
-            Items = new ObservableCollection<AddedTests>();
+            Items = new ObservableCollection<DocClass>();
             try
             {
-                response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetTests", Data.ServiceSel));
+                response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetDocument", Data.ServiceSel));
+                if (response.args[0] == "no_doc") return ;
 
-                for (var i = 0; i < response.args.Count; i += 5)
+                for (var i = 0; i < response.args.Count; i += 3)
                 {
-                    AddedTests test = new AddedTests();
-                    test.ID = response.args[i];
-                    test.Name = response.args[i + 1];
-                    test.Author = response.args[i + 2];
-                    Message message = new Message();
-                    message.Add("", "", response.args[i]);
-                    string request = JsonConvert.SerializeObject(message);
-                    test.Kp = response.args[i + 4];
-                    test.Sort = response.args[i + 3];
-                    Items.Add(test);
+                    DocClass doc = new DocClass();
+                    doc.ID = response.args[i];
+                    
+                 
+                    if(response.args[i + 1].Contains(".doc"))
+                    {
+                        doc.Pim = response.args[i + 1].Split('/').Last().Replace(".doc", "");
+                    }
+                    if (response.args[i + 1].Contains(".docx"))
+                    {
+                        doc.Pim = response.args[i + 1].Split('/').Last().Replace(".docx", "");
+                    }
+                    doc.Date = response.args[i + 2];
+
+                    Items.Add(doc);
                 }
             }
-            catch { MessageBox.Show("Произошла ошибка! Обратитесь к поддержке!"); }
 
-            DataContext = this;
-            List.ItemsSource = Items;
+            catch
+            {
+                MessageBox.Show("Произошла ошибка! Обратитесь к поддержке!");
+            }
+        }
+
+        public class DocClass
+        {
+            public string ID { get; set; }
+            public string Pim { get; set; }
+            public string Date { get; set; }
+        }
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            server.SendMsg("GetTestsPath", Data.ServiceSel);
+            TestFormAdd formAdd = new TestFormAdd();
+            formAdd.ShowDialog();
+
+            bw = new BackgroundWorker();
+            bw.DoWork += (obj, ea) => {
+                UpdateList();
+            };
+            bw.RunWorkerAsync();
+            bw.RunWorkerCompleted += (obj, ea) => {
+
+            wait.Opacity = 0;
+            DocListView.ItemsSource = DocList;
+            };
+        }
+
+        private void OpenKPDoc(object sender, RoutedEventArgs e)
+        {
+            TestsShow testsShow = new TestsShow((sender as Button).Tag.ToString());
+
+            testsShow.ShowDialog();
         }
         private void TestList_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -111,7 +135,6 @@ namespace DashBoardClient
 
         private void TestList_MouseMove(object sender, MouseEventArgs e)
         {
-            if (flag == 1) return;
             // Get the current mouse position
             Point mousePos = e.GetPosition(null);
             Vector diff = startPoint - mousePos;
@@ -125,10 +148,10 @@ namespace DashBoardClient
                 ListViewItem listViewItem = FindAnchestor<ListViewItem>((DependencyObject)e.OriginalSource);
                 if (listViewItem == null) return;           // Abort
                                                             // Find the data behind the ListViewItem
-                AddedTests item = (AddedTests)listView.ItemContainerGenerator.ItemFromContainer(listViewItem);
+                DocClass item = (DocClass)listView.ItemContainerGenerator.ItemFromContainer(listViewItem);
                 if (item == null) return;                   // Abort
                                                             // Initialize the drag & drop operation
-                startIndex = List.SelectedIndex;
+                startIndex = DocListView.SelectedIndex;
                 DataObject dragData = new DataObject("tests", item);
                 DragDrop.DoDragDrop(listViewItem, dragData, DragDropEffects.Copy | DragDropEffects.Move);
             }
@@ -158,39 +181,26 @@ namespace DashBoardClient
                     return;
                 }
                 // Find the data behind the ListViewItem
-                AddedTests item = (AddedTests)listView.ItemContainerGenerator.ItemFromContainer(listViewItem);
+                DocClass item = (DocClass)listView.ItemContainerGenerator.ItemFromContainer(listViewItem);
                 // Move item into observable collection 
                 // (this will be automatically reflected to TestList.ItemsSource)
                 e.Effects = DragDropEffects.Move;
                 index = Items.IndexOf(item);
-                Message ids = new Message();
-                ids.Add(Items.ElementAt<AddedTests>(startIndex).ID, Items.ElementAt<AddedTests>(index).Sort);
                 if (startIndex >= 0 && index >= 0)
                 {
                     Items.Move(startIndex, index);
                 }
 
-                Message message = new Message();
+                Message ids = new Message();
+                
                 for (int i = 0; i < Items.Count; i++)
                 {
-                    ids.Add(Items[i].ID, Items[i].Sort);
+                    ids.Add(Items.ElementAt<DocClass>(i).ID);
                 }
-
-                message.Add(JsonConvert.SerializeObject(ids));
-                String request = JsonConvert.SerializeObject(message);
-                server.SendMsg("ChangePositionTests", Data.ServiceSel, request);
+                String request = JsonConvert.SerializeObject(ids);
+                server.SendMsg("ChangePositionDoc", Data.ServiceSel, request);
                 startIndex = -1;
             }
         }
-
-        private void DeleteTest_Click(object sender, RoutedEventArgs e)
-        {
-            Message message = new Message();
-            message.Add((sender as Button).Tag.ToString());
-            server.SendMsg("DeleteTest", Data.ServiceSel, JsonConvert.SerializeObject(message));
-            Thread thread = Waiter.ShowWaiter();
-            UpdateList();
-            Waiter.AbortWaiter(thread);
-        }      
     }
 }

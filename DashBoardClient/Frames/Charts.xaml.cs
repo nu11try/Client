@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -98,6 +99,13 @@ namespace DashBoardClient
         ServerConnect server = new ServerConnect();
         public static Dictionary<string, Brush> hiddenTests;
         public static Dictionary<string, IChartValues> valuesTests;
+        BackgroundWorker bw;
+        List<string> tests = new List<string>();
+        List<List<string>> results = new List<List<string>>();
+        List<List<string>> dates = new List<List<string>>();
+        List<string> date = new List<string>();
+        string a, b, stend;
+        Message mess = new Message();
         public Charts()
         {
             InitializeComponent();
@@ -133,7 +141,60 @@ namespace DashBoardClient
             }
 
             StendSelected.SelectedIndex = flag;
-            СreateCharts();
+            a = after.SelectedDate.ToString();
+            b = before.SelectedDate.ToString();
+            mess = new Message();
+            mess.Add(StendSelected.SelectedValue.ToString());
+            for (int i = 0; i < projects.Children.Count; i += 2)
+            {
+                CheckBox checkBox = (CheckBox)projects.Children[i];
+                if (checkBox.IsChecked == true)
+                    mess.Add(checkBox.Name);
+            }
+            bw = new BackgroundWorker();
+            bw.DoWork += (obj, ea) => {
+                СreateCharts();
+            };
+            bw.RunWorkerAsync();
+            bw.RunWorkerCompleted += (obj, ea) => {
+
+                for (int i = 0; i < tests.Count; i++)
+                {
+                    LineSeries lineSeries = new LineSeries()
+                    {
+                        Title = tests[i],
+                        Fill = Brushes.Transparent,
+                    };
+                    lineSeries.Values = new ChartValues<CustomerVm>();
+                    for (int j = 0; j < results[i].Count; j++)
+                    {
+                        CustomerVm vm = new CustomerVm
+                        {
+                            Value = results[i][j] == "" ? double.NaN : double.Parse(results[i][j]),
+                            Show = results[i][j] == "" ? "" : tests[i] + ": " + results[i][j] + "c"
+                        };
+                        lineSeries.Values.Add(vm);
+
+                    }
+                    SeriesCollection.Add(lineSeries);
+                }
+                LineSeries lineSeries1 = new LineSeries();
+                lineSeries1.Stroke = Brushes.Transparent;
+                lineSeries1.Title = "";
+                lineSeries1.Values = new ChartValues<CustomerVm>();
+                SeriesCollection.Add(lineSeries1);
+                Labels.Labels = date;
+                //let create a mapper so LiveCharts know how to plot our CustomerViewModel class
+                var customerVmMapper = Mappers.Xy<CustomerVm>()
+                .X((value, index) => index) // lets use the position of the item as X
+                .Y(value => value.Value); //and PurchasedItems property as Y
+
+                //lets save the mapper globally
+                Charting.For<CustomerVm>(customerVmMapper);
+                DataContext = this;
+                wait.Opacity = 0;
+
+            };
         }
 
         internal static void Visible(string text)
@@ -175,22 +236,16 @@ namespace DashBoardClient
 
         public void СreateCharts()
         {
-            Thread thread = Waiter.ShowWaiter();
-            Message mess = new Message();
-            MyDate myDate = new MyDate(after.SelectedDate.ToString(), before.SelectedDate.ToString());
-            mess.Add(StendSelected.SelectedItem.ToString());
-            for (int i = 0; i < projects.Children.Count; i += 2)
-            {
-                CheckBox checkBox = (CheckBox)projects.Children[i];
-                if (checkBox.IsChecked == true)
-                    mess.Add(checkBox.Name);
-            }
+           
+             tests = new List<string>();
+             results = new List<List<string>>();
+             dates = new List<List<string>>();
+             date = new List<string>();
+            MyDate myDate = new MyDate(a,b);
+            
 
             Message response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetCharts", Data.ServiceSel, JsonConvert.SerializeObject(mess)));
-            List<string> tests = new List<string>();
-            List<List<string>> results = new List<List<string>>();
-            List<List<string>> dates = new List<List<string>>();
-            List<string> date = new List<string>();
+            
             try
             {
                 response.args.ForEach(elem =>
@@ -237,7 +292,6 @@ namespace DashBoardClient
                     }
                 }
             }
-            SeriesCollection.Clear();
             string temp = "";
             for (int i = 0; i < date.Count; i++)
             {
@@ -251,41 +305,6 @@ namespace DashBoardClient
                     temp = date[i];
                 }
             }
-            for (int i = 0; i < tests.Count; i++)
-            {
-                LineSeries lineSeries = new LineSeries()
-                {
-                    Title = tests[i],
-                    Fill = Brushes.Transparent,
-                };
-                lineSeries.Values = new ChartValues<CustomerVm>();
-                for (int j = 0; j < results[i].Count; j++)
-                {
-                    CustomerVm vm = new CustomerVm
-                    {
-                        Value = results[i][j] == "" ? double.NaN : double.Parse(results[i][j]),
-                        Show = results[i][j] == "" ? "" : tests[i] + ": " + results[i][j] + "c"
-                    };
-                    lineSeries.Values.Add(vm);
-
-                }
-                SeriesCollection.Add(lineSeries);
-            }
-            LineSeries lineSeries1 = new LineSeries();
-            lineSeries1.Stroke = Brushes.Transparent;
-            lineSeries1.Title = "";
-            lineSeries1.Values = new ChartValues<CustomerVm>();
-            SeriesCollection.Add(lineSeries1);
-            Labels.Labels = date;
-            //let create a mapper so LiveCharts know how to plot our CustomerViewModel class
-            var customerVmMapper = Mappers.Xy<CustomerVm>()
-            .X((value, index) => index) // lets use the position of the item as X
-            .Y(value => value.Value); //and PurchasedItems property as Y
-
-            //lets save the mapper globally
-            Charting.For<CustomerVm>(customerVmMapper);
-            DataContext = this;
-             Waiter.AbortWaiter(thread);
         }
         private void SelectStend(object sender, SelectionChangedEventArgs e)
         {
@@ -294,7 +313,63 @@ namespace DashBoardClient
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            СreateCharts();
+            wait.Opacity = 1;
+            print.IsEnabled = false;
+            a = after.SelectedDate.ToString();
+            b = before.SelectedDate.ToString();
+            mess = new Message();
+            mess.Add(StendSelected.SelectedValue.ToString());
+            for (int i = 0; i < projects.Children.Count; i += 2)
+            {
+                CheckBox checkBox = (CheckBox)projects.Children[i];
+                if (checkBox.IsChecked == true)
+                    mess.Add(checkBox.Name);
+            }
+            bw = new BackgroundWorker();
+            bw.DoWork += (obj, ea) => {
+                СreateCharts();
+            };
+            bw.RunWorkerAsync();
+            bw.RunWorkerCompleted += (obj, ea) => {
+                SeriesCollection.Clear();
+                for (int i = 0; i < tests.Count; i++)
+                {
+                    LineSeries lineSeries = new LineSeries()
+                    {
+                        Title = tests[i],
+                        Fill = Brushes.Transparent,
+                    };
+                    lineSeries.Values = new ChartValues<CustomerVm>();
+                    for (int j = 0; j < results[i].Count; j++)
+                    {
+                        CustomerVm vm = new CustomerVm
+                        {
+                            Value = results[i][j] == "" ? double.NaN : double.Parse(results[i][j]),
+                            Show = results[i][j] == "" ? "" : tests[i] + ": " + results[i][j] + "c"
+                        };
+                        lineSeries.Values.Add(vm);
+
+                    }
+                    SeriesCollection.Add(lineSeries);
+                }
+                LineSeries lineSeries1 = new LineSeries();
+                lineSeries1.Stroke = Brushes.Transparent;
+                lineSeries1.Title = "";
+                lineSeries1.Values = new ChartValues<CustomerVm>();
+                SeriesCollection.Add(lineSeries1);
+                Labels.Labels = date;
+                //let create a mapper so LiveCharts know how to plot our CustomerViewModel class
+                var customerVmMapper = Mappers.Xy<CustomerVm>()
+                .X((value, index) => index) // lets use the position of the item as X
+                .Y(value => value.Value); //and PurchasedItems property as Y
+
+                //lets save the mapper globally
+                Charting.For<CustomerVm>(customerVmMapper);
+                DataContext = this;
+                wait.Opacity = 0;
+                print.IsEnabled = true;
+            };
+            InitializeComponent();
         }
 
         private void CartesianChart_Loaded(object sender, RoutedEventArgs e)

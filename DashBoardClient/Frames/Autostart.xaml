@@ -126,5 +126,6 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        <local:WaiterForm x:Name="wait" ></local:WaiterForm>
     </Grid>
 </Page>
