@@ -31,7 +31,6 @@ namespace DashBoardClient
         {
             InitializeComponent();
             StendSelected.Items.Add("");
-
             string w = server.SendMsg("GetStends", Data.ServiceSel);
             message = JsonConvert.DeserializeObject<Message>(w);
             int flag = 0;
@@ -159,9 +158,9 @@ namespace DashBoardClient
                     TestsListView.Add(test);
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                //MessageBox.Show("Произошла ошибка! Обратитесь к поддержке!");
+                MessageBox.Show("Ошибка " + ex.Message + " при показе статистики!", "Ошибка");
             }
            
 
