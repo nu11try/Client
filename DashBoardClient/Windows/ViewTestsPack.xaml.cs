@@ -69,7 +69,7 @@ namespace DashBoardClient
 
         private void UpdateList()
         {
-            
+
             Items = new ObservableCollection<TestsList>();
             message = new Message();
             try
@@ -80,7 +80,7 @@ namespace DashBoardClient
                 message = JsonConvert.DeserializeObject<Message>(response);
                 Message dep;
                 TestsList test;
-                for (var i = 0; i < message.args.Count; i += 9)
+                for (var i = 0; i < message.args.Count; i += 10)
                 {
                     test = new TestsList();
                     test.ID = message.args[i];
@@ -96,7 +96,7 @@ namespace DashBoardClient
                         test.Duplicatebtn = "Visible";
                         test.DuplicateImg = "/DashBoardClient;component/Images/note_add.png";
                     }
-                    else 
+                    else
                     {
                         test.Duplicatebtn = "Visible";
                         test.DuplicateImg = "/DashBoardClient;component/Images/note_delete.png";
@@ -120,7 +120,7 @@ namespace DashBoardClient
             }
             catch { MessageBox.Show("Произошла ошибка! Обратитесь к поддержке!"); }
 
-            
+
         }
 
         private void ChangeTest(object sender, RoutedEventArgs e)
@@ -192,7 +192,7 @@ namespace DashBoardClient
             }
             if (Items1[j].Func.Equals("ok"))
             {
-                
+
                 if (f != j) return;
                 flag = 0;
                 Message testIds = new Message();

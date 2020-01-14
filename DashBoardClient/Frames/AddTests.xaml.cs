@@ -37,31 +37,37 @@ namespace DashBoardClient
             bw = new BackgroundWorker();
             bw.DoWork += (obj, ea) => {
                 UpdateList();
-                };
+            };
             bw.RunWorkerAsync();
             bw.RunWorkerCompleted += (obj, ea) => {
 
                 wait.Opacity = 0;
                 DocListView.ItemsSource = Items;
             };
-            
+
 
         }
+
+        private void AddTests_ContextMenuClosing(object sender, ContextMenuEventArgs e)
+        {
+            MessageBox.Show("wd");
+        }
+
         private void UpdateList()
         {
             Items = new ObservableCollection<DocClass>();
             try
             {
                 response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetDocument", Data.ServiceSel));
-                if (response.args[0] == "no_doc") return ;
+                if (response.args[0] == "no_doc") return;
 
                 for (var i = 0; i < response.args.Count; i += 3)
                 {
                     DocClass doc = new DocClass();
                     doc.ID = response.args[i];
-                    
-                 
-                    if(response.args[i + 1].Contains(".doc"))
+
+
+                    if (response.args[i + 1].Contains(".doc"))
                     {
                         doc.Pim = response.args[i + 1].Split('/').Last().Replace(".doc", "");
                     }
@@ -100,8 +106,8 @@ namespace DashBoardClient
             bw.RunWorkerAsync();
             bw.RunWorkerCompleted += (obj, ea) => {
 
-            wait.Opacity = 0;
-            DocListView.ItemsSource = DocList;
+                wait.Opacity = 0;
+                DocListView.ItemsSource = Items;
             };
         }
 
@@ -192,7 +198,7 @@ namespace DashBoardClient
                 }
 
                 Message ids = new Message();
-                
+
                 for (int i = 0; i < Items.Count; i++)
                 {
                     ids.Add(Items.ElementAt<DocClass>(i).ID);

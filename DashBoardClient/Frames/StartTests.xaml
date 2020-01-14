@@ -50,7 +50,7 @@
             </ListView.Background>
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+
                     <Setter Property="BorderBrush" Value="Black"/>
                     <Setter Property="BorderThickness" Value="0"/>
                     <Setter Property="Margin" Value="0"/>
@@ -84,7 +84,7 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn> -->
                     <GridViewColumn DisplayMemberBinding="{Binding Count}" Header="Кол-во" Width="auto"/>
-                    <GridViewColumn Header="Имя" Width="550">
+                    <GridViewColumn Header="Имя" Width="500">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock x:Name="NewName" Text="{Binding Name}" TextWrapping="NoWrap" VerticalAlignment="Center" HorizontalAlignment="Left" Tag="{Binding ID}"/>
@@ -92,20 +92,21 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Time}" Header="Время" Width="auto"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding RestartCount}" Header="Количество повторов" Width="auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding RestartCount}" Header="Повторы" Width="30" />
                     <GridViewColumn DisplayMemberBinding="{Binding IP}" Header="IP" Width="auto"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Status}" Header="Статус" Width="auto"/>
-                    <GridViewColumn Header="Тесты" Width="auto">
+                    <GridViewColumn Header="Результат" Width="auto">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Button Click="OpenTestList" Tag="{Binding ID}" Height="25" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="25">
                                     <Button.Background>
-                                        <ImageBrush ImageSource="/DashBoardClient;component/Images/test.png" Stretch="Uniform"/>
+                                        <ImageBrush ImageSource="{Binding Result}" Stretch="Uniform"/>
                                     </Button.Background>
                                 </Button>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding LastTime}" Header="Дата" Width="auto"/>
                 </GridView>
             </ListView.View>
         </ListView>

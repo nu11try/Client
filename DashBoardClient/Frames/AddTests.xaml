@@ -3,9 +3,11 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:p="clr-namespace:DashBoardClient.Properties" 
       xmlns:local="clr-namespace:DashBoardClient"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="790"
+      
       Title="AddTests">
     <Page.Resources>
         <Color x:Key="Background">#FF45454F</Color>
@@ -35,7 +37,7 @@
 
     <Grid>
         <Button Content="Добавление теста" Height="30" Margin="315,10,325,0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="150" Click="Button_Click" Foreground="#FF2BAAC9" BorderBrush="White" Background="White"/>
-        <ListView ItemsSource="{Binding DocList}" x:Name="DocListView" Margin="0,55,5,0" FontSize="11" Background="#FF45454F"  AllowDrop="True" PreviewMouseLeftButtonDown="TestList_PreviewMouseLeftButtonDown" MouseMove="TestList_MouseMove" DragEnter="TestList_DragEnter" Drop="TestList_Drop">
+        <ListView  ItemsSource="{Binding DocList}" x:Name="DocListView" Margin="0,55,5,0" FontSize="11" Background="#FF45454F"  AllowDrop="True" PreviewMouseLeftButtonDown="TestList_PreviewMouseLeftButtonDown" MouseMove="TestList_MouseMove" DragEnter="TestList_DragEnter" Drop="TestList_Drop">
             <ListView.BorderBrush>
                 <SolidColorBrush Color="#45454f"/>
             </ListView.BorderBrush>
@@ -62,7 +64,7 @@
             </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Width="40" Header="Тесты">
+                    <GridViewColumn Width="auto" Header="Тесты">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate >
                                 <Button x:Name="kpBtn" Tag="{Binding ID}" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="30" Click="OpenKPDoc">
@@ -73,7 +75,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Программа и методика (ПиМ)" Width="400">
+                    <GridViewColumn Header="Программа и методика (ПиМ)" Width="{Binding Source={x:Static p:Settings.Default}, Path = width, Mode=Default}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock x:Name="pim" Text="{Binding Pim}" Foreground="White" TextWrapping="NoWrap" VerticalAlignment="Center" HorizontalAlignment="Left"/>

@@ -72,7 +72,6 @@ namespace DashBoardClient
             {
                 MessageBox.Show("Произошла ошибка! Обратитесь к поддержке!");
             }
-            DataContext = this;
         }
 
         public class AutoClass

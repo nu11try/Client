@@ -32,10 +32,10 @@
         </Style>
     </Page.Resources>
     <Grid>
-     
+
         <ScrollViewer/>
 
-        <ListView ItemsSource="{Binding TestsListView}" x:Name="TestsView" Margin="5,45,304,0" FontSize="11" Background="#FF45454F" ScrollViewer.ScrollChanged="TestsView_ScrollChanged" 
+        <ListView ItemsSource="{Binding TestsListView}" x:Name="TestsView" Margin="5,45,423,0" FontSize="11" Background="#FF45454F" ScrollViewer.ScrollChanged="TestsView_ScrollChanged" 
                   ScrollViewer.VerticalScrollBarVisibility="Visible"
                     ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Visible">
             <ListView.BorderBrush>
@@ -75,7 +75,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Width="260" Header="Тест">
+                    <GridViewColumn Width="460" Header="Тест">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock x:Name="NameTest" Text="{Binding Name}" Foreground="White" VerticalAlignment="Center"/>
@@ -114,9 +114,9 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <ListView ItemsSource="{Binding TestsListInfo}" x:Name="TestsInfo" Margin="477,45,20,0" FontSize="11" Background="#FF45454F" ScrollViewer.ScrollChanged="TestsInfo_ScrollChanged"
+        <ListView ItemsSource="{Binding TestsListInfo}" x:Name="TestsInfo" Margin="0,45,20,0" FontSize="11" Background="#FF45454F" ScrollViewer.ScrollChanged="TestsInfo_ScrollChanged"
                   ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                    ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Visible">
+                    ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Visible" HorizontalAlignment="Right" Width="424">
             <ListView.BorderBrush>
                 <SolidColorBrush Color="#45454f"/>
             </ListView.BorderBrush>

@@ -22,6 +22,7 @@ namespace DashBoardClient
         public string RestartCount { get; set; }
         public string Time { get; set; }
         public string IP { get; set; }
-        public string Status { get; set; }        
+        public string Status { get; set; }
+        public string LastTime { get; set; }
     }
 }
