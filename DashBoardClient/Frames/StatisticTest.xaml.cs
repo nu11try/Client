@@ -30,7 +30,6 @@ namespace DashBoardClient
         public StatisticTest()
         {
             InitializeComponent();
-            StendSelected.Items.Add("");
             string w = server.SendMsg("GetStends", Data.ServiceSel);
             message = JsonConvert.DeserializeObject<Message>(w);
             int flag = 0;
@@ -51,6 +50,7 @@ namespace DashBoardClient
             this.TestsInfo.View = gridView;
             stend = StendSelected.SelectedItem.ToString();
             bw = new BackgroundWorker();
+            StendSelected.IsEnabled = false;
             bw.DoWork += (obj, ea) => {
                 UpdateTestsView();
                 UpdateTestsInfo();
@@ -72,9 +72,8 @@ namespace DashBoardClient
                 {
                     this.TestsInfo.Items.Add(item);
                 }
+                StendSelected.IsEnabled = true;
             };
-            
-            //TestsInfo.ItemsSource = TestsListInfo;    
             TestsView.SelectionChanged += TestsView_SelectionChanged;
             TestsInfo.SelectionChanged += TestsInfo_SelectionChanged;
 
@@ -307,13 +306,15 @@ namespace DashBoardClient
             this.TestsInfo.View = gridView;
             stend = StendSelected.SelectedItem.ToString();
             bw = new BackgroundWorker();
+            StendSelected.IsEnabled = false;
             bw.DoWork += (obj, ea) => {
+                
                 UpdateTestsView();
                 UpdateTestsInfo();
             };
             bw.RunWorkerAsync();
             bw.RunWorkerCompleted += (obj, ea) => {
-
+               
                 wait.Opacity = 0;
                 TestsView.ItemsSource = TestsListView;
                 gridView.Columns.Clear();
@@ -328,6 +329,7 @@ namespace DashBoardClient
                 {
                     this.TestsInfo.Items.Add(item);
                 }
+                StendSelected.IsEnabled = true;
             };
         }
         private void SelectStend(object sender, SelectionChangedEventArgs e)
@@ -343,7 +345,9 @@ namespace DashBoardClient
             this.TestsInfo.View = gridView;
             stend = StendSelected.SelectedItem.ToString();
             bw = new BackgroundWorker();
+            StendSelected.IsEnabled = false;
             bw.DoWork += (obj, ea) => {
+                
                 UpdateTestsView();
                 UpdateTestsInfo();
             };
@@ -364,6 +368,7 @@ namespace DashBoardClient
                 {
                     this.TestsInfo.Items.Add(item);
                 }
+                StendSelected.IsEnabled = true;
             };
         }
         private void ShowResult(object sender, RoutedEventArgs e)

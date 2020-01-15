@@ -106,7 +106,8 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding LastTime}" Header="Дата" Width="auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding LastTime}" Header="Начало прогона" Width="auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding LastTimeEnd}" Header="Окончание прогона" Width="auto"/>
                 </GridView>
             </ListView.View>
         </ListView>

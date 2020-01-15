@@ -24,5 +24,6 @@ namespace DashBoardClient
         public string IP { get; set; }
         public string Status { get; set; }
         public string LastTime { get; set; }
+        public string LastTimeEnd { get; set; }
     }
 }

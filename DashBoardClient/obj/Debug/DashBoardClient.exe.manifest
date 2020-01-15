@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DashBoardClient.exe" size="1007568">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DashBoardClient.exe" size="1009104">
       <assemblyIdentity name="DashBoardClient" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>AbIeW7P7Ddeht/QOljRfR+scZs7Kl1f18IeXlgnR0Nw=</dsig:DigestValue>
+        <dsig:DigestValue>enyn9PhnHcp+tsoSw9neOKkDjG9j4S6GJl8U9NVuaVo=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

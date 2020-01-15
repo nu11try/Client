@@ -18,7 +18,7 @@
                     </Grid.ColumnDefinitions>
                     <Rectangle Grid.Column="0" Stroke="{Binding Stroke}" Fill="{Binding Stroke}" 
                                Width="15" Height="15"/>
-                    <TextBlock PreviewMouseDown="TextBlock_PreviewMouseDown" Tag="{Binding Title}"  Grid.Column="1" Margin="4 0" Text="{Binding Title}" Foreground="White" VerticalAlignment="Center" />
+                    <TextBlock PreviewMouseDown="TextBlock_PreviewMouseDown" Tag="{Binding Title}"  Grid.Column="1" Margin="4 0" Text="{Binding Title}" Foreground="black" VerticalAlignment="Center" />
                 </Grid>
             </DataTemplate>
         </ItemsControl.ItemTemplate>

@@ -164,6 +164,7 @@ namespace DashBoardClient
                     {
                         Title = tests[i],
                         Fill = Brushes.Transparent,
+                        PointGeometry = null
                     };
                     lineSeries.Values = new ChartValues<CustomerVm>();
                     for (int j = 0; j < results[i].Count; j++)
@@ -287,7 +288,14 @@ namespace DashBoardClient
                         if (!dates[i].Contains(date[j]))
                         {
                             dates[i].Insert(j, date[j]);
-                            results[i].Insert(j, "");
+                            if (j!=0 && j != results[i].Count && results[i][j - 1] != "" && results[i][j] != "")
+                            {
+                                results[i].Insert(j, results[i][j-1]);
+                            }
+                            else
+                            {
+                                results[i].Insert(j, "");
+                            }
                         }
                     }
                 }
@@ -338,6 +346,7 @@ namespace DashBoardClient
                     {
                         Title = tests[i],
                         Fill = Brushes.Transparent,
+                        PointGeometry = null
                     };
                     lineSeries.Values = new ChartValues<CustomerVm>();
                     for (int j = 0; j < results[i].Count; j++)

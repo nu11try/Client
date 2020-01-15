@@ -75,7 +75,7 @@ namespace DashBoardClient
                     MessageBox.Show("Нет добавленных наборов");
                     return;
                 }
-                for (var i = 0; i < message.args.Count; i += 9)
+                for (var i = 0; i < message.args.Count; i += 10)
                 {
                     PacksWithTest pack = new PacksWithTest();
                     pack.ID = message.args[i];
@@ -90,6 +90,7 @@ namespace DashBoardClient
                     if (message.args[i + 7] == "Failed") pack.Result = "/DashBoardClient;component/Images/bug.png";
                     if (message.args[i + 7] == "-") pack.Result = "/DashBoardClient;component/Images/dependon_no_version.png";
                     pack.LastTime = message.args[i + 8];
+                    pack.LastTimeEnd = message.args[i + 9];
                     PackList.Add(pack);
                 }
             }
