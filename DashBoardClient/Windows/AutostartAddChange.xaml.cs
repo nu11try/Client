@@ -98,7 +98,7 @@ namespace DashBoardClient
                 return;
             }
 
-            for (var i = 0; i < response.args.Count; i+=7)
+            for (var i = 0; i < response.args.Count; i += 10)
             {
                 packName.Items.Add(response.args[i]);
             }

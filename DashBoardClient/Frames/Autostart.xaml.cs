@@ -51,7 +51,7 @@ namespace DashBoardClient
             {
                 response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetAutostart", Data.ServiceSel));
                 if (response.args[0] == "error") return;
-                for (var i = 0; i < response.args.Count; i+=7)
+                for (var i = 0; i < response.args.Count; i+=10)
                 {
                     AutoClass auto = new AutoClass();
                     auto.ID = response.args[i];

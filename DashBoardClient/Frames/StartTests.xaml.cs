@@ -64,8 +64,6 @@ namespace DashBoardClient
 
         private void UpdateList()
         {
-
-
             PackList = new List<PacksWithTest>();
             try
             {
@@ -94,9 +92,15 @@ namespace DashBoardClient
                     PackList.Add(pack);
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show("Произошла ошибка! Обратитесь к поддержке!");
+                try
+                {
+                    UpdateList();
+                }
+                catch { }
+                //MessageBox.Show(ex.Message);
+                //MessageBox.Show("Произошла ошибка! Обратитесь к поддержке!");
             }
 
             message = new Message();

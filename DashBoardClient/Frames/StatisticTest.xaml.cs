@@ -159,7 +159,7 @@ namespace DashBoardClient
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка " + ex.Message + " при показе статистики!", "Ошибка");
+                MessageBox.Show(ex.Message, "Ошибка");
             }
            
 

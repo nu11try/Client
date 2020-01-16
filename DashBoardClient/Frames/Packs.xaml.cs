@@ -51,7 +51,7 @@ namespace DashBoardClient
             {
                 message = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetPacksForList", Data.ServiceSel));                                
                 TestsStartClass tests = new TestsStartClass();
-                for (var i = 0; i < message.args.Count; i += 7)
+                for (var i = 0; i < message.args.Count; i += 10)
                 {
                     tests = JsonConvert.DeserializeObject<TestsStartClass>(message.args[i + 2]);
                     PacksWithTest pack = new PacksWithTest();
