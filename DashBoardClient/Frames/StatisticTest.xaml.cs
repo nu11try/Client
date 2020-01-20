@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -26,10 +27,11 @@ namespace DashBoardClient
         string stend;
         bool select = false;
         BackgroundWorker bw;
-            GridView gridView = new GridView();
+        GridView gridView = new GridView();
         public StatisticTest()
         {
             InitializeComponent();
+
             string w = server.SendMsg("GetStends", Data.ServiceSel);
             message = JsonConvert.DeserializeObject<Message>(w);
             int flag = 0;
@@ -45,19 +47,21 @@ namespace DashBoardClient
             message = new Message();
 
 
-            this.TestsInfo.Items.Clear();
+            /*this.TestsInfo.Items.Clear();
             gridView = new GridView();
             this.TestsInfo.View = gridView;
             stend = StendSelected.SelectedItem.ToString();
             bw = new BackgroundWorker();
             StendSelected.IsEnabled = false;
-            bw.DoWork += (obj, ea) => {
+
+            bw.DoWork += (obj, ea) =>
+            {
                 UpdateTestsView();
-                UpdateTestsInfo();
+                UpdateTestsInfo();                              
             };
             bw.RunWorkerAsync();
-            bw.RunWorkerCompleted += (obj, ea) => {
-
+            bw.RunWorkerCompleted += (obj, ea) =>
+            {
                 wait.Opacity = 0;
                 TestsView.ItemsSource = TestsListView;
                 gridView.Columns.Clear();
@@ -73,10 +77,10 @@ namespace DashBoardClient
                     this.TestsInfo.Items.Add(item);
                 }
                 StendSelected.IsEnabled = true;
-            };
-            TestsView.SelectionChanged += TestsView_SelectionChanged;
-            TestsInfo.SelectionChanged += TestsInfo_SelectionChanged;
 
+                TestsView.SelectionChanged += TestsView_SelectionChanged;
+                TestsInfo.SelectionChanged += TestsInfo_SelectionChanged;
+            };         */   
         }
 
         private void TestsInfo_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -105,7 +109,7 @@ namespace DashBoardClient
         {
             string error = server.SendMsg("CheckErrors", Data.ServiceSel);
             TestsListView = new List<TestsViewClass>();
-            
+
             try
             {
                 message = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetTestResult", Data.ServiceSel, request));
@@ -160,13 +164,11 @@ namespace DashBoardClient
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Ошибка");
+                UpdateTestsView();
             }
-           
-
         }
         private void UpdateTestsInfo()
         {
-
             myItems = new List<dynamic>();
             List<string> rowName = new List<string>();
             List<string> flag = new List<string>();
@@ -262,10 +264,10 @@ namespace DashBoardClient
             }
 
             // Add the column definitions to the list view
-            
+
 
             // Add all items to the list
-            
+
         }
         private void TestsView_ScrollChanged(object sender, ScrollChangedEventArgs e)
         {
@@ -307,14 +309,16 @@ namespace DashBoardClient
             stend = StendSelected.SelectedItem.ToString();
             bw = new BackgroundWorker();
             StendSelected.IsEnabled = false;
-            bw.DoWork += (obj, ea) => {
-                
+            bw.DoWork += (obj, ea) =>
+            {
+
                 UpdateTestsView();
                 UpdateTestsInfo();
             };
             bw.RunWorkerAsync();
-            bw.RunWorkerCompleted += (obj, ea) => {
-               
+            bw.RunWorkerCompleted += (obj, ea) =>
+            {
+
                 wait.Opacity = 0;
                 TestsView.ItemsSource = TestsListView;
                 gridView.Columns.Clear();
@@ -346,13 +350,15 @@ namespace DashBoardClient
             stend = StendSelected.SelectedItem.ToString();
             bw = new BackgroundWorker();
             StendSelected.IsEnabled = false;
-            bw.DoWork += (obj, ea) => {
-                
+            bw.DoWork += (obj, ea) =>
+            {
+
                 UpdateTestsView();
                 UpdateTestsInfo();
             };
             bw.RunWorkerAsync();
-            bw.RunWorkerCompleted += (obj, ea) => {
+            bw.RunWorkerCompleted += (obj, ea) =>
+            {
 
                 wait.Opacity = 0;
                 TestsView.ItemsSource = TestsListView;
@@ -376,19 +382,21 @@ namespace DashBoardClient
             Message mess = new Message();
             wait.Opacity = 1;
             bw = new BackgroundWorker();
-            bw.DoWork += (obj, ea) => {
-              
+            bw.DoWork += (obj, ea) =>
+            {
+
                 mess.Add(Data.ServiceSel);
                 response = server.SendMsg("GetPathToResult", Data.ServiceSel, JsonConvert.SerializeObject(mess));
                 mess = JsonConvert.DeserializeObject<Message>(response); ;
             };
             bw.RunWorkerAsync();
-            bw.RunWorkerCompleted += (obj, ea) => {
+            bw.RunWorkerCompleted += (obj, ea) =>
+            {
 
                 wait.Opacity = 0;
                 System.Diagnostics.Process.Start("file://pur-test01/ATST/" + mess.args[0].Replace("Z:\\\\", "").Replace("\\\\", "/") + "/" + (sender as Button).Tag.ToString() + "/Res1/Report/run_results.html");
             };
-           
+
         }
         private class TestsViewClass
         {
@@ -405,6 +413,5 @@ namespace DashBoardClient
             public string Date { get; set; }
             public string Version { get; set; }
         }
-
     }
 }

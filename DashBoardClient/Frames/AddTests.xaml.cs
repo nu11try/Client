@@ -79,6 +79,10 @@ namespace DashBoardClient
 
                     Items.Add(doc);
                 }
+                DocClass doc1 = new DocClass();
+                doc1.ID = "Технические";
+                doc1.Pim = "Технические";
+                Items.Add(doc1);
             }
 
             catch

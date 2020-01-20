@@ -68,10 +68,12 @@ namespace DashBoardClient
 
                     DocList.Add(doc);
                 }
+                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(DocListView.ItemsSource);
+                view.SortDescriptions.Add(new SortDescription("Программа и методика (ПиМ)", ListSortDirection.Ascending));
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show("Произошла ошибка! Обратитесь к поддержке!");
+                MessageBox.Show(ex.Message);
             }
 
         }

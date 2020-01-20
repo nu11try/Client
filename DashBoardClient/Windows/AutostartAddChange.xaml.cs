@@ -31,7 +31,7 @@ namespace DashBoardClient
             Init();
             type = "AddAutostart";
         }
-
+        Message packsId = new Message();
         public AutostartAddChange(string ID)
         {
             InitializeComponent();
@@ -47,7 +47,7 @@ namespace DashBoardClient
                 return;
             }
 
-            for (var i = 0; i < response.args.Count; i += 7)
+            for (var i = 0; i < response.args.Count; i += 8)
             {
                 Message packs = JsonConvert.DeserializeObject<Message>(response.args[i + 4]);
                 Message days = JsonConvert.DeserializeObject<Message>(response.args[i + 2]);
@@ -59,8 +59,8 @@ namespace DashBoardClient
                 {
                     weekDay.SelectedItems.Add(elem);
                 });
-                hourSelected.SelectedItem = response.args[i+3].Split(':')[0];
-                minuteSelected.SelectedItem = response.args[i+3].Split(':')[1];
+                hourSelected.SelectedItem = response.args[i + 3].Split(':')[0];
+                minuteSelected.SelectedItem = response.args[i + 3].Split(':')[1];
                 NameAut.Text = response.args[i];
                 type = "UpdateAutostart";
             }
@@ -100,7 +100,8 @@ namespace DashBoardClient
 
             for (var i = 0; i < response.args.Count; i += 10)
             {
-                packName.Items.Add(response.args[i]);
+                packsId.Add(response.args[i]);
+                packName.Items.Add(response.args[i + 1]);
             }
         }
 
@@ -113,10 +114,11 @@ namespace DashBoardClient
                 {
                     MessageBox.Show("Не все данные указаны");
                     return;
-                }     
+                }
                 Message message = new Message();
                 Message weekDays = new Message();
-                for (int i = 0; i < weekDay.SelectedItems.Count; i++) {
+                for (int i = 0; i < weekDay.SelectedItems.Count; i++)
+                {
                     weekDays.Add(weekDay.SelectedItems[i].ToString());
                 }
 
@@ -124,11 +126,12 @@ namespace DashBoardClient
                 Message packs = new Message();
                 for (int i = 0; i < packName.SelectedItems.Count; i++)
                 {
-                    packs.Add((packName.SelectedItems[i]) + "");
+                    // packs.Add((packName.SelectedItems[i]) + "");
+                    packs.Add(packsId.args[packName.Items.IndexOf(packName.SelectedItems[i])]);
                 }
                 string packsS = JsonConvert.SerializeObject(packs);
                 message.Add(Id.Equals("") ? NameAut.Text : Id);
-                message.Add(NameAut.Text, checkTranslateType.IsChecked == true? "regular":"one", weekDaysS, packsS, hourSelected.Text, minuteSelected.Text);
+                message.Add(NameAut.Text, checkTranslateType.IsChecked == true ? "regular" : "one", weekDaysS, packsS, hourSelected.Text, minuteSelected.Text);
                 string request = JsonConvert.SerializeObject(message);
                 response = JsonConvert.DeserializeObject<Message>(server.SendMsg(type, Data.ServiceSel, request));
                 NameAut.Text = "";

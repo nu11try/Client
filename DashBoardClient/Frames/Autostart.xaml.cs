@@ -51,20 +51,20 @@ namespace DashBoardClient
             {
                 response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetAutostart", Data.ServiceSel));
                 if (response.args[0] == "error") return;
-                for (var i = 0; i < response.args.Count; i+=10)
+                for (var i = 0; i < response.args.Count; i += 8)
                 {
                     AutoClass auto = new AutoClass();
                     auto.ID = response.args[i];
-                    auto.Name = response.args[i+1];
-                    if (response.args[i+5] == "regular") auto.Type = "Регулярно";
-                    else if (response.args[i+5] == "one") auto.Type = "Единоразово";
-                    Message packs = JsonConvert.DeserializeObject<Message> (response.args[i + 4]);
+                    auto.Name = response.args[i + 1];
+                    if (response.args[i + 5] == "regular") auto.Type = "Регулярно";
+                    else if (response.args[i + 5] == "one") auto.Type = "Единоразово";
+                    Message packs = JsonConvert.DeserializeObject<Message>(response.args[i + 7]);
                     auto.Pack = String.Join("\n", packs.args.ToArray());
-                    auto.Time = response.args[i+3];
+                    auto.Time = response.args[i + 3];
                     Message days = JsonConvert.DeserializeObject<Message>(response.args[i + 2]);
                     auto.Day = String.Join("-", days.args.ToArray());
-                    auto.Status = response.args[i+6];
-                    
+                    auto.Status = response.args[i + 6];
+
                     AutoList.Add(auto);
                 }
             }
