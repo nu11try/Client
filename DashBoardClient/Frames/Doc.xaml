@@ -35,7 +35,7 @@
 
     <Grid>
         <Button Content="Добавить документ" Height="30" Margin="330,10,320,0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="150" Foreground="#FF2BAAC9" BorderBrush="White" Background="White" Click="AddDoc"/>
-        <ListView ItemsSource="{Binding DocList}" x:Name="DocListView" Margin="0,55,5,0" FontSize="11" Background="#FF45454F">
+        <ListView ItemsSource="{Binding DocList}" x:Name="DocListView" Margin="0,55,5,0" FontSize="11" Background="#FF45454F" AllowDrop="True" PreviewMouseLeftButtonDown="Doc_PreviewMouseLeftButtonDown" MouseMove="Doc_MouseMove" DragEnter="Doc_DragEnter" Drop="Doc_Drop">
             <ListView.BorderBrush>
                <SolidColorBrush Color="#45454f"/>
             </ListView.BorderBrush>
@@ -66,7 +66,7 @@
                     <GridViewColumn Width="auto" Header="КП.">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate >
-                                <Button x:Name="kpBtn" Tag="{Binding ID}" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="30" Click="OpenKPDoc">
+                                <Button x:Name="kpBtn" Tag="{Binding ID}" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="30" Click="OpenKPDoc" >
                                     <Button.Background>
                                         <ImageBrush ImageSource="/DashBoardClient;component/Images/open.png" Stretch="Uniform"/>
                                     </Button.Background>
