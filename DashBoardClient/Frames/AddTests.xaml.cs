@@ -35,6 +35,8 @@ namespace DashBoardClient
         {
             InitializeComponent();
             bw = new BackgroundWorker();
+            DocListView.Visibility = Visibility.Hidden;
+            this.IsEnabled = false;
             bw.DoWork += (obj, ea) => {
                 UpdateList();
             };
@@ -42,6 +44,8 @@ namespace DashBoardClient
             bw.RunWorkerCompleted += (obj, ea) => {
 
                 wait.Opacity = 0;
+                this.IsEnabled = true;
+                DocListView.Visibility = Visibility.Visible;
                 DocListView.ItemsSource = Items;
             };
 
@@ -104,6 +108,9 @@ namespace DashBoardClient
             formAdd.ShowDialog();
 
             bw = new BackgroundWorker();
+            wait.Opacity = 1;
+            this.IsEnabled = false;
+            DocListView.Visibility = Visibility.Hidden;
             bw.DoWork += (obj, ea) => {
                 UpdateList();
             };
@@ -111,6 +118,8 @@ namespace DashBoardClient
             bw.RunWorkerCompleted += (obj, ea) => {
 
                 wait.Opacity = 0;
+                this.IsEnabled = true;
+                DocListView.Visibility = Visibility.Visible;
                 DocListView.ItemsSource = Items;
             };
         }

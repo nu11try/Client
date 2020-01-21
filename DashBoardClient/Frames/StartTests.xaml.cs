@@ -50,6 +50,9 @@ namespace DashBoardClient
         {
             InitializeComponent();
             bw = new BackgroundWorker();
+            this.IsEnabled = false;
+            PackListView.Visibility = Visibility.Hidden;
+            
             bw.DoWork += (obj, ea) => {
                 UpdateList();
             };
@@ -57,6 +60,8 @@ namespace DashBoardClient
             bw.RunWorkerCompleted += (obj, ea) => {
 
                 wait.Opacity = 0;
+                this.IsEnabled = true;
+                PackListView.Visibility = Visibility.Visible;
                 PackListView.ItemsSource = PackList;
             };
 
@@ -138,6 +143,9 @@ namespace DashBoardClient
                 if (JsonConvert.DeserializeObject<Message>(response).args[0] == "ERROR") MainWindow._vm.ErrCastMess("Произошла ошибка запуска!");
                 if (JsonConvert.DeserializeObject<Message>(response).args[0] == "START") MainWindow._vm.WarCastMess("Один из выбранных наборов находится в режиме запуска!");
                 bw = new BackgroundWorker();
+                this.IsEnabled = false;
+                PackListView.Visibility = Visibility.Hidden;
+                wait.Opacity = 1;
                 bw.DoWork += (obj, ea) => {
                     UpdateList();
                 };
@@ -145,6 +153,8 @@ namespace DashBoardClient
                 bw.RunWorkerCompleted += (obj, ea) => {
 
                     wait.Opacity = 0;
+                    this.IsEnabled = true;
+                    PackListView.Visibility = Visibility.Visible;
                     PackListView.ItemsSource = PackList;
                 };
 
@@ -165,12 +175,16 @@ namespace DashBoardClient
                 if (JsonConvert.DeserializeObject<Message>(response).args[0] == "ERROR") MessageBox.Show("Произошла ошибка остановки!");
                 if (JsonConvert.DeserializeObject<Message>(response).args[0] == "NO_START") MessageBox.Show("Один из выбранных наборов не находится в режиме запуска!");
                 bw = new BackgroundWorker();
+                this.IsEnabled = false;
+                PackListView.Visibility = Visibility.Hidden;
+                wait.Opacity = 1;
                 bw.DoWork += (obj, ea) => {
                     UpdateList();
                 };
                 bw.RunWorkerAsync();
                 bw.RunWorkerCompleted += (obj, ea) => {
-
+                    this.IsEnabled = true;
+                    PackListView.Visibility = Visibility.Visible;
                     wait.Opacity = 0;
                     PackListView.ItemsSource = PackList;
                 };

@@ -308,6 +308,10 @@ namespace DashBoardClient
             this.TestsInfo.View = gridView;
             stend = StendSelected.SelectedItem.ToString();
             bw = new BackgroundWorker();
+            this.IsEnabled = false;
+            this.TestsInfo.Visibility = Visibility.Hidden;
+            TestsView.Visibility = Visibility.Hidden;
+            wait.Opacity = 1;
             StendSelected.IsEnabled = false;
             bw.DoWork += (obj, ea) =>
             {
@@ -333,7 +337,9 @@ namespace DashBoardClient
                 {
                     this.TestsInfo.Items.Add(item);
                 }
-                StendSelected.IsEnabled = true;
+                this.IsEnabled = true;
+                this.TestsInfo.Visibility = Visibility.Visible;
+                TestsView.Visibility = Visibility.Visible;
             };
         }
         private void SelectStend(object sender, SelectionChangedEventArgs e)
@@ -349,7 +355,10 @@ namespace DashBoardClient
             this.TestsInfo.View = gridView;
             stend = StendSelected.SelectedItem.ToString();
             bw = new BackgroundWorker();
-            StendSelected.IsEnabled = false;
+            this.IsEnabled = false;
+            this.TestsInfo.Visibility = Visibility.Hidden;
+            TestsView.Visibility = Visibility.Hidden;
+           
             bw.DoWork += (obj, ea) =>
             {
 
@@ -359,7 +368,9 @@ namespace DashBoardClient
             bw.RunWorkerAsync();
             bw.RunWorkerCompleted += (obj, ea) =>
             {
-
+                this.IsEnabled = true;
+                this.TestsInfo.Visibility = Visibility.Visible;
+                TestsView.Visibility = Visibility.Visible;
                 wait.Opacity = 0;
                 TestsView.ItemsSource = TestsListView;
                 gridView.Columns.Clear();
@@ -374,13 +385,15 @@ namespace DashBoardClient
                 {
                     this.TestsInfo.Items.Add(item);
                 }
-                StendSelected.IsEnabled = true;
             };
         }
         private void ShowResult(object sender, RoutedEventArgs e)
         {
             Message mess = new Message();
             wait.Opacity = 1;
+            this.IsEnabled = false;
+            this.TestsInfo.Visibility = Visibility.Hidden;
+            TestsView.Visibility = Visibility.Hidden;
             bw = new BackgroundWorker();
             bw.DoWork += (obj, ea) =>
             {
@@ -392,7 +405,9 @@ namespace DashBoardClient
             bw.RunWorkerAsync();
             bw.RunWorkerCompleted += (obj, ea) =>
             {
-
+                this.IsEnabled = true;
+                this.TestsInfo.Visibility = Visibility.Visible;
+                TestsView.Visibility = Visibility.Visible;
                 wait.Opacity = 0;
                 System.Diagnostics.Process.Start("file://pur-test01/ATST/" + mess.args[0].Replace("Z:\\\\", "").Replace("\\\\", "/") + "/" + (sender as Button).Tag.ToString() + "/Res1/Report/run_results.html");
             };

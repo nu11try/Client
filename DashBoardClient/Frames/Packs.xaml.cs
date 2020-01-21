@@ -31,6 +31,8 @@ namespace DashBoardClient
         public Packs()
         {
             InitializeComponent();
+            this.IsEnabled = false;
+            PackListView.Visibility = Visibility.Hidden;
             bw = new BackgroundWorker();
             bw.DoWork += (obj, ea) => {
                 UpdateList();
@@ -39,6 +41,8 @@ namespace DashBoardClient
             bw.RunWorkerCompleted += (obj, ea) => {
 
                 wait.Opacity = 0;
+                this.IsEnabled = true;
+                PackListView.Visibility = Visibility.Visible;
                 PackListView.ItemsSource = PackList;
             };
 
@@ -79,6 +83,9 @@ namespace DashBoardClient
             try { addPack.ShowDialog(); }
             catch { MessageBox.Show(""); }
             bw = new BackgroundWorker();
+            this.IsEnabled = false;
+            PackListView.Visibility = Visibility.Hidden;
+            wait.Opacity = 1;
             bw.DoWork += (obj, ea) => {
                 UpdateList();
             };
@@ -86,6 +93,8 @@ namespace DashBoardClient
             bw.RunWorkerCompleted += (obj, ea) => {
 
                 wait.Opacity = 0;
+                this.IsEnabled = true;
+                PackListView.Visibility = Visibility.Visible;
                 PackListView.ItemsSource = PackList;
             };
         }
@@ -94,6 +103,9 @@ namespace DashBoardClient
             PackFormChange packChange = new PackFormChange((sender as Button).Tag.ToString());
             packChange.ShowDialog();
             bw = new BackgroundWorker();
+            wait.Opacity = 1;
+            this.IsEnabled = false;
+            PackListView.Visibility = Visibility.Hidden;
             bw.DoWork += (obj, ea) => {
                 UpdateList();
             };
@@ -101,6 +113,8 @@ namespace DashBoardClient
             bw.RunWorkerCompleted += (obj, ea) => {
 
                 wait.Opacity = 0;
+                this.IsEnabled = true;
+                PackListView.Visibility = Visibility.Visible;
                 PackListView.ItemsSource = PackList;
             };
         }
@@ -111,6 +125,9 @@ namespace DashBoardClient
             catch { MessageBox.Show("s"); }
 
             bw = new BackgroundWorker();
+            this.IsEnabled = false;
+            PackListView.Visibility = Visibility.Hidden;
+            wait.Opacity = 1;
             bw.DoWork += (obj, ea) => {
                 UpdateList();
             };
@@ -118,6 +135,8 @@ namespace DashBoardClient
             bw.RunWorkerCompleted += (obj, ea) => {
 
                 wait.Opacity = 0;
+                this.IsEnabled = true;
+                PackListView.Visibility = Visibility.Visible;
                 PackListView.ItemsSource = PackList;
             };
         }
@@ -127,6 +146,9 @@ namespace DashBoardClient
             message.Add((sender as Button).Tag.ToString());
             server.SendMsg("DeletePack", Data.ServiceSel, JsonConvert.SerializeObject(message));
             bw = new BackgroundWorker();
+            wait.Opacity = 1;
+            this.IsEnabled = false;
+            PackListView.Visibility = Visibility.Hidden;
             bw.DoWork += (obj, ea) => {
                 UpdateList();
             };
@@ -134,6 +156,8 @@ namespace DashBoardClient
             bw.RunWorkerCompleted += (obj, ea) => {
 
                 wait.Opacity = 0;
+                this.IsEnabled = true;
+                PackListView.Visibility = Visibility.Visible;
                 PackListView.ItemsSource = PackList;
             };
         }

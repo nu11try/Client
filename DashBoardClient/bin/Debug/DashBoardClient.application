@@ -8,7 +8,7 @@
         <beforeApplicationStartup />
       </update>
     </subscription>
-    <deploymentProvider codebase="http://desktop-cg10gad/DashBoardClient/DashBoardClient.application" />
+    <deploymentProvider codebase="http://ctnb000052-10/DashBoardClient/DashBoardClient.application" />
   </deployment>
   <compatibleFrameworks xmlns="urn:schemas-microsoft-com:clickonce.v2">
     <framework targetVersion="4.7.2" profile="Full" supportedRuntime="4.0.30319" />
@@ -21,7 +21,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>S1wpOOmXvUaNEuTU1ULpElf+MxZGu8lIcFO6q0r8PL8=</dsig:DigestValue>
+        <dsig:DigestValue>vh/GlD8CEEDrrNV7DSRrYwHMOIKqmr7zi/HEKWs9oxQ=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

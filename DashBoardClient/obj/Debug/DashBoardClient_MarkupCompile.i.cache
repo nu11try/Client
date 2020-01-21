@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-E:\GitHub\Client\DashBoardClient\obj\Debug\
+C:\programs\Dash\Client\DashBoardClient\obj\Debug\
 DashBoardClient
 none
 false
 DEBUG;TRACE
-E:\GitHub\Client\DashBoardClient\App.xaml
+C:\programs\Dash\Client\DashBoardClient\App.xaml
 31694073290
 
-482067093421
-23191144920
+48-779767786
+231472597274
 Frames\Charts.xaml;Frames\ClearPage.xaml;Frames\Autostart.xaml;Frames\AddTests.xaml;Frames\Doc.xaml;MainWindow.xaml;Frames\Packs.xaml;Frames\StatisticTest.xaml;Styles\CustomizedWindow\VS2012WindowStyle.xaml;Styles\CustomizedWindow\VS2012WindowStyleWithoutButton.xaml;Styles\CustomTooltipAndLegend\CustomersLegend.xaml;Styles\CustomTooltipAndLegend\CustomersTooltip.xaml;Styles\WaiterForm.xaml;Windows\AddBug.xaml;Windows\Settings.xaml;Windows\AutostartAddChange.xaml;Windows\FormShowCheckList.xaml;Windows\Jira.xaml;Windows\KPFormAdd.xaml;Windows\DocFormAdd.xaml;Windows\OpenKPList.xaml;Windows\TestsShow.xaml;Windows\ViewTestsPack.xaml;Windows\PackTestsFormChange.xaml;Windows\Auth.xaml;Frames\StartTests.xaml;Windows\OpenTestList.xaml;Windows\PackFormChange.xaml;Windows\PackFormAdd.xaml;Windows\TestFormChange.xaml;Windows\TestFormAdd.xaml;
 
-False
+True
 

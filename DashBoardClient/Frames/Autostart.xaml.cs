@@ -32,6 +32,8 @@ namespace DashBoardClient
         {
             InitializeComponent();
             bw = new BackgroundWorker();
+            this.IsEnabled = false;
+            AutoListView.Visibility = Visibility.Hidden;
             bw.DoWork += (obj, ea) => {
                 UpdateList();
             };
@@ -39,6 +41,8 @@ namespace DashBoardClient
             bw.RunWorkerCompleted += (obj, ea) => {
 
                 wait.Opacity = 0;
+                this.IsEnabled = true;
+                AutoListView.Visibility = Visibility.Visible;
                 AutoListView.ItemsSource = AutoList;
             };
             
@@ -91,6 +95,9 @@ namespace DashBoardClient
             AutostartAddChange autoAdd = new AutostartAddChange();
             autoAdd.ShowDialog();
             bw = new BackgroundWorker();
+            wait.Opacity = 1;
+            this.IsEnabled = false;
+            AutoListView.Visibility = Visibility.Hidden;
             bw.DoWork += (obj, ea) => {
                 UpdateList();
             };
@@ -98,6 +105,8 @@ namespace DashBoardClient
             bw.RunWorkerCompleted += (obj, ea) => {
 
                 wait.Opacity = 0;
+                this.IsEnabled = true;
+                AutoListView.Visibility = Visibility.Visible;
                 AutoListView.ItemsSource = AutoList;
             };
         }
@@ -106,6 +115,9 @@ namespace DashBoardClient
             AutostartAddChange autoChg = new AutostartAddChange((sender as Button).Tag.ToString());            
             autoChg.ShowDialog();
             bw = new BackgroundWorker();
+            wait.Opacity = 1;
+            this.IsEnabled = false;
+            AutoListView.Visibility = Visibility.Hidden;
             bw.DoWork += (obj, ea) => {
                 UpdateList();
             };
@@ -113,6 +125,8 @@ namespace DashBoardClient
             bw.RunWorkerCompleted += (obj, ea) => {
 
                 wait.Opacity = 0;
+                this.IsEnabled = true;
+                AutoListView.Visibility = Visibility.Visible;
                 AutoListView.ItemsSource = AutoList;
             };
         }

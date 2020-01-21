@@ -119,6 +119,34 @@ namespace DashBoardClient
             KPFormAdd kPFormAdd = new KPFormAdd(id, (sender as Button).Tag.ToString(), "update");
             kPFormAdd.ShowDialog();
             bw = new BackgroundWorker();
+            wait.Opacity = 1;
+            bw.DoWork += (obj, ea) => {
+                Update();
+            };
+            bw.RunWorkerAsync();
+            bw.RunWorkerCompleted += (obj, ea) => {
+
+                wait.Opacity = 0;
+                KPListView.ItemsSource = KPList;
+            };
+        }
+
+        private void DeletePack_Click(object sender, RoutedEventArgs e)
+        {
+            Message message = new Message();
+            message.Add((sender as Button).Tag.ToString());
+            for(int i = 0; i < KPListView.Items.Count; i++)
+            {
+                KP kP = (KP)KPListView.Items[i];
+                if(kP.Test != "not" && (sender as Button).Tag.ToString() == kP.ID)
+                {
+                    MessageBox.Show("К кп привязан тест!");
+                    return;
+                }
+            }
+            server.SendMsg("DeleteKP", Data.ServiceSel, JsonConvert.SerializeObject(message));
+            bw = new BackgroundWorker();
+            wait.Opacity = 1;
             bw.DoWork += (obj, ea) => {
                 Update();
             };

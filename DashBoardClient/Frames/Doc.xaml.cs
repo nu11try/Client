@@ -35,6 +35,8 @@ namespace DashBoardClient
         {
             InitializeComponent();
             bw = new BackgroundWorker();
+            this.IsEnabled = false;
+            DocListView.Visibility = Visibility.Hidden;
             bw.DoWork += (obj, ea) =>
             {
                 UpdateList();
@@ -44,6 +46,8 @@ namespace DashBoardClient
             {
 
                 wait.Opacity = 0;
+                this.IsEnabled = true;
+                DocListView.Visibility = Visibility.Visible;
                 DocListView.ItemsSource = DocList;
             };
 
@@ -106,6 +110,9 @@ namespace DashBoardClient
             DocFormAdd docFormAdd = new DocFormAdd((sender as Button).Tag.ToString());
             docFormAdd.ShowDialog();
             bw = new BackgroundWorker();
+            this.IsEnabled = false;
+            DocListView.Visibility = Visibility.Hidden;
+            wait.Opacity = 1;
             bw.DoWork += (obj, ea) =>
             {
                 UpdateList();
@@ -115,15 +122,21 @@ namespace DashBoardClient
             {
 
                 wait.Opacity = 0;
+                this.IsEnabled = true;
+                DocListView.Visibility = Visibility.Visible;
                 DocListView.ItemsSource = DocList;
             };
         }
 
         private void OpenKPDoc(object sender, RoutedEventArgs e)
         {
+            DocList = new ObservableCollection<DocClass>();
             OpenKPList kPList = new OpenKPList((sender as Button).Tag.ToString());
             kPList.ShowDialog();
             bw = new BackgroundWorker();
+            this.IsEnabled = false;
+            DocListView.Visibility = Visibility.Hidden;
+            wait.Opacity = 1;
             bw.DoWork += (obj, ea) =>
             {
                 UpdateList();
@@ -131,7 +144,8 @@ namespace DashBoardClient
             bw.RunWorkerAsync();
             bw.RunWorkerCompleted += (obj, ea) =>
             {
-
+                this.IsEnabled = true;
+                DocListView.Visibility = Visibility.Visible;
                 wait.Opacity = 0;
                 DocListView.ItemsSource = DocList;
             };
