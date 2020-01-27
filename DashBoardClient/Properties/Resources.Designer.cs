@@ -343,6 +343,16 @@ namespace DashBoardClient.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap stop_btn {
+            get {
+                object obj = ResourceManager.GetObject("stop_btn", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap stop_test {
             get {
                 object obj = ResourceManager.GetObject("stop_test", resourceCulture);

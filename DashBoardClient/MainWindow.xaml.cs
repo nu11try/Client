@@ -40,7 +40,6 @@ namespace DashBoardClient
         public static string Stend { get; set; }
         public static bool Abort { get; set; }
     }
-
     public class Message
     {
         public Message() { args = new List<string>(); }
@@ -50,7 +49,6 @@ namespace DashBoardClient
         }
         public List<string> args { get; set; }
     }
-
     public class TestsStartClass
     {
         public TestsStartClass()
@@ -71,15 +69,40 @@ namespace DashBoardClient
         public List<string> browser { get; set; }
         public List<string> duplicate { get; set; }
     }
-
-
     public partial class MainWindow : Window
     {
+        static string parameters = "advfirewall firewall add rule " +
+                              "name=\"{0}\" " +
+                              "dir={1} " +
+                              "action={2} " +
+                              "protocol={3} " +
+                              "localport={4}";
 
+        static string rulename = "dashboard";
+        static string direction = "in"; // in,out
+        static string action = "allow"; // allow,block,bypass
+
+        static string parametersDel = "advfirewall firewall delete rule " +
+                              "name=\"{0}\" " +
+                              "protocol={1} " +
+                              "localport={2}";
         public static MainViewModel _vm = new MainViewModel();
         public MainWindow()
         {
             InitializeComponent();
+            EditRule("TCP", 8888, 1);
+            EditRule("UDP", 8888, 1);
+            EditRule("TCP", 8889, 1);
+            EditRule("UDP", 8889, 1);
+            EditRule("TCP", 8890, 1);
+            EditRule("UDP", 8890, 1);
+
+            EditRule("TCP", 8888, 0);
+            EditRule("UDP", 8888, 0);
+            EditRule("TCP", 8889, 0);
+            EditRule("UDP", 8889, 0);
+            EditRule("TCP", 8890, 0);
+            EditRule("UDP", 8890, 0);
             Data.Abort = false;
             try
             {
@@ -99,8 +122,6 @@ namespace DashBoardClient
             }
             catch { }
         }
-
-
         public void Push()
         {
             string response;
@@ -134,7 +155,6 @@ namespace DashBoardClient
                 catch { }
             }
         }
-
         public void TestsNow()
         {
             string response;
@@ -175,7 +195,6 @@ namespace DashBoardClient
                 catch { }
             }
         }
-
         private void StartTests(object sender, RoutedEventArgs e)
         {
             try
@@ -193,7 +212,6 @@ namespace DashBoardClient
                 FreeRAM.Free();
             }
         }
-
         private void AddTest(object sender, RoutedEventArgs e)
         {
             try
@@ -211,7 +229,6 @@ namespace DashBoardClient
                 FreeRAM.Free();
             }
         }
-
         private void Packs(object sender, RoutedEventArgs e)
         {
             try
@@ -229,7 +246,6 @@ namespace DashBoardClient
                 FreeRAM.Free();
             }
         }
-
         private void Autostart(object sender, RoutedEventArgs e)
         {
             try
@@ -247,7 +263,6 @@ namespace DashBoardClient
                 FreeRAM.Free();
             }
         }
-
         private void Doc(object sender, RoutedEventArgs e)
         {
             try
@@ -265,7 +280,6 @@ namespace DashBoardClient
                 FreeRAM.Free();
             }
         }
-
         private void ChangeProject(object sender, SelectionChangedEventArgs e)
         {
             Frame.Navigate(new ClearPage());
@@ -274,7 +288,6 @@ namespace DashBoardClient
             Data.ProjectName = selectedItem.ToString();*/
             FreeRAM.Free();
         }
-
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             try
@@ -292,7 +305,6 @@ namespace DashBoardClient
                 FreeRAM.Free();
             }
         }
-
         private void StatisticTest(object sender, RoutedEventArgs e)
         {
             try
@@ -314,7 +326,6 @@ namespace DashBoardClient
         {
             SelecterProject.SelectedIndex = 0;
         }
-
         private void OperacTest(object sender, RoutedEventArgs e)
         {
             try
@@ -333,7 +344,6 @@ namespace DashBoardClient
                 FreeRAM.Free();
             }
         }
-
         public void SelectProj()
         {
             try
@@ -352,7 +362,6 @@ namespace DashBoardClient
                 FreeRAM.Free();
             }
         }
-
         private void GetSettings(object sender, MouseButtonEventArgs e)
         {
             try
@@ -366,7 +375,6 @@ namespace DashBoardClient
                 FreeRAM.Free();
             }
         }
-
         private void CloseProcess(object sender, EventArgs e)
         {
             try
@@ -374,6 +382,33 @@ namespace DashBoardClient
                 foreach (Process proc in Process.GetProcessesByName("DashBoardClient")) proc.Kill();
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
+        }
+        static void EditRule(string protocol, int localport, int type)
+        {
+            try
+            {
+                if (type == 0)
+                {
+                    ProcessStartInfo info = new ProcessStartInfo(@"C:\Windows\System32\netsh.exe");
+                    info.Arguments = String.Format(parameters, rulename, direction, action, protocol, localport);
+                    info.UseShellExecute = false;
+                    info.CreateNoWindow = true;
+                    var process = Process.Start(info);
+                }
+                else
+                {
+                    ProcessStartInfo info = new ProcessStartInfo(@"C:\Windows\System32\netsh.exe");
+                    info.Arguments = String.Format(parametersDel, rulename, protocol, localport);
+                    info.UseShellExecute = false;
+                    info.CreateNoWindow = true;
+                    var process = Process.Start(info);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            Thread.Sleep(500);
         }
     }
 }

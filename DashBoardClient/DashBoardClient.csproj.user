@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <PublishUrlHistory>ftp://files.000webhost.com/|ftp://partnerupload.google.com:19321/client/|ftp://partnerupload.google.com:19321/|Z:\client\|publish\</PublishUrlHistory>
-    <InstallUrlHistory>http://localhost/DashBoardClient/|\\172.31.197.220\atst\client\</InstallUrlHistory>
+    <PublishUrlHistory>ftp://172.31.191.200/client/|ftp://172.31.191.200/|ftp://files.000webhost.com/|\\172.17.42.32\Release\|\\172.17.42.32\atst\client\</PublishUrlHistory>
+    <InstallUrlHistory>http://172.31.191.200/client/|http://172.31.191.200/|\\172.17.42.32\Release\|//DESKTOP-CG10GAD/Release%29/|\\172.31.197.220\atst\client\</InstallUrlHistory>
     <SupportUrlHistory />
     <UpdateUrlHistory />
     <BootstrapperUrlHistory />

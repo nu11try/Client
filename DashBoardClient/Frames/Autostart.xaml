@@ -116,6 +116,28 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
+                    <GridViewColumn  Header="Удалить" Width="auto">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate >
+                                <Button x:Name="deleteBtn" Tag="{Binding ID}" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="30" Click="deleteAutostart">
+                                    <Button.Background>
+                                        <ImageBrush ImageSource="/DashBoardClient;component/Images/sver.png" Stretch="Uniform"/>
+                                    </Button.Background>
+                                </Button>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn  Header="Остановить" Width="auto">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate >
+                                <Button x:Name="stopBtn" Tag="{Binding ID}" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="30" Click="stopAutostart">
+                                    <Button.Background>
+                                        <ImageBrush ImageSource="/DashBoardClient;component/Images/stop_btn.png" Stretch="Uniform"/>
+                                    </Button.Background>
+                                </Button>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>

@@ -202,6 +202,9 @@
   <data name="stat_test" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\stat_test.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="stop_btn" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\stop_btn.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="stop_test" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\stop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

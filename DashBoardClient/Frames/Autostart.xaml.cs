@@ -130,5 +130,47 @@ namespace DashBoardClient
                 AutoListView.ItemsSource = AutoList;
             };
         }
+        private void deleteAutostart(object sender, RoutedEventArgs e)
+        {
+            Message message = new Message();
+            message.Add((sender as Button).Tag.ToString());
+            server.SendMsg("DeleteAutostartNotOne", Data.ServiceSel, JsonConvert.SerializeObject(message));
+            bw = new BackgroundWorker();
+            wait.Opacity = 1;
+            this.IsEnabled = false;
+            AutoListView.Visibility = Visibility.Hidden;
+            bw.DoWork += (obj, ea) => {
+                UpdateList();
+            };
+            bw.RunWorkerAsync();
+            bw.RunWorkerCompleted += (obj, ea) => {
+
+                wait.Opacity = 0;
+                this.IsEnabled = true;
+                AutoListView.Visibility = Visibility.Visible;
+                AutoListView.ItemsSource = AutoList;
+            };
+        }
+        private void stopAutostart(object sender, RoutedEventArgs e)
+        {
+            Message message = new Message();
+            message.Add((sender as Button).Tag.ToString());
+            server.SendMsg("StopAutotest", Data.ServiceSel, JsonConvert.SerializeObject(message));
+            bw = new BackgroundWorker();
+            wait.Opacity = 1;
+            this.IsEnabled = false;
+            AutoListView.Visibility = Visibility.Hidden;
+            bw.DoWork += (obj, ea) => {
+                UpdateList();
+            };
+            bw.RunWorkerAsync();
+            bw.RunWorkerCompleted += (obj, ea) => {
+
+                wait.Opacity = 0;
+                this.IsEnabled = true;
+                AutoListView.Visibility = Visibility.Visible;
+                AutoListView.ItemsSource = AutoList;
+            };
+        }
     }
 }
