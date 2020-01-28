@@ -160,3 +160,17 @@ E:\GitHub\Client\DashBoardClient\obj\Release\DashBoardClient.csproj.GenerateReso
 E:\GitHub\Client\DashBoardClient\obj\Release\DashBoardClient.csproj.CopyComplete
 E:\GitHub\Client\DashBoardClient\obj\Release\DashBoardClient.exe
 E:\GitHub\Client\DashBoardClient\obj\Release\DashBoardClient.pdb
+C:\programs\Dash\Client\DashBoardClient\obj\Release\Frames\Charts.g.cs
+C:\programs\Dash\Client\DashBoardClient\obj\Release\Styles\CustomTooltipAndLegend\CustomersLegend.g.cs
+C:\programs\Dash\Client\DashBoardClient\obj\Release\Styles\CustomTooltipAndLegend\CustomersTooltip.g.cs
+C:\programs\Dash\Client\DashBoardClient\obj\Release\Styles\WaiterForm.g.cs
+C:\programs\Dash\Client\DashBoardClient\obj\Release\Windows\Settings.g.cs
+C:\programs\Dash\Client\DashBoardClient\obj\Release\Windows\TestsShow.g.cs
+C:\programs\Dash\Client\DashBoardClient\obj\Release\GeneratedInternalTypeHelper.g.cs
+C:\programs\Dash\Client\DashBoardClient\obj\Release\Frames\Charts.baml
+C:\programs\Dash\Client\DashBoardClient\obj\Release\Styles\CustomTooltipAndLegend\CustomersLegend.baml
+C:\programs\Dash\Client\DashBoardClient\obj\Release\Styles\CustomTooltipAndLegend\CustomersTooltip.baml
+C:\programs\Dash\Client\DashBoardClient\obj\Release\Styles\WaiterForm.baml
+C:\programs\Dash\Client\DashBoardClient\obj\Release\Windows\Settings.baml
+C:\programs\Dash\Client\DashBoardClient\obj\Release\Windows\TestsShow.baml
+C:\programs\Dash\Client\DashBoardClient\obj\Release\DashBoardClient.TrustInfo.xml

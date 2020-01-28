@@ -465,3 +465,4 @@ E:\GitHub\Client\DashBoardClient\obj\Debug\Styles\WaiterForm.g.cs
 E:\GitHub\Client\DashBoardClient\obj\Debug\Windows\TestsShow.g.cs
 E:\GitHub\Client\DashBoardClient\obj\Debug\Styles\WaiterForm.baml
 E:\GitHub\Client\DashBoardClient\obj\Debug\Windows\TestsShow.baml
+C:\programs\Dash\Client\DashBoardClient\obj\Debug\DashBoardClient.TrustInfo.xml
