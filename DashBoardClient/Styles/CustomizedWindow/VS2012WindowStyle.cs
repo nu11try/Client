@@ -9,6 +9,7 @@ using System.Windows.Interop;
 using System.Runtime.InteropServices;
 using System.Windows.Media;
 using System.Collections;
+using System.Net;
 
 namespace DashBoardClient
 {
@@ -77,6 +78,7 @@ namespace DashBoardClient
 
         void CloseButtonClick(object sender, RoutedEventArgs e)
         {
+            
             sender.ForWindowFromTemplate(w => w.Close());
         }
 

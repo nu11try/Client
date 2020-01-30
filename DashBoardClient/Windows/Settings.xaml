@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:DashBoardClient"
         mc:Ignorable="d"
         Style="{StaticResource VS2012WindowStyleWithoutButton}"
-        Title=" " Height="325" Width="258"  MinHeight="237.469" MinWidth="258" Background="#FF323439"  WindowStartupLocation="CenterScreen">
+        Title=" " Height="353.747" Width="435.273"  MinHeight="237.469" MinWidth="258" Background="#FF323439"  WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style TargetType="{x:Type Button}">
             <Style.Triggers>
@@ -32,17 +32,19 @@
         </Style>
     </Window.Resources>
     <Grid Margin="0,0,0,-8">
-        <Button x:Name="Exit" Content="Выйти из аккаунта" HorizontalAlignment="Left" Margin="10,220,0,0" VerticalAlignment="Top" Width="220" Height="40" Background="#a5131d" Foreground="White" BorderBrush="#FF2BAAC9" BorderThickness="1" Click="ExitAcc">
+        <Grid x:Name="projects" Margin="10,101,0,55"/>
+        <Button x:Name="Exit" Content="Выйти из аккаунта" Margin="10,257,10,0" VerticalAlignment="Top" Height="40" Background="#a5131d" Foreground="White" BorderBrush="#FF2BAAC9" BorderThickness="1" Click="ExitAcc">
             <Button.Effect>
                 <DropShadowEffect BlurRadius="10" Direction="283" Opacity="0.6" ShadowDepth="2"/>
             </Button.Effect>
         </Button>
         <Label Content="IP сервера" HorizontalAlignment="Left" Margin="10,15,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <TextBox x:Name="IPEdit" HorizontalAlignment="Left" Height="23" Margin="10,42,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="220"/>
-        <Button x:Name="IPSet" Content="Применить" HorizontalAlignment="Left" Margin="10,75,0,0" VerticalAlignment="Top" Width="220" Height="40" Background="#FF2BAAC9" Foreground="White" BorderBrush="#FF2BAAC9" BorderThickness="1" Click="SetIP">
+        <TextBox x:Name="IPEdit" Height="23" Margin="10,42,10,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
+        <Button x:Name="IPSet" Content="Применить" Margin="10,212,10,0" VerticalAlignment="Top" Height="40" Background="#FF2BAAC9" Foreground="White" BorderBrush="#FF2BAAC9" BorderThickness="1" Click="SetIP">
             <Button.Effect>
                 <DropShadowEffect BlurRadius="10" Direction="283" Opacity="0.6" ShadowDepth="2"/>
             </Button.Effect>
         </Button>
+        <Label Content="Отображать запущенные тесты на проектах:" HorizontalAlignment="Left" Margin="10,70,0,0" VerticalAlignment="Top" Foreground="White"/>
     </Grid>
 </Window>

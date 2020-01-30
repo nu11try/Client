@@ -46,10 +46,15 @@ namespace DashBoardClient
                 wait.Opacity = 0;
                 this.IsEnabled = true;
                 DocListView.Visibility = Visibility.Visible;
-                DocListView.ItemsSource = Items;
+                DocListView.ItemsSource = Items;/*
+                Message response = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetAllTests", Data.ServiceSel));
+                MessageBox.Show(response.args.Count.ToString());
+                Message response1 = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetAllTime", Data.ServiceSel));
+                MessageBox.Show(response1.args[0]);*/
             };
 
 
+           
         }
 
         private void AddTests_ContextMenuClosing(object sender, ContextMenuEventArgs e)

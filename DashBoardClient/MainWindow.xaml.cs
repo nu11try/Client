@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Deployment.Application;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Net.Sockets;
 using System.Reflection;
 using System.Text;
@@ -39,6 +40,7 @@ namespace DashBoardClient
         public static string StendSel { get; set; }
         public static string Stend { get; set; }
         public static bool Abort { get; set; }
+        public static string Id { get; set; }
     }
     public class Message
     {
@@ -121,79 +123,76 @@ namespace DashBoardClient
                 testsNow.Start();*/
             }
             catch { }
+            Server.window = this;
+            Controller.window = this;
+            var plusTime = new Thread(PlusTime);
+            plusTime.Start();
+            Thread server = new Thread(Server.ServerMain);
+           
+            server.Start();
+
         }
-        public void Push()
+
+
+
+        public void PlusTime()
         {
-            string response;
-            ServerConnect server = new ServerConnect();
 
             while (true)
             {
-                try
-                {
-                    Thread.Sleep(500);
-                    Action action1 = () => SelectProj();
-                    Dispatcher.Invoke(action1);
-                    if (Data.ServiceSel != null)
+                Thread.Sleep(1000);
+
+                Action action1 = () => {
+                    string[] tests = nowTests.Text.Split('\n');
+                    if (tests.Length > 1)
                     {
-                        response = server.SendMsg("GetPush", Data.ServiceSel);
-                        Message mess = JsonConvert.DeserializeObject<Message>(response);
-                        if (mess.args[0] == "push")
+                        nowTests.Text = "";
+                        for (int i = 1; i < tests.Length; i += 2)
                         {
-                            if (mess.args[1] == "pack")
-                            {
-                                Action action = () => _vm.SuccCastMess("Набор \"" + mess.args[2] + "\" пройден");
-                                Dispatcher.Invoke(action);
-                            }
+                            string sec = tests[i].Split('-')[tests[i].Split('-').Length - 1];
+                            sec = sec.Trim();
+                            sec = sec.Substring(0, sec.Length - 1);
+                            sec = (Int32.Parse(sec) + 1).ToString() + "c";
+                            nowTests.Text += tests[i - 1] + "\n" + tests[i].Split('-')[0] + "- " + sec + "\n";
                         }
                     }
-                    else
-                    {
-                        Thread.Sleep(1000);
-                    }
-                }
-                catch { }
+                };
+                Dispatcher.Invoke(action1);
             }
         }
-        public void TestsNow()
+        public void Push(Message mess)
         {
-            string response;
-            ServerConnect server = new ServerConnect();
-            int flag = 1;
-            while (true)
+
+            if(mess.args[0] != "not")
             {
-                try
+                if (mess.args[1] == "Passed")
                 {
-                    Action action1 = () => SelectProj();
-                    Dispatcher.Invoke(action1);
-                    if (Data.ServiceSel != null)
-                    {
-                        response = server.SendMsg("GetNowTests", Data.ServiceSel, "{\"args\":[\"" + flag + "\"]}");
-                        Message mess = JsonConvert.DeserializeObject<Message>(response);
-                        flag = 0;
-                        string text = "";
-                        Action action;
-                        if (mess.args.Count == 0) action = () => nowTests.Text = text;
-                        for (int i = 0; i < mess.args.Count; i += 3)
-                        {
-                            if (mess.args[i + 1] != null && mess.args[i + 1] != "not")
-                            {
-                                DateTime time = DateTime.Now;
-                                int sec = time.DayOfYear * 24 * 60 * 60 + time.Hour * 60 * 60 + time.Minute * 60 + time.Second;
-                                text += mess.args[i] + "\n" + mess.args[i + 1] + " - " + (sec - Int32.Parse(mess.args[i + 2])) + "c\n";
-                            }
-                        }
-                        action = () => nowTests.Text = text;
-                        Dispatcher.Invoke(action);
-                        Thread.Sleep(500);
-                    }
-                    else
-                    {
-                        Thread.Sleep(1000);
-                    }
+                    Action action = () => _vm.SuccCastMess("Тест \"" + mess.args[0] + "\" пройден");
+                    Dispatcher.Invoke(action);
                 }
-                catch { }
+                else
+                {
+                    Action action = () => _vm.ErrCastMess("Тест \"" + mess.args[0] + "\" не пройден");
+                    Dispatcher.Invoke(action);
+                }
             }
+
+        }
+        public void TestsNow(Message mess)
+        {
+            string text = "";
+            Action action;
+            for (int i = 0; i < mess.args.Count; i += 3)
+            {
+                if (mess.args[i + 1] != null && mess.args[i + 1] != "not")
+                {             
+                    text += mess.args[i+2] + "\n" + mess.args[i ] + " - " + (mess.args[i + 1]) + "c\n";      
+                }
+                
+            }
+            action = () => nowTests.Text = text;
+            Dispatcher.Invoke(action);
+            
         }
         private void StartTests(object sender, RoutedEventArgs e)
         {
@@ -287,6 +286,7 @@ namespace DashBoardClient
             string selectedItem = comboBox.SelectedItem.ToString();            
             Data.ProjectName = selectedItem.ToString();*/
             FreeRAM.Free();
+            
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -298,6 +298,15 @@ namespace DashBoardClient
                 foreach (var proj in message.args) SelecterProject.Items.Add(proj);
                 SelecterProject.SelectedIndex = 0;
                 LabelUserName.Content = Data.NameUser;
+                SelectProj();
+                ServerConnect serverConnect = new ServerConnect();
+                message = JsonConvert.DeserializeObject<Message>(serverConnect.SendMsg("AddSession", Data.NameUser, "{\"args\":[\"" + Dns.GetHostByName(Dns.GetHostName()).AddressList[0].ToString() + "\"]}"));
+                Data.Id = message.args[0];
+               
+
+                message = JsonConvert.DeserializeObject<Message>(serverConnect.SendMsg("CheckNowTests", Data.ServiceSel));
+                TestsNow(message);
+
             }
             catch { }
             finally
@@ -348,17 +357,19 @@ namespace DashBoardClient
         {
             try
             {
+               
                 Message project = new Message();
 
                 project = JsonConvert.DeserializeObject<Message>(Data.ProjectName);
 
                 Data.ProjectSel = SelecterProject.SelectedItem.ToString();
                 Data.ServiceSel = JsonConvert.DeserializeObject<Message>(Data.ServiceName).args[project.args.IndexOf(SelecterProject.SelectedItem.ToString())];
-                Data.StendSel = JsonConvert.DeserializeObject<Message>(Data.Stend).args[project.args.IndexOf(SelecterProject.SelectedItem.ToString())];
+                Data.StendSel = JsonConvert.DeserializeObject<Message>(Data.Stend).args[project.args.IndexOf(SelecterProject.SelectedItem.ToString())];  
             }
             catch { }
             finally
             {
+                
                 FreeRAM.Free();
             }
         }
@@ -367,6 +378,7 @@ namespace DashBoardClient
             try
             {
                 Settings settings = new Settings();
+                settings.mainWindow = this;
                 settings.ShowDialog();
             }
             catch { }
@@ -379,6 +391,8 @@ namespace DashBoardClient
         {
             try
             {
+                ServerConnect server = new ServerConnect();
+                server.SendMsg("DeleteSession", Data.Id, "{\"args\":[\"" + Dns.GetHostByName(Dns.GetHostName()).AddressList[0].ToString() + "\"]}");
                 foreach (Process proc in Process.GetProcessesByName("DashBoardClient")) proc.Kill();
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }

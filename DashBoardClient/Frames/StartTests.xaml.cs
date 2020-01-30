@@ -72,28 +72,28 @@ namespace DashBoardClient
             PackList = new List<PacksWithTest>();
             try
             {
-                message = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetPacksForList", Data.ServiceSel));
-                if (message.args[0] == "no_packs")
+                Message message1 = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetPacksForList", Data.ServiceSel));
+                if (message1.args[0] == "no_packs")
                 {
                     MessageBox.Show("Нет добавленных наборов");
                     return;
                 }
-                for (var i = 0; i < message.args.Count; i += 10)
+                for (var i = 0; i < message1.args.Count; i += 10)
                 {
                     PacksWithTest pack = new PacksWithTest();
-                    pack.ID = message.args[i];
-                    pack.Name = message.args[i + 1];
-                    pack.Count = JsonConvert.DeserializeObject<TestsStartClass>(message.args[i + 2]).id.Count.ToString();
-                    pack.RestartCount = message.args[i + 4];
-                    pack.Time = message.args[i + 3];
-                    pack.IP = message.args[i + 5];
-                    if (message.args[i + 6] == "no_start") pack.Status = "Не запущено";
+                    pack.ID = message1.args[i];
+                    pack.Name = message1.args[i + 1];
+                    pack.Count = JsonConvert.DeserializeObject<TestsStartClass>(message1.args[i + 2]).id.Count.ToString();
+                    pack.RestartCount = message1.args[i + 4];
+                    pack.Time = message1.args[i + 3];
+                    pack.IP = message1.args[i + 5];
+                    if (message1.args[i + 6] == "no_start") pack.Status = "Не запущено";
                     else pack.Status = "Запущено";
-                    if (message.args[i + 7] == "Passed") pack.Result = "/DashBoardClient;component/Images/ok.png";
-                    if (message.args[i + 7] == "Failed") pack.Result = "/DashBoardClient;component/Images/bug.png";
-                    if (message.args[i + 7] == "-") pack.Result = "/DashBoardClient;component/Images/dependon_no_version.png";
-                    pack.LastTime = message.args[i + 8];
-                    pack.LastTimeEnd = message.args[i + 9];
+                    if (message1.args[i + 7] == "Passed") pack.Result = "/DashBoardClient;component/Images/ok.png";
+                    if (message1.args[i + 7] == "Failed") pack.Result = "/DashBoardClient;component/Images/bug.png";
+                    if (message1.args[i + 7] == "-") pack.Result = "/DashBoardClient;component/Images/dependon_no_version.png";
+                    pack.LastTime = message1.args[i + 8];
+                    pack.LastTimeEnd = message1.args[i + 9];
                     PackList.Add(pack);
                 }
             }

@@ -31,7 +31,7 @@ namespace DashBoardClient
         public StatisticTest()
         {
             InitializeComponent();
-
+            date.Content = DateTime.Now.ToString("dd.MM.yyyy");
             string w = server.SendMsg("GetStends", Data.ServiceSel);
             message = JsonConvert.DeserializeObject<Message>(w);
             int flag = 0;
@@ -107,7 +107,7 @@ namespace DashBoardClient
         }
         private void UpdateTestsView()
         {
-            string error = server.SendMsg("CheckErrors", Data.ServiceSel);
+            
             TestsListView = new List<TestsViewClass>();
 
             try
@@ -361,7 +361,7 @@ namespace DashBoardClient
            
             bw.DoWork += (obj, ea) =>
             {
-
+                string error = server.SendMsg("CheckErrors", Data.ServiceSel);
                 UpdateTestsView();
                 UpdateTestsInfo();
             };

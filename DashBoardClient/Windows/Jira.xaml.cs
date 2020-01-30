@@ -58,7 +58,7 @@ namespace DashBoardClient
             EList = new List<Errors>();
             Message args = new Message();
             args.Add(id);
-            server.SendMsg("CheckErrors", Data.ServiceSel, JsonConvert.SerializeObject(args));
+           // server.SendMsg("CheckErrors", Data.ServiceSel, JsonConvert.SerializeObject(args));
             Message res = JsonConvert.DeserializeObject<Message>(server.SendMsg("GetErrors", Data.ServiceSel, JsonConvert.SerializeObject(args)));
             for (int i = 0; i < res.args.Count; i += 6)
             {
@@ -76,7 +76,17 @@ namespace DashBoardClient
         {
             AddBug AddBug = new AddBug(id);
             AddBug.ShowDialog();
-            Update();
+            bw = new BackgroundWorker();
+            wait.Opacity = 1;
+            bw.DoWork += (obj, ea) => {
+                Update();
+            };
+            bw.RunWorkerAsync();
+            bw.RunWorkerCompleted += (obj, ea) => {
+
+                wait.Opacity = 0;
+                JiraList.ItemsSource = EList;
+            };
         }
         private void DeleteBug(Object sender, RoutedEventArgs e)
         {
@@ -84,7 +94,17 @@ namespace DashBoardClient
             Message args = new Message();
             args.Add(id, link);
             Message res = JsonConvert.DeserializeObject<Message>(server.SendMsg("DeleteBug", Data.ServiceSel, JsonConvert.SerializeObject(args)));
-            Update();
+            bw = new BackgroundWorker();
+            wait.Opacity = 1;
+            bw.DoWork += (obj, ea) => {
+                Update();
+            };
+            bw.RunWorkerAsync();
+            bw.RunWorkerCompleted += (obj, ea) => {
+
+                wait.Opacity = 0;
+                JiraList.ItemsSource = EList;
+            };
         }
 
         private void JiraList_MouseDoubleClick(object sender, MouseButtonEventArgs e)

@@ -13,4 +13,7 @@
   <PropertyGroup>
     <EnableSecurityDebugging>false</EnableSecurityDebugging>
   </PropertyGroup>
+  <PropertyGroup>
+    <DebugSecurityZoneURL>ftp://172.31.191.200/client/</DebugSecurityZoneURL>
+  </PropertyGroup>
 </Project>

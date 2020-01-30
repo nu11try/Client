@@ -20,9 +20,7 @@
                     </lvc:Axis.Separator>
                 </lvc:Axis>
             </lvc:CartesianChart.AxisX>
-            <lvc:CartesianChart.DataTooltip>
-                <local:CustomersTooltip/>
-            </lvc:CartesianChart.DataTooltip>
+
             <lvc:CartesianChart.ChartLegend>
                 <local:CustomersLegend></local:CustomersLegend>
             </lvc:CartesianChart.ChartLegend>
