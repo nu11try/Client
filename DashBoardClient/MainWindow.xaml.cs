@@ -134,7 +134,7 @@ namespace DashBoardClient
         }
 
 
-
+        
         public void PlusTime()
         {
 

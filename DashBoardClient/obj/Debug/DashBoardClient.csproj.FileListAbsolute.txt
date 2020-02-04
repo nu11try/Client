@@ -220,7 +220,6 @@ D:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.csproj.GenerateResour
 D:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.csproj.CoreCompileInputs.cache
 D:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.exe
 D:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.pdb
-C:\programs\Dash\Client\DashBoardClient\obj\Debug\DashBoardClient.csprojAssemblyReference.cache
 C:\programs\Dash\Client\DashBoardClient\obj\Debug\Frames\ClearPage.g.cs
 C:\programs\Dash\Client\DashBoardClient\obj\Debug\Frames\Autostart.g.cs
 C:\programs\Dash\Client\DashBoardClient\obj\Debug\Frames\AddTests.g.cs
@@ -556,3 +555,4 @@ C:\programs\Dash\Client\DashBoardClient\obj\Debug\DashBoardClient.exe.manifest
 C:\programs\Dash\Client\DashBoardClient\bin\Debug\DashBoardClient.exe.manifest
 C:\programs\Dash\Client\DashBoardClient\bin\Debug\DashBoardClient.application
 C:\programs\Dash\Client\DashBoardClient\obj\Debug\DashBoardClient.application
+C:\programs\Dash\Client\DashBoardClient\obj\Debug\DashBoardClient.csprojAssemblyReference.cache

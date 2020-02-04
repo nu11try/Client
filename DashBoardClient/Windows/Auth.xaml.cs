@@ -14,7 +14,7 @@ namespace DashBoardClient
     {
         ServerConnect server = new ServerConnect();
         HelpedClass.FileSystemClass fileSystem = new HelpedClass.FileSystemClass();
-        MainWindow mainWindow = new MainWindow();
+        public static MainWindow mainWindow = new MainWindow();
 
         Message message = new Message();
         Message configArg = new Message();
@@ -59,7 +59,7 @@ namespace DashBoardClient
                     Data.ServiceName = message.args[2];
                     Data.IPServer = addres;
                     Data.Stend = message.args[4];
-
+                    
                     mainWindow.Show();
 
                     this.Close();
