@@ -190,8 +190,6 @@ namespace DashBoardClient
                 Dictionary<string, string> bufList = new Dictionary<string, string>();
                 for (var i = 0; i < message.args.Count; i += 7)
                 {
-
-
                     if (!listDate.Contains(message.args[i] + "\n" + message.args[i + 5].Replace(".", ":").Replace("_", "__"))) listDate.Add(message.args[i] + "\n" + message.args[i + 5].Replace(".", ":").Replace("_", "__"));
                     for (var j = 0; j < message.args.Count; j += 7)
                     {
@@ -230,7 +228,6 @@ namespace DashBoardClient
                     }
                     listNameTest1.Add(dic.Key, d);
                 }
-
             }
             catch
             {
@@ -262,12 +259,6 @@ namespace DashBoardClient
 
                 columns.Add(column);
             }
-
-            // Add the column definitions to the list view
-
-
-            // Add all items to the list
-
         }
         private void TestsView_ScrollChanged(object sender, ScrollChangedEventArgs e)
         {

@@ -366,8 +366,6 @@ C:\programs\Dash\Client\DashBoardClient\obj\Debug\Windows\Settings.baml
 C:\programs\Dash\Client\DashBoardClient\obj\Debug\Styles\CustomTooltipAndLegend\CustomersLegend.baml
 C:\programs\Dash\Client\DashBoardClient\obj\Debug\Styles\CustomTooltipAndLegend\CustomersTooltip.baml
 E:\GitHub\Client\DashBoardClient\bin\Debug\DashBoardClient.exe.config
-E:\GitHub\Client\DashBoardClient\bin\Debug\DashBoardClient.exe.manifest
-E:\GitHub\Client\DashBoardClient\bin\Debug\DashBoardClient.application
 E:\GitHub\Client\DashBoardClient\bin\Debug\DashBoardClient.exe
 E:\GitHub\Client\DashBoardClient\bin\Debug\DashBoardClient.pdb
 E:\GitHub\Client\DashBoardClient\bin\Debug\LiveCharts.dll
@@ -447,8 +445,6 @@ E:\GitHub\Client\DashBoardClient\obj\Debug\Windows\TestFormAdd.baml
 E:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.g.resources
 E:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.Properties.Resources.resources
 E:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.csproj.GenerateResource.cache
-E:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.exe.manifest
-E:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.application
 E:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.csproj.CopyComplete
 E:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.exe
 E:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.pdb
@@ -556,3 +552,8 @@ C:\programs\Dash\Client\DashBoardClient\bin\Debug\DashBoardClient.exe.manifest
 C:\programs\Dash\Client\DashBoardClient\bin\Debug\DashBoardClient.application
 C:\programs\Dash\Client\DashBoardClient\obj\Debug\DashBoardClient.application
 C:\programs\Dash\Client\DashBoardClient\obj\Debug\DashBoardClient.csprojAssemblyReference.cache
+E:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.TrustInfo.xml
+E:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.exe.manifest
+E:\GitHub\Client\DashBoardClient\bin\Debug\DashBoardClient.exe.manifest
+E:\GitHub\Client\DashBoardClient\bin\Debug\DashBoardClient.application
+E:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.application
