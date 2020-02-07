@@ -424,5 +424,23 @@ namespace DashBoardClient
             }
             Thread.Sleep(500);
         }
+
+        private void Bugs(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (SelecterProject.Text.ToString() != "")
+                {
+                    SelectProj();
+                    Frame.Navigate(new Bugs());
+                }
+                else MessageBox.Show("Не выбран проект!");
+            }
+            catch { }
+            finally
+            {
+                FreeRAM.Free();
+            }
+        }
     }
 }

@@ -76,12 +76,12 @@ namespace DashBoardClient
                 if (mounthS == "декабря")
                     mounth = 12;
                 int year = Int32.Parse(date.Split(' ')[2]);
-                if (yearStart > year)
-                    if (mounthStart > mounth)
+                if (yearStart >= year)
+                    if (mounthStart >= mounth)
                         if (dayStart > day)
                             return false;
-                if (yearEnd < year)
-                    if (mounthEnd < mounth)
+                if (yearEnd <= year)
+                    if (mounthEnd <= mounth)
                         if (dayEnd < day)
                             return false;
                 return true;

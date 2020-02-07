@@ -35,7 +35,7 @@ namespace DashBoardClient
         private void Send(object sender, RoutedEventArgs e)
         {
             Message args = new Message();
-            args.Add(id, Id.Text);
+            args.Add(Id.Text, id);
             ServerConnect server = new ServerConnect();
             Message res = JsonConvert.DeserializeObject<Message>(server.SendMsg("AddBug", Data.ServiceSel, JsonConvert.SerializeObject(args)));
             this.Close();

@@ -120,6 +120,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Frames\Bugs.xaml.cs">
+      <DependentUpon>Bugs.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Frames\BubblePoint.cs" />
     <Compile Include="Frames\Charts.xaml.cs">
       <DependentUpon>Charts.xaml</DependentUpon>
@@ -170,6 +173,9 @@
     <Compile Include="Utilities\FreeRAM.cs" />
     <Compile Include="Utilities\NotificationLifetimeType.cs" />
     <Compile Include="Utilities\PositionProviderType.cs" />
+    <Compile Include="Windows\AddAllBug.xaml.cs">
+      <DependentUpon>AddAllBug.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\AddBug.xaml.cs">
       <DependentUpon>AddBug.xaml</DependentUpon>
     </Compile>
@@ -226,6 +232,10 @@
     <Compile Include="Windows\TestFormAdd.xaml.cs">
       <DependentUpon>TestFormAdd.xaml</DependentUpon>
     </Compile>
+    <Page Include="Frames\Bugs.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Frames\Charts.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -285,6 +295,10 @@
     <Page Include="Styles\WaiterForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\AddAllBug.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Windows\AddBug.xaml">
       <SubType>Designer</SubType>

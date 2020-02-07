@@ -557,3 +557,7 @@ E:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.exe.manifest
 E:\GitHub\Client\DashBoardClient\bin\Debug\DashBoardClient.exe.manifest
 E:\GitHub\Client\DashBoardClient\bin\Debug\DashBoardClient.application
 E:\GitHub\Client\DashBoardClient\obj\Debug\DashBoardClient.application
+C:\programs\Dash\Client\DashBoardClient\obj\Debug\Frames\Bugs.g.cs
+C:\programs\Dash\Client\DashBoardClient\obj\Debug\Frames\Bugs.baml
+C:\programs\Dash\Client\DashBoardClient\obj\Debug\Windows\AddAllBug.g.cs
+C:\programs\Dash\Client\DashBoardClient\obj\Debug\Windows\AddAllBug.baml
