@@ -10,7 +10,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Charts">
 
-    <Grid Margin="0,70,0,0" Background="White">
+    <Grid Margin="0,70,0,0" >
         <Grid Margin ="596,-71,0,385" x:Name="projects"/>
         <lvc:CartesianChart Series="{Binding SeriesCollection}" LegendLocation="Right" Loaded="CartesianChart_Loaded">
             <lvc:CartesianChart.AxisX >

@@ -252,28 +252,51 @@ namespace DashBoardClient
                 response.args.ForEach(elem =>
                 {
                     Message test = JsonConvert.DeserializeObject<Message>(elem);
-                    if (myDate.Compare(test.args[4]))
+                    if (myDate.Compare(test.args[2]))
                     {
-                        if (tests.Contains(test.args[6]))
+                        string d = test.args[2].Split('|')[0];
+                        try
                         {
-                            results[tests.IndexOf(test.args[6])].Add(test.args[1]);
-                            dates[tests.IndexOf(test.args[6])].Add(test.args[4]);
+                            if (!dates[tests.IndexOf(test.args[4])].Contains(d))
+                            {
+                                if (tests.Contains(test.args[4]))
+                                {
+                                    results[tests.IndexOf(test.args[4])].Add(test.args[1]);
+                                    dates[tests.IndexOf(test.args[4])].Add(d);
+                                }
+                                else
+                                {
+                                    tests.Add(test.args[4]);
+                                    results.Add(new List<string>());
+                                    results[tests.IndexOf(test.args[4])].Add(test.args[1]);
+                                    dates.Add(new List<string>());
+                                    dates[tests.IndexOf(test.args[4])].Add(d);
+                                }
+                            }
                         }
-                        else
+                        catch
                         {
-                            tests.Add(test.args[6]);
-                            results.Add(new List<string>());
-                            results[tests.IndexOf(test.args[6])].Add(test.args[1]);
-                            dates.Add(new List<string>());
-                            dates[tests.IndexOf(test.args[6])].Add(test.args[4]);
+                            if (tests.Contains(test.args[4]))
+                            {
+                                results[tests.IndexOf(test.args[4])].Add(test.args[1]);
+                                dates[tests.IndexOf(test.args[4])].Add(d);
+                            }
+                            else
+                            {
+                                tests.Add(test.args[4]);
+                                results.Add(new List<string>());
+                                results[tests.IndexOf(test.args[4])].Add(test.args[1]);
+                                dates.Add(new List<string>());
+                                dates[tests.IndexOf(test.args[4])].Add(d);
+                            }
                         }
-                        if (date.Contains(test.args[4]))
+                        if (date.Contains(d))
                         {
 
                         }
                         else
                         {
-                            date.Add(test.args[4]);
+                            date.Add(d);
                         }
                     }
                 });
@@ -303,7 +326,6 @@ namespace DashBoardClient
             string temp = "";
             for (int i = 0; i < date.Count; i++)
             {
-                date[i] = date[i].Split('|')[0];
                 if (date[i] == temp)
                 {
                     date[i] = "";

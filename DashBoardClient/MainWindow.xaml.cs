@@ -337,13 +337,14 @@ namespace DashBoardClient
         }
         private void OperacTest(object sender, RoutedEventArgs e)
         {
+            MessageBox.Show("В разработке");
             try
             {
                 //MessageBox.Show("Находится в разработке");       
                 if (SelecterProject.Text.ToString() != "")
                 {
-                    SelectProj();
-                    Frame.Navigate(new Charts());
+                   // SelectProj();
+                 //   Frame.Navigate(new Charts());
                 }
                 else MessageBox.Show("Не выбран проект!");
             }
