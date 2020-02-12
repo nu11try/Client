@@ -47,7 +47,7 @@ namespace DashBoardClient
         Message response;
         Message message = new Message();
         string request;
-        
+        string buf = "";
         string IDTest = "";
         List<Сomment> list;
         BackgroundWorker bw;
@@ -101,12 +101,18 @@ namespace DashBoardClient
                         cNum = 1;
                         mNum = Int32.Parse(comments.step[i]);
                     }
+                    buf += comment.step + ") " + comment.comment + "\n";
                     list.Add(comment);
                     if (comment.comment.Contains("Отсутствуют комментарии к шагу")) comment.Color = "red";
                     else comment.Color = "white";
                 }
             }
             catch { MessageBox.Show("Произошла ошибка! Обратитесь к поддержке!"); }
+        }
+
+        private void Copy_Click(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(buf);
         }
     }
 }
