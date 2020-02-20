@@ -561,3 +561,7 @@ C:\programs\Dash\Client\DashBoardClient\obj\Debug\Frames\Bugs.g.cs
 C:\programs\Dash\Client\DashBoardClient\obj\Debug\Frames\Bugs.baml
 C:\programs\Dash\Client\DashBoardClient\obj\Debug\Windows\AddAllBug.g.cs
 C:\programs\Dash\Client\DashBoardClient\obj\Debug\Windows\AddAllBug.baml
+E:\GitHub\Client\DashBoardClient\obj\Debug\Frames\Bugs.g.cs
+E:\GitHub\Client\DashBoardClient\obj\Debug\Windows\AddAllBug.g.cs
+E:\GitHub\Client\DashBoardClient\obj\Debug\Frames\Bugs.baml
+E:\GitHub\Client\DashBoardClient\obj\Debug\Windows\AddAllBug.baml

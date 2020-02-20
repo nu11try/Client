@@ -116,7 +116,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn  Header="Удалить" Width="auto">
+                    <!--<GridViewColumn  Header="Удалить" Width="auto">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate >
                                 <Button x:Name="deleteBtn" Tag="{Binding ID}" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="30" Click="deleteAutostart">
@@ -137,7 +137,7 @@
                                 </Button>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
+                    </GridViewColumn>-->
                 </GridView>
             </ListView.View>
         </ListView>

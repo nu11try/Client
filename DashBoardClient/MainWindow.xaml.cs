@@ -130,11 +130,7 @@ namespace DashBoardClient
             Thread server = new Thread(Server.ServerMain);
            
             server.Start();
-
-        }
-
-
-        
+        }    
         public void PlusTime()
         {
 
@@ -163,7 +159,7 @@ namespace DashBoardClient
         public void Push(Message mess)
         {
 
-            if(mess.args[0] != "not")
+            /*if(mess.args[0] != "not")
             {
                 if (mess.args[1] == "Passed")
                 {
@@ -175,12 +171,12 @@ namespace DashBoardClient
                     Action action = () => _vm.ErrCastMess("Тест \"" + mess.args[0] + "\" не пройден");
                     Dispatcher.Invoke(action);
                 }
-            }
+            }*/
 
         }
         public void TestsNow(Message mess)
         {
-            string text = "";
+            /*string text = "";
             Action action;
             for (int i = 0; i < mess.args.Count; i += 3)
             {
@@ -192,7 +188,7 @@ namespace DashBoardClient
             }
             action = () => nowTests.Text = text;
             Dispatcher.Invoke(action);
-            
+            */
         }
         private void StartTests(object sender, RoutedEventArgs e)
         {

@@ -105,7 +105,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Width="auto" Header="Удаление">
+                    <!--<GridViewColumn Width="auto" Header="Удаление">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Button x:Name="deletePack" Tag="{Binding ID}" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="30" Click="DeletePack_Click">
@@ -115,7 +115,7 @@
                                 </Button>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
+                    </GridViewColumn>-->
                 </GridView>
             </ListView.View>
         </ListView>

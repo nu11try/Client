@@ -41,7 +41,7 @@ namespace DashBoardClient
                 ServerConnect server = new ServerConnect();
                 Message mess = new Message();
                 mess.Add(Data.NameUser);
-                Message message = JsonConvert.DeserializeObject<Message>(JsonConvert.DeserializeObject<Message>(server.SendMsg("ShowServises", Data.ServiceSel, JsonConvert.SerializeObject(mess))).args[0]);
+                /*Message message = JsonConvert.DeserializeObject<Message>(JsonConvert.DeserializeObject<Message>(server.SendMsg("ShowServises", Data.ServiceSel, JsonConvert.SerializeObject(mess))).args[0]);
 
                 for (var i = 0; project.args.Count > i; i++)
                 {
@@ -59,7 +59,7 @@ namespace DashBoardClient
                         i / 4 * 130 + 20, (i * 20) - i / 4 * 80, 20, 20);
                     textBox.Foreground = Brushes.White;
                     projects.Children.Add(textBox);
-                }
+                }*/
             }
             catch { }
         }
@@ -99,11 +99,11 @@ namespace DashBoardClient
                 ServerConnect server = new ServerConnect();
                 if (Data.NameUser != null)
                 {
-                    server.SendMsg("UpdateServises", Data.ServiceSel, JsonConvert.SerializeObject(mess));
-                    server.SendMsg("UpdateSession", Data.NameUser, "{\"args\":[\"" + Data.Id + "\"]}");
+                    /*server.SendMsg("UpdateServises", Data.ServiceSel, JsonConvert.SerializeObject(mess));
+                    server.SendMsg("UpdateSession", Data.NameUser, "{\"args\":[\"" + Data.Id + "\"]}");*/
 
-                    Message message = JsonConvert.DeserializeObject<Message>(server.SendMsg("CheckNowTests", Data.ServiceSel));
-                    mainWindow.TestsNow(message);
+                    /*Message message = JsonConvert.DeserializeObject<Message>(server.SendMsg("CheckNowTests", Data.ServiceSel));
+                    mainWindow.TestsNow(message);*/
                 }
             }
             catch { }

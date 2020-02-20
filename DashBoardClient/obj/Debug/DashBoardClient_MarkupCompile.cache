@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-C:\programs\Dash\Client\DashBoardClient\obj\Debug\
+E:\GitHub\Client\DashBoardClient\obj\Debug\
 DashBoardClient
 none
 false
 DEBUG;TRACE
-C:\programs\Dash\Client\DashBoardClient\App.xaml
+E:\GitHub\Client\DashBoardClient\App.xaml
 33969182976
 
 52934838621
-231472597274
+23191144920
 Frames\Bugs.xaml;Frames\Charts.xaml;Frames\ClearPage.xaml;Frames\Autostart.xaml;Frames\AddTests.xaml;Frames\Doc.xaml;MainWindow.xaml;Frames\Packs.xaml;Frames\StatisticTest.xaml;Styles\CustomizedWindow\VS2012WindowStyle.xaml;Styles\CustomizedWindow\VS2012WindowStyleWithoutButton.xaml;Styles\CustomTooltipAndLegend\CustomersLegend.xaml;Styles\CustomTooltipAndLegend\CustomersTooltip.xaml;Styles\WaiterForm.xaml;Windows\AddAllBug.xaml;Windows\AddBug.xaml;Windows\Settings.xaml;Windows\AutostartAddChange.xaml;Windows\FormShowCheckList.xaml;Windows\Jira.xaml;Windows\KPFormAdd.xaml;Windows\DocFormAdd.xaml;Windows\OpenKPList.xaml;Windows\TestsShow.xaml;Windows\ViewTestsPack.xaml;Windows\PackTestsFormChange.xaml;Windows\Auth.xaml;Frames\StartTests.xaml;Windows\OpenTestList.xaml;Windows\PackFormChange.xaml;Windows\PackFormAdd.xaml;Windows\TestFormChange.xaml;Windows\TestFormAdd.xaml;
 
 False

@@ -110,7 +110,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Width="auto" Header="">
+                    <!--<GridViewColumn Width="auto" Header="">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Button x:Name="Jira" Tag="{Binding link}" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="30" Click ="DeleteBug">
@@ -120,7 +120,7 @@
                                 </Button>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
+                    </GridViewColumn>-->
                 </GridView>
             </ListView.View>
         </ListView>

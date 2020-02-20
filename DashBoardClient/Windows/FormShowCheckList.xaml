@@ -32,11 +32,11 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <Button x:Name="copy" Content="" VerticalAlignment="Top" Height="38" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="Copy_Click" HorizontalAlignment="Left" Width="48" >
+        <!--<Button x:Name="copy" Content="" VerticalAlignment="Top" Height="38" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="Copy_Click" HorizontalAlignment="Left" Width="48" >
             <Button.Background>
                 <ImageBrush ImageSource="/DashBoardClient;component/Images/page_copy.png" Stretch="Uniform"/>
             </Button.Background>
-        </Button>
+        </Button>-->
         <ListView x:Name="CommentsList" Margin="0,43,5,0" FontSize="11" Background="#FF45454F">
             <ListView.BorderBrush>
                 <SolidColorBrush Color="#45454f"/>
