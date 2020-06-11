@@ -80,7 +80,7 @@ namespace DashBoardClient
 
                 TestsView.SelectionChanged += TestsView_SelectionChanged;
                 TestsInfo.SelectionChanged += TestsInfo_SelectionChanged;
-            };         */   
+            };         */
         }
 
         private void TestsInfo_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -107,7 +107,7 @@ namespace DashBoardClient
         }
         private void UpdateTestsView()
         {
-            
+
             TestsListView = new List<TestsViewClass>();
 
             try
@@ -349,7 +349,7 @@ namespace DashBoardClient
             this.IsEnabled = false;
             this.TestsInfo.Visibility = Visibility.Hidden;
             TestsView.Visibility = Visibility.Hidden;
-           
+
             bw.DoWork += (obj, ea) =>
             {
                 string error = server.SendMsg("CheckErrors", Data.ServiceSel);
@@ -400,7 +400,21 @@ namespace DashBoardClient
                 this.TestsInfo.Visibility = Visibility.Visible;
                 TestsView.Visibility = Visibility.Visible;
                 wait.Opacity = 0;
-                System.Diagnostics.Process.Start("file://pur-test01/ATST/" + mess.args[0].Replace("Z:\\\\", "").Replace("\\\\", "/") + "/" + (sender as Button).Tag.ToString() + "/Res1/Report/run_results.html");
+                try
+                {
+                    System.Diagnostics.Process.Start("file://pur-test01/ATST/" + mess.args[0].Replace("Z:\\\\", "").Replace("\\\\", "/") + "/" + (sender as Button).Tag.ToString() + "/Res1/Report/run_results.html");
+                }
+                catch (Exception ex)
+                {
+                    if (!System.IO.Directory.Exists("file://pur-test01/ATST/" + mess.args[0].Replace("Z:\\\\", "").Replace("\\\\", "/") + "/" + (sender as Button).Tag.ToString() + "/Res1/Report/")) 
+                    {
+                        MessageBox.Show("Отсутствует папка с результатом! Проверьте путь file://pur-test01/ATST/" + mess.args[0].Replace("Z:\\\\", "").Replace("\\\\", "/") + "/" + (sender as Button).Tag.ToString() + "/Res1/Report/");
+                    }
+                    else if (!System.IO.File.Exists("file://pur-test01/ATST/" + mess.args[0].Replace("Z:\\\\", "").Replace("\\\\", "/") + "/" + (sender as Button).Tag.ToString() + "/Res1/Report/run_results.html"))
+                    {
+                        MessageBox.Show("Отсутствует репорт! Проверьте наличие репорта по пути file://pur-test01/ATST/" + mess.args[0].Replace("Z:\\\\", "").Replace("\\\\", "/") + "/" + (sender as Button).Tag.ToString() + "/Res1/Report/run_results.html");
+                    }
+                }
             };
 
         }

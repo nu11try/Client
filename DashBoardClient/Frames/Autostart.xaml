@@ -109,14 +109,14 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Статус" Width="auto">
+                    <!--<GridViewColumn Header="Статус" Width="auto">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock x:Name="Status" Text="{Binding Status}" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <!--<GridViewColumn  Header="Удалить" Width="auto">
+                    <GridViewColumn  Header="Удалить" Width="auto">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate >
                                 <Button x:Name="deleteBtn" Tag="{Binding ID}" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Center" Width="30" Click="deleteAutostart">

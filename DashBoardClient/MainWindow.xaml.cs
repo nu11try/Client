@@ -108,11 +108,11 @@ namespace DashBoardClient
             Data.Abort = false;
             try
             {
-                versionLabel.Content = "Версия - " + ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString();
+                versionLabel.Content = "Версия - " + ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString() + " Lina";
             }
             catch
             {
-                versionLabel.Content = "Версия - unknown";
+                versionLabel.Content = "Версия - unknown Lina";
             }
             try
             {
