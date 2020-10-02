@@ -20,20 +20,12 @@ namespace DashBoardClient
     }
     class Server
     {
-        //const int port = 8888;
-        //const string ip = "172.31.197.89";
-        //const string ip = "172.17.42.40";
-        //const string ip = "172.31.197.232";
-        //const string ip = "172.17.42.32";
-        // const string ip = "127.0.0.1";
-        //const string ip = "172.31.191.200";
         static TcpListener listener;
         public static MainWindow window;
         static public void ServerMain()
         {
             try
             {
-                //   Data.IP = "172.17.42.32";
                 DataIP.IP = Dns.GetHostByName(Dns.GetHostName()).AddressList[0].ToString();
                 DataIP.Port = 8890;
 
